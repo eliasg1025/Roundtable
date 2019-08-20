@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBusinessPlansTable extends Migration
+class CreateOfferCertficationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateBusinessPlansTable extends Migration
      */
     public function up()
     {
-        Schema::create('business_plans', function (Blueprint $table) {
+        Schema::create('offer_certfications', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('titulo', 30);
+            $table->mediumText('descripcion')->nullable();
+            $table->string('url');
             $table->timestamps();
             // Fks
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->bigInteger('plan_id')->unsigned();
-            $table->foreign('plan_id')->references('id')->on('plans');
+            $table->bigInteger('offer_id')->unsigned();
+            $table->foreign('offer_id')->references('id')->on('offers');
         });
     }
 
@@ -31,6 +32,6 @@ class CreateBusinessPlansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('business_plans');
+        Schema::dropIfExists('offer_certfications');
     }
 }

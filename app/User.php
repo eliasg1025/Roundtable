@@ -42,8 +42,13 @@ class User extends Authenticatable
         return $this->belongsTo(Type::class); // Pertenece a un type
     }
 
-    public function plan()
+    public function plans()
     {
         return $this->belongsToMany(Plan::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
     }
 }
