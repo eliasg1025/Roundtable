@@ -36,4 +36,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function type() // $user->type->name
+    {
+        return $this->belongsTo(Type::class); // Pertenece a un type
+    }
+
+    public function plan()
+    {
+        return $this->belongsToMany(Plan::class);
+    }
 }
