@@ -6,7 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -16,7 +16,15 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
+        'ruc',
+        'partida_registral',
+        'telefono',
+        'direccion',
+        'descripcion',
+        'type_id'
     ];
 
     /**
@@ -37,6 +45,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
     public function type() // $user->type->name
     {
         return $this->belongsTo(Type::class); // Pertenece a un type
@@ -44,11 +53,18 @@ class User extends Authenticatable
 
     public function plans()
     {
-        return $this->belongsToMany(Plan::class);
+        return $this->belongsToMany(Plan::class, 'plan_user');
     }
 
     public function categories()
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public function offers() // $user->offers
+    {
+        return $this->hasMany(Offer::class);
+    }
+
+
 }
