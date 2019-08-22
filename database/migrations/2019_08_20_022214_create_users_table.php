@@ -24,12 +24,12 @@ class CreateUsersTable extends Migration
             // Otros datos
             $table->string('ruc', 20);
             $table->string('partida_registral', 20);
-            $table->string('telefeno', 30);
+            $table->string('telefono', 30);
             $table->string('imagen_perfil')->nullable();
             $table->string('imagen_portada')->nullable();
             $table->string('direccion');
             $table->text('descripcion')->nullable();
-            $table->integer('coins');
+            $table->integer('coins')->default(0);
             // Fks
             $table->bigInteger('type_id')->unsigned();
             $table->foreign('type_id')->references('id')->on('types');
