@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Plan;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -26,6 +27,8 @@ class ActivateInitialCoins
      */
     public function handle(Verified $event)
     {
-        $event->user->plans()->attach([1]);
+        $user = $event->user;
+
+        $user->plans()->attach([1]);
     }
 }
