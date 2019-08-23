@@ -4,6 +4,7 @@
         <CompradoresDestacados/>
         <VendedoresDestacados/>
         <MasVisitados/>
+        <Ofertas/>
         <Categorias/>
         <Footer/>
     </div>

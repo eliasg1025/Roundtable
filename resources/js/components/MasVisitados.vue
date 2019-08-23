@@ -1,7 +1,17 @@
 <template>
-    <div>
-        <h3>Empresas mas visitadas</h3>
-    </div>
+    <section class="mas_visitados container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="titulo_seccion">
+                    <h3 class="titulo_seccion text-uppercase">Empresas mas visitadas</h3>
+                    <h5>Frutos orgánicos recién cosechados</h5>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <BoxEmpresa/>
+            </div>
+        </div>
+    </section >
 </template>
 
 <script>
