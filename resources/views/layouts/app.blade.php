@@ -14,7 +14,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito|Roboto|Kalam" rel="stylesheet">
     <link rel="shortcut icon" href="/img/logo/favicon.png" type="image/x-icon">
 
     <!-- Styles -->
@@ -22,7 +22,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar sticky-top navbar-expand-md navbar-light bg-white shadow-sm" style="background-color: #091223">
+        <nav id="navbar" class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="/img/logo/logo-v2.png" width="30" height="30" class="d-inline-block align-top" alt="">
