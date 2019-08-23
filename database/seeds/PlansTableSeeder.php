@@ -16,19 +16,19 @@ class PlansTableSeeder extends Seeder
         $plan = new Plan();
         $plan->name = "Free";
         $plan->precio = 0;
-        $plan->initial_coins = 50;
+        $plan->initial_coins = 3;
         $plan->save();
 
         $plan = new Plan();
         $plan->name = "Standard Business";
         $plan->precio = 29;
-        $plan->initial_coins = 100;
+        $plan->initial_coins = 40;
         $plan->save();
 
         $plan = new Plan();
         $plan->name = "Premium Business";
-        $plan->precio = 59;
-        $plan->initial_coins = 250;
+        $plan->precio = 49;
+        $plan->initial_coins = 100;
         $plan->save();
     }
 }

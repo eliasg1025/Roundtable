@@ -15,15 +15,17 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="shortcut icon" href="/img/logo/favicon.png" type="image/x-icon">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
-        <nav class="navbar sticky-top navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar sticky-top navbar-expand-md navbar-light bg-white shadow-sm" style="background-color: #091223">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
+                    <img src="/img/logo/logo-v2.png" width="30" height="30" class="d-inline-block align-top" alt="">
                     {{ config('app.name', 'Roundtable') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -33,14 +35,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav item mr-3">
-                            <a href="">Empresas</a>
+                        <li class="nav-item mr-3">
+                            <a href="" class="nav-link">Empresas</a>
                         </li>
-                        <li class="nav item mr-3">
-                            <a href="">Planes</a>
+                        <li class="nav-item mr-3">
+                            <a href="" class="nav-link">Planes</a>
                         </li>
-                        <li class="nav item mr-3">
-                            <a href="">Contacto</a>
+                        <li class="nav-item mr-3">
+                            <a href="" class="nav-link">Contacto</a>
                         </li>
                     </ul>
 
@@ -84,9 +86,10 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
+
     </div>
 </body>
 </html>

@@ -13,8 +13,6 @@
 
 Auth::routes(['verify' => true]);
 
-Route::get('/', function () {
-    return view('inicio');
-});
+Route::get('/', 'InicioController@index');
 
 Route::get('/profile', 'ProfileController@index')->name('profile');

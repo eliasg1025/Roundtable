@@ -13,27 +13,27 @@ class CoinPacksTableSeeder extends Seeder
     public function run()
     {
         $coin_pack = new CoinPack();
-        $coin_pack->name = 'Pack de 20';
-        $coin_pack->precio = 20;
-        $coin_pack->amount_coins = 20;
+        $coin_pack->name = 'Pack de 9.90';
+        $coin_pack->precio = 9.9;
+        $coin_pack->amount_coins = 10;
         $coin_pack->save();
 
         $coin_pack = new CoinPack();
-        $coin_pack->name = 'Pack de 50';
-        $coin_pack->precio = 40;
-        $coin_pack->amount_coins = 50;
+        $coin_pack->name = 'Pack de 19.9';
+        $coin_pack->precio = 19.9;
+        $coin_pack->amount_coins = 25;
         $coin_pack->save();
 
         $coin_pack = new CoinPack();
-        $coin_pack->name = 'Pack de 70';
-        $coin_pack->precio = 50;
-        $coin_pack->amount_coins = 70;
+        $coin_pack->name = 'Pack de 29.9';
+        $coin_pack->precio = 29.9;
+        $coin_pack->amount_coins = 40;
         $coin_pack->save();
 
         $coin_pack = new CoinPack();
-        $coin_pack->name = 'Pack de 80';
-        $coin_pack->precio = 60;
-        $coin_pack->amount_coins = 80;
+        $coin_pack->name = 'Pack de 49.9';
+        $coin_pack->precio = 49.9;
+        $coin_pack->amount_coins = 90;
         $coin_pack->save();
     }
 }
