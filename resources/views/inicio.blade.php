@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    <Inicio/>
+    <Inicio :data="{{ json_encode($data) }}"/>
 @endsection

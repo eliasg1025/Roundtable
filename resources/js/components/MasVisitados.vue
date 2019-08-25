@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="titulo_seccion">
-                    <h3 class="titulo_seccion text-uppercase">Empresas mas visitadas</h3>
+                    <h3 class="text-uppercase">Empresas mas visitadas</h3>
                     <h5>Frutos orgánicos recién cosechados</h5>
                 </div>
             </div>
@@ -21,5 +21,7 @@ export default {
 </script>
 
 <style>
-
+    .mas_visitados {
+        padding: 80px 0;
+    }
 </style>

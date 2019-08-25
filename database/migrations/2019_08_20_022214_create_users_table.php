@@ -23,13 +23,15 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             // Otros datos
             $table->string('ruc', 20);
-            $table->string('partida_registral', 20);
-            $table->string('telefono', 30);
-            $table->string('imagen_perfil')->nullable();
-            $table->string('imagen_portada')->nullable();
-            $table->string('direccion');
-            $table->text('descripcion')->nullable();
-            $table->integer('coins')->default(0);
+            $table->string('legal_registration', 20);
+            $table->string('phone', 30);
+            $table->string('profile_img')->nullable();
+            $table->string('cover_img')->nullable();
+            $table->string('address'); // dato temporal
+            $table->text('description')->nullable();
+            $table->integer('coins')->default(0); //
+            $table->double('rating')->default(0); //
+            $table->integer('views')->default(0);
             // Fks
             $table->bigInteger('type_id')->unsigned();
             $table->foreign('type_id')->references('id')->on('types');
