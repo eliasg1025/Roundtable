@@ -12,7 +12,26 @@
 
 <script>
 export default {
-
+    props: [
+        'data'
+    ],
+    data() {
+        return {
+            compradoresDestacados: [],
+            vendedoresDestacados: [],
+            moreViewed: [],
+            company: {
+                name: '',
+                description: '',
+                profile_img: '',
+                cover_img: '',
+                rating: ''
+            }
+        }
+    },
+    created() {
+        console.log(this.data);
+    }
 }
 </script>
 

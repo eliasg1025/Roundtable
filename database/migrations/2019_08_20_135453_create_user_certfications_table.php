@@ -15,8 +15,8 @@ class CreateUserCertficationsTable extends Migration
     {
         Schema::create('user_certfications', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('titulo', 30);
-            $table->mediumText('descripcion')->nullable();
+            $table->string('title', 30);
+            $table->mediumText('description')->nullable();
             $table->string('url');
             $table->timestamps();
             // Fks

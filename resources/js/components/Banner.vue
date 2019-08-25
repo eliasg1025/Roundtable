@@ -23,10 +23,10 @@ export default {
 
 window.onscroll = () => {
     const nav = document.querySelector('#navbar');
-    if(window.scrollY <= 20) {
-        nav.style = ''
+    if(window.scrollY <= 500) {
+        nav.style = 'transition: all ease 2000ms;'
     } else {
-        nav.style = "background-color: #09122e;"
+        nav.style = "background-color: #09122e; transition: all ease 1500ms;"
     };
 };
 

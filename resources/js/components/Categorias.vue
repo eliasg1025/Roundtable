@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="titulo_seccion">
-                        <h3 class="titulo_seccion text-uppercase">Categorias</h3>
+                        <h3 class="titulo_categorias text-uppercase">Categorias</h3>
                     </div>
                 </div>
                 <div class="col-lg-12">
@@ -30,5 +30,9 @@ export default {
         padding: 60px 0;
         position: relative;
         background-position: center;
+        background-attachment: fixed;
+    }
+    .titulo_categorias {
+        color: #f4f4f4;
     }
 </style>

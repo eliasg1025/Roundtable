@@ -16,7 +16,7 @@ class CreatePlansTable extends Migration
         Schema::create('plans', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->float('precio');
+            $table->float('cost');
             $table->integer('initial_coins');
             $table->timestamps();
         });
