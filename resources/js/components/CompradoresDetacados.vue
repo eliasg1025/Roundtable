@@ -8,30 +8,28 @@
                     </div>
                 </div>
                 <div class="col-lg-12">
-                    <BoxEmpresa/>
+                    <CarouselEmpresa
+                        :name="this.name"
+						:data="this.data">
+                    </CarouselEmpresa>
                 </div>
             </div>
     </section>
 </template>
 
 <script>
-export default {
 
+export default {
+    props: ['data'],
+    data() {
+        return {
+            name: 'compradores_destacados'
+        }
+    }
 }
 </script>
 
 <style>
-    .titulo_seccion h3 {
-        font-family: 'Kalam', sans-serif;
-        text-align: center;
-        font-weight: 600;
-    }
-    .titulo_seccion h5 {
-        font-family: 'Nunito', sans-serif;
-        text-align: center;
-        font-weight: 400;
-        margin-bottom: 40px;
-    }
     .compradores_destacados {
         padding: 80px 0;
         background-image: url('/img/fondo/latest-product-bg.png');

@@ -8,7 +8,10 @@
                     </div>
                 </div>
                 <div class="col-lg-12">
-                    <BoxEmpresa/>
+                    <CarouselEmpresa
+                        :name="this.name"
+						:data="this.data">
+                    </CarouselEmpresa>
                 </div>
             </div>
     </section>
@@ -16,13 +19,18 @@
 
 <script>
 export default {
-
+    props: ['data'],
+    data() {
+        return {
+            name: 'vendedores_destacados'
+        }
+    }
 }
 </script>
 
 <style>
     .vendedores_destacados {
-        padding: 80px 0;
+        padding: 0px 0px 80px 0px;
         background-image: url('/img/fondo/latest-product-bg.png');
         background-size: cover;
     }

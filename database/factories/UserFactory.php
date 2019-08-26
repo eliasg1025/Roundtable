@@ -27,11 +27,13 @@ $factory->define(User::class, function (Faker $faker) {
         'ruc' => $faker->numerify('###########'),
         'legal_registration' => $faker->numerify('############'),
         'phone' => $faker->phoneNumber,
-        'profile_img' => $faker->imageUrl($width=200, $height=240),
-        'cover_img' => $faker->imageUrl($width=1350, $height=400),
+        /* 'profile_img' => $faker->optional($weigth=0.5)->imageUrl($width=200, $height=200),
+        'cover_img' => $faker->optinal($weigth=0.5)->imageUrl($width=1300, $height=400), */
         'address' => $faker->address,
         'description' => $faker->optional($weigth=0.7)->text(200),
         'coins' => $faker->randomElement([20, 40, 50]),
+        'rating' => $faker->randomElement([1, 2, 3, 4, 5]),
+        'views' => $faker->randomElement([20, 40, 50]),
         'type_id' => $faker->randomElement([1, 2]),
     ];
 });

@@ -25,6 +25,8 @@ class UsersTableSeeder extends Seeder
             'address' => 'Transversal Arica #884, Sullana- Perú.',
             'description' => '<p>Producimos, cosechamos y empacamos alimentos 100% orgánicos siguiendo estrictos estándares de calidad, inocuidad y seguridad, en armonía con el medio ambiente y convirtiendo pequeñas comunidades en polos de desarrollo. De la costa y sierra del norte del Perú para el mundo.</p>',
             'coins' => 40,
+            'rating' => 4,
+            'views' => 20,
             'type_id' => 1,
         ]);
     }

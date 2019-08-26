@@ -21,10 +21,11 @@ Vue.component('Ofertas', require('./components/Ofertas.vue').default);
 Vue.component('MasVisitados' ,require('./components/MasVisitados.vue').default);
 Vue.component('Categorias' ,require('./components/Categorias.vue').default);
 Vue.component('Footer' ,require('./components/Footer.vue').default);
+Vue.component('CarouselEmpresa', require('./components/CarouselEmpresa.vue').default);
 Vue.component('BoxEmpresa', require('./components/BoxEmpresa.vue').default);
 
 const app = new Vue({
     el: '#app',
 });
 
-
+require('./carousel');
