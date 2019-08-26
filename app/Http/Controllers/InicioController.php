@@ -27,7 +27,7 @@ class InicioController extends Controller
         $data = [
             'featuredSellers' => $this->getSellers(),
             'featuredBuyers' => $this->getBuyers(),
-            'moreViewedCompanies' => $this,
+            'mostViewedCompanies' => $this->getMostViewedCompanies(),
             'categories' => $this->getCategories(),
         ];
         return view('inicio', compact('data'));
@@ -35,19 +35,20 @@ class InicioController extends Controller
 
     public function getBuyers()
     {
-        $users = App\User::where('type_id', 2)->get();
+        $users = App\User::where('type_id', 2)->limit(10)->get();
         return $users;
     }
 
     public function getSellers()
     {
-        $users = App\User::where('type_id', 1)->get();
+        $users = App\User::where('type_id', 1)->limit(10)->get();
         return $users;
     }
 
-    public function getMoreViewedCompanies()
+    public function getMostViewedCompanies()
     {
-        $users = App\User::where('view', '')->get();
+        $users = App\User::orderBy('views')->limit(10)->get();
+        return $users;
     }
 
     public function getCategories()

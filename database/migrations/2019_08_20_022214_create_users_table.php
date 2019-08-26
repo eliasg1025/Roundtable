@@ -25,8 +25,8 @@ class CreateUsersTable extends Migration
             $table->string('ruc', 20);
             $table->string('legal_registration', 20);
             $table->string('phone', 30);
-            $table->string('profile_img')->nullable();
-            $table->string('cover_img')->nullable();
+            $table->string('profile_img')->default('/img/empresa/empresa1/portada_enpresa.jpg');
+            $table->string('cover_img')->default('/img/empresa/empresa1/empresa1.jpg');
             $table->string('address'); // dato temporal
             $table->text('description')->nullable();
             $table->integer('coins')->default(0); //

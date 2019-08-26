@@ -1,11 +1,11 @@
 <template>
     <div>
         <Banner/>
-        <CompradoresDestacados/>
-        <VendedoresDestacados/>
-        <MasVisitados/>
+        <CompradoresDestacados :data="this.data.featuredBuyers"/>
+        <VendedoresDestacados :data="this.data.featuredSellers"/>
+        <MasVisitados :data="this.data.mostViewedCompanies"/>
         <Ofertas/>
-        <Categorias/>
+        <Categorias :data="this.data.categories"/>
         <Footer/>
     </div>
 </template>
@@ -17,24 +17,28 @@ export default {
     ],
     data() {
         return {
-            compradoresDestacados: [],
-            vendedoresDestacados: [],
-            moreViewed: [],
-            company: {
-                name: '',
-                description: '',
-                profile_img: '',
-                cover_img: '',
-                rating: ''
-            }
+			//
         }
     },
     created() {
-        console.log(this.data);
+        /* console.log(this.data.featuredBuyers);
+        console.log(this.data.featuredSellers);
+        console.log(this.data.mostViewedCompanies);
+        console.log(this.data.categories); */
     }
 }
 </script>
 
 <style>
-
+    .titulo_seccion h3 {
+        font-family: 'Nunito', sans-serif;
+        text-align: center;
+        font-weight: 600;
+    }
+    .titulo_seccion h5 {
+        font-family: 'Nunito', sans-serif;
+        text-align: center;
+        font-weight: 400;
+        margin-bottom: 40px;
+    }
 </style>

@@ -16,17 +16,15 @@
 
 <script>
 export default {
-    mounted() {
-        console.log('Banner mounted');
-    }
+
 }
 
 window.onscroll = () => {
     const nav = document.querySelector('#navbar');
-    if(window.scrollY <= 500) {
-        nav.style = 'transition: all ease 2000ms;'
+    if(window.scrollY <= 400) {
+        nav.style = 'transition: all ease 1500ms;'
     } else {
-        nav.style = "background-color: #09122e; transition: all ease 1500ms;"
+        nav.style = "background-color: #09122e; transition: all ease 1000ms;"
     };
 };
 
@@ -35,6 +33,7 @@ window.onscroll = () => {
 <style>
     .banner {
         height: 100vh;
+		width: 100vw;
         /*background-attachment: fixed;*/
         color: #f8fafc !important;
         font-family: 'Roboto', sans-serif;
@@ -69,7 +68,8 @@ window.onscroll = () => {
     }
 
     .contenido {
-        margin-top: 25%;
+        margin-top: 240px;
+		background-color: rgba(0,0,0,0.2);
     }
 
     nav.scroll {
