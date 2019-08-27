@@ -4,9 +4,9 @@
             <div class="container">
                 <div class="row">
                     <div class="contenido col-md-12 mb-4 white-text text-center">
-                        <h1 class="title h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInDown"><strong>Rountable Perú</strong></h1>
-                        <hr class="hr-light my-4 wow fadeInDown" data-wow-delay="0.4s">
-                        <h5 class="subtitle text-uppercase mb-4 white-text wow fadeInDown" data-wow-delay="0.4s"><strong>La Rueda de Negocios Online de Productos Peruanos</strong></h5>
+                        <h1 class="title h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5"><strong>Rountable Perú</strong></h1>
+						
+                        <h5 class="subtitle text-uppercase mt-3 mb-4 white-text"><strong>La Rueda de Negocios Online de Productos Peruanos</strong></h5>
                     </div>
                 </div>
             </div>
@@ -20,12 +20,18 @@ export default {
 }
 
 window.onscroll = () => {
-    const nav = document.querySelector('#navbar');
-    if(window.scrollY <= 400) {
-        nav.style = 'transition: all ease 1500ms;'
+	const nav = document.querySelector('#navbar');
+	const logo = document.querySelector('#logo');
+
+    if (window.scrollY <= 150) {
+		nav.style = 'transition: all ease 1500ms;';
+		logo.classList.add('logo-main');
+		logo.classList.remove('small-logo-main');
     } else {
-        nav.style = "background-color: #09122e; transition: all ease 1000ms;"
-    };
+		nav.style = "background-color: #09122e; transition: all ease 1000ms;"
+		logo.classList.add('small-logo-main');
+		logo.classList.remove('logo-main');
+    }
 };
 
 </script>
@@ -34,11 +40,21 @@ window.onscroll = () => {
     .banner {
         height: 100vh;
 		width: 100vw;
-        /*background-attachment: fixed;*/
         color: #f8fafc !important;
-        font-family: 'Roboto', sans-serif;
-        background-attachment: fixed;
-    }
+		background-attachment: fixed;
+		position: relative;
+	}
+	
+	.banner:before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: #000;
+		opacity: .2;
+	}
 
     .top-nav-collapse {
         background-color: #09122E !important;
@@ -55,11 +71,14 @@ window.onscroll = () => {
     }
 
     .title {
-        letter-spacing: 8px;
+		letter-spacing: 6px;
+		font-family: 'Roboto', sans-serif;
+		/* font-family: 'Amatic SC', cursive; */
     }
 
     .subtitle {
-        letter-spacing: 3px;
+		letter-spacing: 2px;
+		font-family: 'Nunito', sans-serif;
     }
 
     .hr-light {
@@ -68,8 +87,7 @@ window.onscroll = () => {
     }
 
     .contenido {
-        margin-top: 240px;
-		background-color: rgba(0,0,0,0.2);
+        margin-top: 200px;
     }
 
     nav.scroll {
