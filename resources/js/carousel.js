@@ -1,5 +1,3 @@
-
-
 const slider_cd = Tiny.tns({
     container: '#compradores_destacados',
     slideBy: 1,

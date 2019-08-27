@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('profile_img')->default('/img/empresa/empresa1/portada_enpresa.jpg');
             $table->string('cover_img')->default('/img/empresa/empresa1/empresa1.jpg');
             $table->string('address'); // dato temporal
-            $table->text('description')->nullable();
+			$table->text('description')->nullable();
             $table->integer('coins')->default(0); //
             $table->double('rating')->default(0); //
             $table->integer('views')->default(0);

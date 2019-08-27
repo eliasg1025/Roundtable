@@ -1717,14 +1717,17 @@ __webpack_require__.r(__webpack_exports__);
 
 window.onscroll = function () {
   var nav = document.querySelector('#navbar');
+  var logo = document.querySelector('#logo');
 
-  if (window.scrollY <= 400) {
+  if (window.scrollY <= 150) {
     nav.style = 'transition: all ease 1500ms;';
+    logo.classList.add('logo-main');
+    logo.classList.remove('small-logo-main');
   } else {
     nav.style = "background-color: #09122e; transition: all ease 1000ms;";
+    logo.classList.add('small-logo-main');
+    logo.classList.remove('logo-main');
   }
-
-  ;
 };
 
 /***/ }),
@@ -6592,7 +6595,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.banner {\n        height: 100vh;\n\t\twidth: 100vw;\n        /*background-attachment: fixed;*/\n        color: #f8fafc !important;\n        font-family: 'Roboto', sans-serif;\n        background-attachment: fixed;\n}\n.top-nav-collapse {\n        background-color: #09122E !important;\n}\n.navbar:not(.top-nav-collapse) {\n        background: transparent;\n}\n@media (max-width: 991px) {\n.navbar:not(.top-nav-collapse) {\n            background: #09122E !important;\n}\n}\n.title {\n        letter-spacing: 8px;\n}\n.subtitle {\n        letter-spacing: 3px;\n}\n.hr-light {\n        border-top: 3px solid #fff;\n        width: 80px;\n}\n.contenido {\n        margin-top: 240px;\n\t\tbackground-color: rgba(0,0,0,0.2);\n}\nnav.scroll {\n        background-color: #09122E;\n}\n", ""]);
+exports.push([module.i, "\n.banner {\n        height: 100vh;\n\t\twidth: 100vw;\n        color: #f8fafc !important;\n\t\tbackground-attachment: fixed;\n\t\tposition: relative;\n}\n.banner:before {\n\t\tcontent: \"\";\n\t\tposition: absolute;\n\t\ttop: 0;\n\t\tleft: 0;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tbackground: #000;\n\t\topacity: .2;\n}\n.top-nav-collapse {\n        background-color: #09122E !important;\n}\n.navbar:not(.top-nav-collapse) {\n        background: transparent;\n}\n@media (max-width: 991px) {\n.navbar:not(.top-nav-collapse) {\n            background: #09122E !important;\n}\n}\n.title {\n\t\tletter-spacing: 6px;\n\t\tfont-family: 'Roboto', sans-serif;\n\t\t/* font-family: 'Amatic SC', cursive; */\n}\n.subtitle {\n\t\tletter-spacing: 2px;\n\t\tfont-family: 'Nunito', sans-serif;\n}\n.hr-light {\n        border-top: 3px solid #fff;\n        width: 80px;\n}\n.contenido {\n        margin-top: 200px;\n}\nnav.scroll {\n        background-color: #09122E;\n}\n", ""]);
 
 // exports
 
@@ -42390,22 +42393,16 @@ var staticRenderFns = [
                     "h1",
                     {
                       staticClass:
-                        "title h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInDown"
+                        "title h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5"
                     },
                     [_c("strong", [_vm._v("Rountable Perú")])]
                   ),
-                  _vm._v(" "),
-                  _c("hr", {
-                    staticClass: "hr-light my-4 wow fadeInDown",
-                    attrs: { "data-wow-delay": "0.4s" }
-                  }),
                   _vm._v(" "),
                   _c(
                     "h5",
                     {
                       staticClass:
-                        "subtitle text-uppercase mb-4 white-text wow fadeInDown",
-                      attrs: { "data-wow-delay": "0.4s" }
+                        "subtitle text-uppercase mt-3 mb-4 white-text"
                     },
                     [
                       _c("strong", [
