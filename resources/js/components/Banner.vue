@@ -38,11 +38,17 @@ window.onscroll = () => {
 
 <style>
     .banner {
-        height: 100vh;
-		width: 100vw;
+		height: 99vh;
         color: #f8fafc !important;
 		background-attachment: fixed;
 		position: relative;
+	}
+	
+	@media (max-width: 578px) {
+		.banner {
+			height: 100vh;
+			width: 100vmin;
+		}
 	}
 	
 	.banner:before {

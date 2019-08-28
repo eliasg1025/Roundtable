@@ -54,6 +54,4 @@ if (token) {
 //     encrypted: true
 // });
 
-/* import {tns} from 'tiny-slider/src/tiny-slider' */
-
 window.Tiny = require('tiny-slider/src/tiny-slider');
