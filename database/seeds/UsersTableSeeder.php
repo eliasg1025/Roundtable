@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
             'ruc' => '20602926061',
             'legal_registration' => '20602926061',
             'phone' => '957181383',
-            'profile_img' => 'https://www.roundtableperu.com/public/imagen/cliente/logo/roundtable_logo_41106550.png',
+            'profile_img' => '/img/empresa/empresa1-logo.png',
             'cover_img' => '/img/empresa/empresa1/productos/producto1.jpg',
             'address' => 'Transversal Arica #884, Sullana- Perú.',
             'description' => 'Producimos, cosechamos y empacamos alimentos 100% orgánicos siguiendo estrictos estándares de calidad, inocuidad y seguridad, en armonía con el medio ambiente y convirtiendo pequeñas comunidades en polos de desarrollo. De la costa y sierra del norte del Perú para el mundo.',

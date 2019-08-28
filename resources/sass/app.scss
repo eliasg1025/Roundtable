@@ -12,12 +12,21 @@
 	padding: 0;
 }
 
+a, button.close {
+    background-color: transparent;
+}
+
+a:active, a:focus, a:hover, a:link, a:visited, button:active, button:focus, button:hover, button:link, button:visited {
+    text-decoration: none;
+    outline: 0;
+}
+
 .nav-link {
 	font-family: Poppins, sans-serif !important;
 	text-transform: uppercase;
 	color: #ffffff !important;
 	font-weight: 500 !important;
-	font-size: 16px;
+	font-size: 14px;
 	position: relative;
 }
 
@@ -66,3 +75,18 @@
 	max-width: 50px;
 }
 
+.navbar-brand {
+	display: none;
+}
+
+@media (max-width: 991px) {
+	.logo-main {
+		display: none;
+	}
+	.navbar {
+		text-align: center;
+	}
+	.navbar-brand {
+		display: none;
+	}
+}

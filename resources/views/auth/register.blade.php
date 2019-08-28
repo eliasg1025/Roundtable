@@ -101,8 +101,8 @@
                             <div class="col-md-6">
                                 <select id="type_id" class="form-control @error('type_id') is-invalid @enderror" name="type_id">
                                     <option class="hidden" selected disabled>Selecciona una opcion</option>
-                                    <option value="1">Vendedor</option>
-                                    <option value="2">Comprador</option>
+                                    <option value="1" class="valid-option">Vendedor</option>
+                                    <option value="2" class="valid-option">Comprador</option>
                                 </select>
 
                                 @error('type_id')

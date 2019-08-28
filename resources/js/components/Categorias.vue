@@ -66,8 +66,6 @@ export default {
 
 		this.grupo_categorias.first = first;
 		this.grupo_categorias.second = second;
-
-		console.log(this.grupo_categorias);
 	}
 }
 </script>

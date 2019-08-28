@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -24,48 +24,48 @@
 </head>
 <body>
     <div id="app">
-        <nav id="navbar" class="navbar navbar-expand-lg navbar-dark fixed-top">
-            <div class="container">
+		<nav id="navbar" class="navbar navbar-expand-lg navbar-dark fixed-top">
+			<div class="container">
 				
-                <a class="navbar-brand d-none" href="{{ url('/') }}" style="font-family: 'Amatic SC', cursive; font-size:25px;">
-                    <img src="/img/logo/logo-v2.png" width="30" height="30" class="d-inline-block align-top" alt="">
-                    {{ config('app.name', 'Roundtable') }}
+				<a class="navbar-brand" href="{{ url('/') }}" style="font-family: 'Amatic SC', cursive; font-size:25px;">
+					<img src="/img/logo/logo-v2.png" width="30" height="30" class="d-inline-block align-top" alt="">
+					{{ config('app.name', 'Roundtable') }}
 				</a>
 				
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+					<span class="navbar-toggler-icon"></span>
+				</button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item mr-3">
-                            <a href="" class="nav-link navbar-list__link">Empresas</a>
-                        </li>
-                        <li class="nav-item mr-3">
-                            <a href="" class="nav-link navbar-list__link">Planes</a>
-                        </li>
-                        <li class="nav-item mr-3">
-                            <a href="" class="nav-link navbar-list__link">Contacto</a>
-                        </li>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<!-- Left Side Of Navbar -->
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item mr-3">
+							<a href="" class="nav-link navbar-list__link">Empresas</a>
+						</li>
+						<li class="nav-item mr-3">
+							<a href="" class="nav-link navbar-list__link">Planes</a>
+						</li>
+						<li class="nav-item mr-3">
+							<a href="" class="nav-link navbar-list__link">Contacto</a>
+						</li>
 					</ul>
-					{{-- Center Side Of Navbar --}}
+					<!-- Center Side Of Navbar -->
 					<a id="logo" href="{{ url('/') }}" class="logo-main">
 						<span style="font-family: 'Amatic SC', cursive; font-size:25px;" class="logo-main-title d-none">Rountable</span>
 						<img src="/img/logo/logo-v3.png" alt="" class="img-fluid">
 					</a>
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link navbar-list__link" href="{{ route('login') }}">{{ __('Iniciar Sesion') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link navbar-list__link" href="{{ route('register') }}">{{ __('Registrate') }}</a>
-                                </li>
-                            @endif
+					<!-- Right Side Of Navbar -->
+					<ul class="navbar-nav ml-auto">
+						<!-- Authentication Links -->
+						@guest
+							<li class="nav-item">
+								<a class="nav-link navbar-list__link" href="#" data-toggle="modal" data-target="#login" id="button_login">{{ __('Iniciar Sesion') }}</a>
+							</li>
+							@if (Route::has('register'))
+								<li class="nav-item">
+									<a class="nav-link navbar-list__link" href="#" data-toggle="modal" data-target="#login" id="button_register">{{ __('Registrate') }}</a>
+								</li>
+							@endif
 						@else
 							<li class="nav-item">
 								<a href="{{ route('profile') }}" class="nav-link navbar-list__link">{{ Auth::user()->name }}</a>
@@ -73,7 +73,7 @@
 							<li class="nav-item">
 								<a href="{{ route('logout') }}"
 									onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();"
+										document.getElementById('logout-form').submit();"
 									class="nav-link navbar-list__link">
 									Cerrar Sesión
 								</a>
@@ -81,37 +81,14 @@
 									@csrf
 								</form>
 							</li>
-                            {{-- <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('profile') }}">
-                                        {{ __('Ver Perfil') }}
-                                    </a>
-
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
-                                        {{ __('Cerrar Sesión') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li> --}}
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main>
-            @yield('content')
-        </main>
-
-    </div>
+						@endguest
+					</ul>
+				</div>
+			</div>
+		</nav>
+		
+		@yield('content')
+	</div>
+	
 </body>
 </html>

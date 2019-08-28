@@ -7,6 +7,7 @@
         <Ofertas/>
         <Categorias :data="this.data.categories"/>
         <Footer/>
+		<ModalLoginRegister/>
     </div>
 </template>
 
