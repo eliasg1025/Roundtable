@@ -30,6 +30,8 @@ export default {
 
 <style>
     .mas_visitados {
-        padding: 0px 0px 80px 0px;
+		padding: 0px 0px 80px 0px;
+		background-image: url('/img/fondo/latest-product-bg.png');
+        background-size: cover;
     }
 </style>

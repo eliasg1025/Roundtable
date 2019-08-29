@@ -1,38 +1,43 @@
 <template>
-    <div :id="name_id">
-        <div class="container p-3" v-for="(company, index) in data" :key="index">
-            <div class="card">
-				<div class="view-overlay">
-					<img :src="company.cover_img" alt="" class="" style="width:100%; height:150px;">
-				</div>
-				<div class="card-body">
-					<div class="row">
-						<div class="col-5 p-0">
-							<img :src="company.profile_img" alt="" style="width:100%;" class="img-profile">
-						</div>
-						<div class="col-7">
-							<h6 class="card-title">
-								<a href="">{{company.name}}</a>
-							</h6>
-							<ul class="rating">
-								<li><i class="fa fa-star amber-text"></i></li>
-								<li><i class="fa fa-star amber-text"></i></li>
-								<li><i class="fa fa-star amber-text"></i></li>
-								<li><i class="fa fa-star amber-text"></i></li>
-								<li><i class="fa fa-star-half amber-text"></i></li>
-								<li><p class="text-muted m-0">{{company.rating}} (20)</p></li>
-							</ul>
-							<!-- <p class="card-text text-muted m-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
-							<button class="btn btn-outline-success">
-								Ver más
-							</button>
-						</div>
+	<div>
+		<div v-if="data.length === 0">
+			<p class="text-center d-block mt-5 text-muted" style="font-size: 25px;"> Aún no hay empresas en esta categoría</p>
+		</div>
+		<div :id="name_id" >
+			<div class="container p-3" v-for="(company, index) in data" :key="index">
+				<div class="card">
+					<div class="view-overlay">
+						<img :src="company.cover_img" alt="" class="" style="width:100%; height:150px;">
 					</div>
-					
+					<div class="card-body">
+						<div class="row">
+							<div class="col-5 p-0">
+								<img :src="company.profile_img" alt="" style="width:100%;" class="img-profile">
+							</div>
+							<div class="col-7">
+								<h6 class="card-title">
+									<a href="">{{company.name}}</a>
+								</h6>
+								<ul class="rating">
+									<li><i class="fa fa-star amber-text"></i></li>
+									<li><i class="fa fa-star amber-text"></i></li>
+									<li><i class="fa fa-star amber-text"></i></li>
+									<li><i class="fa fa-star amber-text"></i></li>
+									<li><i class="fa fa-star-half amber-text"></i></li>
+									<li><p class="text-muted m-0">{{company.rating}} (20)</p></li>
+								</ul>
+								<!-- <p class="card-text text-muted m-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
+								<button class="btn btn-outline-success">
+									Ver más
+								</button>
+							</div>
+						</div>
+						
+					</div>
 				</div>
 			</div>
-        </div>
-    </div>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -42,15 +47,7 @@ export default {
     props: ['name', 'data'],
     data() {
         return {
-			name_id: this.name,
-			company: {
-				id: '',
-				name: '',
-				profile_img: '',
-				cover_img: '',
-				description: '',
-				rating: ''
-			}
+			name_id: this.name
         }
     },
 }
