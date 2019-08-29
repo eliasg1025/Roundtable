@@ -1805,19 +1805,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['name', 'data'],
   data: function data() {
     return {
-      name_id: this.name,
-      company: {
-        id: '',
-        name: '',
-        profile_img: '',
-        cover_img: '',
-        description: '',
-        rating: ''
-      }
+      name_id: this.name
     };
   }
 });
@@ -2019,10 +2016,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data'],
+  props: ['data', 'csrf', 'href_login', 'href_register'],
   data: function data() {
-    return {//
-    };
+    return {};
   },
   created: function created() {
     /* console.log(this.data.featuredBuyers);
@@ -2228,7 +2224,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['csrf', 'href_login', 'href_register']
+});
 
 /***/ }),
 
@@ -6887,7 +6903,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.mas_visitados {\n    padding: 0px 0px 80px 0px;\n}\n", ""]);
+exports.push([module.i, "\n.mas_visitados {\n\t\tpadding: 0px 0px 80px 0px;\n\t\tbackground-image: url('/img/fondo/latest-product-bg.png');\n        background-size: cover;\n}\n", ""]);
 
 // exports
 
@@ -6906,7 +6922,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\t/* Forms */\n.modal-content {\n    position: relative;\n    display: flex;\n    flex-direction: column;\n    width: 100%;\n    pointer-events: auto;\n    background-color: #fff;\n    background-clip: padding-box;\n    border: 1px solid rgba(0,0,0,.2);\n}\n.modal-open .modal {\n    overflow-x: hidden;\n    overflow-y: auto;\n}\n.modal {\n    position: fixed;\n    z-index: 1050;\n}\n.modal, .modal-backdrop {\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n}\n.fade {\n    transition: opacity .15s linear;\n}\n#login .modal-content {\n    width: auto;\n    height: 550px;\n    border-radius: 5px;\n}\n.backRight {\n    background-image: url('/img/login-background.jpg');\n}\n.backLeft {\n    left: 0;\n    background-image: url('/img/login-background.jpg');\n}\n.backRight:before, .backLeft:before {\n\tcontent: \"\";\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 100%;\n\tbackground: #000;\n\topacity: .4;\n}\n#slideBox {\n    max-height: 100%;\n    overflow: hidden;\n    margin-left: 50%;\n    box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22);\n    z-index: 100000;\n}\n#slideBox, .backLeft, .backRight {\n    width: 50%;\n    height: 100%;\n    position: absolute;\n}\n.topLayer {\n    width: 200%;\n    height: 100%;\n    position: relative;\n    left: 0;\n    left: -100%;\n}\n.backLeft, .backRight {\n    background-size: cover;\n    background-position: 50% 50%;\n}\n.backRight, .right {\n    right: 0;\n    border-top-right-radius: 5px;\n    border-bottom-right-radius: 5px;\n}\n.backLeft, .left {\n    border-top-left-radius: 5px;\n    border-bottom-left-radius: 5px;\n}\n.left {\n    left: 0;\n}\n.left, .right {\n    width: 50%;\n    height: 100%;\n    background: #fff;\n}\n.boton-cierre, .left, .right {\n    position: absolute;\n}\n.left .content {\n    top: 15%;\n}\n.left .content, .right .content {\n    left: 17%;\n    right: 17%;\n    text-align: center;\n    position: absolute;\n}\n.left .content {\n    top: 15%;\n}\n.right .content {\n    top: 12%;\n}\n.group {\n    position: relative;\n    margin-bottom: 25px;\n}\n.group input, .group select {\n    font-size: 14px;\n    padding: 5px;\n    border: none;\n    border-bottom: 1px solid #5d5d5d;\n}\n.bar, .group input , .group select {\n    display: block;\n    width: 100%;\n}\n.highlight {\n    position: absolute;\n    height: 60%;\n    width: 100px;\n    top: 25%;\n    left: 0;\n    pointer-events: none;\n}\n.highlight, .modal-backdrop.show {\n    opacity: .5;\n}\n.bar {\n    position: relative;\n}\n.bar, .group input, .group select {\n    display: block;\n    width: 100%;\n}\n.group input:placeholder-shown ~ label {\n    color: #999;\n    font-size: 14px;\n    font-weight: 400;\n    position: absolute;\n    pointer-events: none;\n    left: 5px;\n    top: 5px;\n    transition: .2s ease all;\n    -moz-transition: .2s ease all;\n    -webkit-transition: .2s ease all;\n}\n.group select {\n\tcolor: #999;\n\tbackground-color: #fff;\n}\n.group select .valid-option:hover {\n\tcolor: #000;\n}\n.group input:focus~label, .group label {\n    top: -12px;\n    color: #c73a71;\n    font-size: 10px;\n    font-weight: 400;\n    position: absolute;\n    pointer-events: none;\n    left: 5px;\n    transition: .2s ease all;\n    -moz-transition: .2s ease all;\n    -webkit-transition: .2s ease all;\n}\n.form-check {\n    text-align: left;\n\tmargin-top: 15px;\n\tpadding-left: 0px;\n}\n#pass-check, #tc-check {\n    border: 0;\n    clip: rect(0 0 0 0);\n    height: 1px;\n    margin: -1px;\n    overflow: hidden;\n    padding: 0;\n    position: absolute;\n    width: 1px;\n}\n#pass-check+label, #tc-check+label {\n    display: block;\n}\n#pass-check+label:before, #tc-check+label:before {\n    content: '';\n    display: inline-block;\n    width: 15px;\n    height: 15px;\n    vertical-align: -3px;\n    border: 2px solid #5d5d5d;\n    margin-right: 4px;\n    transition: transform .2s ease,border-color .2s ease,width .2s ease;\n    -webkit-backface-visibility: hidden;\n    backface-visibility: hidden;\n}\n#pass-check:checked+label:before, #tc-check:checked+label:before {\n    border-color: #c73a71;\n    border-top: 0;\n    border-left: 0;\n    width: 8px;\n    margin-right: 8px;\n    transform: translateY(-2px) rotate(45deg);\n}\nlabel {\n    display: inline-block;\n    margin-bottom: 0.5rem;\n}\n.loader-icon {\n    width: 13px;\n    height: 13px;\n}\n.texto-login-op {\n    font-size: 12px;\n    margin: 10px 0;\n}\n.pointer {\n    cursor: pointer!important;\n}\n.wine {\n    color: #851532!important;\n}\n\n\n\n/* Buttons */\n.btn-hover {\n    font-size: 15px;\n    font-weight: 500;\n    color: #fff;\n    cursor: pointer;\n    height: 30px;\n    text-align: center;\n    border: none;\n    border-radius: 5px;\n}\n.btn-hover.color-1 {\n    background-image: linear-gradient(to right,#851532,#C73A71,#F07F36,#FBA919);\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Forms */\n.modal-content {\n\tposition: relative;\n\tdisplay: flex;\n\tflex-direction: column;\n\twidth: 100%;\n\tpointer-events: auto;\n\tbackground-color: #fff;\n\tbackground-clip: padding-box;\n\tborder: 1px solid rgba(0,0,0,.2);\n}\n.modal-open .modal {\n\toverflow-x: hidden;\n\toverflow-y: auto;\n}\n.modal {\n\tposition: fixed;\n\tz-index: 1050;\n}\n.modal, .modal-backdrop {\n\ttop: 0;\n\tright: 0;\n\tbottom: 0;\n\tleft: 0;\n}\n.fade {\n\ttransition: opacity .15s linear;\n}\n#login .modal-content {\n\twidth: auto;\n\theight: 550px;\n\tborder-radius: 5px;\n}\n.backRight {\n\tbackground-image: url('/img/login-background.jpg');\n}\n.backLeft {\n\tleft: 0;\n\tbackground-image: url('/img/login-background.jpg');\n}\n.backRight:before, .backLeft:before {\n\tcontent: \"\";\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 100%;\n\tbackground: #000;\n\topacity: .4;\n}\n#slideBox {\n\tmax-height: 100%;\n\toverflow: hidden;\n\tmargin-left: 50%;\n\tbox-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22);\n\tz-index: 100000;\n}\n#slideBox, .backLeft, .backRight {\n\twidth: 50%;\n\theight: 100%;\n\tposition: absolute;\n}\n.topLayer {\n\twidth: 200%;\n\theight: 100%;\n\tposition: relative;\n\tleft: 0;\n\tleft: -100%;\n}\n.backLeft, .backRight {\n\tbackground-size: cover;\n\tbackground-position: 50% 50%;\n}\n.backRight, .right {\n\tright: 0;\n\tborder-top-right-radius: 5px;\n\tborder-bottom-right-radius: 5px;\n}\n.backLeft, .left {\n\tborder-top-left-radius: 5px;\n\tborder-bottom-left-radius: 5px;\n}\n.left {\n\tleft: 0;\n}\n.left, .right {\n\twidth: 50%;\n\theight: 100%;\n\tbackground: #fff;\n}\n.boton-cierre, .left, .right {\n\tposition: absolute;\n}\n.left .content {\n\ttop: 15%;\n}\n.left .content, .right .content {\n\tleft: 17%;\n\tright: 17%;\n\ttext-align: center;\n\tposition: absolute;\n}\n.left .content {\n\ttop: 15%;\n}\n.right .content {\n\ttop: 12%;\n}\n.group {\n\tposition: relative;\n\tmargin-bottom: 25px;\n}\n.group input, .group select {\n\tfont-size: 14px;\n\tpadding: 5px;\n\tborder: none;\n\tborder-bottom: 1px solid #5d5d5d;\n}\n.bar, .group input , .group select {\n\tdisplay: block;\n\twidth: 100%;\n}\n.highlight {\n\tposition: absolute;\n\theight: 60%;\n\twidth: 100px;\n\ttop: 25%;\n\tleft: 0;\n\tpointer-events: none;\n}\n.highlight, .modal-backdrop.show {\n\topacity: .5;\n}\n.bar {\n\tposition: relative;\n}\n.bar, .group input, .group select {\n\tdisplay: block;\n\twidth: 100%;\n}\n.group input:placeholder-shown ~ label {\n\tcolor: #999;\n\tfont-size: 14px;\n\tfont-weight: 400;\n\tposition: absolute;\n\tpointer-events: none;\n\tleft: 5px;\n\ttop: 5px;\n\ttransition: .2s ease all;\n\t-moz-transition: .2s ease all;\n\t-webkit-transition: .2s ease all;\n}\n.group select {\n\tcolor: #999;\n\tbackground-color: #fff;\n}\n.group select .valid-option:hover {\n\tcolor: #000;\n}\n.group input:focus~label, .group label {\n\ttop: -12px;\n\tcolor: #c73a71;\n\tfont-size: 10px;\n\tfont-weight: 400;\n\tposition: absolute;\n\tpointer-events: none;\n\tleft: 5px;\n\ttransition: .2s ease all;\n\t-moz-transition: .2s ease all;\n\t-webkit-transition: .2s ease all;\n}\n.form-check {\n\ttext-align: left;\n\tmargin-top: 15px;\n\tpadding-left: 0px;\n}\n#pass-check, #tc-check {\n\tborder: 0;\n\tclip: rect(0 0 0 0);\n\theight: 1px;\n\tmargin: -1px;\n\toverflow: hidden;\n\tpadding: 0;\n\tposition: absolute;\n\twidth: 1px;\n}\n#pass-check+label, #tc-check+label {\n\tdisplay: block;\n}\n#pass-check+label:before, #tc-check+label:before {\n\tcontent: '';\n\tdisplay: inline-block;\n\twidth: 15px;\n\theight: 15px;\n\tvertical-align: -3px;\n\tborder: 2px solid #5d5d5d;\n\tmargin-right: 4px;\n\ttransition: transform .2s ease,border-color .2s ease,width .2s ease;\n\t-webkit-backface-visibility: hidden;\n\tbackface-visibility: hidden;\n}\n#pass-check:checked+label:before, #tc-check:checked+label:before {\n\tborder-color: #c73a71;\n\tborder-top: 0;\n\tborder-left: 0;\n\twidth: 8px;\n\tmargin-right: 8px;\n\ttransform: translateY(-2px) rotate(45deg);\n}\nlabel {\n\tdisplay: inline-block;\n\tmargin-bottom: 0.5rem;\n}\n.loader-icon {\n\twidth: 13px;\n\theight: 13px;\n}\n.texto-login-op {\n\tfont-size: 12px;\n\tmargin: 10px 0;\n}\n.pointer {\n\tcursor: pointer!important;\n}\n.wine {\n\tcolor: #851532!important;\n}\n@media screen and (max-width: 600px) {\n#slideBox {\n\t\twidth: 100%;\n\t\tmargin-left: 0;\n}\n}\n\n\n/* Buttons */\n.btn-hover {\n\tfont-size: 15px;\n\tfont-weight: 500;\n\tcolor: #fff;\n\tcursor: pointer;\n\theight: 30px;\n\ttext-align: center;\n\tborder: none;\n\tborder-radius: 5px;\n}\n.btn-hover.color-1 {\n\tbackground-image: linear-gradient(to right,#851532,#C73A71,#F07F36,#FBA919);\n}\n.close:not(:disabled):not(.disabled), .navbar-toggler:not(:disabled):not(.disabled), summary {\n\tcursor: pointer;\n}\nbutton.close {\n\tpadding: 0;\n\tborder: 0;\n\t-webkit-appearance: none;\n}\n.boton-cierre {\n\tz-index: 10000000;\n\tright: 10px;\n\ttop: 7px;\n}\n.close {\n\tfloat: right;\n\tfont-size: 1.5rem;\n\tfont-weight: 700;\n\tline-height: 1;\n\tcolor: #000;\n\ttext-shadow: 0 1px 0 #fff;\n\topacity: .5;\n}\n\n", ""]);
 
 // exports
 
@@ -42674,65 +42690,80 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { attrs: { id: _vm.name_id } },
-    _vm._l(_vm.data, function(company, index) {
-      return _c("div", { key: index, staticClass: "container p-3" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "view-overlay" }, [
-            _c("img", {
-              staticStyle: { width: "100%", height: "150px" },
-              attrs: { src: company.cover_img, alt: "" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-5 p-0" }, [
-                _c("img", {
-                  staticClass: "img-profile",
-                  staticStyle: { width: "100%" },
-                  attrs: { src: company.profile_img, alt: "" }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-7" }, [
-                _c("h6", { staticClass: "card-title" }, [
-                  _c("a", { attrs: { href: "" } }, [
-                    _vm._v(_vm._s(company.name))
-                  ])
+  return _c("div", [
+    _vm.data.length === 0
+      ? _c("div", [
+          _c(
+            "p",
+            {
+              staticClass: "text-center d-block mt-5 text-muted",
+              staticStyle: { "font-size": "25px" }
+            },
+            [_vm._v(" Aún no hay empresas en esta categoría")]
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "div",
+      { attrs: { id: _vm.name_id } },
+      _vm._l(_vm.data, function(company, index) {
+        return _c("div", { key: index, staticClass: "container p-3" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "view-overlay" }, [
+              _c("img", {
+                staticStyle: { width: "100%", height: "150px" },
+                attrs: { src: company.cover_img, alt: "" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-5 p-0" }, [
+                  _c("img", {
+                    staticClass: "img-profile",
+                    staticStyle: { width: "100%" },
+                    attrs: { src: company.profile_img, alt: "" }
+                  })
                 ]),
                 _vm._v(" "),
-                _c("ul", { staticClass: "rating" }, [
-                  _vm._m(0, true),
-                  _vm._v(" "),
-                  _vm._m(1, true),
-                  _vm._v(" "),
-                  _vm._m(2, true),
-                  _vm._v(" "),
-                  _vm._m(3, true),
-                  _vm._v(" "),
-                  _vm._m(4, true),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("p", { staticClass: "text-muted m-0" }, [
-                      _vm._v(_vm._s(company.rating) + " (20)")
+                _c("div", { staticClass: "col-7" }, [
+                  _c("h6", { staticClass: "card-title" }, [
+                    _c("a", { attrs: { href: "" } }, [
+                      _vm._v(_vm._s(company.name))
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("ul", { staticClass: "rating" }, [
+                    _vm._m(0, true),
+                    _vm._v(" "),
+                    _vm._m(1, true),
+                    _vm._v(" "),
+                    _vm._m(2, true),
+                    _vm._v(" "),
+                    _vm._m(3, true),
+                    _vm._v(" "),
+                    _vm._m(4, true),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c("p", { staticClass: "text-muted m-0" }, [
+                        _vm._v(_vm._s(company.rating) + " (20)")
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("button", { staticClass: "btn btn-outline-success" }, [
+                    _vm._v("\n\t\t\t\t\t\t\t\tVer más\n\t\t\t\t\t\t\t")
                   ])
-                ]),
-                _vm._v(" "),
-                _c("button", { staticClass: "btn btn-outline-success" }, [
-                  _vm._v("\n\t\t\t\t\t\t\t\tVer más\n\t\t\t\t\t\t\t")
                 ])
               ])
             ])
           ])
         ])
-      ])
-    }),
-    0
-  )
+      }),
+      0
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -43114,7 +43145,13 @@ var render = function() {
       _vm._v(" "),
       _c("Footer"),
       _vm._v(" "),
-      _c("ModalLoginRegister")
+      _c("ModalLoginRegister", {
+        attrs: {
+          csrf: this.csrf,
+          href_login: this.href_login,
+          href_register: this.href_register
+        }
+      })
     ],
     1
   )
@@ -43193,7 +43230,96 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: "login",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": "loginLabel",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "modal-dialog modal-lg",
+          staticStyle: { "margin-top": "41.5px" },
+          attrs: { role: "document" }
+        },
+        [
+          _c("div", { staticClass: "modal-content" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticStyle: { "margin-left": "0px" },
+                attrs: { id: "slideBox" }
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "topLayer",
+                    staticStyle: { "margin-left": "100%" }
+                  },
+                  [
+                    _c("div", { staticClass: "left" }, [
+                      _c(
+                        "form",
+                        {
+                          attrs: {
+                            id: "formLogin",
+                            method: "POST",
+                            action: this.href_login
+                          }
+                        },
+                        [
+                          _c("input", {
+                            attrs: { type: "hidden", name: "_token" },
+                            domProps: { value: this.csrf }
+                          }),
+                          _vm._v(" "),
+                          _vm._m(2)
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "right" }, [
+                      _c(
+                        "form",
+                        {
+                          attrs: {
+                            id: "formRegister",
+                            method: "POST",
+                            action: this.href_register
+                          }
+                        },
+                        [
+                          _c("input", {
+                            attrs: { type: "hidden", name: "_token" },
+                            domProps: { value: this.csrf }
+                          }),
+                          _vm._v(" "),
+                          _vm._m(3)
+                        ]
+                      )
+                    ])
+                  ]
+                )
+              ]
+            )
+          ])
+        ]
+      )
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -43201,431 +43327,346 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "div",
+      "button",
       {
-        staticClass: "modal fade",
+        staticClass: "close boton-cierre",
         attrs: {
-          id: "login",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "loginLabel",
-          "aria-hidden": "true"
+          type: "button",
+          "aria-label": "Close",
+          "data-dismiss": "modal"
         }
       },
-      [
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { attrs: { id: "back" } }, [
+      _c("div", { staticClass: "backRight" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "backLeft" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "content" }, [
+      _c("h4", [_c("b", [_vm._v("Inciar Sesión")])]),
+      _vm._v(" "),
+      _c("div", { staticClass: "group mt-3" }, [
+        _c("input", {
+          attrs: {
+            type: "text",
+            id: "login-id",
+            name: "email",
+            placeholder: " "
+          }
+        }),
+        _vm._v(" "),
+        _c("span", { staticClass: "highlight" }),
+        _vm._v(" "),
+        _c("span", { staticClass: "bar" }),
+        _vm._v(" "),
+        _c("label", [_vm._v("Email")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "group m-0" }, [
+        _c("input", {
+          attrs: {
+            type: "password",
+            id: "pass-id",
+            name: "password",
+            placeholder: " "
+          }
+        }),
+        _vm._v(" "),
+        _c("span", { staticClass: "highlight" }),
+        _vm._v(" "),
+        _c("span", { staticClass: "bar" }),
+        _vm._v(" "),
+        _c("label", [_vm._v("Contraseña")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-check" }, [
+        _c("input", {
+          attrs: {
+            type: "checkbox",
+            id: "pass-check",
+            value: "check-me",
+            placeholder: " ",
+            npm: ""
+          }
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "pass-check", id: "label" } }, [
+          _c("small", [_vm._v(" Mostrar mi clave")])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn-block btn-hover color-1",
+          attrs: { type: "submit" }
+        },
+        [_vm._v("\n\t\t\t\t\t\t\t\t\tIniciar Sesión\n\t\t\t\t\t\t\t\t")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn-block btn-gradient-zv d-none btnLoad",
+          attrs: { type: "button" }
+        },
+        [
+          _c("img", {
+            staticClass: "loader-icon",
+            attrs: {
+              src:
+                "https://cursos-virtuales.zegelipae.edu.pe/img/iconos/loader.gif",
+              alt: ""
+            }
+          }),
+          _vm._v("\n\t\t\t\t\t\t\t\t\t  Cargando\n\t\t\t\t\t\t\t\t")
+        ]
+      ),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "javascript:void(0)" } }),
+      _vm._v(" "),
+      _c("p", { staticClass: "texto-login-op pointer" }, [
+        _c("a", { attrs: { href: "javascript:void(0)" } }),
+        _vm._v(" "),
         _c(
-          "div",
+          "a",
           {
-            staticClass: "modal-dialog modal-lg",
-            staticStyle: { "margin-top": "41.5px" },
-            attrs: { role: "document" }
+            attrs: {
+              onclick:
+                "$('#login').one('hidden.bs.modal', function() { $('#forgot').modal('show'); }).modal('hide');"
+            }
           },
           [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { attrs: { id: "back" } }, [
-                _c("div", { staticClass: "backRight" }),
-                _vm._v(" "),
-                _c("div", { staticClass: "backLeft" })
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticStyle: { "margin-left": "0px" },
-                  attrs: { id: "slideBox" }
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "topLayer",
-                      staticStyle: { "margin-left": "100%" }
-                    },
-                    [
-                      _c("div", { staticClass: "left" }, [
-                        _c("form", { attrs: { id: "formLogin" } }, [
-                          _c("div", { staticClass: "content" }, [
-                            _c("h4", [_c("b", [_vm._v("Inciar Sesión")])]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "group mt-3" }, [
-                              _c("input", {
-                                attrs: {
-                                  type: "text",
-                                  id: "login-id",
-                                  name: "email",
-                                  placeholder: " "
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "highlight" }),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "bar" }),
-                              _vm._v(" "),
-                              _c("label", [_vm._v("Email")])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "group m-0" }, [
-                              _c("input", {
-                                attrs: {
-                                  type: "password",
-                                  id: "pass-id",
-                                  name: "password",
-                                  placeholder: " "
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "highlight" }),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "bar" }),
-                              _vm._v(" "),
-                              _c("label", [_vm._v("Contraseña")])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-check" }, [
-                              _c("input", {
-                                attrs: {
-                                  type: "checkbox",
-                                  id: "pass-check",
-                                  value: "check-me",
-                                  placeholder: " ",
-                                  npm: ""
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "label",
-                                { attrs: { for: "pass-check", id: "label" } },
-                                [_c("small", [_vm._v(" Mostrar mi clave")])]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn-block btn-hover color-1",
-                                attrs: { type: "submit" }
-                              },
-                              [
-                                _vm._v(
-                                  "\n\t\t\t\t\t\t\t\t\tIniciar Sesión\n\t\t\t\t\t\t\t\t"
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "btn-block btn-gradient-zv d-none btnLoad",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _c("img", {
-                                  staticClass: "loader-icon",
-                                  attrs: {
-                                    src:
-                                      "https://cursos-virtuales.zegelipae.edu.pe/img/iconos/loader.gif",
-                                    alt: ""
-                                  }
-                                }),
-                                _vm._v(
-                                  "\n\t\t\t\t\t\t\t\t\t  Cargando\n\t\t\t\t\t\t\t\t"
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("a", { attrs: { href: "javascript:void(0)" } }),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "texto-login-op pointer" }, [
-                              _c("a", {
-                                attrs: { href: "javascript:void(0)" }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  attrs: {
-                                    onclick:
-                                      "$('#login').one('hidden.bs.modal', function() { $('#forgot').modal('show'); }).modal('hide');"
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n\t\t\t\t\t\t\t\t\t\t¿Haz olvidado tu contraseña?\n\t\t\t\t\t\t\t\t\t"
-                                  )
-                                ]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("a", { attrs: { id: "goLeft" } }, [
-                              _c(
-                                "p",
-                                { staticClass: "texto-login-op pointer" },
-                                [
-                                  _vm._v(
-                                    "¿Aún no tienes cuenta?\n\t\t\t\t\t\t\t\t\t\t"
-                                  ),
-                                  _c("b", { staticClass: "wine" }, [
-                                    _c("b", [_vm._v(" Regístrate Aquí")])
-                                  ])
-                                ]
-                              )
-                            ])
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "right" }, [
-                        _c("form", { attrs: { id: "formRegister" } }, [
-                          _c("div", { staticClass: "content" }, [
-                            _c("h4", [_c("b", [_vm._v("Registrate")])]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "group my-3" }, [
-                              _c("input", {
-                                attrs: {
-                                  type: "text",
-                                  id: "signin-name",
-                                  name: "name",
-                                  placeholder: " "
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "highlight" }),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "bar" }),
-                              _vm._v(" "),
-                              _c("label", [_vm._v("Razón Social")])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "row p-0" }, [
-                              _c("div", { staticClass: "col" }, [
-                                _c("div", { staticClass: "group" }, [
-                                  _c("input", {
-                                    attrs: {
-                                      type: "text",
-                                      id: "signin-ruc",
-                                      name: "ruc",
-                                      placeholder: " "
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("span", { staticClass: "highlight" }),
-                                  _vm._v(" "),
-                                  _c("span", { staticClass: "bar" }),
-                                  _vm._v(" "),
-                                  _c("label", [_vm._v("RUC")])
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col" }, [
-                                _c("div", { staticClass: "group" }, [
-                                  _c("input", {
-                                    attrs: {
-                                      type: "text",
-                                      id: "signin-legal_registration",
-                                      name: "legal_registration",
-                                      placeholder: " "
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("span", { staticClass: "highlight" }),
-                                  _vm._v(" "),
-                                  _c("span", { staticClass: "bar" }),
-                                  _vm._v(" "),
-                                  _c("label", [_vm._v("Partida Registral")])
-                                ])
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                staticClass: "group",
-                                staticStyle: { "margin-top": "-10px" }
-                              },
-                              [
-                                _c("input", {
-                                  attrs: {
-                                    type: "text",
-                                    id: "signin-id",
-                                    name: "email",
-                                    placeholder: " "
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("span", { staticClass: "highlight" }),
-                                _vm._v(" "),
-                                _c("span", { staticClass: "bar" }),
-                                _vm._v(" "),
-                                _c("label", [_vm._v("Email")])
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "group" }, [
-                              _c(
-                                "select",
-                                {
-                                  attrs: {
-                                    id: "signin-type",
-                                    name: "type_id",
-                                    placeholder: " "
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "option",
-                                    {
-                                      staticClass: "hidden",
-                                      attrs: { selected: "", disabled: "" }
-                                    },
-                                    [_vm._v("Seleccion una opción")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("option", { attrs: { value: "1" } }, [
-                                    _vm._v("Vendedor")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("option", { attrs: { value: "2" } }, [
-                                    _vm._v("Comprador")
-                                  ])
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "highlight" }),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "bar" })
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "group" }, [
-                              _c("input", {
-                                attrs: {
-                                  type: "password",
-                                  id: "pass-1-id",
-                                  name: "password",
-                                  placeholder: " "
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "highlight" }),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "bar" }),
-                              _vm._v(" "),
-                              _c("label", [_vm._v("Contraseña")])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "group m-0" }, [
-                              _c("input", {
-                                attrs: {
-                                  type: "password",
-                                  id: "pass-2-id",
-                                  name: "password_confirmation",
-                                  placeholder: " "
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "highlight" }),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "bar" }),
-                              _vm._v(" "),
-                              _c("label", [_vm._v("Confirma tu contraseña")])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-check" }, [
-                              _c("input", {
-                                attrs: {
-                                  type: "checkbox",
-                                  id: "tc-check",
-                                  value: "check-me",
-                                  name: "checkTerminos"
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "label",
-                                { attrs: { for: "tc-check", id: "label" } },
-                                [
-                                  _c("small", [
-                                    _vm._v(
-                                      "\n\t\t\t\t\t\t\t\t\t\t\t Acepto los\n\t\t\t\t\t\t\t\t\t\t\t"
-                                    ),
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "wine",
-                                        attrs: { href: "#", target: "_blank" }
-                                      },
-                                      [
-                                        _c("b", [
-                                          _vm._v(" Términos y Condiciones")
-                                        ])
-                                      ]
-                                    )
-                                  ])
-                                ]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn-block btn-hover color-1",
-                                attrs: { type: "submit" }
-                              },
-                              [
-                                _vm._v(
-                                  "\n\t\t\t\t\t\t\t\t\tRegistrarte\n\t\t\t\t\t\t\t\t"
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "btn-block btn-gradient-zv d-none btnLoadRegister",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _c("img", {
-                                  staticClass: "loader-icon",
-                                  attrs: {
-                                    src:
-                                      "https://cursos-virtuales.zegelipae.edu.pe/img/iconos/loader.gif",
-                                    alt: ""
-                                  }
-                                }),
-                                _vm._v(
-                                  "\n\t\t\t\t\t\t\t\t\t  Cargando\n\t\t\t\t\t\t\t\t"
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("a", { attrs: { id: "goRight" } }, [
-                              _c(
-                                "p",
-                                { staticClass: "texto-login-op pointer" },
-                                [
-                                  _vm._v(
-                                    "\n\t\t\t\t\t\t\t\t\t\t¿Ya tienes cuenta? "
-                                  ),
-                                  _c("b", { staticClass: "wine" }, [
-                                    _c("b", [_vm._v("Inicia Sesión Aquí")])
-                                  ])
-                                ]
-                              )
-                            ])
-                          ])
-                        ])
-                      ])
-                    ]
-                  )
-                ]
-              )
-            ])
+            _vm._v(
+              "\n\t\t\t\t\t\t\t\t\t\t¿Haz olvidado tu contraseña?\n\t\t\t\t\t\t\t\t\t"
+            )
           ]
         )
-      ]
-    )
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { id: "goLeft" } }, [
+        _c("p", { staticClass: "texto-login-op pointer" }, [
+          _vm._v("¿Aún no tienes cuenta?\n\t\t\t\t\t\t\t\t\t\t"),
+          _c("b", { staticClass: "wine" }, [
+            _c("b", [_vm._v(" Regístrate Aquí")])
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "content" }, [
+      _c("h4", [_c("b", [_vm._v("Registrate")])]),
+      _vm._v(" "),
+      _c("div", { staticClass: "group my-3" }, [
+        _c("input", {
+          attrs: {
+            type: "text",
+            id: "signin-name",
+            name: "name",
+            placeholder: " "
+          }
+        }),
+        _vm._v(" "),
+        _c("span", { staticClass: "highlight" }),
+        _vm._v(" "),
+        _c("span", { staticClass: "bar" }),
+        _vm._v(" "),
+        _c("label", [_vm._v("Razón Social")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row p-0" }, [
+        _c("div", { staticClass: "col" }, [
+          _c("div", { staticClass: "group" }, [
+            _c("input", {
+              attrs: {
+                type: "text",
+                id: "signin-ruc",
+                name: "ruc",
+                placeholder: " "
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "highlight" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "bar" }),
+            _vm._v(" "),
+            _c("label", [_vm._v("RUC")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col" }, [
+          _c("div", { staticClass: "group" }, [
+            _c("input", {
+              attrs: {
+                type: "text",
+                id: "signin-legal_registration",
+                name: "legal_registration",
+                placeholder: " "
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "highlight" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "bar" }),
+            _vm._v(" "),
+            _c("label", [_vm._v("Partida Registral")])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "group", staticStyle: { "margin-top": "-10px" } },
+        [
+          _c("input", {
+            attrs: {
+              type: "text",
+              id: "signin-id",
+              name: "email",
+              placeholder: " "
+            }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "highlight" }),
+          _vm._v(" "),
+          _c("span", { staticClass: "bar" }),
+          _vm._v(" "),
+          _c("label", [_vm._v("Email")])
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "group" }, [
+        _c(
+          "select",
+          { attrs: { id: "signin-type", name: "type_id", placeholder: " " } },
+          [
+            _c(
+              "option",
+              { staticClass: "hidden", attrs: { selected: "", disabled: "" } },
+              [_vm._v("Seleccion una opción")]
+            ),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "1" } }, [_vm._v("Vendedor")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "2" } }, [_vm._v("Comprador")])
+          ]
+        ),
+        _vm._v(" "),
+        _c("span", { staticClass: "highlight" }),
+        _vm._v(" "),
+        _c("span", { staticClass: "bar" })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "group" }, [
+        _c("input", {
+          attrs: {
+            type: "password",
+            id: "pass-1-id",
+            name: "password",
+            placeholder: " "
+          }
+        }),
+        _vm._v(" "),
+        _c("span", { staticClass: "highlight" }),
+        _vm._v(" "),
+        _c("span", { staticClass: "bar" }),
+        _vm._v(" "),
+        _c("label", [_vm._v("Contraseña")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "group m-0" }, [
+        _c("input", {
+          attrs: {
+            type: "password",
+            id: "pass-2-id",
+            name: "password_confirmation",
+            placeholder: " "
+          }
+        }),
+        _vm._v(" "),
+        _c("span", { staticClass: "highlight" }),
+        _vm._v(" "),
+        _c("span", { staticClass: "bar" }),
+        _vm._v(" "),
+        _c("label", [_vm._v("Confirma tu contraseña")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-check" }, [
+        _c("input", {
+          attrs: {
+            type: "checkbox",
+            id: "tc-check",
+            value: "check-me",
+            name: "checkTerminos"
+          }
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "tc-check", id: "label" } }, [
+          _c("small", [
+            _vm._v(
+              "\n\t\t\t\t\t\t\t\t\t\t\t Acepto los\n\t\t\t\t\t\t\t\t\t\t\t"
+            ),
+            _c(
+              "a",
+              { staticClass: "wine", attrs: { href: "#", target: "_blank" } },
+              [_c("b", [_vm._v(" Términos y Condiciones")])]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn-block btn-hover color-1",
+          attrs: { type: "submit" }
+        },
+        [_vm._v("\n\t\t\t\t\t\t\t\t\tRegistrarte\n\t\t\t\t\t\t\t\t")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn-block btn-gradient-zv d-none btnLoadRegister",
+          attrs: { type: "button" }
+        },
+        [
+          _c("img", {
+            staticClass: "loader-icon",
+            attrs: {
+              src:
+                "https://cursos-virtuales.zegelipae.edu.pe/img/iconos/loader.gif",
+              alt: ""
+            }
+          }),
+          _vm._v("\n\t\t\t\t\t\t\t\t\t  Cargando\n\t\t\t\t\t\t\t\t")
+        ]
+      ),
+      _vm._v(" "),
+      _c("a", { attrs: { id: "goRight" } }, [
+        _c("p", { staticClass: "texto-login-op pointer" }, [
+          _vm._v("\n\t\t\t\t\t\t\t\t\t\t¿Ya tienes cuenta? "),
+          _c("b", { staticClass: "wine" }, [
+            _c("b", [_vm._v("Inicia Sesión Aquí")])
+          ])
+        ])
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -55981,66 +56022,75 @@ window.Tiny = __webpack_require__(/*! tiny-slider/src/tiny-slider */ "./node_mod
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var slider_cd = Tiny.tns({
-  container: '#compradores_destacados',
-  slideBy: 1,
-  autoplay: true,
-  mouseDrag: true,
-  controls: false,
-  nav: false,
-  autoplayButtonOutput: false,
-  items: 1,
-  responsive: {
-    768: {
-      edgePadding: 20,
-      gutter: 20,
-      items: 2
-    },
-    1100: {
-      items: 3
+if (document.getElementById('compradores_destacados').hasChildNodes()) {
+  var slider_cd = Tiny.tns({
+    container: '#compradores_destacados',
+    slideBy: 1,
+    autoplay: true,
+    mouseDrag: true,
+    controls: false,
+    nav: false,
+    autoplayButtonOutput: false,
+    items: 1,
+    responsive: {
+      768: {
+        edgePadding: 20,
+        gutter: 20,
+        items: 2
+      },
+      1100: {
+        items: 3
+      }
     }
-  }
-});
-var slider_vd = Tiny.tns({
-  container: '#vendedores_destacados',
-  slideBy: 1,
-  autoplay: true,
-  mouseDrag: true,
-  controls: false,
-  nav: false,
-  items: 1,
-  autoplayButtonOutput: false,
-  responsive: {
-    768: {
-      edgePadding: 20,
-      gutter: 20,
-      items: 2
-    },
-    1100: {
-      items: 3
+  });
+}
+
+if (document.getElementById('vendedores_destacados').hasChildNodes()) {
+  var slider_vd = Tiny.tns({
+    container: '#vendedores_destacados',
+    slideBy: 1,
+    autoplay: true,
+    mouseDrag: true,
+    controls: false,
+    nav: false,
+    items: 1,
+    autoplayButtonOutput: false,
+    responsive: {
+      768: {
+        edgePadding: 20,
+        gutter: 20,
+        items: 2
+      },
+      1100: {
+        items: 3
+      }
     }
-  }
-});
-var slider_mv = Tiny.tns({
-  container: '#empresas_mas_visitadas',
-  slideBy: 1,
-  autoplay: true,
-  mouseDrag: true,
-  controls: false,
-  nav: false,
-  items: 1,
-  autoplayButtonOutput: false,
-  responsive: {
-    768: {
-      edgePadding: 20,
-      gutter: 20,
-      items: 2
-    },
-    1100: {
-      items: 3
+  });
+}
+
+if (document.getElementById('vendedores_destacados').hasChildNodes()) {
+  var slider_mv = Tiny.tns({
+    container: '#empresas_mas_visitadas',
+    slideBy: 1,
+    autoplay: true,
+    mouseDrag: true,
+    controls: false,
+    nav: false,
+    items: 1,
+    autoplayButtonOutput: false,
+    responsive: {
+      768: {
+        edgePadding: 20,
+        gutter: 20,
+        items: 2
+      },
+      1100: {
+        items: 3
+      }
     }
-  }
-});
+  });
+}
+
 var slider_categories1 = Tiny.tns({
   container: '#carousel_categorias1',
   slideBy: 1,

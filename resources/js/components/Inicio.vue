@@ -7,19 +7,20 @@
         <Ofertas/>
         <Categorias :data="this.data.categories"/>
         <Footer/>
-		<ModalLoginRegister/>
+		<ModalLoginRegister :csrf="this.csrf" :href_login="this.href_login" :href_register="this.href_register"/>
     </div>
 </template>
 
 <script>
 export default {
     props: [
-        'data'
+		'data',
+		'csrf',
+		'href_login',
+		'href_register',
     ],
     data() {
-        return {
-			//
-        }
+        return {}
     },
     created() {
         /* console.log(this.data.featuredBuyers);
