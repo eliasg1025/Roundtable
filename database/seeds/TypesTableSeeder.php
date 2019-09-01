@@ -14,7 +14,11 @@ class TypesTableSeeder extends Seeder
     public function run()
     {
         $type = new Type();
-        $type->name = "Vendedor";
+        $type->name = "Vendedor-Productor";
+		$type->save();
+		
+		$type = new Type();
+        $type->name = "Vendedor-Acopiador";
         $type->save();
 
         $type = new Type();

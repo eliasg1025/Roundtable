@@ -26,13 +26,13 @@
 										<b>Inciar Sesión</b>
 									</h4>
 									<div class="group mt-3">
-										<input type="text" id="login-id" name="email" placeholder=" ">
+										<input type="text" id="login-id" v-model="login.email" placeholder=" ">
 										<span class="highlight"></span>
 										<span class="bar"></span>
 										<label>Email</label>
 									</div>
 									<div class="group m-0">
-										<input type="password" id="pass-id" name="password" placeholder=" ">
+										<input type="password" id="pass-id" v-model="login.password" placeholder=" ">
 										<span class="highlight"></span>
 										<span class="bar"></span>
 										<label>Contraseña</label>
@@ -43,17 +43,20 @@
 											<small>&nbsp;Mostrar mi clave</small>
 										</label>
 									</div>
-									<button type="submit" class="btn-block btn-hover color-1">
+									<button @click="login_user()" type="button" class="btn-block btn-hover color-1">
 										Iniciar Sesión
 									</button>
 									<button type="button" class="btn-block btn-gradient-zv d-none btnLoad">
-										<img src="https://cursos-virtuales.zegelipae.edu.pe/img/iconos/loader.gif" alt="" class="loader-icon">
+										<img src="" alt="" class="loader-icon">
 										&nbsp; Cargando
 									</button>
 									<a href="javascript:void(0)"></a>
 									<p class="texto-login-op pointer">
 										<a href="javascript:void(0)"></a>
-										<a onclick="$('#login').one('hidden.bs.modal', function() { $('#forgot').modal('show'); }).modal('hide');">
+										<!-- <a onclick="$('#login').one('hidden.bs.modal', function() { $('#forgot').modal('show'); }).modal('hide');">
+											¿Haz olvidado tu contraseña?
+										</a> -->
+										<a :href="this.href_reset_password">
 											¿Haz olvidado tu contraseña?
 										</a>
 									</p>
@@ -76,7 +79,7 @@
 								<div class="content">
 									<h4><b>Registrate</b></h4>
 									<div class="group my-3">
-										<input type="text" id="signin-name" name="name" placeholder=" ">
+										<input type="text" id="signin-name" placeholder=" " v-model="register.name">
 										<span class="highlight"></span>
 										<span class="bar"></span>
 										<label>Razón Social</label>
@@ -85,7 +88,7 @@
 									<div class="row p-0">
 										<div class="col">
 											<div class="group">
-												<input type="text" id="signin-ruc" name="ruc" placeholder=" ">
+												<input type="text" id="signin-ruc" placeholder=" " v-model="register.ruc">
 												<span class="highlight"></span>
 												<span class="bar"></span>
 												<label>RUC</label>
@@ -93,7 +96,7 @@
 										</div>
 										<div class="col">
 											<div class="group">
-												<input type="text" id="signin-legal_registration" name="legal_registration" placeholder=" ">
+												<input type="text" id="signin-legal_registration" v-model="register.legal_registration" placeholder=" ">
 												<span class="highlight"></span>
 												<span class="bar"></span>
 												<label>Partida Registral</label>
@@ -102,34 +105,35 @@
 									</div>
 									
 									<div class="group" style="margin-top: -10px;">
-										<input type="text" id="signin-id" name="email" placeholder=" ">
+										<input type="text" id="signin-id" placeholder=" " v-model="register.email">
 										<span class="highlight"></span>
 										<span class="bar"></span>
 										<label>Email</label>
 									</div>
 									<div class="group">
-										<select id="signin-type" name="type_id" placeholder=" ">
+										<select id="signin-type" placeholder=" " v-model="register.type_id">
 											<option class="hidden" selected disabled>Seleccion una opción</option>
-											<option value="1">Vendedor</option>
-											<option value="2">Comprador</option>
+											<option value="1">Vendedor (Productor)</option>
+											<option value="2">Vendedor (Acopiador)</option>
+											<option value="3">Comprador</option>
 										</select>
 										<span class="highlight"></span>
 										<span class="bar"></span>
 									</div>
 									<div class="group">
-										<input type="password" id="pass-1-id" name="password" placeholder=" ">
+										<input type="password" id="pass-1-id" placeholder=" " v-model="register.password">
 										<span class="highlight"></span>
 										<span class="bar"></span>
 										<label>Contraseña</label>
 									</div>
 									<div class="group m-0">
-										<input type="password" id="pass-2-id" name="password_confirmation" placeholder=" ">
+										<input type="password" id="pass-2-id" placeholder=" " v-model="register.password_confirmation">
 										<span class="highlight"></span>
 										<span class="bar"></span>
 										<label>Confirma tu contraseña</label>
 									</div>
 									<div class="form-check">
-										<input type="checkbox" id="tc-check" value="check-me" name="checkTerminos">
+										<input type="checkbox" id="tc-check" value="check-me" name="checkTerminos" required>
 										<label for="tc-check" id="label">
 											<small>
 												&nbsp;Acepto los
@@ -139,11 +143,11 @@
 											</small>
 										</label>
 									</div>
-									<button type="submit" class="btn-block btn-hover color-1">
+									<button @click="register_user()" type="button" class="btn-block btn-hover color-1">
 										Registrarte
 									</button>
 									<button type="button" class="btn-block btn-gradient-zv d-none btnLoadRegister">
-										<img src="https://cursos-virtuales.zegelipae.edu.pe/img/iconos/loader.gif" alt="" class="loader-icon">
+										<img src="" alt="" class="loader-icon">
 										&nbsp; Cargando
 									</button>
 									<a id="goRight">
@@ -168,7 +172,105 @@ export default {
 		'csrf',
 		'href_login',
 		'href_register',
-	]
+		'href_reset_password',
+	],
+	data() {
+		return {
+			login: {
+				email: '',
+				password: '',
+				token: this.csrf,
+			},
+			register: {
+				name: '',
+				email: '',
+				password: '',
+				ruc: '',
+				legal_registration: '',
+				type_id: '',
+				password: '',
+				password_confirmation: '',
+				token: this.csrf,
+			}
+		}
+	},
+	methods: {
+		login_user: function() {
+			axios.post('/login', {
+				email: this.login.email,
+				password: this.login.password,
+				token: this.login.token,
+			})
+				.then(res => {
+					window.Swal.fire({
+						title: 'Iniciar Sesión',
+						text: 'Sesión iniciada satifactoriamente',
+						type: 'success'
+					}).then(result => {
+						window.location.href = "/profile";
+					})
+				})
+				.catch(error => {
+					if (error.response.status === 422) {
+						window.Swal.fire({
+							title: 'El email o la contraseña son incorrectos',
+							type: 'error'
+						})
+					} else {
+						console.log(error.response);
+					}
+				});
+		},
+		register_user: function() {
+			axios.post('/register', {
+				name: this.register.name,
+				email: this.register.email,
+				password: this.register.password,
+				ruc: this.register.ruc,
+				legal_registration: this.register.legal_registration,
+				type_id: this.register.type_id,
+				password: this.register.password,
+				password_confirmation: this.register.password_confirmation,
+				token: this.register.csrf,
+			})
+				.then(res => {
+					window.Swal.fire({
+						title: 'Usuario creado satisfactoriamente!',
+						text: 'Por favor verifica tu correo electronico para validar tu cuenta',
+						type: 'success'
+					}).then(res => {
+						window.location.href = "/profile";
+					})
+				})
+				.catch(error => {
+					if (error.response.status === 500) {
+						window.Swal.fire({
+							title: 'RUC usado',
+							text: 'Por favor utiliza otro RUC o comunicate con nosotros por mas información',
+							type: 'error'
+						})
+					} else if (error.response.status === 422) {
+						if (error.response.data.errors.email !== undefined) {
+							if (error.response.data.errors.email[0] == "The email has already been taken.") {
+								window.Swal.fire({
+									title: 'Email usado',
+									text: 'Por favor utiliza otra dirección de email o comunicate con nosotros por mas información',
+									type: 'error'
+								})
+							}
+						} else {
+							window.Swal.fire({
+								title: 'Datos inválidos',
+								text: 'Por favor verifica los datos enviados',
+								type: 'error'
+							})
+						}
+					} else {
+						console.log(error.response);
+					}
+				})
+		}
+	}
 }
 </script>
 
@@ -217,12 +319,12 @@ export default {
 	}
 
 	.backRight {
-		background-image: url('/img/login-background.jpg');
+		background-image: url('/img/berry-blue-blueberries-70862 (1).jpg');
 	}
 
 	.backLeft {
 		left: 0;
-		background-image: url('/img/login-background.jpg');
+		background-image: url('/img/business-computer-computer-keyboard-2764678.jpg');
 	}
 
 	.backRight:before, .backLeft:before {
@@ -453,7 +555,7 @@ export default {
 	@media screen and (max-width: 600px) {
 		#slideBox {
 			width: 100%;
-			margin-left: 0;
+			margin-left: 0 !important;
 		}
 	}
 
