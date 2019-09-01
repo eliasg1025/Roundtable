@@ -13,6 +13,6 @@
 
 Auth::routes(['verify' => true]);
 
-Route::get('/', 'InicioController@index');
+Route::get('/', 'InicioController@index')->name('home');
 
 Route::get('/profile', 'ProfileController@index')->name('profile');

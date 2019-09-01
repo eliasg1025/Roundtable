@@ -16,7 +16,7 @@ class PlansTableSeeder extends Seeder
         $plan = new Plan();
         $plan->name = "Free";
         $plan->cost = 0;
-        $plan->initial_coins = 3;
+        $plan->initial_coins = 5;
         $plan->save();
 
         $plan = new Plan();

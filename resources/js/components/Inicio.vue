@@ -7,17 +7,24 @@
         <Ofertas/>
         <Categorias :data="this.data.categories"/>
         <Footer/>
-		<ModalLoginRegister :csrf="this.csrf" :href_login="this.href_login" :href_register="this.href_register"/>
+		<ModalLoginRegister
+			:csrf="this.csrf"
+			:href_login="this.href_login"
+			:href_register="this.href_register"
+			:href_reset_password="this.href_reset_password"
+		/>
     </div>
 </template>
 
 <script>
+
 export default {
     props: [
 		'data',
 		'csrf',
 		'href_login',
 		'href_register',
+		'href_reset_password',
     ],
     data() {
         return {}
