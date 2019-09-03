@@ -23,7 +23,7 @@ window.onscroll = () => {
 	const nav = document.querySelector('#navbar');
 	const logo = document.querySelector('#logo');
 
-    if (window.scrollY <= 150) {
+    if (window.scrollY <= 20) {
 		nav.style = 'transition: all ease 1500ms;';
 		logo.classList.add('logo-main');
 		logo.classList.remove('small-logo-main');

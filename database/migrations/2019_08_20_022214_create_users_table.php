@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
 			// Otros datos
+            $table->string('uuid', 5)->unique();
 			$table->string('commercial_name')->nullable(); // nombre comercial por defecto debe ser igual a la razon social
 			$table->string('ruc', 20)->unique();
             $table->string('legal_registration', 20)->nullable();

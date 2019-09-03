@@ -16,3 +16,10 @@ Auth::routes(['verify' => true]);
 Route::get('/', 'InicioController@index')->name('home');
 
 Route::get('/profile', 'ProfileController@index')->name('profile');
+
+Route::get('/business', 'BusinessController@index')->name('business');
+
+Route::get('/business/category/{slug}', 'BusinessController@categoria')->name('business.category');
+
+Route::get('/business/description/{slug}', 'BusinessController@show')->name('business.show');
+
