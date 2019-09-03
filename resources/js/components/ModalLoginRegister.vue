@@ -26,13 +26,23 @@
 										<b>Inciar Sesión</b>
 									</h4>
 									<div class="group mt-3">
-										<input type="text" id="login-id" v-model="login.email" placeholder=" ">
+										<input
+											type="text"
+											id="login-id"
+											v-model="login.email"
+											placeholder=" "
+										>
 										<span class="highlight"></span>
 										<span class="bar"></span>
 										<label>Email</label>
 									</div>
 									<div class="group m-0">
-										<input type="password" id="pass-id" v-model="login.password" placeholder=" ">
+										<input
+											type="password"
+											id="pass-id"
+											v-model="login.password"
+											placeholder=" "
+										>
 										<span class="highlight"></span>
 										<span class="bar"></span>
 										<label>Contraseña</label>
@@ -121,7 +131,15 @@
 										<span class="bar"></span>
 									</div>
 									<div class="group">
-										<input type="password" id="pass-1-id" placeholder=" " v-model="register.password">
+										<input
+											type="password"
+											id="pass-1-id"
+											placeholder=" "
+											v-model="register.password"
+											data-toggle="tooltip"
+											data-placement="bottom"
+											title="Mínimo 8 caracteres"
+										>
 										<span class="highlight"></span>
 										<span class="bar"></span>
 										<label>Contraseña</label>
@@ -133,7 +151,7 @@
 										<label>Confirma tu contraseña</label>
 									</div>
 									<div class="form-check">
-										<input type="checkbox" id="tc-check" value="check-me" name="checkTerminos" required>
+										<input type="checkbox" id="tc-check" value="check-me" name="checkTerminos" v-model="register.accept_terms">
 										<label for="tc-check" id="label">
 											<small>
 												&nbsp;Acepto los
@@ -191,12 +209,13 @@ export default {
 				password: '',
 				password_confirmation: '',
 				token: this.csrf,
+				accept_terms: false,
 			}
 		}
 	},
 	methods: {
 		login_user: function() {
-			axios.post('/login', {
+			axios.post(this.href_login, {
 				email: this.login.email,
 				password: this.login.password,
 				token: this.login.token,
@@ -222,53 +241,61 @@ export default {
 				});
 		},
 		register_user: function() {
-			axios.post('/register', {
-				name: this.register.name,
-				email: this.register.email,
-				password: this.register.password,
-				ruc: this.register.ruc,
-				legal_registration: this.register.legal_registration,
-				type_id: this.register.type_id,
-				password: this.register.password,
-				password_confirmation: this.register.password_confirmation,
-				token: this.register.csrf,
-			})
-				.then(res => {
-					window.Swal.fire({
-						title: 'Usuario creado satisfactoriamente!',
-						text: 'Por favor verifica tu correo electronico para validar tu cuenta',
-						type: 'success'
-					}).then(res => {
-						window.location.href = "/profile";
-					})
+
+			if (this.register.accept_terms) {
+				axios.post(this.href_register, {
+					name: this.register.name,
+					email: this.register.email,
+					password: this.register.password,
+					ruc: this.register.ruc,
+					legal_registration: this.register.legal_registration,
+					type_id: this.register.type_id,
+					password: this.register.password,
+					password_confirmation: this.register.password_confirmation,
+					token: this.register.csrf,
 				})
-				.catch(error => {
-					if (error.response.status === 500) {
+					.then(res => {
 						window.Swal.fire({
-							title: 'RUC usado',
-							text: 'Por favor utiliza otro RUC o comunicate con nosotros por mas información',
-							type: 'error'
+							title: 'Usuario creado satisfactoriamente!',
+							text: 'Por favor verifica tu correo electronico para validar tu cuenta',
+							type: 'success'
+						}).then(res => {
+							window.location.href = "/profile";
 						})
-					} else if (error.response.status === 422) {
-						if (error.response.data.errors.email !== undefined) {
-							if (error.response.data.errors.email[0] == "The email has already been taken.") {
+					})
+					.catch(error => {
+						if (error.response.status === 500) {
+							window.Swal.fire({
+								title: 'RUC ya usado',
+								text: 'Por favor utiliza otro RUC o comunicate con nosotros nosotros.',
+								type: 'error'
+							})
+						} else if (error.response.status === 422) {
+							if (error.response.data.errors.email !== undefined) {
+								if (error.response.data.errors.email[0] == "The email has already been taken.") {
+									window.Swal.fire({
+										title: 'Email ya usado',
+										text: 'Por favor utiliza otra dirección de email o comunicate con nosotros.',
+										type: 'error'
+									})
+								}
+							} else {
 								window.Swal.fire({
-									title: 'Email usado',
-									text: 'Por favor utiliza otra dirección de email o comunicate con nosotros por mas información',
+									title: 'Datos inválidos',
+									text: 'Por favor verifica los datos enviados',
 									type: 'error'
 								})
 							}
 						} else {
-							window.Swal.fire({
-								title: 'Datos inválidos',
-								text: 'Por favor verifica los datos enviados',
-								type: 'error'
-							})
+							console.log(error.response);
 						}
-					} else {
-						console.log(error.response);
-					}
+					});
+			} else {
+				window.Swal.fire({
+					title: 'Debe aceptar nuestros terminos y condiciones para poder continuar',
+					type: 'info'
 				})
+			}
 		}
 	}
 }
@@ -462,12 +489,8 @@ export default {
 	}
 
 	.group select {
-		color: #999;
-		background-color: #fff;
-	}
-
-	.group select .valid-option:hover {
 		color: #000;
+		background-color: #fff;
 	}
 
 	.group input:focus~label, .group label {

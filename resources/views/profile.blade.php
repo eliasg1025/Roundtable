@@ -1,8 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h3>Bienvenido: {{Auth::user()->name}}</h3>
-    </div>
+	<page-banner
+		title="{{Auth::user()->name}}"
+		img="{{Auth::user()->cover_img}}"
+	></page-banner>
 
+    <profile
+    	:user_data="{{ Auth::user() }}"
+    >
+    </profile>
+
+	<page-footer></page-footer>
 @endsection

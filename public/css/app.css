@@ -10674,6 +10674,11 @@ button:visited {
   outline: 0;
 }
 
+input:focus,
+select:focus {
+  outline-color: #ffffff;
+}
+
 .nav-link {
   font-family: Poppins, sans-serif !important;
   text-transform: uppercase;
@@ -10739,12 +10744,16 @@ button:visited {
     display: none;
   }
 
+  .small-logo-main {
+    display: none;
+  }
+
   .navbar {
     text-align: center;
   }
 
   .navbar-brand {
-    display: none;
+    display: block;
   }
 }
 
