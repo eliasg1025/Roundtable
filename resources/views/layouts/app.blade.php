@@ -40,7 +40,7 @@
 					<!-- Left Side Of Navbar -->
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item mr-3">
-							<a href="" class="nav-link navbar-list__link">Empresas</a>
+							<a href="{{ route('business') }}" class="nav-link navbar-list__link">Empresas</a>
 						</li>
 						<li class="nav-item mr-3">
 							<a href="{{ url('/planes') }}" class="nav-link navbar-list__link">Planes</a>
@@ -68,7 +68,8 @@
 							@endif
 						@else
 							<li class="nav-item">
-								<a href="{{ route('profile') }}" class="nav-link navbar-list__link">{{ Auth::user()->name }}</a>
+								<a href="{{ route('profile') }}" class="nav-link navbar-list__link">
+									{{ Auth::user()->name }}</a>
 							</li>
 							<li class="nav-item">
 								<a href="{{ route('logout') }}"

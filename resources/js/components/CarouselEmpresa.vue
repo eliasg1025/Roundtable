@@ -26,10 +26,12 @@
 									<li><i class="fa fa-star-half amber-text"></i></li>
 									<li><p class="text-muted m-0">{{company.rating}} (20)</p></li>
 								</ul>
-								<!-- <p class="card-text text-muted m-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
-								<button class="btn btn-outline-success">
-									Ver más
-								</button>
+								
+								<a :href="'business/description/' + company.uuid">
+									<button class="btn btn-outline-success">
+										Ver más
+									</button>
+								</a>
 							</div>
 						</div>
 						
@@ -49,7 +51,7 @@ export default {
         return {
 			name_id: this.name
         }
-    },
+	}
 }
 </script>
 
