@@ -32,8 +32,7 @@
 								<button
 									@click="send_email()"
 									type="button"
-									class="btn"
-									style="color: #fff; background-color: #88be2e; border-color: #88be2e;"
+									class="btn btn-reset-password"
 								>
 									Enviar Correo
 								</button>
@@ -84,5 +83,17 @@
 </script>
 
 <style>
-	
+	.btn-reset-password {
+		color: #fff;
+		background-color: #88be2e;
+		border-color: #88be2e;
+		transition: all 0.6s;
+	}
+
+	.btn-reset-password:hover {
+		background-color: rgba(136, 190, 46, 0.9);
+		border-color: rgba(136, 190, 46, 0.9);
+		margin-right: 20px;
+		transition: all 0.6s;
+	}
 </style>
