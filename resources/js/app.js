@@ -17,6 +17,7 @@ window.Vue = require('vue');
 Vue.component('pageBanner', require('./components/PageBanner.vue').default);
 Vue.component('PageFooter' ,require('./components/PageFooter.vue').default);
 Vue.component('ModalLoginRegister', require('./components/ModalLoginRegister').default);
+Vue.component('Spinner', require('./components/Spinner.vue').default);
 
 // Home page components
 Vue.component('Inicio', require('./components/Inicio.vue').default);
