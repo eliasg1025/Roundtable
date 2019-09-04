@@ -21,6 +21,10 @@ a:active, a:focus, a:hover, a:link, a:visited, button:active, button:focus, butt
     outline: 0;
 }
 
+input:focus, select:focus {
+	outline-color: #ffffff;
+}
+
 .nav-link {
 	font-family: Poppins, sans-serif !important;
 	text-transform: uppercase;
@@ -83,10 +87,13 @@ a:active, a:focus, a:hover, a:link, a:visited, button:active, button:focus, butt
 	.logo-main {
 		display: none;
 	}
+	.small-logo-main {
+		display: none;
+	}
 	.navbar {
 		text-align: center;
 	}
 	.navbar-brand {
-		display: none;
+		display: block;
 	}
 }

@@ -1,13 +1,13 @@
 <template>
     <div>
-        <Banner/>
-        <CompradoresDestacados :data="this.data.featuredBuyers"/>
-        <VendedoresDestacados :data="this.data.featuredSellers"/>
-        <MasVisitados :data="this.data.mostViewedCompanies"/>
-        <Ofertas/>
-        <Categorias :data="this.data.categories"/>
-        <Footer/>
-		<ModalLoginRegister
+        <main-banner/>
+        <compradores-destacados :data="this.data.featuredBuyers"/>
+        <vendedores-destacados :data="this.data.featuredSellers"/>
+        <mas-visitados :data="this.data.mostViewedCompanies"/>
+        <ofertas/>
+        <categorias :data="this.data.categories"/>
+        <page-footer/>
+		<modal-login-register
 			:csrf="this.csrf"
 			:href_login="this.href_login"
 			:href_register="this.href_register"
@@ -25,16 +25,7 @@ export default {
 		'href_login',
 		'href_register',
 		'href_reset_password',
-    ],
-    data() {
-        return {}
-    },
-    created() {
-        /* console.log(this.data.featuredBuyers);
-        console.log(this.data.featuredSellers);
-        console.log(this.data.mostViewedCompanies);
-        console.log(this.data.categories); */
-    }
+    ]
 }
 </script>
 

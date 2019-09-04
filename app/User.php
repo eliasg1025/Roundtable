@@ -63,5 +63,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Offer::class);
     }
 
+    //
 
+    public function getUrlAttribute(): string
+    {
+        return route('business.show', ['slug' => $this->slug]);
+    }
+
+    public function getSlugAttribute(): string
+    {
+        return str_slug($this->name) . '-' . $this->uuid;
+    }
 }
