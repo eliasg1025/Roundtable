@@ -26,12 +26,12 @@
     <div id="app">
 		<nav id="navbar" class="navbar navbar-expand-lg navbar-dark fixed-top">
 			<div class="container">
-				
+
 				<a class="navbar-brand" href="{{ url('/') }}" style="font-family: 'Amatic SC', cursive; font-size:25px;">
 					<img src="/img/logo/logo-v2.png" width="30" height="30" class="d-inline-block align-top" alt="">
 					{{ config('app.name', 'Roundtable') }}
 				</a>
-				
+
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
 					<span class="navbar-toggler-icon"></span>
 				</button>
@@ -43,7 +43,7 @@
 							<a href="" class="nav-link navbar-list__link">Empresas</a>
 						</li>
 						<li class="nav-item mr-3">
-							<a href="" class="nav-link navbar-list__link">Planes</a>
+							<a href="{{ url('/planes') }}" class="nav-link navbar-list__link">Planes</a>
 						</li>
 						<li class="nav-item mr-3">
 							<a href="" class="nav-link navbar-list__link">Contacto</a>
@@ -86,9 +86,9 @@
 				</div>
 			</div>
 		</nav>
-		
+
 		@yield('content')
 	</div>
-	
+
 </body>
 </html>
