@@ -1,6 +1,20 @@
 <template>
 	<section class="user_profile">
 		<div class="container">
+			<div class="row mt-5">
+				<div class="adv jumbotron jumbotron-fluid">
+					<div class="row container">
+						<div class="col-md-5 text-center">
+							<img src="/img/group.png" alt="" height="200px">
+						</div>
+						<div class="col-md-7">
+							<h2 class="display-4">Bienvenido!</h2>
+							<p class="lead">Descubre todos los beneficios incluidos en el plan Premium Business</p>
+							<a href="/plans" class="lead">Ir a planes <i class="fa fa-angle-double-right"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="row align-items-center text-center">
 				<div class="container mb-3">
 					<a :href="'/business/description/' + this.user_data.uuid" target="_blank" class="btn btn-success btn-lg btn-view-profile">
@@ -129,20 +143,6 @@
 							</figure>
 						</li>
 					</ul>
-				</div>
-			</div>
-			<div class="row mt-5">
-				<div class="adv jumbotron jumbotron-fluid">
-					<div class="row container">
-						<div class="col-md-5 text-center">
-							<img src="/img/group.png" alt="" height="200px">
-						</div>
-						<div class="col-md-7">
-							<h2 class="display-4">Bienvenido!</h2>
-							<p class="lead">Descubre todos los beneficios incluidos en el plan Premium Business</p>
-							<a href="/plans" class="lead">Ir a planes <i class="fa fa-angle-double-right"></i></a>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>

@@ -1811,7 +1811,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['name', 'data'],
   data: function data() {
@@ -1968,8 +1967,86 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data', 'csrf', 'href_login', 'href_register', 'href_reset_password']
+  props: ['data', 'csrf', 'href_login', 'href_register', 'href_reset_password'],
+  mounted: function mounted() {
+    var silder_respaldo = Tiny.tns({
+      container: '#carousel-respaldo',
+      autoplay: true,
+      mouseDrag: true,
+      controls: false,
+      nav: false,
+      autoplayButtonOutput: false,
+      autoWidth: true,
+      gutter: 20,
+      rewind: true
+    });
+  }
 });
 
 /***/ }),
@@ -7366,7 +7443,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.titulo_seccion h3 {\n    font-family: 'Nunito', sans-serif;\n    text-align: center;\n    font-weight: 600;\n}\n.titulo_seccion h5 {\n    font-family: 'Nunito', sans-serif;\n    text-align: center;\n    font-weight: 400;\n    margin-bottom: 40px;\n}\n", ""]);
+exports.push([module.i, "\n.titulo_seccion h3 {\n    font-family: 'Nunito', sans-serif;\n    text-align: center;\n    font-weight: 600;\n}\n.titulo_seccion h5 {\n    font-family: 'Nunito', sans-serif;\n    text-align: center;\n    font-weight: 400;\n    margin-bottom: 40px;\n}\n.seccion_ofertas {\n    background-color: #ebebeb;\n}\n.oferta-img {\n    border-radius: 20px;\n}\n.seccion_respaldo {\n    padding: 80px 0;\n    vertical-align: middle;\n}\n.seccion_respaldo .item {\n    display: flex;\n    flex-flow: row wrap;\n}\n.seccion_respaldo .item img {\n    max-width: 90%;\n    padding: auto;\n}\n.imagenes-resplado > * {\n    vertical-align: middle;\n}\n", ""]);
 
 // exports
 
@@ -46579,9 +46656,11 @@ var render = function() {
       _vm._v(" "),
       _c("mas-visitados", { attrs: { data: this.data.mostViewedCompanies } }),
       _vm._v(" "),
-      _c("ofertas"),
+      _vm._m(0),
       _vm._v(" "),
       _c("categorias", { attrs: { data: this.data.categories } }),
+      _vm._v(" "),
+      _vm._m(1),
       _vm._v(" "),
       _c("page-footer"),
       _vm._v(" "),
@@ -46597,7 +46676,217 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "section",
+      { staticClass: "seccion_ofertas container-fuild px-3 py-4" },
+      [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-lg-6" }, [
+            _c("img", {
+              staticClass: "oferta-img img-fluid",
+              attrs: { src: "/img/publicidad/banner1.jpg", alt: "" }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-6" }, [
+            _c("img", {
+              staticClass: "oferta-img img-fluid",
+              attrs: { src: "/img/publicidad/banner3.jpg", alt: "" }
+            })
+          ])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("section", { staticClass: "seccion_respaldo" }, [
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "col-lg-12" }, [
+          _c("div", { staticClass: "titulo_seccion" }, [
+            _c("h3", { staticClass: "text-uppercase" }, [
+              _vm._v("Con el respaldo de")
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-lg-12" }, [
+          _c(
+            "div",
+            {
+              staticClass: "imagenes-resplado",
+              attrs: { id: "carousel-respaldo" }
+            },
+            [
+              _c("div", { staticClass: "item" }, [
+                _c("img", {
+                  staticClass: "img-fluid",
+                  staticStyle: { "max-width": "200px", "padding-top": "12px" },
+                  attrs: {
+                    src:
+                      "/img/instituciones_respaldo/10d9abd6838a99bb3763ff2fb6a0ea7a.png",
+                    alt: ""
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "item" }, [
+                _c("img", {
+                  staticClass: "img-fluid",
+                  staticStyle: { "max-width": "400px", "padding-top": "25px" },
+                  attrs: {
+                    src:
+                      "/img/instituciones_respaldo/5bc44a753ef47fb0773a99f5_TOF_Logo_Horizontal_RGB_POS.png",
+                    alt: ""
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "item" }, [
+                _c("img", {
+                  staticClass: "img-fluid",
+                  staticStyle: {
+                    "max-width": "150px",
+                    "margin-right": "40px",
+                    "padding-top": "15px"
+                  },
+                  attrs: {
+                    src:
+                      "/img/instituciones_respaldo/fomin-ingles-positivo-cropped.png",
+                    alt: ""
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "item" }, [
+                _c("img", {
+                  staticClass: "img-fluid",
+                  staticStyle: {
+                    "max-width": "130px",
+                    "margin-right": "40px",
+                    "margin-top": "-6px"
+                  },
+                  attrs: {
+                    src: "/img/instituciones_respaldo/logogobreg.png",
+                    alt: ""
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "item" }, [
+                _c("img", {
+                  staticClass: "img-fluid",
+                  staticStyle: { "max-width": "250px", "padding-top": "25px" },
+                  attrs: {
+                    src:
+                      "/img/instituciones_respaldo/logoudep50-1-1024x272.png",
+                    alt: ""
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "item" }, [
+                _c("img", {
+                  staticClass: "img-fluid",
+                  staticStyle: { "max-width": "200px", "padding-top": "20px" },
+                  attrs: {
+                    src: "/img/instituciones_respaldo/fundaciontelefonica.png",
+                    alt: ""
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "item" }, [
+                _c("img", {
+                  staticClass: "img-fluid",
+                  staticStyle: { "max-width": "200px", "padding-top": "12px" },
+                  attrs: {
+                    src:
+                      "/img/instituciones_respaldo/10d9abd6838a99bb3763ff2fb6a0ea7a.png",
+                    alt: ""
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "item" }, [
+                _c("img", {
+                  staticClass: "img-fluid",
+                  staticStyle: { "max-width": "400px", "padding-top": "25px" },
+                  attrs: {
+                    src:
+                      "/img/instituciones_respaldo/5bc44a753ef47fb0773a99f5_TOF_Logo_Horizontal_RGB_POS.png",
+                    alt: ""
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "item" }, [
+                _c("img", {
+                  staticClass: "img-fluid",
+                  staticStyle: {
+                    "max-width": "150px",
+                    "margin-right": "40px",
+                    "padding-top": "15px"
+                  },
+                  attrs: {
+                    src:
+                      "/img/instituciones_respaldo/fomin-ingles-positivo-cropped.png",
+                    alt: ""
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "item" }, [
+                _c("img", {
+                  staticClass: "img-fluid",
+                  staticStyle: {
+                    "max-width": "130px",
+                    "margin-right": "40px",
+                    "margin-top": "-6px"
+                  },
+                  attrs: {
+                    src: "/img/instituciones_respaldo/logogobreg.png",
+                    alt: ""
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "item" }, [
+                _c("img", {
+                  staticClass: "img-fluid",
+                  staticStyle: { "max-width": "250px", "padding-top": "25px" },
+                  attrs: {
+                    src:
+                      "/img/instituciones_respaldo/logoudep50-1-1024x272.png",
+                    alt: ""
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "item" }, [
+                _c("img", {
+                  staticClass: "img-fluid",
+                  staticStyle: { "max-width": "200px", "padding-top": "20px" },
+                  attrs: {
+                    src: "/img/instituciones_respaldo/fundaciontelefonica.png",
+                    alt: ""
+                  }
+                })
+              ])
+            ]
+          )
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -47717,6 +48006,8 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("section", { staticClass: "user_profile" }, [
     _c("div", { staticClass: "container" }, [
+      _vm._m(0),
+      _vm._v(" "),
       _c("div", { staticClass: "row align-items-center text-center" }, [
         _c("div", { staticClass: "container mb-3" }, [
           _c(
@@ -47747,8 +48038,6 @@ var render = function() {
               { staticClass: "body", staticStyle: { "font-weight": "600" } },
               [
                 _c("ul", { staticClass: "rating text-center" }, [
-                  _vm._m(0),
-                  _vm._v(" "),
                   _vm._m(1),
                   _vm._v(" "),
                   _vm._m(2),
@@ -47756,6 +48045,8 @@ var render = function() {
                   _vm._m(3),
                   _vm._v(" "),
                   _vm._m(4),
+                  _vm._v(" "),
+                  _vm._m(5),
                   _vm._v(" "),
                   _c("li", [
                     _c("p", { staticClass: "text-muted m-0" }, [
@@ -47810,23 +48101,52 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(5),
+                  _vm._m(6),
                   _vm._v(" "),
-                  _vm._m(6)
+                  _vm._m(7)
                 ])
               ]
             )
           ])
         ]),
         _vm._v(" "),
-        _vm._m(7)
-      ]),
-      _vm._v(" "),
-      _vm._m(8)
+        _vm._m(8)
+      ])
     ])
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mt-5" }, [
+      _c("div", { staticClass: "adv jumbotron jumbotron-fluid" }, [
+        _c("div", { staticClass: "row container" }, [
+          _c("div", { staticClass: "col-md-5 text-center" }, [
+            _c("img", {
+              attrs: { src: "/img/group.png", alt: "", height: "200px" }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-7" }, [
+            _c("h2", { staticClass: "display-4" }, [_vm._v("Bienvenido!")]),
+            _vm._v(" "),
+            _c("p", { staticClass: "lead" }, [
+              _vm._v(
+                "Descubre todos los beneficios incluidos en el plan Premium Business"
+              )
+            ]),
+            _vm._v(" "),
+            _c("a", { staticClass: "lead", attrs: { href: "/plans" } }, [
+              _vm._v("Ir a planes "),
+              _c("i", { staticClass: "fa fa-angle-double-right" })
+            ])
+          ])
+        ])
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -47988,37 +48308,6 @@ var staticRenderFns = [
               _vm._v(" "),
               _c("div", [_c("h5", [_vm._v("Agendamiento")])]),
               _c("a", { attrs: { href: "#" } })
-            ])
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mt-5" }, [
-      _c("div", { staticClass: "adv jumbotron jumbotron-fluid" }, [
-        _c("div", { staticClass: "row container" }, [
-          _c("div", { staticClass: "col-md-5 text-center" }, [
-            _c("img", {
-              attrs: { src: "/img/group.png", alt: "", height: "200px" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-7" }, [
-            _c("h2", { staticClass: "display-4" }, [_vm._v("Bienvenido!")]),
-            _vm._v(" "),
-            _c("p", { staticClass: "lead" }, [
-              _vm._v(
-                "Descubre todos los beneficios incluidos en el plan Premium Business"
-              )
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "lead", attrs: { href: "/plans" } }, [
-              _vm._v("Ir a planes "),
-              _c("i", { staticClass: "fa fa-angle-double-right" })
             ])
           ])
         ])
