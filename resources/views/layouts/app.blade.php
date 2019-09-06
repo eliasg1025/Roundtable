@@ -50,7 +50,7 @@
 						</li>
 					</ul>
 					<!-- Center Side Of Navbar -->
-					<a id="logo" href="{{ url('/') }}" class="logo-main">
+					<a id="logo" href="{{ url('/') }}" class="logo-main" style="margin-left: -80px;">
 						<span style="font-family: 'Amatic SC', cursive; font-size:25px;" class="logo-main-title d-none">Rountable</span>
 						<img src="/img/logo/logo-v3.png" alt="" class="img-fluid">
 					</a>

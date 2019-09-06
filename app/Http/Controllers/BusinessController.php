@@ -22,7 +22,7 @@ class BusinessController extends Controller
 			return redirect()->to($user->url);
 		}
 
-		return json_encode($user);
+		return view('business', compact('user'));
 	}
 
 	public function category($slug)

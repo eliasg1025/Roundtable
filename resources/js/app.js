@@ -36,6 +36,10 @@ Vue.component('ResetPassword', require('./components/ResetPassword.vue').default
 //Profile page
 Vue.component('Profile', require('./components/Profile.vue').default);
 
+// Business Profile page
+Vue.component('BusinessBanner', require('./components/BusinessBanner.vue').default);
+Vue.component('BusinessVideo', require('./components/BusinessVideo.vue').default);
+Vue.component('BusinessImage', require('./components/BusinessImage.vue').default);
 
 const app = new Vue({
 	el: '#app',
