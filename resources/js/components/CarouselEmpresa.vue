@@ -27,7 +27,7 @@
 									<li><p class="text-muted m-0">{{company.rating}} (20)</p></li>
 								</ul>
 								
-								<a :href="'business/description/' + company.uuid">
+								<a :href="'business/profile/' + company.uuid">
 									<button class="btn btn-outline-success">
 										Ver más
 									</button>

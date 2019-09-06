@@ -9,6 +9,7 @@ class UserObserver
     public function creating(User $user): void
     {
         $user->uuid = $this->generateStringUnique();
+        $user->commercial_name = $user->name;
     }
 
     private function generateStringUnique(): string

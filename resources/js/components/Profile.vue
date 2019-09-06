@@ -10,14 +10,18 @@
 						<div class="col-md-7">
 							<h2 class="display-4">Bienvenido!</h2>
 							<p class="lead">Descubre todos los beneficios incluidos en el plan Premium Business</p>
-							<a href="/plans" class="lead">Ir a planes <i class="fa fa-angle-double-right"></i></a>
+							<a href="/princing" class="btn">
+								<span class="lead">
+									Ir a planes <i class="fa fa-angle-double-right"></i>	
+								</span>
+							</a>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="row align-items-center text-center">
 				<div class="container mb-3">
-					<a :href="'/business/description/' + this.user_data.uuid" target="_blank" class="btn btn-success btn-lg btn-view-profile">
+					<a :href="'/business/profile/' + this.user_data.uuid" target="_blank" class="btn btn-success btn-lg btn-view-profile">
 						Visualizar Perfil
 					</a>
 				</div>
@@ -384,12 +388,14 @@
 	}
 	
 	.adv a {
-		color: rgb(136, 190, 46);
+		color: #fff;
+		background-color: rgb(136, 190, 46);
 		transition: all 0.6s;
 	}
 
 	.adv a:hover {
-		font-size: 25px;
+		color: #fff;
+		transform: scale(1.2);
 		transition: all 0.6s;
 	}
 </style>

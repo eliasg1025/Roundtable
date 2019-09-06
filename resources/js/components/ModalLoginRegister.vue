@@ -5,17 +5,17 @@
 				<button type="button" aria-label="Close" data-dismiss="modal" class="close boton-cierre">
 					<span aria-hidden="true">×</span>
 				</button>
-				
+
 				<!-- Imagenes de Modal -->
 				<div id="back">
 					<div class="backRight"></div>
 					<div class="backLeft"></div>
 				</div>
-				
+
 				<div id="slideBox" style="margin-left: 0px;">
 					<div class="topLayer" style="margin-left: 100%;">
 						<div class="left">
-							
+
 							<!-- Spinner -->
 							<div class="load-layer" v-show="login_loading">
 								<spinner></spinner>
@@ -68,7 +68,7 @@
 									</button>
 									<a href="javascript:void(0)"></a>
 									<p class="texto-login-op pointer">
-										<a :href="this.href_reset_password">
+										<a :href="this.href_reset_password" style="color: #000; font-weight: 600;">
 											¿Haz olvidado tu contraseña?
 										</a>
 									</p>
@@ -82,7 +82,7 @@
 							<!-- End Login Form -->
 						</div>
 						<div class="right">
-							
+
 							<!-- Spinner -->
 							<div class="load-layer" v-show="resgister_loading">
 								<spinner></spinner>
@@ -102,7 +102,7 @@
 										<span class="bar"></span>
 										<label>Razón Social</label>
 									</div>
-									
+
 									<div class="row p-0">
 										<div class="col">
 											<div class="group">
@@ -121,7 +121,7 @@
 											</div>
 										</div>
 									</div>
-									
+
 									<div class="group" style="margin-top: -10px;">
 										<input type="text" id="signin-id" placeholder=" " v-model="register.email">
 										<span class="highlight"></span>
@@ -299,7 +299,7 @@ export default {
 							timer: 2000, // Mensaje dura 2s
 							// Quitar pantalla de carga
 							onBeforeOpen: () => {
-								this.resgister_loading = false; 
+								this.resgister_loading = false;
 							}
 						}).then(res => {
 							window.location.href = "/profile"; // Redirigir a ruta /profile
@@ -606,7 +606,7 @@ export default {
 	}
 
 	#pass-check:checked+label:before, #tc-check:checked+label:before {
-		border-color: #c73a71;
+		border-color: #88be2e;
 		border-top: 0;
 		border-left: 0;
 		width: 8px;
@@ -635,7 +635,7 @@ export default {
 	}
 
 	.wine {
-		color: #851532!important;
+		color: #000!important;
 	}
 
 	@media screen and (max-width: 600px) {
@@ -657,7 +657,7 @@ export default {
 		text-align: center;
 		border: none;
 		border-radius: 5px;
-		
+
 	}
 
 	.btn-hover.color-1 {
@@ -689,7 +689,7 @@ export default {
 		text-shadow: 0 1px 0 #fff;
 		opacity: .5;
 	}
-	
+
 	/* Spinner */
 	.load-layer {
 		position: absolute;
