@@ -6,7 +6,7 @@
 
 <script>
 	export default {
-		name: 'business-product',
+		name: 'business-products',
 	}
 </script>
 
