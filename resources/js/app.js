@@ -40,6 +40,7 @@ Vue.component('Profile', require('./components/Profile.vue').default);
 Vue.component('BusinessBanner', require('./components/BusinessBanner.vue').default);
 Vue.component('BusinessVideo', require('./components/BusinessVideo.vue').default);
 Vue.component('BusinessImage', require('./components/BusinessImage.vue').default);
+Vue.component('BusinessProduct', require('./components/BusinessProduct.vue').default);
 
 const app = new Vue({
 	el: '#app',

@@ -23,22 +23,7 @@
 				</div>
 			</div>
 		</section>
-		<div class="wave">
-			<!--
-			<div style="height: 150px; overflow: hidden;" >
-				<svg
-					viewBox="0 0 500 150"
-					preserveAspectRatio="none"
-					style="height: 100%; width: 100%;"
-				>
-					<path
-						d="M0.00,49.98 C149.99,150.00 349.20,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
-						style="stroke: none; fill: #f1f1f1;"
-					>
-					</path>
-				</svg>
-			</div> -->
-
+		<!-- <div class="wave">
 			<div style="height: 150px; overflow: hidden;" >
 				<svg
 					viewBox="0 0 500 150"
@@ -52,8 +37,40 @@
 					</path>
 				</svg>
 			</div>
+		</div> -->
+		<div class="business-stats">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-7">
+						<ul class="nav justify-content-center">
+							<li class="nav-item">
+								<a href="" class="nav-link nav__business-stat">
+									<div class="stat-value"><i class="fa fa-star"></i> 4.5/5</div>
+									<div class="stat-name">Valoración</div>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="" class="nav-link nav__business-stat">
+									<div class="stat-value"><i class="fa fa-lemon-o"></i> 2</div>
+									<div class="stat-name">Ofertas</div>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="" class="nav-link nav__business-stat">
+									<div class="stat-value"><i class="fa fa-tags"></i> 2</div>
+									<div class="stat-name">Categorías</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-md-5" style="margin: auto;">
+						<button class="btn btn-block btn-agendar">
+							Agendar
+						</button>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div style="padding: 80px 0; background:rgb(241, 241, 241);"></div>
 	</section>
 </template>
 
@@ -78,6 +95,8 @@
 		background-size: cover;
 		background-position: center;
 		position: relative;
+		background-color: #FDFDFD;
+		box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);
 	}
 	.businessBanner:before {
 		content: "";
@@ -99,20 +118,19 @@
 		display: inline-block;
 		max-width: 270px;
 		border-radius: 50%;
-		box-shadow: 0px 0px 1px 1px #ececec;
-		margin-top: 50px;
+		box-shadow: 0px 0px 1px 1px #B7B7B76B;
+		margin-top: 150px;
 		position: relative;
 		z-index: 1000;
 	}
 	.profile-img img {
 		max-width: 100%;
 		padding: 30px;
-
 	}
 
 	@media (max-width: 600px) {
 		.profile-img {
-			margin-top: 100px;
+			margin-top: 170px;
 			max-width: 200px;
 		}
 	}
@@ -183,6 +201,66 @@
 
 		.business-description {
 			font-size: 13px;
+		}
+	}
+
+	/* Stat names */
+
+	.business-stats {
+		padding-top: 400px;
+		padding-bottom: 20px;
+		box-shadow: 0px 0px 13px 0px rgba(0,0,0,0.75);
+	}
+
+	.business-stats .btn-agendar {
+		background-color: #88be2e;
+		color: #fff;
+		font-family: 'Roboto', sans-serif;
+		text-transform: uppercase;
+		transition: ease 0.3s;
+		box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
+		letter-spacing: 2px;
+		font-weight: 700;
+	}
+
+	.business-stats .btn-agendar:hover {
+		margin-top: -5px;
+		margin-left: -5px;
+		transition: ease 0.3s;
+		box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);
+	}
+
+	.nav__business-stat {
+		color: #212529;
+		font-family: 'Roboto', sans-serif;
+	}
+
+	.business-stats .nav-item {
+		width: 33%;
+		text-align: center;
+	}
+
+	.nav__business-stat:hover {
+		color: #88be2e;
+		margin-top: -1px;
+		margin-left: -1px;
+	}
+
+	.stat-value {
+		font-size: 30px;
+	}
+
+	.stat-name {
+		font-size: 20px;
+	}
+
+	@media (max-width: 600px) {
+		.stat-value {
+			font-size: 20px;
+		}
+
+		.stat-name {
+			font-size: 15px;
 		}
 	}
 </style>
