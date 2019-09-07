@@ -1,9 +1,9 @@
 <template>
     <div>
-        <main-banner/>
-        <compradores-destacados :data="this.data.featuredBuyers"/>
-        <vendedores-destacados :data="this.data.featuredSellers"/>
-        <mas-visitados :data="this.data.mostViewedCompanies"/>
+        <home-banner/>
+        <home-compradores-destacados :data="this.data.featuredBuyers"/>
+        <home-vendedores-destacados :data="this.data.featuredSellers"/>
+        <home-mas-visitados :data="this.data.mostViewedCompanies"/>
         
         <!-- Seccion Ofertas -->
         <section class="seccion_ofertas container-fuild px-3 py-4">
@@ -17,7 +17,7 @@
             </div>
         </section>
         
-        <categorias :data="this.data.categories"/>
+        <home-categorias :data="this.data.categories"/>
         
         <!-- Carousel insitituciones respaldo-->
         <section class="seccion_respaldo">

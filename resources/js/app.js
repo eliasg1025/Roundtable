@@ -14,33 +14,33 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 // UI
-Vue.component('pageBanner', require('./components/PageBanner.vue').default);
+Vue.component('PageBanner', require('./components/PageBanner.vue').default);
 Vue.component('PageFooter' ,require('./components/PageFooter.vue').default);
 Vue.component('ModalLoginRegister', require('./components/ModalLoginRegister').default);
 Vue.component('Spinner', require('./components/Spinner.vue').default);
+Vue.component('CardBusiness', require('./components/CardBusiness.vue').default);
 
-// Home page components
-Vue.component('Inicio', require('./components/Inicio.vue').default);
-Vue.component('mainBanner', require('./components/Banner.vue').default);
-Vue.component('CompradoresDestacados', require('./components/CompradoresDetacados.vue').default);
-Vue.component('VendedoresDestacados' ,require('./components/VendedoresDestacados.vue').default);
-Vue.component('Ofertas', require('./components/Ofertas.vue').default);
-Vue.component('MasVisitados' ,require('./components/MasVisitados.vue').default);
-Vue.component('Categorias' ,require('./components/Categorias.vue').default);
-Vue.component('CarouselEmpresa', require('./components/CarouselEmpresa.vue').default);
-Vue.component('BoxEmpresa', require('./components/BoxEmpresa.vue').default);
+// Home page
+Vue.component('Home', require('./components/Home.vue').default);
+Vue.component('HomeBanner', require('./components/HomeBanner.vue').default);
+Vue.component('HomeCompradoresDestacados', require('./components/HomeCompradoresDetacados.vue').default);
+Vue.component('HomeVendedoresDestacados' ,require('./components/HomeVendedoresDestacados.vue').default);
+Vue.component('HomeMasVisitados' ,require('./components/HomeMasVisitados.vue').default);
+Vue.component('HomeCategorias' ,require('./components/HomeCategorias.vue').default);
+Vue.component('HomeCarouselEmpresa', require('./components/HomeCarouselEmpresa.vue').default);
 
 // Reset password page
 Vue.component('ResetPassword', require('./components/ResetPassword.vue').default);
 
-//Profile page
+// Profile page
 Vue.component('Profile', require('./components/Profile.vue').default);
 
 // Business Profile page
 Vue.component('BusinessBanner', require('./components/BusinessBanner.vue').default);
-Vue.component('BusinessVideo', require('./components/BusinessVideo.vue').default);
-Vue.component('BusinessImage', require('./components/BusinessImage.vue').default);
-Vue.component('BusinessProduct', require('./components/BusinessProduct.vue').default);
+Vue.component('BusinessVideos', require('./components/BusinessVideos.vue').default);
+Vue.component('BusinessImages', require('./components/BusinessImages.vue').default);
+Vue.component('BusinessProducts', require('./components/BusinessProducts.vue').default);
+
 
 const app = new Vue({
 	el: '#app',

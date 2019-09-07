@@ -6,7 +6,7 @@
 
 <script>
 	export default {
-		name: 'business-image',
+		name: 'business-images',
 	}
 </script>
 

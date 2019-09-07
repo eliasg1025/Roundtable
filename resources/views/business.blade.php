@@ -6,20 +6,20 @@
 	>
 	</business-banner>
 
-	<business-video
+	<business-videos
 
 	>
-	</business-video>
+	</business-videos>
 
-	<business-image
-
-	>
-	</business-image>
-
-	<business-product
+	<business-images
 
 	>
-	</business-product>
+	</business-images>
+
+	<business-products
+
+	>
+	</business-products>
 
 	<page-footer></page-footer>
 	<modal-login-register

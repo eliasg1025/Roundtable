@@ -8,10 +8,10 @@
                     </div>
                 </div>
                 <div class="col-lg-12">
-                    <CarouselEmpresa
+                    <home-carousel-empresa
                         :name="this.name"
 						:data="this.data">
-                    </CarouselEmpresa>
+                    </home-carousel-empresa>
                 </div>
             </div>
     </section>
