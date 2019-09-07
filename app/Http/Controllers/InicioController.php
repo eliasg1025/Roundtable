@@ -33,7 +33,7 @@ class InicioController extends Controller
         return view('inicio', compact('data'));
     }
 
-    public function getBuyers()
+    private function getBuyers()
     {
 		$users = App\User::where('type_id', 2)
 							->orderBy('rating', 'DESC')
@@ -42,7 +42,7 @@ class InicioController extends Controller
         return $users;
     }
 
-    public function getSellers()
+    private function getSellers()
     {
 		$users = App\User::where('type_id', 1)
 							->orderBy('rating', 'DESC')
@@ -51,7 +51,7 @@ class InicioController extends Controller
         return $users;
     }
 
-    public function getMostViewedCompanies()
+    private function getMostViewedCompanies()
     {
 		$users = App\User::orderBy('views', 'DESC')
 							->limit(10)

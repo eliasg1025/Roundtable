@@ -34,6 +34,6 @@ $factory->define(User::class, function (Faker $faker) {
         'coins' => $faker->randomElement([20, 40, 50]),
         'rating' => $faker->randomElement([1, 2, 3, 4, 5]),
         'views' => $faker->randomElement([20, 40, 50]),
-        'type_id' => $faker->randomElement([1, 2]),
+        'type_id' => $faker->randomElement([1, 2, 3]),
     ];
 });

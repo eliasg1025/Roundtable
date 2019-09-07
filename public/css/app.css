@@ -10679,10 +10679,10 @@ select:focus {
   outline-color: #ffffff;
 }
 
-.nav-link {
+#navbar .nav-link {
   font-family: Poppins, sans-serif !important;
   text-transform: uppercase;
-  color: #ffffff !important;
+  color: #ffffff;
   font-weight: 500 !important;
   font-size: 14px;
   position: relative;

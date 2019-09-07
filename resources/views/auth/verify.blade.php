@@ -26,7 +26,7 @@
 						<p class="lead">Antes de seguir, por favor revisa tu bandeja de entrada por el enlace de verificación.</p>
 						<p class="lead">
 							Si no recibiste el email
-							<a href="{{ route('verification.resend') }}" style="color: #88be2e;">
+							<a href="{{ route('verification.resend') }}" style="color: #51721B;">
 								haz click aquí reenviar el correo
 							</a>.
 						</p>

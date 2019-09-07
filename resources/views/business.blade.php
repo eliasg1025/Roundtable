@@ -5,17 +5,21 @@
 		:data_user="{{ $user }}"
 	>
 	</business-banner>
-	
+
 	<business-video
-		
+
 	>
 	</business-video>
 
 	<business-image
-		
+
 	>
 	</business-image>
-	
+
+	<business-product
+
+	>
+	</business-product>
 
 	<page-footer></page-footer>
 	<modal-login-register
