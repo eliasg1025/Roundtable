@@ -1797,6 +1797,48 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1804,7 +1846,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'business-images'
+  name: 'business-images',
+  props: ['data_images'],
+  data: function data() {
+    return {
+      firstImage: {},
+      otherImages: _toConsumableArray(this.data_images)
+    };
+  },
+  created: function created() {
+    this.firstImage = this.otherImages.shift();
+  }
 });
 
 /***/ }),
@@ -1845,8 +1897,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'business-videos'
+  name: "business-videos",
+  props: ['data_videos'],
+  mounted: function mounted() {
+    var slider_business_videos = Tiny.tns({
+      container: '#carousel-business-videos',
+      items: 1,
+      autoplay: false,
+      controlsContainer: '#carousel-business-controls'
+    });
+  },
+  created: function created() {
+    console.log(this.data_videos);
+  }
 });
 
 /***/ }),
@@ -7489,7 +7579,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.businessBanner {\n\tpadding: 200px 0 100px 0;\n\tbackground-size: cover;\n\tbackground-position: center;\n\tposition: relative;\n\tbackground-color: #FDFDFD;\n\tbox-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);\n}\n.businessBanner:before {\n\tcontent: \"\";\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 100%;\n\tbackground: #000;\n\topacity: .3;\n}\n.wave {\n\tmargin-top: -100px;\n\tz-index: 100;\n\tposition: relative;\n}\n.profile-img {\n\tbackground-color: #fff;\n\tdisplay: inline-block;\n\tmax-width: 270px;\n\tborder-radius: 50%;\n\tbox-shadow: 0px 0px 1px 1px #B7B7B76B;\n\tmargin-top: 150px;\n\tposition: relative;\n\tz-index: 1000;\n}\n.profile-img img {\n\tmax-width: 100%;\n\tpadding: 30px;\n}\n@media (max-width: 600px) {\n.profile-img {\n\t\tmargin-top: 170px;\n\t\tmax-width: 200px;\n}\n}\n.business-text {\n\tz-index: 1000;\n\tmargin-bottom: 100px;\n}\n.business-name {\n\tmargin-top: 20px;\n}\n.business-name h2 {\n\tfont-family: 'Roboto', sans-serif;\n\ttext-transform: uppercase;\n\tfont-weight: 700;\n\tdisplay: inline-block;\n\tposition: relative;\n\tmargin-top: 10px;\n\tborder-left: 5px solid #88be2e;\n\tborder-right: 5px solid #88be2e;\n\tpadding-left: 8px;\n\tpadding-right: 8px;\n}\n.business-name h2:before {\n\tcontent: \"\";\n    height: 5px;\n    width: 40px;\n\tbackground-color: #88be2e;\n\tposition: absolute;\n\tleft: 0;\n\ttop: 0;\n\tmargin-top: -5px;\n\tmargin-left: -5px;\n}\n.business-name h2:after {\n\tcontent: \"\";\n    height: 5px;\n    width: 40px;\n\tbackground-color: #88be2e;\n\tposition: absolute;\n\tbottom: 0;\n\tright: 0;\n\tmargin-bottom: -5px;\n\tmargin-right: -5px;\n}\n.business-address {\n\tmargin-top: 10px;\n\tfont-weight: 600;\n}\n.business-description {\n\tmargin-top: 15px;\n}\n@media (max-width: 600px) {\n.business-name h2 {\n\t\tfont-size: 25px;\n}\n.business-address {\n\t\tfont-size: 14px;\n}\n.business-description {\n\t\tfont-size: 13px;\n}\n}\n\n/* Stat names */\n.business-stats {\n\tpadding-top: 400px;\n\tpadding-bottom: 20px;\n\tbox-shadow: 0px 0px 13px 0px rgba(0,0,0,0.75);\n}\n.business-stats .btn-agendar {\n\tbackground-color: #88be2e;\n\tcolor: #fff;\n\tfont-family: 'Roboto', sans-serif;\n\ttext-transform: uppercase;\n\ttransition: ease 0.3s;\n\tbox-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);\n\tletter-spacing: 2px;\n\tfont-weight: 700;\n}\n.business-stats .btn-agendar:hover {\n\tmargin-top: -5px;\n\tmargin-left: -5px;\n\ttransition: ease 0.3s;\n\tbox-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);\n}\n.nav__business-stat {\n\tcolor: #212529;\n\tfont-family: 'Roboto', sans-serif;\n}\n.business-stats .nav-item {\n\twidth: 33%;\n\ttext-align: center;\n}\n.nav__business-stat:hover {\n\tcolor: #88be2e;\n\tmargin-top: -1px;\n\tmargin-left: -1px;\n}\n.stat-value {\n\tfont-size: 30px;\n}\n.stat-name {\n\tfont-size: 20px;\n}\n@media (max-width: 600px) {\n.stat-value {\n\t\tfont-size: 20px;\n}\n.stat-name {\n\t\tfont-size: 15px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.businessBanner {\n\tpadding: 200px 0 100px 0;\n\tbackground-size: cover;\n\tbackground-position: center;\n\tposition: relative;\n\tbackground-color: #FDFDFD;\n\tbox-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);\n}\n.businessBanner:before {\n\tcontent: \"\";\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 100%;\n\tbackground: #000;\n\topacity: .3;\n}\n.wave {\n\tmargin-top: -100px;\n\tz-index: 100;\n\tposition: relative;\n}\n.profile-img {\n\tbackground-color: #fff;\n\tdisplay: inline-block;\n\tmax-width: 270px;\n\tborder-radius: 50%;\n\tbox-shadow: 0px 0px 1px 1px #B7B7B76B;\n\tmargin-top: 150px;\n\tposition: relative;\n\tz-index: 1000;\n}\n.profile-img img {\n\tmax-width: 100%;\n\tpadding: 30px;\n}\n@media (max-width: 600px) {\n.profile-img {\n\t\tmargin-top: 170px;\n\t\tmax-width: 200px;\n}\n}\n.business-text {\n\tz-index: 1000;\n\tmargin-bottom: 100px;\n}\n.business-name {\n\tmargin-top: 20px;\n}\n.business-name h2 {\n\tfont-family: 'Roboto', sans-serif;\n\ttext-transform: uppercase;\n\tfont-weight: 700;\n\tdisplay: inline-block;\n\tposition: relative;\n\tmargin-top: 10px;\n\tborder-left: 5px solid #88be2e;\n\tborder-right: 5px solid #88be2e;\n\tpadding-left: 8px;\n\tpadding-right: 8px;\n}\n.business-name h2:before {\n\tcontent: \"\";\n    height: 5px;\n    width: 40px;\n\tbackground-color: #88be2e;\n\tposition: absolute;\n\tleft: 0;\n\ttop: 0;\n\tmargin-top: -5px;\n\tmargin-left: -5px;\n}\n.business-name h2:after {\n\tcontent: \"\";\n    height: 5px;\n    width: 40px;\n\tbackground-color: #88be2e;\n\tposition: absolute;\n\tbottom: 0;\n\tright: 0;\n\tmargin-bottom: -5px;\n\tmargin-right: -5px;\n}\n.business-address {\n\tmargin-top: 10px;\n\tfont-weight: 600;\n}\n.business-description {\n\tmargin-top: 15px;\n}\n@media (max-width: 600px) {\n.business-name h2 {\n\t\tfont-size: 25px;\n}\n.business-address {\n\t\tfont-size: 14px;\n}\n.business-description {\n\t\tfont-size: 13px;\n}\n}\n\n/* Stat names */\n.business-stats {\n\tpadding-top: 400px;\n\tpadding-bottom: 20px;\n}\n.business-stats .btn-agendar {\n\tbackground-color: #88be2e;\n\tcolor: #fff;\n\tfont-family: 'Roboto', sans-serif;\n\ttext-transform: uppercase;\n\ttransition: ease 0.3s;\n\tbox-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);\n\tletter-spacing: 2px;\n\tfont-weight: 700;\n}\n.business-stats .btn-agendar:hover {\n\tmargin-top: -5px;\n\tmargin-left: -5px;\n\ttransition: ease 0.3s;\n\tbox-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);\n}\n.nav__business-stat {\n\tcolor: #212529;\n\tfont-family: 'Roboto', sans-serif;\n}\n.business-stats .nav-item {\n\twidth: 33%;\n\ttext-align: center;\n}\n.nav__business-stat:hover {\n\tcolor: #88be2e;\n\tmargin-top: -1px;\n\tmargin-left: -1px;\n}\n.stat-value {\n\tfont-size: 30px;\n}\n.stat-name {\n\tfont-size: 20px;\n}\n@media (max-width: 600px) {\n.stat-value {\n\t\tfont-size: 20px;\n}\n.stat-name {\n\t\tfont-size: 15px;\n}\n}\n", ""]);
 
 // exports
 
@@ -7508,7 +7598,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.businessImages {\n\tpadding: 80px 0;\n\tposition: relative;\n\tbackground-color: blue;\n}\n", ""]);
+exports.push([module.i, "\n.businessImages {\n\tpadding: 80px 0;\n\tposition: relative;\n\tbackground-color: rgb(230, 230, 230);\n}\n#carousel-business-images {\n\twidth: 1000px;\n\tmargin: auto;\n}\n@media (max-width: 1000px) {\n#carousel-business-images {\n\t\twidth: 100%;\n}\n}\n#carousel-business-images .list-inline {\n\twhite-space:nowrap;\n\toverflow-x:auto;\n}\n#carousel-business-images .carousel-indicators {\n\tposition: static;\n\tleft: initial;\n\twidth: initial;\n\tmargin-left: initial;\n}\n#carousel-business-images .carousel-indicators > li {\n\twidth: initial;\n\theight: initial;\n\ttext-indent: initial;\n}\n\n", ""]);
 
 // exports
 
@@ -7546,7 +7636,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.businessVideos {\n\tpadding: 80px 0;\n\tposition: relative;\n\tbackground-color: red;\n}\n", ""]);
+exports.push([module.i, "\n.businessVideos {\n\tpadding: 80px 0 0 0;\n\tposition: relative;\n\tbackground-color: rgb(230, 230, 230);\n}\n.title-businessVideos {\n\tfont-family: 'Roboto', sans-serif;\n\tmargin-bottom: 25px;\n\ttext-align: center;\n}\n#carousel-business-controls {\n\tmargin-top: 15px;\n}\n.businessVideos-container {\n\twidth: 1000px;\n}\n@media (max-width: 1000px) {\n.businessVideos-container {\n\t\twidth: 100%;\n}\n}\n.btn-control {\n\tfont-family: 'Roboto', sans-serif;\n\ttext-transform: uppercase;\n\tcursor: pointer;\n}\n.btn-control:hover {\n\tbackground-color: #cecece;\n}\n", ""]);
 
 // exports
 
@@ -46652,16 +46742,161 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("section", { staticClass: "businessImages" }, [
+    _c("div", { staticClass: "container text-center" }, [
+      _c(
+        "div",
+        {
+          staticClass: "carousel slide carousel-fade text-center",
+          attrs: { id: "carousel-business-images" }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "carousel-inner" },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "carousel-item active",
+                  attrs: { "data-side-number": "0" }
+                },
+                [
+                  _c("img", {
+                    staticClass: "img-fluid",
+                    attrs: { src: _vm.firstImage.url }
+                  })
+                ]
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.otherImages, function(image, index) {
+                return _c(
+                  "div",
+                  {
+                    key: index + 1,
+                    staticClass: "carousel-item",
+                    attrs: { "data-slide-number": index + 1 }
+                  },
+                  [
+                    _c("img", {
+                      staticClass: "img-fluid",
+                      attrs: { src: image.url }
+                    })
+                  ]
+                )
+              }),
+              _vm._v(" "),
+              _vm._m(0),
+              _vm._v(" "),
+              _vm._m(1)
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c(
+            "ul",
+            {
+              staticClass: "carousel-indicators list-inline mx-auto border px-2"
+            },
+            [
+              _c("li", { staticClass: "list-inline-item active" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "selected",
+                    attrs: {
+                      id: "carousel-selector-0",
+                      "data-slide-to": "0",
+                      "data-target": "#carousel-business-images"
+                    }
+                  },
+                  [
+                    _c("img", {
+                      staticClass: "img-fluid",
+                      staticStyle: { width: "80px", height: "60px" },
+                      attrs: { src: _vm.firstImage.url }
+                    })
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.otherImages, function(image, index) {
+                return _c("li", { staticClass: "list-inline-item" }, [
+                  _c(
+                    "a",
+                    {
+                      attrs: {
+                        id: "carousel-selector-" + index + 1,
+                        "data-slide-to": index + 1,
+                        "data-target": "#carousel-business-images"
+                      }
+                    },
+                    [
+                      _c("img", {
+                        staticClass: "img-fluid",
+                        staticStyle: { width: "80px", height: "60px" },
+                        attrs: { src: image.url }
+                      })
+                    ]
+                  )
+                ])
+              })
+            ],
+            2
+          )
+        ]
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "businessImages" }, [
-      _c("h2", [_vm._v("Seccion Imagenes")])
-    ])
+    return _c(
+      "a",
+      {
+        staticClass: "carousel-control-prev",
+        attrs: {
+          href: "#carousel-business-images",
+          role: "button",
+          "data-slide": "prev"
+        }
+      },
+      [
+        _c("span", {
+          staticClass: "carousel-control-prev-icon",
+          attrs: { "aria-hidden": "true" }
+        }),
+        _vm._v(" "),
+        _c("span", { staticClass: "sr-only" }, [_vm._v("Previous")])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "carousel-control-next",
+        attrs: {
+          href: "#carousel-business-images",
+          role: "button",
+          "data-slide": "next"
+        }
+      },
+      [
+        _c("span", {
+          staticClass: "carousel-control-next-icon",
+          attrs: { "aria-hidden": "true" }
+        }),
+        _vm._v(" "),
+        _c("span", { staticClass: "sr-only" }, [_vm._v("Next")])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -46718,16 +46953,81 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("section", { staticClass: "businessVideos" }, [
+    _c("div", { staticClass: "container businessVideos-container" }, [
+      _c("h2", { staticClass: "title-businessVideos" }, [
+        _vm._v("Conoce a la empresa")
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { attrs: { id: "carousel-business-videos" } },
+        _vm._l(_vm.data_videos, function(video) {
+          return _c("div", [
+            _c(
+              "video",
+              {
+                staticClass: "business-video d-block w-100",
+                attrs: { controls: "" }
+              },
+              [_c("source", { attrs: { src: video.url } })]
+            )
+          ])
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _vm._m(0)
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "businessVideos" }, [
-      _c("h2", [_vm._v("Seccion Videos")])
-    ])
+    return _c(
+      "div",
+      {
+        staticClass: "text-center",
+        attrs: { id: "carousel-business-controls" }
+      },
+      [
+        _c(
+          "span",
+          {
+            staticClass: "thumbnail-item",
+            staticStyle: { "margin-right": "5px" }
+          },
+          [
+            _c("a", { staticClass: "btn btn-control" }, [
+              _c("img", { attrs: { src: "/img/angle-left.png", alt: "" } }),
+              _vm._v(" "),
+              _c("span", { staticStyle: { color: "#6d6d6d" } }, [
+                _vm._v("Anterior")
+              ])
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "span",
+          {
+            staticClass: "thumbnail-item",
+            staticStyle: { "margin-left": "5px" }
+          },
+          [
+            _c("a", { staticClass: "btn btn-control" }, [
+              _c("span", { staticStyle: { color: "#6d6d6d" } }, [
+                _vm._v("Siguiente")
+              ]),
+              _vm._v(" "),
+              _c("img", { attrs: { src: "/img/angle-right.png", alt: "" } })
+            ])
+          ]
+        )
+      ]
+    )
   }
 ]
 render._withStripped = true

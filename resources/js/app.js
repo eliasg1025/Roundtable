@@ -32,6 +32,7 @@ Vue.component('HomeCarouselEmpresa', require('./components/HomeCarouselEmpresa.v
 // Reset password page
 Vue.component('ResetPassword', require('./components/ResetPassword.vue').default);
 
+
 // Profile page
 Vue.component('Profile', require('./components/Profile.vue').default);
 
