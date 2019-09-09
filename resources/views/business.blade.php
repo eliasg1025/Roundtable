@@ -6,20 +6,20 @@
 	>
 	</business-banner>
 
-	<business-videos
-
-	>
-	</business-videos>
-
-	<business-images
-
-	>
-	</business-images>
-
 	<business-products
 
 	>
 	</business-products>
+
+	<business-videos
+		:data_videos="{{ $media_data['videos'] }}"
+	>
+	</business-videos>
+
+	<business-images
+		:data_images="{{ $media_data['images'] }}"
+	>
+	</business-images>
 
 	<page-footer></page-footer>
 	<modal-login-register

@@ -209,7 +209,6 @@
 	.business-stats {
 		padding-top: 400px;
 		padding-bottom: 20px;
-		box-shadow: 0px 0px 13px 0px rgba(0,0,0,0.75);
 	}
 
 	.business-stats .btn-agendar {
