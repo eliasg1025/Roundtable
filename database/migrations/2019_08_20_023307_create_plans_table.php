@@ -17,7 +17,7 @@ class CreatePlansTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->float('cost');
-            $table->integer('initial_coins');
+			$table->integer('initial_coins');
             $table->timestamps();
         });
     }

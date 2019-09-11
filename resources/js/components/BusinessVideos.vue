@@ -4,14 +4,14 @@
 			<h2 class="title-businessVideos">Conoce a la empresa</h2>
 
 			<div id="carousel-business-videos">
-				<div v-for="video in data_videos">
+				<div v-for="(video, index) in data_videos" :key="index">
 					<video controls class="business-video d-block w-100">
 						<source :src="video.url">
 					</video>
 				</div>
 			</div>
 
-			<div id="carousel-business-controls" class="text-center">
+			<div id="carousel-business-videos-controls" class="text-center">
 				<span class="thumbnail-item" style="margin-right: 5px;">
 					<a class="btn btn-control">
 						<img src="/img/angle-left.png" alt="">
@@ -39,30 +39,27 @@ export default {
 			container: '#carousel-business-videos',
 			items: 1,
 			autoplay: false,
-			controlsContainer: '#carousel-business-controls',
+			controlsContainer: '#carousel-business-videos-controls',
 		});
-	},
-	created() {
-		console.log(this.data_videos);
 	}
 };
 </script>
 
 <style>
 	.businessVideos {
-		padding: 80px 0 0 0;
+		padding: 50px 0px 0px 0px;
 		position: relative;
 		background-color: rgb(230, 230, 230);
 	}
 
 	.title-businessVideos {
 		font-family: 'Roboto', sans-serif;
-		margin-bottom: 25px;
+		margin-bottom: 20px;
 		text-align: center;
 	}
 
-	#carousel-business-controls {
-		margin-top: 15px;
+	#carousel-business-videos-controls {
+		margin-top: 25px;
 	}
 
 	.businessVideos-container {

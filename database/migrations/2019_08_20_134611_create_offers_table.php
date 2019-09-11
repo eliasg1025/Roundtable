@@ -23,8 +23,6 @@ class CreateOffersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->bigInteger('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('categories');
-            $table->bigInteger('operation_id')->unsigned();
-            $table->foreign('operation_id')->references('id')->on('operations');
         });
     }
 

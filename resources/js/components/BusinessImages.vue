@@ -27,7 +27,7 @@
 							<img :src="firstImage.url" style="width: 80px; height: 60px;" class="img-fluid">
 						</a>
 					</li>
-					<li class="list-inline-item" v-for="(image, index) in otherImages">
+					<li class="list-inline-item" v-for="(image, index) in otherImages" :key="index">
 						<a :id="'carousel-selector-'+index+1" :data-slide-to="index+1" data-target="#carousel-business-images">
 							<img :src="image.url" style="width: 80px; height: 60px;" class="img-fluid">
 						</a>
@@ -56,7 +56,7 @@
 
 <style>
 	.businessImages {
-		padding: 80px 0;
+		padding: 50px 0;
 		position: relative;
 		background-color: rgb(230, 230, 230);
 	}

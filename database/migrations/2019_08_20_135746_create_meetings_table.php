@@ -23,8 +23,6 @@ class CreateMeetingsTable extends Migration
             $table->foreign('receiver_id')->references('id')->on('users');
             $table->bigInteger('state_id')->unsigned();
             $table->foreign('state_id')->references('id')->on('states');
-            $table->bigInteger('operation_id')->unsigned();
-            $table->foreign('operation_id')->references('id')->on('operations');
         });
     }
 

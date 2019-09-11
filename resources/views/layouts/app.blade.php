@@ -52,7 +52,8 @@
 					<!-- Center Side Of Navbar -->
 					<a id="logo" href="{{ url('/') }}" class="logo-main" style="margin-left: -80px;">
 						<span style="font-family: 'Amatic SC', cursive; font-size:25px;" class="logo-main-title d-none">Rountable</span>
-						<img src="/img/logo/logo-v3.png" alt="" class="img-fluid">
+						<img id="img-logo" src="/img/logo/logo-v3.png" class="img-fluid">
+						<img id="img-small-logo" src="/img/logo/logopit.png" class="img-fluid" style="display: none;">
 					</a>
 					<!-- Right Side Of Navbar -->
 					<ul class="navbar-nav ml-auto">

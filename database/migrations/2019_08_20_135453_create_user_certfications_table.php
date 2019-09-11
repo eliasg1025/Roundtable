@@ -22,8 +22,6 @@ class CreateUserCertficationsTable extends Migration
             // Fks
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->bigInteger('operation_id')->unsigned();
-            $table->foreign('operation_id')->references('id')->on('operations');
         });
     }
 

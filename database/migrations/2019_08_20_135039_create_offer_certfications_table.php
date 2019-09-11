@@ -18,10 +18,10 @@ class CreateOfferCertficationsTable extends Migration
             $table->string('title', 30);
             $table->mediumText('description')->nullable();
             $table->string('url');
-            $table->timestamps();
-            // Fks
-            $table->bigInteger('offer_id')->unsigned();
-            $table->foreign('offer_id')->references('id')->on('offers');
+			$table->timestamps();
+			// Fks
+			$table->bigInteger('offer_id')->unsigned();
+			$table->foreign('offer_id')->references('id')->on('offers');
         });
     }
 

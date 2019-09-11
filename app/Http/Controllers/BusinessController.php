@@ -22,15 +22,28 @@ class BusinessController extends Controller
 			return redirect()->to($user->url);
 		}
 
+		// Media data
 		$media_data = $this->getMediaData($user);
 
-		return view('business', compact('user', 'media_data'));
+		// Account data
+		$account_data = [
+			'rating_data' => $this->getRating($user),
+			'categories_data' => $this->getCategories($user),
+			'user_certifications' => $this->getCertifications($user),
+			'offers_data' => $this->getOffers($user)
+		];
+
+		return view('business', compact('user',
+										'media_data',
+										'account_data'));
 	}
 
 	public function category($slug)
 	{
 		$user = User::where('slug', $slug)->paginate(10);
 	}
+
+	// Private functions
 
 	private function getMediaData(User $user)
 	{
@@ -41,5 +54,42 @@ class BusinessController extends Controller
 			'images' => $images,
 			'videos' => $videos
 		];
+	}
+
+	private function getRating(User $user)
+	{
+		$rating = $user->ratings()->avg('value');
+		return $rating;
+	}
+
+	private function getCategories(User $user)
+	{
+		$categories = $user->categories()->get();
+		return $categories;
+	}
+
+	private function getOffers(User $user)
+	{
+		$offers = $user->offers()->get();
+		$data = [];
+
+		foreach($offers as $offer) {
+			$certifications = $offer->offer_certifications()->get();
+
+			array_push($data, [
+				'offer' => $offer,
+				'offer_category' => $offer->category()->get(),
+				'certifications' => $certifications,
+			]);
+
+			unset($certifications);
+		}
+
+		return $data;
+	}
+
+	private function getCertifications(User $user) {
+		$user_certifications = $user->user_certifications()->get();
+		return $user_certifications;
 	}
 }
