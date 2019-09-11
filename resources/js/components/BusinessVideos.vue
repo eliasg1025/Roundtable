@@ -1,5 +1,5 @@
 <template>
-	<section class="businessVideos">
+	<section v-if="data_videos.length > 0" class="businessVideos">
 		<div class="container businessVideos-container">
 			<h2 class="title-businessVideos">Conoce a la empresa</h2>
 
@@ -35,12 +35,14 @@ export default {
 	name: "business-videos",
 	props: ['data_videos'],
 	mounted() {
-		const slider_business_videos = Tiny.tns({
-			container: '#carousel-business-videos',
-			items: 1,
-			autoplay: false,
-			controlsContainer: '#carousel-business-videos-controls',
-		});
+		if (document.querySelector('#carousel-business-videos') !== null) {
+			const slider_business_videos = Tiny.tns({
+				container: '#carousel-business-videos',
+				items: 1,
+				autoplay: false,
+				controlsContainer: '#carousel-business-videos-controls',
+			});
+		}
 	}
 };
 </script>

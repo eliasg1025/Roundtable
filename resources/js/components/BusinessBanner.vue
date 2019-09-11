@@ -295,7 +295,7 @@
 		}
 
 		.business-description {
-			font-size: 13px;
+			font-size: 15px;
 		}
 	}
 
@@ -355,6 +355,20 @@
 
 		.stat-name {
 			font-size: 15px;
+		}
+	}
+
+	@media (max-width: 360px) {
+		.business-description {
+			font-size: 14px;
+		}
+
+		.stat-value {
+			font-size: 17px;
+		}
+
+		.stat-name {
+			font-size: 12px;
 		}
 	}
 </style>
