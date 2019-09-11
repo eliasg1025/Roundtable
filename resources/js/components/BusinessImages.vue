@@ -1,5 +1,5 @@
 <template>
-	<section class="businessImages">
+	<section v-if="data_images.length > 0" class="businessImages">
 		<div class="container text-center">
 			<div id="carousel-business-images" class="carousel slide carousel-fade text-center">
 				<div class="carousel-inner">

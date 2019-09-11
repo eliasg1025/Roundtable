@@ -29,7 +29,7 @@ class OffersTableSeeder extends Seeder
 		$offer = new Offer();
 		$offer->title = 'Palta de prueba';
 		$offer->image_url = '/img/slider/slider7.jpg';
-		$offer->category_id = 13;
+		$offer->category_id = 15;
 		$offer->user_id = 30;
 		$offer->save();
 
@@ -43,7 +43,7 @@ class OffersTableSeeder extends Seeder
 		$offer = new Offer();
 		$offer->title = 'Mango de prueba';
 		$offer->image_url = '/img/slider/slider8.jpg';
-		$offer->category_id = 11;
+		$offer->category_id = 12;
 		$offer->user_id = 30;
 		$offer->save();
     }
