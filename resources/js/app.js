@@ -37,6 +37,7 @@ Vue.component('ResetPassword', require('./components/ResetPassword.vue').default
 Vue.component('Profile', require('./components/Profile.vue').default);
 
 // Business Profile page
+Vue.component('Business', require('./components/Business.vue').default);
 Vue.component('BusinessBanner', require('./components/BusinessBanner.vue').default);
 Vue.component('BusinessVideos', require('./components/BusinessVideos.vue').default);
 Vue.component('BusinessImages', require('./components/BusinessImages.vue').default);

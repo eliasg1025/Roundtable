@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <main>
         <home-banner/>
         <home-compradores-destacados :data="this.data.featuredBuyers"/>
         <home-vendedores-destacados :data="this.data.featuredSellers"/>
@@ -78,7 +78,7 @@
 			:href_register="this.href_register"
 			:href_reset_password="this.href_reset_password"
 		/>
-    </div>
+    </main>
 </template>
 
 <script>

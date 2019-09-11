@@ -29,11 +29,12 @@ class CreateUsersTable extends Migration
             $table->string('phone', 30)->nullable();
             $table->string('profile_img')->default('/img/empresa/empresa1/portada_enpresa.jpg');
             $table->string('cover_img')->default('/img/empresa/empresa1/empresa1.jpg');
-            $table->string('address')->nullable(); // dato temporal
+            $table->json('address')->nullable(); // dato temporal
 			$table->text('description')->nullable();
             $table->integer('coins')->default(0); //
             $table->double('rating')->default(0); //
-            $table->integer('views')->default(0);
+			$table->integer('views')->default(0);
+			$table->boolean('verified')->default(false);
             // Fks
             $table->bigInteger('type_id')->unsigned();
             $table->foreign('type_id')->references('id')->on('types');

@@ -14,9 +14,10 @@
 							<div class="business-name">
 								<h2>{{ this.data_user.commercial_name }}</h2>
 							</div>
+							<!--
 							<p v-if="this.data_user.address !== null" class="business-address text-muted">
 								{{ this.data_user.address }}
-							</p>
+							</p> -->
 							<p class="business-description">{{ this.data_user.description }}</p>
 						</div>
 					</div>
@@ -41,32 +42,114 @@
 		<div class="business-stats">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-7">
+					<div class="col-md-8">
 						<ul class="nav justify-content-center">
 							<li class="nav-item">
-								<a href="" class="nav-link nav__business-stat">
-									<div class="stat-value"><i class="fa fa-star"></i> 4.5/5</div>
+								<a href="" class="nav-link nav__business-stat" data-toggle="modal" data-target="#modalStats-rating">
+									<div class="stat-value"><i class="fa fa-star"></i> {{ this.rating }} </div>
 									<div class="stat-name">Valoración</div>
 								</a>
 							</li>
 							<li class="nav-item">
-								<a href="" class="nav-link nav__business-stat">
-									<div class="stat-value"><i class="fa fa-lemon-o"></i> 2</div>
+								<a href="" class="nav-link nav__business-stat" data-toggle="modal" data-target="#modalStats-certifications">
+									<div class="stat-value"><i class="fa fa-certificate"></i> {{ this.amount_certifications }} </div>
+									<div class="stat-name">Certificados</div>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="" class="nav-link nav__business-stat" data-toggle="modal" data-target="#modalStats-products">
+									<div class="stat-value"><i class="fa fa-lemon-o"></i> {{ this.amount_offers }} </div>
 									<div class="stat-name">Ofertas</div>
 								</a>
 							</li>
 							<li class="nav-item">
-								<a href="" class="nav-link nav__business-stat">
-									<div class="stat-value"><i class="fa fa-tags"></i> 2</div>
+								<a href="" class="nav-link nav__business-stat" data-toggle="modal" data-target="#modalStats-categories">
+									<div class="stat-value"><i class="fa fa-tags"></i> {{ this.amount_categories }} </div>
 									<div class="stat-name">Categorías</div>
 								</a>
 							</li>
 						</ul>
 					</div>
-					<div class="col-md-5" style="margin: auto;">
+					<div class="col-md-4" style="margin: auto;">
 						<button class="btn btn-block btn-agendar">
 							Agendar
 						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal Rating -->
+		<div class="modal fade" id="modalStats-rating" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modalStats-rating">Producto 1</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-5">
+								<img src="/img/fondo/fondo_login.jpg" class="card-img-top">
+							</div>
+							<div class="col-md-7">
+								<ul>
+									<li>Certificado 1</li>
+									<li>Certificado 2</li>
+									<li>Certificado 3</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal Certifications -->
+		<div class="modal fade" id="modalStats-certifications" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modalStats-certifications">Certificaciones</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="container">
+							<ul>
+								<li>ISO 9001</li>
+								<li>ISO 9001</li>
+								<li>ISO 9001</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal Categories -->
+		<div class="modal fade" id="modalStats-categories" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modalStats-categories">Producto 1</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-5">
+								<img src="/img/fondo/fondo_login.jpg" class="card-img-top">
+							</div>
+							<div class="col-md-7">
+								<ul>
+									<li>Certificado 1</li>
+									<li>Certificado 2</li>
+									<li>Certificado 3</li>
+								</ul>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -76,15 +159,27 @@
 
 <script>
 	export default {
-		props: ['data_user'],
+		props: [
+			'data_user',
+			'data_account'
+		],
 		data() {
 			return {
-				id: this.data_user.name.replace(/ |:/gi, '-'),
+				id: this.data_user.name.replace(/ |:|,/gi, '-'),
+				rating: this.rounded_rating(),
+				amount_certifications: this.data_account.user_certifications.length,
+				amount_offers: this.data_account.offers_data.length,
+				amount_categories: this.data_account.categories_data.length,
 			}
 		},
 		mounted() {
 			let el = document.querySelector(`#${this.id}`);
 			el.style = `background-image: url('${this.data_user.cover_img}')`;
+		},
+		methods: {
+			rounded_rating() {
+				return Math.round(this.data_account.rating_data * 2) / 2;
+			}
 		}
 	}
 </script>
@@ -207,7 +302,7 @@
 	/* Stat names */
 
 	.business-stats {
-		padding-top: 400px;
+		padding-top: 350px;
 		padding-bottom: 20px;
 	}
 
@@ -235,7 +330,7 @@
 	}
 
 	.business-stats .nav-item {
-		width: 33%;
+		width: 25%;
 		text-align: center;
 	}
 

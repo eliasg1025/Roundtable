@@ -76,10 +76,18 @@ input:focus, select:focus {
 .small-logo-main {
 	transition: all ease 500ms;
 	margin-bottom: 0;
-	max-width: 50px;
+	max-width: 100px;
 }
 
 .navbar-brand {
+	display: none;
+}
+
+#img-log {
+	display: block;
+}
+
+#small-logo {
 	display: none;
 }
 
