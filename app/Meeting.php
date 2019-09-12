@@ -20,9 +20,4 @@ class Meeting extends Model
     {
         $this->belongsTo(State::class);
     }
-
-    public function operation()
-    {
-        $this->belongsTo(Operation::class);
-    }
 }
