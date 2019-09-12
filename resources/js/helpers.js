@@ -70,7 +70,7 @@ $(document).ready(function () {
     $('#button_register').click(function () {
         $('#slideBox').css('margin-left', '50%')
         $('.topLayer').css('margin-left', '0')
-    })
+    }) 
 })
 
 function reposition() {
