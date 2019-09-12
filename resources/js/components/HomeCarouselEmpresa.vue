@@ -10,7 +10,7 @@
 						<img :src="company.cover_img" alt="" class="" style="width:100%; height:150px;">
 					</div>
 					<div class="card-body row">
-						
+
 						<div class="business-card-logo-container col-5 p-0">
 							<img :src="company.profile_img" alt="" style="width:100%;" class="img-profile">
 						</div>
@@ -21,18 +21,18 @@
 
 							<rating-stars
 								:amount_rating="company.amount_rating"
-								:total_rating="company.total_rating"
 								:avg_rating="company.avg_rating"
+								:show_number="true"
 							>
 							</rating-stars>
-							
+
 							<a :href="'business/profile/' + company.uuid">
 								<button class="btn btn-outline-success">
 									Ver más
 								</button>
 							</a>
 						</div>
-						
+
 					</div>
 				</div>
 			</div>

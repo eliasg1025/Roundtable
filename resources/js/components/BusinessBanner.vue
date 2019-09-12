@@ -46,25 +46,25 @@
 						<ul class="nav justify-content-center">
 							<li class="nav-item">
 								<a href="" class="nav-link nav__business-stat" data-toggle="modal" data-target="#modalStats-rating">
-									<div class="stat-value"><i class="fa fa-star"></i> {{ this.rating }} </div>
+									<div class="stat-value"><i class="fa fa-star"></i> {{ value_rating }} </div>
 									<div class="stat-name">Valoración</div>
 								</a>
 							</li>
 							<li class="nav-item">
 								<a href="" class="nav-link nav__business-stat" data-toggle="modal" data-target="#modalStats-certifications">
-									<div class="stat-value"><i class="fa fa-certificate"></i> {{ this.amount_certifications }} </div>
+									<div class="stat-value"><i class="fa fa-certificate"></i> {{ this.certifications.length }} </div>
 									<div class="stat-name">Certificados</div>
 								</a>
 							</li>
 							<li class="nav-item">
-								<a href="" class="nav-link nav__business-stat" data-toggle="modal" data-target="#modalStats-products">
+								<a href="#businessProductSection" class="nav-link nav__business-stat">
 									<div class="stat-value"><i class="fa fa-lemon-o"></i> {{ this.amount_offers }} </div>
 									<div class="stat-name">Ofertas</div>
 								</a>
 							</li>
 							<li class="nav-item">
 								<a href="" class="nav-link nav__business-stat" data-toggle="modal" data-target="#modalStats-categories">
-									<div class="stat-value"><i class="fa fa-tags"></i> {{ this.amount_categories }} </div>
+									<div class="stat-value"><i class="fa fa-tags"></i> {{ this.categories.length }} </div>
 									<div class="stat-name">Categorías</div>
 								</a>
 							</li>
@@ -85,24 +85,31 @@
 			<div class="modal fade" id="modalStats-rating" tabindex="-1" role="dialog" aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="modalStats-rating">Valoraciones</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
 						<div class="modal-body">
-							<div class="row">
-								<div class="col-md-5">
-									<img src="/img/fondo/fondo_login.jpg" class="card-img-top">
-								</div>
-								<div class="col-md-7">
-									<ul>
-										<li>Certificado 1</li>
-										<li>Certificado 2</li>
-										<li>Certificado 3</li>
-									</ul>
-								</div>
+							<div class="container d-flex">
+								<button type="button" data-dismiss="modal" class="close" aria-label="Close" style="padding: 1rem 1rem; margin: -1rem -1rem -1rem auto;">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+
+							<div class="text-center">
+								<h5 class="modal-title h3" id="modalStats-rating">Valoración</h5>
+								<p class="display-4">{{ value_rating }} / 5</p>
+							</div>
+
+							<div class="rating-stars-modal container text-center">
+								<rating-stars
+									:amount_rating="rating.amount"
+									:avg_rating="rating.value"
+									:show_number="false"
+									@value_rating="value_rating = $event"
+									@show_rating="show_rating  = $event"
+								>
+								</rating-stars>
+							</div>
+							<div class="text-center">
+								<p v-if="show_rating == true" class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Basados en la calificación de {{ data_account.rating_data.amount }} usuarios</p>
+								<p v-else class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Necesita mínimo 3 votos para promediar una calificación</p>
 							</div>
 						</div>
 					</div>
@@ -112,19 +119,32 @@
 			<div class="modal fade" id="modalStats-certifications" tabindex="-1" role="dialog" aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="modalStats-certifications">Certificaciones</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
 						<div class="modal-body">
-							<div class="container">
-								<ul>
-									<li>ISO 9001</li>
-									<li>ISO 9001</li>
-									<li>ISO 9001</li>
-								</ul>
+							<div class="container d-flex">
+								<button type="button" data-dismiss="modal" class="close" aria-label="Close" style="padding: 1rem 1rem; margin: -1rem -1rem -1rem auto;">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="text-center">
+								<h5 class="modal-title h3" id="modalStats-rating">Certificaciones</h5>
+							</div>
+							<div class="business-stat-modal container">
+								<div v-if="certifications.length > 0">
+									<ul class="nav justify-content-center">
+										<!-- For certification -->
+										<li v-for="(certification, index) in certifications" :key="index" class="nav-item">
+											<a :href="certification.url" target="_blank" class="business-stat-modal__item">
+												<i class="fa fa-file-pdf-o" aria-hidden="true" style="color: #D54841; font-size: 50px;"></i>
+												<p style="margin-top: 15px;">{{ certification.title }}</p>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div v-else>
+									<div style="color: rgb(147, 147, 147); margin: 10px 0px 10px;" class="text-center">
+										No hay certificaciones disponibles
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -134,23 +154,31 @@
 			<div class="modal fade" id="modalStats-categories" tabindex="-1" role="dialog" aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="modalStats-categories">Producto 1</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
 						<div class="modal-body">
-							<div class="row">
-								<div class="col-md-5">
-									<img src="/img/fondo/fondo_login.jpg" class="card-img-top">
-								</div>
-								<div class="col-md-7">
-									<ul>
-										<li>Certificado 1</li>
-										<li>Certificado 2</li>
-										<li>Certificado 3</li>
+							<div class="container d-flex">
+								<button type="button" data-dismiss="modal" class="close" aria-label="Close" style="padding: 1rem 1rem; margin: -1rem -1rem -1rem auto;">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="text-center">
+								<h5 class="modal-title h3" id="modalStats-rating">Categorías</h5>
+							</div>
+							<div class="business-stat-modal container">
+								<div v-if="certifications.length > 0">
+									<ul class="nav justify-content-center">
+										<!-- For category -->
+										<li v-for="(category, index) in categories" :key="index" class="nav-item">
+											<a href="" target="_blank" class="business-stat-modal__item">
+												<img :src="category.picture" class="img-fluid" style="height: 70px;">
+												<p style="margin-top: 10px;">{{ category.name }}</p>
+											</a>
+										</li>
 									</ul>
+								</div>
+								<div v-else>
+									<div style="color: rgb(147, 147, 147); margin: 10px 0px 10px;" class="text-center">
+										Esta empresa aun no tiene categorías seleccionadas
+									</div>
 								</div>
 							</div>
 						</div>
@@ -169,21 +197,18 @@
 		],
 		data() {
 			return {
-				id: this.data_user.name.replace(/ |:|,/gi, '-'),
-				rating: this.rounded_rating(),
-				amount_certifications: this.data_account.user_certifications.length,
+				id: this.data_user.name.replace(/ |:|,|'/gi, '-'),
 				amount_offers: this.data_account.offers_data.length,
-				amount_categories: this.data_account.categories_data.length,
+				categories: this.data_account.categories_data,
+				certifications: this.data_account.user_certifications,
+				rating: this.data_account.rating_data,
+				value_rating: 0,
+				show_rating: false,
 			}
 		},
 		mounted() {
 			let el = document.querySelector(`#${this.id}`);
 			el.style = `background-image: url('${this.data_user.cover_img}')`;
-		},
-		methods: {
-			rounded_rating() {
-				return Math.round(this.data_account.rating_data.value * 2) / 2;
-			}
 		}
 	}
 </script>
@@ -336,6 +361,7 @@
 	.business-stats .nav-item {
 		width: 25%;
 		text-align: center;
+		
 	}
 
 	.nav__business-stat:hover {
@@ -380,5 +406,33 @@
 
 	.stats-modals {
 		font-family: 'Roboto', sans-serif;
+	}
+
+	.rating-stars-modal {
+		font-size: 40px;
+	}
+
+	.rating-stars-modal li {
+		margin-right: 10px;
+	}
+
+	.business-stat-modal .nav {
+		margin-top: 25px;
+	}
+
+	.business-stat-modal .nav-item {
+		width: 33%;
+		text-align: center;
+		padding: 10px;
+	}
+
+	.business-stat-modal__item {
+		display: block;
+		padding: 5px;
+		background: #f1f1f1;
+		border-radius: 5px;
+		box-shadow: 0px 0px 1px 1px #cecece;
+		text-decoration: none;
+		color: #212529;
 	}
 </style>
