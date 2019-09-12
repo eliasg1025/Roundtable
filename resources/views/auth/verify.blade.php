@@ -8,26 +8,36 @@
 	</page-banner>
 	<!-- Form -->
 	<div class="container" style="padding: 60px 0;">
-		<div class="row justify-content-center">
-			<div class="col-md-8">
-				<div class="card">
-					<div class="card-body">
+		<div class="row">
+
+			<div class="jumbotron jumbotron-fluid" style="width: 100%; border-radius: 15px;">
+				<div class="row container">
+					<div class="col-md-5 text-center">
+						<img src="/img/email.png" alt="" height="200px">
+					</div>
+					<div class="col-md-7">
 						@if (session('resent'))
 							<div class="alert alert-success" role="alert">
 								{{ __('Un nuevo email ha sido enviado a tu dirección.') }}
 							</div>
 						@endif
-	
-						{{ __('Antes de seguir, por favor revisa tu bandeja de entrada por el enlace de verificación.') }}
-						{{ __('Si no recibiste el email') }},
-						<a href="{{ route('verification.resend') }}" style="color: #88be2e;">
-							{{ __('haz click aquí reenviar el correo') }}
-						</a>.
+
+						<h2 class="display-4">Bienvenido!</h2>
+						<p class="lead">Antes de seguir, por favor revisa tu bandeja de entrada por el enlace de verificación.</p>
+						<p class="lead">
+							Si no recibiste el email
+							<a href="{{ route('verification.resend') }}" style="color: #51721B;">
+								haz click aquí reenviar el correo
+							</a>.
+						</p>
+						
 					</div>
 				</div>
 			</div>
+		
 		</div>
 	</div>
+
 	<!-- End Form -->
 	<page-footer></page-footer>
 	<modal-login-register

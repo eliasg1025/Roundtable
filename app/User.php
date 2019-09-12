@@ -63,7 +63,27 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Offer::class);
     }
 
-    //
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
+
+    public function videos()
+    {
+        return $this->hasMany(Video::class);
+	}
+	
+	public function ratings()
+	{
+		return $this->hasMany(Rating::class);
+	}
+
+	public function user_certifications()
+	{
+		return $this->hasMany(UserCertfication::class);
+	}
+
+    // Generar slug
 
     public function getUrlAttribute(): string
     {
