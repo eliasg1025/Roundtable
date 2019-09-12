@@ -1,5 +1,5 @@
 <template>
-	<section class="businessProduct">
+	<section class="businessProduct" id="businessProductSection">
 		<div class="container">
 			<h2 class="title-businessProducts">Ofertas</h2>
 			<div v-if="data_offers.length > 0">
@@ -22,7 +22,7 @@
 						</div>
 					</div>
 					<!-- End Card -->
-				</div> 
+				</div>
 				<!-- Controls -->
 				<div id="carousel-business-products-controls" class="text-center">
 					<span class="thumbnail-item" style="margin-right: 5px;">
@@ -61,10 +61,10 @@
 										<div class="col-md-6">
 											<div class="content-product-detail">
 												<div style="margin: 16px 0px 16px;">
-													Categoría: 
+													Categoría:
 													<button class="btn btn-light" style="border: 1px solid #cecece;">
 														<img :src="data_offer.offer_category[0].picture" class="img-fluid" style="height: 40px;">
-														<span style="margin: auto;">{{ data_offer.offer_category[0].name }}</span> 
+														<span style="margin: auto;">{{ data_offer.offer_category[0].name }}</span>
 													</button>
 												</div>
 												<div class="product-detail-certifications-list" style="margin: 5px 0px 16px;">
@@ -101,7 +101,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 	</section>
 </template>
 
@@ -126,7 +126,7 @@
 						},
 						1100: {
 							items: 4,
-						}				
+						}
 					}
 				});
 			}
