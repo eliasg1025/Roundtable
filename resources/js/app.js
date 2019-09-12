@@ -28,6 +28,7 @@ Vue.component('MasVisitados' ,require('./components/MasVisitados.vue').default);
 Vue.component('Categorias' ,require('./components/Categorias.vue').default);
 Vue.component('CarouselEmpresa', require('./components/CarouselEmpresa.vue').default);
 Vue.component('BoxEmpresa', require('./components/BoxEmpresa.vue').default);
+Vue.component('planes', require('./components/pagePlanes.vue').default);
 
 // Reset password page
 Vue.component('ResetPassword', require('./components/ResetPassword.vue').default);
@@ -35,6 +36,7 @@ Vue.component('ResetPassword', require('./components/ResetPassword.vue').default
 //Profile page
 Vue.component('Profile', require('./components/Profile.vue').default);
 
+//planes
 
 const app = new Vue({
 	el: '#app',
