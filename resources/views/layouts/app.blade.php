@@ -28,8 +28,7 @@
 			<div class="container">
 				
 				<a class="navbar-brand" href="{{ url('/') }}" style="font-family: 'Amatic SC', cursive; font-size:25px;">
-					<img src="/img/logo/logo-v2.png" width="30" height="30" class="d-inline-block align-top" alt="">
-					{{ config('app.name', 'Roundtable') }}
+					<img src="/img/logo/logopit.png" width="90" height="48" class="d-inline-block align-top" alt="">
 				</a>
 				
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

@@ -5,8 +5,8 @@
 			<div v-if="data_offers.length > 0">
 				<div id="carousel-business-products">
 					<!-- Carousel Card -->
-					<div class="container" v-for="(data_offer, index) in data_offers" :key="index">
-						<div class="card">
+					<div class="container" style="height: 320px;" v-for="(data_offer, index) in data_offers" :key="index">
+						<div class="card" style="height: 100%;">
 							<img :src="data_offer.offer.image_url" class="product-image card-img-top">
 							<div class="card-body">
 								<h5 class="card-title product-title">

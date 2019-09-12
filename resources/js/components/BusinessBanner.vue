@@ -78,76 +78,80 @@
 				</div>
 			</div>
 		</div>
-		<!-- Modal Rating -->
-		<div class="modal fade" id="modalStats-rating" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="modalStats-rating">Producto 1</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-5">
-								<img src="/img/fondo/fondo_login.jpg" class="card-img-top">
+
+		<!-- Modals -->
+		<div class="stats-modals">
+			<!-- Modal Rating -->
+			<div class="modal fade" id="modalStats-rating" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="modalStats-rating">Valoraciones</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-5">
+									<img src="/img/fondo/fondo_login.jpg" class="card-img-top">
+								</div>
+								<div class="col-md-7">
+									<ul>
+										<li>Certificado 1</li>
+										<li>Certificado 2</li>
+										<li>Certificado 3</li>
+									</ul>
+								</div>
 							</div>
-							<div class="col-md-7">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Modal Certifications -->
+			<div class="modal fade" id="modalStats-certifications" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="modalStats-certifications">Certificaciones</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="container">
 								<ul>
-									<li>Certificado 1</li>
-									<li>Certificado 2</li>
-									<li>Certificado 3</li>
+									<li>ISO 9001</li>
+									<li>ISO 9001</li>
+									<li>ISO 9001</li>
 								</ul>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<!-- Modal Certifications -->
-		<div class="modal fade" id="modalStats-certifications" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="modalStats-certifications">Certificaciones</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div class="container">
-							<ul>
-								<li>ISO 9001</li>
-								<li>ISO 9001</li>
-								<li>ISO 9001</li>
-							</ul>
+			<!-- Modal Categories -->
+			<div class="modal fade" id="modalStats-categories" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="modalStats-categories">Producto 1</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
 						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- Modal Categories -->
-		<div class="modal fade" id="modalStats-categories" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="modalStats-categories">Producto 1</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-5">
-								<img src="/img/fondo/fondo_login.jpg" class="card-img-top">
-							</div>
-							<div class="col-md-7">
-								<ul>
-									<li>Certificado 1</li>
-									<li>Certificado 2</li>
-									<li>Certificado 3</li>
-								</ul>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-5">
+									<img src="/img/fondo/fondo_login.jpg" class="card-img-top">
+								</div>
+								<div class="col-md-7">
+									<ul>
+										<li>Certificado 1</li>
+										<li>Certificado 2</li>
+										<li>Certificado 3</li>
+									</ul>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -178,7 +182,7 @@
 		},
 		methods: {
 			rounded_rating() {
-				return Math.round(this.data_account.rating_data * 2) / 2;
+				return Math.round(this.data_account.rating_data.value * 2) / 2;
 			}
 		}
 	}
@@ -370,5 +374,11 @@
 		.stat-name {
 			font-size: 12px;
 		}
+	}
+
+	/* Modals */
+
+	.stats-modals {
+		font-family: 'Roboto', sans-serif;
 	}
 </style>
