@@ -24,7 +24,6 @@ class UsersTableSeeder extends Seeder
             'cover_img' => '/img/empresa/empresa1/productos/producto1.jpg',
             'description' => 'Producimos, cosechamos y empacamos alimentos 100% orgánicos siguiendo estrictos estándares de calidad, inocuidad y seguridad, en armonía con el medio ambiente y convirtiendo pequeñas comunidades en polos de desarrollo. De la costa y sierra del norte del Perú para el mundo.',
             'coins' => 40,
-            'rating' => 4,
             'views' => 60,
             'type_id' => 1,
         ])->categories()->attach([1, 2, 3]);

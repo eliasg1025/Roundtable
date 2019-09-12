@@ -32,7 +32,6 @@ class CreateUsersTable extends Migration
             $table->json('address')->nullable(); // dato temporal
 			$table->text('description')->nullable();
             $table->integer('coins')->default(0); //
-            $table->double('rating')->default(0); //
 			$table->integer('views')->default(0);
 			$table->boolean('verified')->default(false);
             // Fks

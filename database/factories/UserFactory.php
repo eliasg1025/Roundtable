@@ -31,7 +31,6 @@ $factory->define(User::class, function (Faker $faker) {
         'cover_img' => $faker->optinal($weigth=0.5)->imageUrl($width=1300, $height=400), */
         'description' => $faker->optional($weigth=0.7)->text(200),
         'coins' => $faker->randomElement([20, 40, 50]),
-        'rating' => $faker->randomElement([1, 2, 3, 4, 5]),
         'views' => $faker->randomElement([20, 40, 50]),
         'type_id' => $faker->randomElement([1, 2, 3]),
     ];

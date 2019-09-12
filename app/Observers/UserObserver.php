@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Rating;
 use App\User;
 
 class UserObserver
@@ -48,7 +49,10 @@ class UserObserver
      */
     public function created(User $user)
     {
-        //
+        $intial_rating = Rating::create([
+			'value' => 3,
+			'user_id' => $user->id,
+		]);
     }
 
     /**
