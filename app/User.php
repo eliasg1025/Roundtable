@@ -50,7 +50,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function plans()
     {
-        return $this->belongsToMany(Plan::class, 'plan_user');
+        return $this->belongsToMany(Plan::class, 'plan_user')->withTimestamps();
     }
 
     public function categories()

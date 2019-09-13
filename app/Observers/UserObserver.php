@@ -10,7 +10,7 @@ class UserObserver
     public function creating(User $user): void
     {
         $user->uuid = $this->generateStringUnique();
-        $user->commercial_name = $user->name;
+		$user->commercial_name = $user->name;
     }
 
     private function generateStringUnique(): string
@@ -53,6 +53,7 @@ class UserObserver
 			'value' => 3,
 			'user_id' => $user->id,
 		]);
+		$user->plans()->attach([1]);
     }
 
     /**
