@@ -44,6 +44,9 @@ Vue.component('BusinessVideos', require('./components/BusinessVideos.vue').defau
 Vue.component('BusinessImages', require('./components/BusinessImages.vue').default);
 Vue.component('BusinessProducts', require('./components/BusinessProducts.vue').default);
 
+//planes
+Vue.component('planes', require('./components/pagePlanes.vue').default);
+
 
 const app = new Vue({
 	el: '#app',
