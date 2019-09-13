@@ -33,9 +33,7 @@ class BusinessController extends Controller
 			'offers_data' => $this->getOffers($user)
 		];
 
-		return view('business', compact('user',
-										'media_data',
-										'account_data'));
+		return view('business', compact('user', 'media_data', 'account_data'));
 	}
 
 	public function category($slug)
