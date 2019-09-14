@@ -55,13 +55,13 @@ class BusinessController extends Controller
 	}
 
 	private function getRating(User $user)
-	{	
+	{
 		$data = [
 			'value' => $user->ratings()->avg('value'),
 			'amount' => $user->ratings()->count(),
 			'show' => $user->ratings()->count() > 5 ? true : false,
 		];
-		
+
 		return $data;
 	}
 
