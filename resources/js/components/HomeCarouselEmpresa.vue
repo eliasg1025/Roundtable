@@ -4,38 +4,11 @@
 			<p class="text-center d-block mt-5 text-muted" style="font-size: 25px;"> Aún no hay empresas en esta categoría</p>
 		</div>
 		<div :id="name_id" >
-			<div class="business-card-container container p-3" v-for="(company, index) in data" :key="index">
-				<div class="card">
-					<div class="view-overlay">
-						<img :src="company.cover_img" alt="" class="" style="width:100%; height:150px;">
-					</div>
-					<div class="card-body row">
-
-						<div class="business-card-logo-container col-5 p-0">
-							<img :src="company.profile_img" alt="" style="width:100%;" class="img-profile">
-						</div>
-						<div class="col-7">
-							<h6 class="card-title">
-								<a href="">{{company.commercial_name}}</a>
-							</h6>
-
-							<rating-stars
-								:amount_rating="company.amount_rating"
-								:avg_rating="company.avg_rating"
-								:show_number="true"
-							>
-							</rating-stars>
-
-							<a :href="'business/profile/' + company.uuid">
-								<button class="btn btn-outline-success">
-									Ver más
-								</button>
-							</a>
-						</div>
-
-					</div>
-				</div>
-			</div>
+			<card-business
+				v-for="(company, index) in data" :key="index"
+				:company="company"
+			>
+			</card-business>
 		</div>
 	</div>
 </template>
