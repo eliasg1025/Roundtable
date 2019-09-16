@@ -47,6 +47,8 @@ Vue.component('BusinessProducts', require('./components/BusinessProducts.vue').d
 //planes
 Vue.component('planes', require('./components/Planes.vue').default);
 
+// Search business page
+Vue.component('Search', require('./components/Search.vue').default);
 
 const app = new Vue({
 	el: '#app',
