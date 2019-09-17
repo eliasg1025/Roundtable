@@ -11,8 +11,8 @@ class Offer extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function operation()
+    public function offer_certifications()
     {
-        return $this->belongsTo(Operation::class);
+        return $this->hasMany(OfferCertfication::class);
     }
 }

@@ -5,7 +5,7 @@
 				<div class="col-xs-12 col-sm-4 col-md-4 text-md-center">
                     <img src="/img/logo/logo.png" alt="" class="img-fluid img-brand">
 				</div>
-                <div class="col-xs-12 col-sm-4 col-md-4">
+                <div class="col-xs-12 col-sm-4 col-md-4" style="margin-top: 15px;">
 					<h5 class="text-uppercase">Roundtable Perú</h5>
 					<p style="color:#7e7e7e;">contacto@roundtableperu.com</p>
 				</div>
@@ -19,7 +19,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5" style="margin-top: 2rem !important;">
 					<ul class="list-unstyled list-inline social text-center">
 						<li class="list-inline-item"><a href="https://www.facebook.com/roundtableperu/"><i class="fa fa-facebook"></i></a></li>
 						<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -48,7 +48,7 @@ export default {
 <style>
     .footer {
         background: #f4f4f4 !important;
-        padding: 60px 0;
+        padding: 40px 0;
     }
     .footer h5{
         padding-left: 10px;
@@ -120,5 +120,6 @@ export default {
     }
     .img-brand {
         max-height: 200px;
+		margin-top: 55px;
     }
 </style>

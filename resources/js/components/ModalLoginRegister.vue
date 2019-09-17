@@ -5,16 +5,22 @@
 				<button type="button" aria-label="Close" data-dismiss="modal" class="close boton-cierre">
 					<span aria-hidden="true">×</span>
 				</button>
-				
+
 				<!-- Imagenes de Modal -->
 				<div id="back">
 					<div class="backRight"></div>
 					<div class="backLeft"></div>
 				</div>
-				
+
 				<div id="slideBox" style="margin-left: 0px;">
 					<div class="topLayer" style="margin-left: 100%;">
 						<div class="left">
+
+							<!-- Spinner -->
+							<div class="load-layer" v-show="login_loading">
+								<spinner></spinner>
+							</div>
+
 							<!-- Login Form -->
 							<form id="formLogin" method="POST" :action="this.href_login">
 
@@ -62,11 +68,7 @@
 									</button>
 									<a href="javascript:void(0)"></a>
 									<p class="texto-login-op pointer">
-										<a href="javascript:void(0)"></a>
-										<!-- <a onclick="$('#login').one('hidden.bs.modal', function() { $('#forgot').modal('show'); }).modal('hide');">
-											¿Haz olvidado tu contraseña?
-										</a> -->
-										<a :href="this.href_reset_password">
+										<a :href="this.href_reset_password" style="color: #000; font-weight: 600;">
 											¿Haz olvidado tu contraseña?
 										</a>
 									</p>
@@ -80,6 +82,12 @@
 							<!-- End Login Form -->
 						</div>
 						<div class="right">
+
+							<!-- Spinner -->
+							<div class="load-layer" v-show="resgister_loading">
+								<spinner></spinner>
+							</div>
+
 							<!-- Register Form -->
 							<form id="formRegister" method="POST" :action="this.href_register">
 
@@ -94,7 +102,7 @@
 										<span class="bar"></span>
 										<label>Razón Social</label>
 									</div>
-									
+
 									<div class="row p-0">
 										<div class="col">
 											<div class="group">
@@ -113,7 +121,7 @@
 											</div>
 										</div>
 									</div>
-									
+
 									<div class="group" style="margin-top: -10px;">
 										<input type="text" id="signin-id" placeholder=" " v-model="register.email">
 										<span class="highlight"></span>
@@ -210,30 +218,52 @@ export default {
 				password_confirmation: '',
 				token: this.csrf,
 				accept_terms: false,
-			}
+			},
+			// Estados de las pantallas de carga
+			login_loading: false,
+			resgister_loading: false,
 		}
 	},
 	methods: {
 		login_user: function() {
+
+			// Inciar pantalla de carga cuando se da click en Login
+			this.login_loading = true;
+
+			// Enviar los datos a la ruta /login a traves de axios.post
 			axios.post(this.href_login, {
+				// Envio de datos
 				email: this.login.email,
 				password: this.login.password,
 				token: this.login.token,
 			})
 				.then(res => {
-					window.Swal.fire({
+					// Si la operacion es exitosa mostrar mensaje de Sesion Iniciada
+					Swal.fire({
 						title: 'Iniciar Sesión',
 						text: 'Sesión iniciada satifactoriamente',
-						type: 'success'
+						type: 'success',
+						showConfirmButton: false,
+						timer: 2000, // Mensaje dura 2s
+						// Quitar pantalla de carga
+						onBeforeOpen: () => {
+							this.login_loading = false
+						}
 					}).then(result => {
-						window.location.href = "/profile";
+						window.location.href = "/profile"; // Redirigir a ruta /profile
 					})
 				})
 				.catch(error => {
+					// Si hay error 422 mostrar error
 					if (error.response.status === 422) {
 						window.Swal.fire({
 							title: 'El email o la contraseña son incorrectos',
-							type: 'error'
+							type: 'error',
+							timer: 2000, // Mensaje dura 2s
+							// Quitar pantalla de carga
+							onBeforeOpen: () => {
+								this.login_loading = false
+							}
 						})
 					} else {
 						console.log(error.response);
@@ -242,7 +272,13 @@ export default {
 		},
 		register_user: function() {
 
+			// Inciar pantalla de carga cuando se da click en Register
+			this.resgister_loading = true;
+
+			// Enviar solo si acepta terminos y condiciones
 			if (this.register.accept_terms) {
+
+				// Enviar los datos a la ruta /register a traves de axios.post
 				axios.post(this.href_register, {
 					name: this.register.name,
 					email: this.register.email,
@@ -255,12 +291,18 @@ export default {
 					token: this.register.csrf,
 				})
 					.then(res => {
-						window.Swal.fire({
+						Swal.fire({
 							title: 'Usuario creado satisfactoriamente!',
 							text: 'Por favor verifica tu correo electronico para validar tu cuenta',
-							type: 'success'
+							type: 'success',
+							showConfirmButton: false,
+							timer: 2000, // Mensaje dura 2s
+							// Quitar pantalla de carga
+							onBeforeOpen: () => {
+								this.resgister_loading = false;
+							}
 						}).then(res => {
-							window.location.href = "/profile";
+							window.location.href = "/profile"; // Redirigir a ruta /profile
 						})
 					})
 					.catch(error => {
@@ -268,7 +310,12 @@ export default {
 							window.Swal.fire({
 								title: 'RUC ya usado',
 								text: 'Por favor utiliza otro RUC o comunicate con nosotros nosotros.',
-								type: 'error'
+								type: 'error',
+								timer: 2000, // Mensaje dura 2s
+								// Quitar pantalla de carga
+								onBeforeOpen: () => {
+									this.resgister_loading = false
+								}
 							})
 						} else if (error.response.status === 422) {
 							if (error.response.data.errors.email !== undefined) {
@@ -276,14 +323,24 @@ export default {
 									window.Swal.fire({
 										title: 'Email ya usado',
 										text: 'Por favor utiliza otra dirección de email o comunicate con nosotros.',
-										type: 'error'
+										type: 'error',
+										timer: 2000, // Mensaje dura 2s
+										// Quitar pantalla de carga
+										onBeforeOpen: () => {
+											this.resgister_loading = false
+										}
 									})
 								}
 							} else {
 								window.Swal.fire({
 									title: 'Datos inválidos',
 									text: 'Por favor verifica los datos enviados',
-									type: 'error'
+									type: 'error',
+									timer: 2000, // Mensaje dura 2s
+									// Quitar pantalla de carga
+									onBeforeOpen: () => {
+										this.resgister_loading = false
+									}
 								})
 							}
 						} else {
@@ -293,7 +350,13 @@ export default {
 			} else {
 				window.Swal.fire({
 					title: 'Debe aceptar nuestros terminos y condiciones para poder continuar',
-					type: 'info'
+					type: 'info',
+					showConfirmButton: false,
+					timer: 2000, // Mensaje dura 2s
+					// Quitar pantalla de carga
+					onBeforeOpen: () => {
+						this.resgister_loading = false
+					}
 				})
 			}
 		}
@@ -543,7 +606,7 @@ export default {
 	}
 
 	#pass-check:checked+label:before, #tc-check:checked+label:before {
-		border-color: #c73a71;
+		border-color: #88be2e;
 		border-top: 0;
 		border-left: 0;
 		width: 8px;
@@ -572,7 +635,7 @@ export default {
 	}
 
 	.wine {
-		color: #851532!important;
+		color: #000!important;
 	}
 
 	@media screen and (max-width: 600px) {
@@ -594,7 +657,7 @@ export default {
 		text-align: center;
 		border: none;
 		border-radius: 5px;
-		
+
 	}
 
 	.btn-hover.color-1 {
@@ -627,4 +690,13 @@ export default {
 		opacity: .5;
 	}
 
+	/* Spinner */
+	.load-layer {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		z-index: 100000000;
+		background-color: rgba(0,0,0,0.05);
+		padding-top: 120px;
+	}
 </style>

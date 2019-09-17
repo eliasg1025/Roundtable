@@ -27,8 +27,8 @@ class ActivateInitialCoins
      */
     public function handle(Verified $event)
     {
-        $user = $event->user;
+        /*$user = $event->user;
 
-        $user->plans()->attach([1]);
+        $user->plans()->attach([1]);*/
     }
 }

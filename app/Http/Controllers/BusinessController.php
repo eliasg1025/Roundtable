@@ -12,7 +12,7 @@ class BusinessController extends Controller
 		$users = User::paginate(10);
 		return response()->json($users);
 	}
-	
+
 	public function show($slug)
 	{
 		$uuid = substr($slug, -5);
@@ -22,11 +22,77 @@ class BusinessController extends Controller
 			return redirect()->to($user->url);
 		}
 
-		return json_encode($user);
+		// Media data
+		$media_data = $this->getMediaData($user);
+
+		// Account data
+		$account_data = [
+			'rating_data' => $this->getRating($user),
+			'categories_data' => $this->getCategories($user),
+			'user_certifications' => $this->getCertifications($user),
+			'offers_data' => $this->getOffers($user)
+		];
+
+		return view('business', compact('user', 'media_data', 'account_data'));
 	}
 
 	public function category($slug)
 	{
 		$user = User::where('slug', $slug)->paginate(10);
+	}
+
+	// Private functions
+
+	private function getMediaData(User $user)
+	{
+		$images = $user->images()->get();
+		$videos = $user->videos()->get();
+
+		return [
+			'images' => $images,
+			'videos' => $videos
+		];
+	}
+
+	private function getRating(User $user)
+	{	
+		$data = [
+			'value' => $user->ratings()->avg('value'),
+			'amount' => $user->ratings()->count(),
+			'show' => $user->ratings()->count() > 5 ? true : false,
+		];
+		
+		return $data;
+	}
+
+	private function getCategories(User $user)
+	{
+		$categories = $user->categories()->get();
+		return $categories;
+	}
+
+	private function getOffers(User $user)
+	{
+		$offers = $user->offers()->get();
+		$data = [];
+
+		foreach($offers as $offer) {
+			$certifications = $offer->offer_certifications()->get();
+
+			array_push($data, [
+				'offer' => $offer,
+				'offer_category' => $offer->category()->get(),
+				'certifications' => $certifications,
+			]);
+
+			unset($certifications);
+		}
+
+		return $data;
+	}
+
+	private function getCertifications(User $user) {
+		$user_certifications = $user->user_certifications()->get();
+		return $user_certifications;
 	}
 }

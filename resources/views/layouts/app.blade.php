@@ -28,8 +28,7 @@
 			<div class="container">
 
 				<a class="navbar-brand" href="{{ url('/') }}" style="font-family: 'Amatic SC', cursive; font-size:25px;">
-					<img src="/img/logo/logo-v2.png" width="30" height="30" class="d-inline-block align-top" alt="">
-					{{ config('app.name', 'Roundtable') }}
+					<img src="/img/logo/logopit.png" width="90" height="48" class="d-inline-block align-top" alt="">
 				</a>
 
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -46,13 +45,14 @@
 							<a href="{{ url('/planes') }}" class="nav-link navbar-list__link">Planes</a>
 						</li>
 						<li class="nav-item mr-3">
-							<a href="" class="nav-link navbar-list__link">Contacto</a>
+						<a href="{{url('/contact')}}" class="nav-link navbar-list__link">Contacto</a>
 						</li>
 					</ul>
 					<!-- Center Side Of Navbar -->
-					<a id="logo" href="{{ url('/') }}" class="logo-main">
+					<a id="logo" href="{{ url('/') }}" class="logo-main" style="margin-left: -80px;">
 						<span style="font-family: 'Amatic SC', cursive; font-size:25px;" class="logo-main-title d-none">Rountable</span>
-						<img src="/img/logo/logo-v3.png" alt="" class="img-fluid">
+						<img id="img-logo" src="/img/logo/logo-v3.png" class="img-fluid">
+						<img id="img-small-logo" src="/img/logo/logopit.png" class="img-fluid" style="display: none;">
 					</a>
 					<!-- Right Side Of Navbar -->
 					<ul class="navbar-nav ml-auto">

@@ -60,11 +60,17 @@ class CategoriesTableSeeder extends Seeder
 		$category->picture = '/img/categoria/roundtable_md_5a8fec026d7cd_47021472.png';
         $category->save();
 
-        $category = new Category();
-		$category->name = 'Naranja';
+		$category = new Category();
+		$category->name = 'Kiwi';
 		$category->slug = Str::slug($category->name);
-		$category->picture = '/img/categoria/roundtable_orange_22222222.png';
-        $category->save();
+		$category->picture = '/img/categoria/roundtable_kiwi_00000000.png';
+		$category->save();
+
+		$category = new Category();
+		$category->name = 'Limon';
+		$category->slug = Str::slug($category->name);
+		$category->picture = '/img/categoria/roundtable_lemon_11111111.png';
+		$category->save();
 
         $category = new Category();
 		$category->name = 'Mandarina';
@@ -82,6 +88,12 @@ class CategoriesTableSeeder extends Seeder
 		$category->name = 'Miel de abeja';
 		$category->slug = Str::slug($category->name);
 		$category->picture = '/img/categoria/roundtable_honey_21993953.png';
+		$category->save();
+		
+		$category = new Category();
+		$category->name = 'Naranja';
+		$category->slug = Str::slug($category->name);
+		$category->picture = '/img/categoria/roundtable_orange_22222222.png';
         $category->save();
 
         $category = new Category();
