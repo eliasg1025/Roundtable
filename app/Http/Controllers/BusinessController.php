@@ -2,19 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BusinessController extends Controller
 {
 	public function index()
 	{
-		return view('search');
+		$data = [
+			'loged' => !empty(Auth::user()) ? 1 : 0,
+			'categories' => Category::all(),
+		];
+		return view('search', compact('data'));
 	}
 
 	public function getBusiness() {
-		$users = User::select('name', 'uuid', 'profile_img', 'cover_img', 'description', 'verified')
+		$ratingInfo = DB::table('ratings')
+                            ->select('user_id', DB::raw('COUNT(*) as amount_rating, SUM(value) as total_rating, AVG(value) as avg_rating'))
+                            ->groupBy('user_id');
+
+		$users = User::select('id', 'commercial_name', 'uuid', 'profile_img', 'cover_img', 'description', 'verified', 'amount_rating', 'total_rating', 'avg_rating')
+						->joinSub($ratingInfo, 'rating_info', function($join) {
+							$join->on('users.id', '=', 'rating_info.user_id');
+						})
+						->orderBy('total_rating', 'DESC', 'avg_rating', 'DESC')
 						->paginate(10);
+
 		return response()->json($users);
 	}
 
@@ -39,11 +55,6 @@ class BusinessController extends Controller
 		];
 
 		return view('business', compact('user', 'media_data', 'account_data'));
-	}
-
-	public function category($slug)
-	{
-		$user = User::where('slug', $slug)->paginate(10);
 	}
 
 	// Private functions
