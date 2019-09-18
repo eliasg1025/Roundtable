@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="contenido col-md-12 mb-4 white-text text-center">
                         <h1 class="title h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5"><strong>Rountable Perú</strong></h1>
-						
+
                         <h5 class="subtitle text-uppercase mt-3 mb-4 white-text"><strong>La Rueda de Negocios Online de Productos Peruanos</strong></h5>
                     </div>
                 </div>
@@ -44,19 +44,32 @@ window.onscroll = () => {
 
 <style>
     .banner {
-		height: 99vh;
+    	height: 100vh;
         color: #f8fafc !important;
 		background-attachment: fixed;
 		position: relative;
 	}
-	
-	@media (max-width: 578px) {
+
+	@media (max-width: 1100px) {
 		.banner {
-			height: 100vh;
-			width: 100vmin;
+			background-attachment: inherit;
 		}
 	}
-	
+
+	@media (max-width: 578px) {
+		.banner {
+			width: 100vmin;
+		}
+
+		.title {
+			font-size: 30px;
+		}
+
+		.subtitle {
+			font-size: 15px;
+		}
+	}
+
 	.banner:before {
 		content: "";
 		position: absolute;
@@ -99,7 +112,7 @@ window.onscroll = () => {
     }
 
     .contenido {
-        margin-top: 200px;
+        margin-top: 40vh;
     }
 
     nav.scroll {

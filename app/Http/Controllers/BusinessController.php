@@ -9,7 +9,12 @@ class BusinessController extends Controller
 {
 	public function index()
 	{
-		$users = User::paginate(10);
+		return view('search');
+	}
+
+	public function getBusiness() {
+		$users = User::select('name', 'uuid', 'profile_img', 'cover_img', 'description', 'verified')
+						->paginate(10);
 		return response()->json($users);
 	}
 
@@ -55,13 +60,13 @@ class BusinessController extends Controller
 	}
 
 	private function getRating(User $user)
-	{	
+	{
 		$data = [
 			'value' => $user->ratings()->avg('value'),
 			'amount' => $user->ratings()->count(),
 			'show' => $user->ratings()->count() > 5 ? true : false,
 		];
-		
+
 		return $data;
 	}
 

@@ -63,6 +63,8 @@ Vue.component('planes', require('./components/Planes.vue').default);
 //contacto
 Vue.component('contacto', require('./components/contacto.vue').default);
 
+// Search business page
+Vue.component('Search', require('./components/Search.vue').default);
 
 const app = new Vue({
 	el: '#app',

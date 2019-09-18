@@ -2,12 +2,12 @@
 
 @section('content')
 	<page-banner
-		title="{{Auth::user()->name}}"
-		img="{{Auth::user()->cover_img}}"
+		title="{{ $data['user']->name }}"
+		img="{{ $data['user']->cover_img }}"
 	></page-banner>
 
     <profile
-    	:user_data="{{ Auth::user() }}"
+    	:data="{{ json_encode($data) }}"
     >
     </profile>
 

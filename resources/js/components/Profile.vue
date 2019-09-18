@@ -12,7 +12,7 @@
 							<p class="lead">Descubre todos los beneficios incluidos en el plan Premium Business</p>
 							<a href="/princing" class="btn">
 								<span class="lead">
-									Ir a planes <i class="fa fa-angle-double-right"></i>	
+									Ir a planes <i class="fa fa-angle-double-right"></i>
 								</span>
 							</a>
 						</div>
@@ -21,7 +21,7 @@
 			</div>
 			<div class="row align-items-center text-center">
 				<div class="container mb-3">
-					<a :href="'/business/profile/' + this.user_data.uuid" target="_blank" class="btn btn-success btn-lg btn-view-profile">
+					<a :href="'/business/profile/' + user.uuid" target="_blank" class="btn btn-success btn-lg btn-view-profile">
 						Visualizar Perfil
 					</a>
 				</div>
@@ -30,23 +30,17 @@
 				<div class="col-sm-3 col-md-3">
 					<div class="box-profile-img">
 						<div class="head">
-							<img :src="this.user_data.profile_img" width="100%">
+							<img :src="user.profile_img" width="100%">
 						</div>
 						<div class="body" style="font-weight: 600;">
-							<ul class="rating text-center">
-								<li><i class="fa fa-star amber-text"></i></li>
-								<li><i class="fa fa-star amber-text"></i></li>
-								<li><i class="fa fa-star amber-text"></i></li>
-								<li><i class="fa fa-star amber-text"></i></li>
-								<li><i class="fa fa-star-half amber-text"></i></li>
-								<li>
-									<p class="text-muted m-0">
-										{{this.user_data.rating}}
-										<span data-toggle="tooltip" data-placement="right" title="Basado en 20 votos">(20)</span>
-									</p>
-								</li>
-							</ul>
-							<h4 class="text-center">{{ this.user_data.name }}</h4>
+							<rating-stars
+								:amount_rating="rating.amount"
+								:avg_rating="rating.value"
+								:show_number="true"
+								class="text-center"
+							>
+							</rating-stars>
+							<h4 class="text-center">{{ user.name }}</h4>
 							<hr>
 							<ul class="notifications">
 								<li class="align-top">
@@ -58,7 +52,7 @@
 											data-trigger="focus"
 											data-content="And here's some amazing content. It's very engaging. Right?"
 										>
-											Tienes <span class="badge badge-success">{{this.user_data.coins}} coins</span>	
+											Tienes <span class="badge badge-success">{{user.coins}} coins</span>
 										</a>
 									</div>
 								</li>
@@ -71,7 +65,7 @@
 											data-trigger="focus"
 											data-content="And here's some amazing content. It's very engaging. Right?"
 										>
-											Notificaciones <span class="badge badge-info">0</span>	
+											Notificaciones <span class="badge badge-info">{{ messages.length }}</span>
 										</a>
 									</div>
 								</li>
@@ -84,7 +78,7 @@
 											data-trigger="focus"
 											data-content="And here's some amazing content. It's very engaging. Right?"
 										>
-											Plan Actual <span class="badge badge-secondary">Free</span>	
+											Plan Actual <span class="badge badge-secondary">{{ current_plan.name }}</span>
 										</a>
 									</div>
 								</li>
@@ -159,7 +153,18 @@
 	});
 
 	export default {
-		props: ['user_data']
+		props: [
+			'data',
+		],
+		data() {
+			return {
+				'user': this.data.user,
+				'user_plans': this.data.user_plans,
+				'messages': this.data.messages,
+				'rating': this.data.account_data.rating_data,
+				'current_plan': this.data.user_plans[0],
+			}
+		}
 	}
 </script>
 
@@ -221,7 +226,7 @@
 		margin-left: 10px;
 		cursor: pointer;
 	}
-	
+
 	/* User options */
 
 	.user-options {
@@ -386,7 +391,7 @@
 	.adv {
 		width: 100%;
 	}
-	
+
 	.adv a {
 		color: #fff;
 		background-color: rgb(136, 190, 46);
