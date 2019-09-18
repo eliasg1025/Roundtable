@@ -3451,7 +3451,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.value_rating = this.amount_rating >= 4 ? this.rounded_rating() : '-';
-    this.show_rating = this.amount_rating >= 4 ? true : false;
+    this.show_rating = this.amount_rating >= 4 ? true : false; // Para imprimir la cantidad de estrellas
+
     this.stars.rating_star = parseInt(this.value_rating);
     this.stars.half_rating_star = this.value_rating % 1 !== 0 ? 1 : 0;
     this.stars.no_rating_star = 5 - (this.stars.rating_star + this.stars.half_rating_star);
@@ -3598,26 +3599,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'search',
-  props: ['title', 'img', 'loged'],
-  data: function data() {
-    return {
-      users: '',
-      categories: ''
-    };
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    axios.get('api/business').then(function (res) {
-      _this.users = res.data.users;
-      _this.categories = res.data.categories;
-    })["catch"](function (err) {
-      console.log(err);
-    });
-  }
+  props: ['title', 'img', 'data']
 });
 
 /***/ }),
@@ -3712,16 +3696,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'search-grid',
-  props: ['users', 'loged'],
+  props: ['loged'],
   data: function data() {
     return {
-      data: ''
+      users: ''
     };
   },
   mounted: function mounted() {
-    this.data = this.users;
+    var _this = this;
+
+    axios.get('api/business').then(function (res) {
+      _this.users = res.data;
+    })["catch"](function (err) {
+      console.log(err);
+    });
+  },
+  methods: {
+    getUsers: function getUsers(url) {
+      var _this2 = this;
+
+      axios.get(url).then(function (res) {
+        _this2.users = res.data;
+      });
+    }
   }
 });
 
@@ -51450,11 +51458,7 @@ var render = function() {
                 _c(
                   "div",
                   { staticClass: "col" },
-                  [
-                    _c("search-grid", {
-                      attrs: { users: _vm.users, loged: _vm.loged }
-                    })
-                  ],
+                  [_c("search-grid", { attrs: { loged: _vm.data.loged } })],
                   1
                 )
               ])
@@ -51465,7 +51469,7 @@ var render = function() {
               { staticClass: "col-lg-3" },
               [
                 _c("search-category-sidebar", {
-                  attrs: { data: _vm.categories }
+                  attrs: { data: _vm.data.categories }
                 })
               ],
               1
@@ -51615,7 +51619,7 @@ var render = function() {
       _vm._l(_vm.users.data, function(company, index) {
         return _c(
           "div",
-          { key: index, staticClass: "grid-element col-md-6" },
+          { key: company.id, staticClass: "grid-element col-md-6" },
           [
             _c("card-business", {
               attrs: { company: company, loged: _vm.loged }
@@ -51630,7 +51634,30 @@ var render = function() {
           "ul",
           { staticClass: "pagination justify-content-center" },
           [
-            _vm._m(0),
+            _c(
+              "li",
+              {
+                staticClass: "page-item",
+                class: { disabled: _vm.users.prev_page_url == null }
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass: "page-link",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.stopPropagation()
+                        $event.preventDefault()
+                        return _vm.getUsers(_vm.users.prev_page_url)
+                      }
+                    }
+                  },
+                  [_vm._v("\n\t\t\t\t\tAnterior\n\t\t\t\t")]
+                )
+              ]
+            ),
             _vm._v(" "),
             _vm._l(_vm.users.last_page, function(page, index) {
               return _c(
@@ -51641,14 +51668,49 @@ var render = function() {
                   class: { active: _vm.users.current_page - 1 == index }
                 },
                 [
-                  _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-                    _vm._v(_vm._s(page))
-                  ])
+                  _c(
+                    "a",
+                    {
+                      staticClass: "page-link",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.stopPropagation()
+                          $event.preventDefault()
+                          return _vm.getUsers("api/business?page=" + page)
+                        }
+                      }
+                    },
+                    [_vm._v(_vm._s(page))]
+                  )
                 ]
               )
             }),
             _vm._v(" "),
-            _vm._m(1)
+            _c(
+              "li",
+              {
+                staticClass: "page-item",
+                class: { disabled: _vm.users.next_page_url == null }
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass: "page-link",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.stopPropagation()
+                        $event.preventDefault()
+                        return _vm.getUsers(_vm.users.next_page_url)
+                      }
+                    }
+                  },
+                  [_vm._v("\n\t\t\t\t\tSiguiente\n\t\t\t\t")]
+                )
+              ]
+            )
           ],
           2
         )
@@ -51657,33 +51719,7 @@ var render = function() {
     2
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "page-item disabled" }, [
-      _c(
-        "a",
-        {
-          staticClass: "page-link",
-          attrs: { href: "#", tabindex: "-1", "aria-disabled": "true" }
-        },
-        [_vm._v("Anterior")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "page-item" }, [
-      _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-        _vm._v("Siguiente")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

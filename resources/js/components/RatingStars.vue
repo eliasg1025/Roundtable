@@ -38,7 +38,7 @@ export default {
 	created() {
 		this.value_rating = this.amount_rating >= 4 ? this.rounded_rating() : '-';
 		this.show_rating = this.amount_rating >= 4 ? true : false;
-
+		// Para imprimir la cantidad de estrellas
 		this.stars.rating_star = parseInt(this.value_rating);
 		this.stars.half_rating_star = this.value_rating % 1 !== 0 ? 1 : 0;
 		this.stars.no_rating_star =  5 - (this.stars.rating_star + this.stars.half_rating_star);

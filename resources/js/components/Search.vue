@@ -15,15 +15,14 @@
 						<div class="row">
 							<div class="col">
 								<search-grid
-									:users="users"
-									:loged="loged"
+									:loged="data.loged"
 								></search-grid>
 							</div>
 						</div>
 					</div>
 					<div class="col-lg-3">
 						<search-category-sidebar
-							:data="categories"
+							:data="data.categories"
 						></search-category-sidebar>
 					</div>
 				</div>
@@ -35,23 +34,11 @@
 <script>
 	export default {
 		name: 'search',
-		props: ['title', 'img', 'loged'],
-		data() {
-			return {
-				users: '',
-				categories: '',
-			}
-		},
-		mounted() {
-			axios.get('api/business')
-				.then(res => {
-					this.users = res.data.users;
-					this.categories = res.data.categories;
-				})
-				.catch(err => {
-					console.log(err);
-				})
-		}
+		props: [
+			'title',
+			'img',
+			'data'
+		]
 	}
 </script>
 

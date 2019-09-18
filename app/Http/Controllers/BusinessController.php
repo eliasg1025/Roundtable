@@ -12,8 +12,11 @@ class BusinessController extends Controller
 {
 	public function index()
 	{
-		$loged = !empty(Auth::user()) ? 1 : 0;
-		return view('search', compact('loged'));
+		$data = [
+			'loged' => !empty(Auth::user()) ? 1 : 0,
+			'categories' => Category::all(),
+		];
+		return view('search', compact('data'));
 	}
 
 	public function getBusiness() {
@@ -21,21 +24,14 @@ class BusinessController extends Controller
                             ->select('user_id', DB::raw('COUNT(*) as amount_rating, SUM(value) as total_rating, AVG(value) as avg_rating'))
                             ->groupBy('user_id');
 
-		$users = User::select('commercial_name', 'uuid', 'profile_img', 'cover_img', 'description', 'verified', 'amount_rating', 'total_rating', 'avg_rating')
+		$users = User::select('id', 'commercial_name', 'uuid', 'profile_img', 'cover_img', 'description', 'verified', 'amount_rating', 'total_rating', 'avg_rating')
 						->joinSub($ratingInfo, 'rating_info', function($join) {
 							$join->on('users.id', '=', 'rating_info.user_id');
 						})
 						->orderBy('total_rating', 'DESC', 'avg_rating', 'DESC')
 						->paginate(10);
 
-		$categories = Category::all();
-		
-		$data = [
-			'users' => $users,
-			'categories' => $categories,
-		];
-
-		return response()->json($data);
+		return response()->json($users);
 	}
 
 	public function show($slug)
