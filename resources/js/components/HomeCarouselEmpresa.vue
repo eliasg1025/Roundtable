@@ -7,6 +7,7 @@
 			<card-business
 				v-for="(company, index) in data" :key="index"
 				:company="company"
+				:loged="loged"
 			>
 			</card-business>
 		</div>
@@ -17,7 +18,7 @@
 
 
 export default {
-    props: ['name', 'data'],
+    props: ['name', 'data', 'loged'],
     data() {
         return {
 			name_id: this.name,

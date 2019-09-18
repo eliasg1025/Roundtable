@@ -49,6 +49,9 @@ Vue.component('planes', require('./components/Planes.vue').default);
 
 // Search business page
 Vue.component('Search', require('./components/Search.vue').default);
+Vue.component('SearchBar', require('./components/SearchBar.vue').default);
+Vue.component('SearchCategorySidebar', require('./components/SearchCategorySidebar.vue').default);
+Vue.component('SearchGrid', require('./components/SearchGrid.vue').default);
 
 const app = new Vue({
 	el: '#app',

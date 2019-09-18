@@ -1,5 +1,5 @@
 <template>
-    <section class="banner" style="background-image: url('/img/slider/prueba.jpeg');  background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <section class="banner" style="background-image: url('/img/banner/banner1.jpg');  background-repeat: no-repeat; background-size: cover; background-position: center center;">
         <div class="mask rgba-black-light align-item-center">
             <div class="container">
                 <div class="row">

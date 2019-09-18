@@ -10,7 +10,8 @@
                 <div class="col-lg-12">
                     <home-carousel-empresa
                         :name="this.name"
-						:data="this.data">
+						:data="this.data"
+						:loged="this.loged">
                     </home-carousel-empresa>
                 </div>
             </div>
@@ -20,7 +21,7 @@
 <script>
 
 export default {
-    props: ['data'],
+    props: ['data', 'loged'],
     data() {
         return {
             name: 'compradores_destacados'
