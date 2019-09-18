@@ -11,7 +11,7 @@
     <search
 		title="Empresas"
 		img="/img/fondo/fondo_historial.jpg"
-		:loged="{{ $loged }}"
+		:data="{{ json_encode($data) }}"
     ></search>
 
     <page-footer></page-footer>

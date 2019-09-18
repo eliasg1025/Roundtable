@@ -1,6 +1,6 @@
 <template>
 	<div class="searchGrid row">
-		<div v-for="(company, index) in users.data" :key="index" class="grid-element col-md-6">
+		<div v-for="(company, index) in users.data" :key="company.id" class="grid-element col-md-6">
 			<card-business
 				:company="company"
 				:loged="loged"
@@ -8,17 +8,26 @@
 		</div>
 		<nav class="w-100 mt-4">
 			<ul class="pagination justify-content-center">
-				<li class="page-item disabled">
-					<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+				<li class="page-item" :class="{ 'disabled':  users.prev_page_url == null}">
+					<a
+						v-on:click.stop.prevent="getUsers(users.prev_page_url)"
+						class="page-link" href="#"
+					>
+						Anterior
+					</a>
 				</li>
 				<li class="page-item"
 					v-for="(page, index) in users.last_page" :key="index"
 					v-bind:class="{'active': users.current_page - 1 == index}"
 				>
-					<a class="page-link" href="#">{{ page }}</a>
+					<a v-on:click.stop.prevent="getUsers(`api/business?page=${page}`)" class="page-link" href="#">{{ page }}</a>
 				</li>
-				<li class="page-item">
-					<a class="page-link" href="#">Siguiente</a>
+				<li class="page-item" :class="{ 'disabled':  users.next_page_url == null}">
+					<a
+						v-on:click.stop.prevent="getUsers(users.next_page_url)"
+						class="page-link" href="#">
+						Siguiente
+					</a>
 				</li>
 			</ul>
 		</nav>
@@ -28,14 +37,28 @@
 <script>
 	export default {
 		name: 'search-grid',
-		props: ['users', 'loged'],
+		props: ['loged'],
 		data() {
 			return {
-				data: ''
+				users: '',
 			}
 		},
 		mounted() {
-			this.data = this.users
+			axios.get('api/business')
+				.then(res => {
+					this.users = res.data;
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		},
+		methods: {
+			getUsers(url) {
+				axios.get(url)
+					.then(res => {
+						this.users = res.data;
+					})
+			}
 		}
 	}
 </script>
