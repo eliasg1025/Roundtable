@@ -5,7 +5,6 @@
 				<img :src="company.cover_img" alt="" class="" style="width:100%; height:150px;">
 			</div>
 			<div class="card-body row">
-
 				<div class="business-card-logo-container col-5 p-0">
 					<img :src="company.profile_img" alt="" style="width:100%;" class="img-profile">
 				</div>
@@ -21,13 +20,17 @@
 					>
 					</rating-stars>
 
-					<a :href="'business/profile/' + company.uuid">
+					<a :href="'business/profile/' + company.uuid"  v-if="loged == true">
+						<button class="btn btn-outline-success">
+							Ver más
+						</button>
+					</a>
+					<a href="#" class="have-to-login" data-toggle="modal" data-target="#login" v-else>
 						<button class="btn btn-outline-success">
 							Ver más
 						</button>
 					</a>
 				</div>
-
 			</div>
 		</div>
 	</div>
@@ -36,7 +39,7 @@
 <script>
 export default {
 	name: 'card-business',
-	props: ['company'],
+	props: ['company', 'loged'],
 };
 </script>
 

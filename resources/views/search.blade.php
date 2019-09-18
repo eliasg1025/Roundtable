@@ -11,6 +11,7 @@
     <search
 		title="Empresas"
 		img="/img/fondo/fondo_historial.jpg"
+		:data="{{ json_encode($data) }}"
     ></search>
 
     <page-footer></page-footer>
