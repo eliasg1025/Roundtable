@@ -1,9 +1,9 @@
 <template>
     <main>
         <home-banner/>
-        <home-compradores-destacados :data="this.data.featuredBuyers"/>
-        <home-vendedores-destacados :data="this.data.featuredSellers"/>
-        <home-mas-visitados :data="this.data.mostViewedCompanies"/>
+        <home-compradores-destacados :data="this.data.featuredBuyers" :loged="this.data.loged"/>
+        <home-vendedores-destacados :data="this.data.featuredSellers" :loged="this.data.loged"/>
+        <home-mas-visitados :data="this.data.mostViewedCompanies" :loged="this.data.loged"/>
         
         <!-- Seccion Ofertas -->
         <section class="seccion_ofertas container-fuild px-3 py-4">
@@ -82,7 +82,6 @@
 </template>
 
 <script>
-
     export default {
         props: [
     		'data',

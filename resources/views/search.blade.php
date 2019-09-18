@@ -11,6 +11,7 @@
     <search
 		title="Empresas"
 		img="/img/fondo/fondo_historial.jpg"
+		:loged="{{ $loged }}"
     ></search>
 
     <page-footer></page-footer>

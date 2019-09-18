@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class InicioController extends Controller
@@ -25,12 +26,16 @@ class InicioController extends Controller
      */
     public function index()
     {
-        $data = [
+		$loged = !empty(Auth::user()) ? true : false;
+		
+		$data = [
             'featuredSellers' => $this->getSellers(),
             'featuredBuyers' => $this->getBuyers(),
             'mostViewedCompanies' => $this->getMostViewedCompanies(),
-            'categories' => $this->getCategories(),
-        ];
+			'categories' => $this->getCategories(),
+			'loged' => $loged,
+		];
+		
         return view('inicio', compact('data'));
     }
 
