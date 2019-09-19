@@ -45,7 +45,7 @@
 							<a href="{{ url('/planes') }}" class="nav-link navbar-list__link">Planes</a>
 						</li>
 						<li class="nav-item mr-3">
-							<a href="" class="nav-link navbar-list__link">Contacto</a>
+						<a href="{{url('/contact')}}" class="nav-link navbar-list__link">Contacto</a>
 						</li>
 					</ul>
 					<!-- Center Side Of Navbar -->

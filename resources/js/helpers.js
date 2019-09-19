@@ -15,68 +15,63 @@ $(function() {
 	});
 });
 
-$(document).ready(function() {
-	$("#goRight").on("click", function() {
-		$("#slideBox").animate({
-			marginLeft: "0"
-		});
+$(document).ready(function () {
+    $('#goRight').on('click', function () {
+        $('#slideBox').animate({
+            'marginLeft': '0'
+        })
 
-		$(".topLayer").animate({
-			marginLeft: "100%"
-		});
-	});
+        $('.topLayer').animate({
+            'marginLeft': '100%'
+        })
+    })
 
-	if ($(this).width() <= 600) {
-		return $("#goLeft").on("click", function() {
-			$("#slideBox").animate({
-				marginLeft: "0"
-			});
-			$(".topLayer").animate({
-				marginLeft: "0"
-			});
-		});
-	}
+    if ($(this).width() <= 600) {
+        return $('#goLeft').on('click', function () {
+            $('#slideBox').animate({
+                'marginLeft': '0'
+            })
+            $('.topLayer').animate({
+                'marginLeft': '0'
+            })
+        })
+    }
 
-	if ($(this).width() >= 991) {
-		$("#button_register").click(function() {
-			$("#slideBox").css("margin-right", "0");
-			$("#slideBox").css("margin-left", "50%");
-			$(".topLayer").css("margin-right", "100%");
-			$(".topLayer").css("margin-left", "0");
-		});
-	}
+    if ($(this).width() >= 991) {
+        $('#button_register').click(function () {
+            $('#slideBox').css('margin-right', '0')
+            $('#slideBox').css('margin-left', '50%')
+            $('.topLayer').css('margin-right', '100%')
+            $('.topLayer').css('margin-left', '0')
+        })
+    }
 
-	$("#goLeft").on("click", function() {
-		$("#slideBox").animate({
-			marginLeft: "50%"
-		});
+    $('#goLeft').on('click', function () {
+        $('#slideBox').animate({
+            'marginLeft': '50%'
+        })
 
-		$(".topLayer").animate({
-			marginLeft: "0"
-		});
-	});
+        $('.topLayer').animate({
+            'marginLeft': '0'
+        })
+    })
 
-	$(".modal").on("show.bs.modal", reposition);
+    $('.modal').on('show.bs.modal', reposition)
 
-	$(window).on("resize", function() {
-		$(".modal:visible").each(reposition);
-	});
+    $(window).on('resize', function () {
+        $('.modal:visible').each(reposition)
+    })
 
-	$('.have-to-login').click(function() {
-		$("#slideBox").css("margin-left", "0");
-		$(".topLayer").css("margin-left", "100%");
-	});
+    $('#button_login').click(function () {
+        $('#slideBox').css('margin-left', '0')
+        $('.topLayer').css('margin-left', '100%')
+    })
 
-	$("#button_login").click(function() {
-		$("#slideBox").css("margin-left", "0");
-		$(".topLayer").css("margin-left", "100%");
-	});
-
-	$("#button_register").click(function() {
-		$("#slideBox").css("margin-left", "50%");
-		$(".topLayer").css("margin-left", "0");
-	});
-});
+    $('#button_register').click(function () {
+        $('#slideBox').css('margin-left', '50%')
+        $('.topLayer').css('margin-left', '0')
+    }) 
+})
 
 function reposition() {
 	var modal = $(this),

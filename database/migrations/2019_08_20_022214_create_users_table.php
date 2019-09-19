@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('phone', 30)->nullable();
             $table->string('profile_img')->default('/img/empresa/empresa1/portada_enpresa.jpg');
             $table->string('cover_img')->default('/img/empresa/empresa1/empresa1.jpg');
-            $table->json('address')->nullable(); // dato temporal
+            $table->text('address')->nullable(); // dato temporal / json
 			$table->text('description')->nullable();
             $table->integer('coins')->default(0); //
 			$table->integer('views')->default(0);
