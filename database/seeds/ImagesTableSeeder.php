@@ -14,12 +14,12 @@ class ImagesTableSeeder extends Seeder
     {
         $image = new Image();
         $image->url = '/img/empresa/empresa1/portada1.jpg';
-        $image->user_id = 30;
+        $image->user_id = 1;
         $image->save();
 
         $image = new Image();
         $image->url = '/img/empresa/empresa1/portada2.jpg';
-        $image->user_id = 30;
+        $image->user_id = 1;
         $image->save();
     }
 }

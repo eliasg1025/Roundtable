@@ -29,7 +29,7 @@ class BusinessController extends Controller
 							$join->on('users.id', '=', 'rating_info.user_id');
 						})
 						->orderBy('total_rating', 'DESC', 'avg_rating', 'DESC')
-						->paginate(10);
+						->paginate(3); // Cantidad de empresas por pagina
 
 		return response()->json($users);
 	}

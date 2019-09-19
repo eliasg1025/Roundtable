@@ -13,7 +13,7 @@
 						v-on:click.stop.prevent="getUsers(users.prev_page_url)"
 						class="page-link" href="#"
 					>
-						Anterior
+						<span aria-hidden="true">&laquo;</span>
 					</a>
 				</li>
 				<li class="page-item"
@@ -26,7 +26,7 @@
 					<a
 						v-on:click.stop.prevent="getUsers(users.next_page_url)"
 						class="page-link" href="#">
-						Siguiente
+						<span aria-hidden="true">&raquo;</span>
 					</a>
 				</li>
 			</ul>

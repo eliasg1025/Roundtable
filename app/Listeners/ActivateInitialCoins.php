@@ -3,9 +3,10 @@
 namespace App\Listeners;
 
 use App\Plan;
+use App\Rating;
 use Illuminate\Auth\Events\Verified;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
 
 class ActivateInitialCoins
 {
@@ -27,8 +28,15 @@ class ActivateInitialCoins
      */
     public function handle(Verified $event)
     {
-        /*$user = $event->user;
+        $user = $event->user;
 
-        $user->plans()->attach([1]);*/
+        // Cuando se verifica el email se crea un rating inicial y se le asigna el plan free
+
+        Rating::create([
+            'value' => 3,
+            'user_id' => $user->id,
+        ]);
+
+        $user->plans()->attach([1]);
     }
 }
