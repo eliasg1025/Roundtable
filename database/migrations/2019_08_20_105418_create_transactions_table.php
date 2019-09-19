@@ -15,7 +15,7 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->json('token');
+            $table->text('token'); // json
             $table->timestamps();
             // Llaves foreaneas
             $table->bigInteger('user_id')->unsigned();

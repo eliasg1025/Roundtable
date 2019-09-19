@@ -17,6 +17,8 @@ Route::get('/', 'InicioController@index')->name('home');
 
 Route::get('/planes','PlanesController@index')->name('planes');
 
+Route::get('/contact','contactController@contacto')->name('contacto');
+
 Route::get('/profile', 'ProfileController@index')->name('profile');
 
 Route::get('/business', 'BusinessController@index')->name('business');
