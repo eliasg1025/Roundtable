@@ -14,5 +14,6 @@
 		href_login="{{ route('login') }}"
 		href_register="{{ route('register') }}"
 		href_reset_password="{{ route('password.request') }}"></modal-login-register>
-    <page-footer></page-footer>
+	<puntos></puntos>
+	<page-footer></page-footer>
 @endsection
