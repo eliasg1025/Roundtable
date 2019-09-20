@@ -19,4 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/business', 'BusinessController@getBusiness');
 
-Route::get('/business/category/{slug}', 'BusinessController@categoria')->name('business.category');
+Route::get('/business/category/{slug}', 'BusinessController@getBusinessByCategory');

@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="row">
                     <div class="contenido col-md-12 mb-4 white-text text-center">
-                        <h1 class="title h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5"><strong>Rountable Perú</strong></h1>
+                        <h1 class="title h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5"><strong>Roundtable Perú</strong></h1>
 
                         <h5 class="subtitle text-uppercase mt-3 mb-4 white-text"><strong>La Rueda de Negocios Online de Productos Peruanos</strong></h5>
                     </div>
