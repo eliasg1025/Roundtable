@@ -50,4 +50,10 @@ class planesController extends Controller
 		
 		return view('planes', compact('data'));
 	}
+	private function getCoinPacks(User $user){
+		$pack = $user->coin_packs()->get();
+		$data=[];
+
+		
+	}
 }
