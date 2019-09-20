@@ -40,7 +40,7 @@
 								class="text-center"
 							>
 							</rating-stars>
-							<h4 class="text-center">{{ user.name }}</h4>
+							<h4 class="text-center">{{ user.commercial_name }}</h4>
 							<hr>
 							<ul class="notifications">
 								<li class="align-top">

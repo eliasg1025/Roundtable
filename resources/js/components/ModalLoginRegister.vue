@@ -307,6 +307,7 @@ export default {
 					})
 					.catch(error => {
 						if (error.response.status === 500) {
+							console.log(error.response);
 							window.Swal.fire({
 								title: 'RUC ya usado',
 								text: 'Por favor utiliza otro RUC o comunicate con nosotros nosotros.',
