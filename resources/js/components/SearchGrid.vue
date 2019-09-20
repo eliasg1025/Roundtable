@@ -1,11 +1,20 @@
 <template>
-	<div class="searchGrid row">
-		<div v-for="(company, index) in users.data" :key="company.id" class="grid-element col-md-6">
-			<card-business
-				:company="company"
-				:loged="loged"
-			></card-business>
+	<div class="searchGrid">
+		<!-- Spinner -->
+		<div class="" v-show="loading">
+			<spinner></spinner>
 		</div>
+		<!-- Business cards -->
+		<div id="grids" class="row">
+			<div v-for="(company) in users.data" :key="company.id" class="grid-element col-md-6">
+				<card-business
+					:company="company"
+					:loged="loged"
+				></card-business>
+			</div>
+		</div>
+		
+		<!-- Pagination -->
 		<nav class="w-100 mt-4">
 			<ul class="pagination justify-content-center">
 				<li class="page-item" :class="{ 'disabled':  users.prev_page_url == null}">
@@ -13,20 +22,20 @@
 						v-on:click.stop.prevent="getUsers(users.prev_page_url)"
 						class="page-link" href="#"
 					>
-						Anterior
+						<span aria-hidden="true">&laquo;</span>
 					</a>
 				</li>
 				<li class="page-item"
 					v-for="(page, index) in users.last_page" :key="index"
 					v-bind:class="{'active': users.current_page - 1 == index}"
 				>
-					<a v-on:click.stop.prevent="getUsers(`api/business?page=${page}`)" class="page-link" href="#">{{ page }}</a>
+					<a v-on:click.stop.prevent="getUsers(`${apiUrl}?page=${page}`)" class="page-link" href="#">{{ page }}</a>
 				</li>
 				<li class="page-item" :class="{ 'disabled':  users.next_page_url == null}">
 					<a
 						v-on:click.stop.prevent="getUsers(users.next_page_url)"
 						class="page-link" href="#">
-						Siguiente
+						<span aria-hidden="true">&raquo;</span>
 					</a>
 				</li>
 			</ul>
@@ -35,16 +44,26 @@
 </template>
 
 <script>
+	import storeData from '../store/index'
+
 	export default {
 		name: 'search-grid',
-		props: ['loged'],
+		props: [
+			'loged'
+		],
 		data() {
 			return {
 				users: '',
+				loading: false,
+			}
+		},
+		computed: {
+			apiUrl() {
+				return storeData.state.apiUrl
 			}
 		},
 		mounted() {
-			axios.get('api/business')
+			axios.get(this.apiUrl)
 				.then(res => {
 					this.users = res.data;
 				})
@@ -54,10 +73,19 @@
 		},
 		methods: {
 			getUsers(url) {
-				axios.get(url)
-					.then(res => {
-						this.users = res.data;
-					})
+				this.loading = true;
+				const cards = document.getElementById('grids');
+				cards.style = 'display: none;';
+				setTimeout(() => {
+					axios.get(url)
+						.then(res => {
+							this.users = res.data;
+						})
+						.then(res => {
+							cards.style = '';
+							this.loading = false;
+						});
+				}, 500);
 			}
 		}
 	}

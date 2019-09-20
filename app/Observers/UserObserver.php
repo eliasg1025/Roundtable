@@ -30,7 +30,7 @@ class UserObserver
 
         return $uuid;
     }
-    
+
     private function getAllUuid()
     {
         return User::select('uuid')->get();
@@ -49,11 +49,7 @@ class UserObserver
      */
     public function created(User $user)
     {
-        $intial_rating = Rating::create([
-			'value' => 3,
-			'user_id' => $user->id,
-		]);
-		$user->plans()->attach([1]);
+        //
     }
 
     /**
