@@ -23,6 +23,7 @@
 					<div class="col-lg-3">
 						<search-category-sidebar
 							:data="data.categories"
+							@api_url="api_url = $event"
 						></search-category-sidebar>
 					</div>
 				</div>
