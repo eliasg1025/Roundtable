@@ -10,7 +10,7 @@
 
     <search
 		title="Empresas"
-		img="/img/fondo/fondo_historial.jpg"
+		img="/img/accounting-businesswoman-communication-38556%20%281%29.jpg"
 		:data="{{ json_encode($data) }}"
     ></search>
 

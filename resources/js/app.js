@@ -4,14 +4,7 @@ window.Vue = require('vue');
 
 // Suport Vuex
 
-import Vuex from 'vuex'
-Vue.use(Vuex)
-
-import storeData from "./store/index";
-
-const store = new Vuex.Store({
-	storeData
-})
+import store from './store/index'
 
 // UI Components
 Vue.component('PageBanner', require('./components/PageBanner.vue').default);
@@ -52,12 +45,10 @@ Vue.component('contacto', require('./components/contacto.vue').default);
 // Search business page
 Vue.component('Search', require('./components/Search.vue').default);
 Vue.component('SearchBar', require('./components/SearchBar.vue').default);
-Vue.component('SearchCategorySidebar', require('./components/SearchCategorySidebar.vue').default);
-Vue.component('SearchGrid', require('./components/SearchGrid.vue').default);
 
 const app = new Vue({
 	el: '#app',
-	store,
+	store
 });
 
 require('./carousel');
