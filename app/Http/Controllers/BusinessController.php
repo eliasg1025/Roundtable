@@ -19,6 +19,10 @@ class BusinessController extends Controller
 		return view('search', compact('data'));
 	}
 
+	public function category() {
+		
+	}
+
 	public function getBusiness() {
 		$ratingInfo = DB::table('ratings')
                             ->select('user_id', DB::raw('COUNT(*) as amount_rating, SUM(value) as total_rating, AVG(value) as avg_rating'))
@@ -29,7 +33,7 @@ class BusinessController extends Controller
 							$join->on('users.id', '=', 'rating_info.user_id');
 						})
 						->orderBy('total_rating', 'DESC', 'avg_rating', 'DESC')
-						->paginate(3); // Cantidad de empresas por pagina
+						->paginate(4); // Cantidad de empresas por pagina
 
 		return response()->json($users);
 	}
@@ -53,7 +57,7 @@ class BusinessController extends Controller
 							$join->on('users.id', '=', 'cat_user.user_id');
 						})
 						->orderBy('total_rating', 'DESC', 'avg_rating', 'DESC')
-						->paginate(3); // Cantidad de empresas por pagina
+						->paginate(4); // Cantidad de empresas por pagina
 
 		return response()->json($users);
 	}
