@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 
 class BusinessController extends Controller
 {
@@ -19,8 +20,11 @@ class BusinessController extends Controller
 		return view('search', compact('data'));
 	}
 
-	public function category() {
-		
+	public function searchBusiness() {
+		$query = Input::get('query');
+		$users = User::where('commercial_name', 'like', '%'.$query.'%')->get();
+
+		return response()->json($users);
 	}
 
 	public function getBusiness() {
@@ -62,6 +66,8 @@ class BusinessController extends Controller
 		return response()->json($users);
 	}
 
+
+	// View business Profile -> return view
 	public function show($slug)
 	{
 		$uuid = substr($slug, -5);
@@ -85,7 +91,7 @@ class BusinessController extends Controller
 		return view('business', compact('user', 'media_data', 'account_data'));
 	}
 
-	// Private functions
+	// Get data functions
 
 	private function getMediaData(User $user)
 	{
