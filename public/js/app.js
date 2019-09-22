@@ -3391,6 +3391,74 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 $(function () {
   $('[data-toggle="popover"]').popover();
 });
@@ -3402,8 +3470,20 @@ $(function () {
       'user_plans': this.data.user_plans,
       'messages': this.data.messages,
       'rating': this.data.account_data.rating_data,
-      'current_plan': this.data.user_plans[0]
+      'current_plan': this.data.user_plans[0],
+      // Panel state
+      'active': false,
+      'panel': 0
     };
+  },
+  methods: {
+    activePanel: function activePanel(option) {
+      if (this.active === false) {
+        this.active = true;
+      }
+
+      this.panel = option;
+    }
   }
 });
 
@@ -8639,7 +8719,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.btn-view-profile {\n\t\tfont-family: 'Poppins', sans-serif;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 1.1rem;\n\t\twidth: 380px;\n\t\tfloat: right;\n\t\tbackground-color: rgb(136, 190, 46);\n\t\tborder-color: rgb(136, 190, 46);\n\t\ttransition: all 0.6s;\n\t\tcolor: #fff;\n}\n.btn-view-profile:hover {\n\t\tbackground-color: rgba(136, 190, 46, 0.9);\n\t\tborder-color: rgba(136, 190, 46, 0.9);\n\t\tmargin-right: 20px;\n\t\ttransition: all 0.6s;\n\t\tcolor: #fff;\n}\n.user_profile {\n\t\tpadding: 50px 0;\n    \tbackground: #f1f1f1;\n}\n.box-profile-img {\n\t    padding: 10px;\n    \tbackground: #fff;\n    \tbox-shadow: 0px 0px 5px 5px #ececec;\n    \tborder-radius: 10px;\n}\n.box-profile-img .head {\n\t\tpadding: 10px;\n}\n.box-profile-img .body {\n\t\tmargin: 25px 0 5px 0;\n}\n.notifications {\n\t\tlist-style: none;\n\t\ttext-align: center;\n\t\tmargin-bottom: 5px;\n}\n.notifications li a {\n\t\tcolor: #212529;\n\t\ttransition: ease 0.5s;\n}\n.notifications li a:hover {\n\t\ttransition: all 0.3s;\n\t\tcolor: #88be2e;\n\t\tmargin-left: 10px;\n\t\tcursor: pointer;\n}\n\n\t/* User options */\n.user-options {\n\t\tdisplay: flex;\n\t\tflex-flow: row wrap;\n\t\tborder-bottom: 0;\n\t\tlist-style: none;\n\t\tpadding-left: 0;\n\t\tmargin-bottom: 0;\n}\n.user-options > li {\n\t\twidth: 45%;\n\t\tmargin: 0 auto;\n\t\tborder-radius: 15px;\n}\n@media (max-width: 600px) {\n.user-options > li {\n\t\t\twidth: 100%;\n}\n}\nfigure.snip {\n\t\tfont-family: 'Poppins', sans-serif;\n\t\tfont-weight: 600;\n\t\tcolor: #fff;\n\t\tposition: relative;\n\t\toverflow: hidden;\n\t\tmargin: 10px;\n\t\tmin-width: 220px;\n\t\tmax-width: 400px;\n\t\theight: 205px;\n\t\twidth: 100%;\n\t\tbackground: #000000;\n\t\ttext-align: center;\n\t\tborder-radius: 15px;\n\t\tbox-shadow: 0px 0px 5px 5px #ececec;\n}\nfigure.snip * {\n\t\tbox-sizing: border-box;\n\t\ttransition: all 0.3s;\n}\nfigure.snip img {\n\t\topacity: 1;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\ttransition: all 0.6s;\n}\nfigure.snip figcaption {\n\t\tposition: absolute;\n\t\tbottom: 0;\n\t\tleft: 18%;\n\t\tright: 18%;\n\t\theight: 100%;\n}\nfigure.snip figcaption > div {\n\t\toverflow: hidden;\n\t\twidth: 100%;\n\t\tposition: relative;\n\t\theight: 50%;\n}\nfigure.snip h5,\n\tfigure.snip span {\n\t\tmargin: 0;\n\t\tpadding: 10px 15px;\n\t\tdisplay: inline-block;\n\t\twidth: 100%;\n\t\tfont-weight: 700;\n}\nfigure.snip span {\n\t\tbackground: rgba(256, 256, 256, 1);\n\t\tcolor: #4d4d4d;\n\t\tposition: relative;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\tposition: absolute;\n\t\ttransform: translate3d(0%, 100%, 0);\n\t\tborder-radius: 5px;\n}\nfigure.snip h5 {\n\t\tbackground: rgba(51, 51, 51, 0.5);\n\t\ttransform: translate3d(0%, 0%, 0);\n\t\tborder-radius: 5px;\n\t\tfont-size: 17px;\n}\nfigure.snip a {\n\t\tleft: 0;\n\t\tright: 0;\n\t\ttop: 0;\n\t\tbottom: 0;\n\t\tposition: absolute;\n\t\tcolor: #ffffff;\n}\nfigure.snip.blue {\n\t\tbackground: #0a212f;\n}\nfigure.snip.blue h5 {\n\t\tbackground: #2980b9;\n}\nfigure.snip.red {\n\t\tbackground: #36100c;\n}\nfigure.snip.red h5 {\n\t\tbackground: #c0392b;\n}\nfigure.snip.yellow {\n\t\tbackground: #583804;\n}\nfigure.snip.yellow h5 {\n\t\tbackground: #f39c12;\n}\nfigure.snip.navy {\n\t\tbackground: #000000;\n}\nfigure.snip.navy h5 {\n\t\tbackground: #34495e;\n}\nfigure.snip:hover img,\n\tfigure.snip.hover img {\n\t\topacity: 0.35;\n\t\t-webkit-filter: blur(5px);\n\t\tfilter: blur(5px);\n\t\ttransform: scale(1.1);\n}\nfigure.snip:hover figcaption span,\n\tfigure.snip.hover figcaption span {\n\t\ttransform: translate3d(0%, 0%, 0);\n}\nfigure.snip:hover figcaption h5,\n\tfigure.snip.hover figcaption h5 {\n\t\ttransform: translate3d(0%, -100%, 0);\n}\n.adv {\n\t\twidth: 100%;\n}\n.adv a {\n\t\tcolor: #fff;\n\t\tbackground-color: rgb(136, 190, 46);\n\t\ttransition: all 0.6s;\n}\n.adv a:hover {\n\t\tcolor: #fff;\n\t\ttransform: scale(1.2);\n\t\ttransition: all 0.6s;\n}\n", ""]);
+exports.push([module.i, "\n.btn-view-profile {\n\t\tfont-family: 'Poppins', sans-serif;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 1.1rem;\n\t\twidth: 380px;\n\t\tfloat: right;\n\t\tbackground-color: rgb(136, 190, 46);\n\t\tborder-color: rgb(136, 190, 46);\n\t\ttransition: all 0.6s;\n\t\tcolor: #fff;\n}\n.btn-view-profile:hover {\n\t\tbackground-color: rgba(136, 190, 46, 0.9);\n\t\tborder-color: rgba(136, 190, 46, 0.9);\n\t\tmargin-right: 20px;\n\t\ttransition: all 0.6s;\n\t\tcolor: #fff;\n}\n@media (max-width: 600px) {\n.btn-view-profile {\n\t\t\twidth: 80%;\n\t\t\tfloat: none;\n}\n}\n.user_profile {\n\t\tpadding: 50px 0;\n    \tbackground: #f1f1f1;\n}\n.box-profile-img {\n\t    padding: 10px;\n    \tbackground: #fff;\n    \tbox-shadow: 0px 0px 5px 5px #ececec;\n    \tborder-radius: 10px;\n}\n.box-profile-img .head {\n\t\tpadding: 10px;\n}\n.box-profile-img .body {\n\t\tmargin: 25px 0 5px 0;\n}\n.notifications {\n\t\tlist-style: none;\n\t\ttext-align: center;\n\t\tmargin-bottom: 5px;\n}\n.notifications li a {\n\t\tcolor: #212529;\n\t\ttransition: ease 0.5s;\n}\n.notifications li a:hover {\n\t\ttransition: all 0.3s;\n\t\tcolor: #88be2e;\n\t\tmargin-left: 10px;\n\t\tcursor: pointer;\n}\n\n\t/* User options */\n.user-options {\n\t\tdisplay: flex;\n\t\tflex-flow: row wrap;\n\t\tborder-bottom: 0;\n\t\tlist-style: none;\n\t\tpadding-left: 0;\n\t\tmargin-bottom: 0;\n}\n.user-options > li {\n\t\twidth: 45%;\n\t\tmargin: 0 auto;\n\t\tborder-radius: 15px;\n}\n@media (max-width: 600px) {\n.user-options > li {\n\t\t\twidth: 100%;\n}\n}\nfigure.snip {\n\t\tfont-family: 'Poppins', sans-serif;\n\t\tfont-weight: 600;\n\t\tcolor: #fff;\n\t\tposition: relative;\n\t\toverflow: hidden;\n\t\tmin-width: 220px;\n\t\tmax-width: 400px;\n\t\theight: 205px;\n\t\twidth: 100%;\n\t\tbackground: #000000;\n\t\ttext-align: center;\n\t\tborder-radius: 15px;\n\t\tbox-shadow: 0px 0px 5px 5px #ececec;\n}\nfigure.snip * {\n\t\tbox-sizing: border-box;\n\t\ttransition: all 0.3s;\n}\nfigure.snip img {\n\t\topacity: 1;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\ttransition: all 0.6s;\n}\nfigure.snip figcaption {\n\t\tposition: absolute;\n\t\tbottom: 0;\n\t\tleft: 18%;\n\t\tright: 18%;\n\t\theight: 100%;\n}\nfigure.snip figcaption > div {\n\t\toverflow: hidden;\n\t\twidth: 100%;\n\t\tposition: relative;\n\t\theight: 50%;\n}\nfigure.snip h5,\n\tfigure.snip span {\n\t\tmargin: 0;\n\t\tpadding: 10px 15px;\n\t\tdisplay: inline-block;\n\t\twidth: 100%;\n\t\tfont-weight: 700;\n}\nfigure.snip span {\n\t\tbackground: rgba(256, 256, 256, 1);\n\t\tcolor: #4d4d4d;\n\t\tposition: relative;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\tposition: absolute;\n\t\ttransform: translate3d(0%, 100%, 0);\n\t\tborder-radius: 5px;\n}\nfigure.snip h5 {\n\t\tbackground: rgba(51, 51, 51, 0.5);\n\t\ttransform: translate3d(0%, 0%, 0);\n\t\tborder-radius: 5px;\n\t\tfont-size: 17px;\n}\nfigure.snip a {\n\t\tleft: 0;\n\t\tright: 0;\n\t\ttop: 0;\n\t\tbottom: 0;\n\t\tposition: absolute;\n\t\tcolor: #ffffff;\n}\nfigure.snip.blue {\n\t\tbackground: #0a212f;\n}\nfigure.snip.blue h5 {\n\t\tbackground: #2980b9;\n}\nfigure.snip.red {\n\t\tbackground: #36100c;\n}\nfigure.snip.red h5 {\n\t\tbackground: #c0392b;\n}\nfigure.snip.yellow {\n\t\tbackground: #583804;\n}\nfigure.snip.yellow h5 {\n\t\tbackground: #f39c12;\n}\nfigure.snip.navy {\n\t\tbackground: #000000;\n}\nfigure.snip.navy h5 {\n\t\tbackground: #34495e;\n}\nfigure.snip:hover img,\n\tfigure.snip.hover img {\n\t\topacity: 0.35;\n\t\t-webkit-filter: blur(5px);\n\t\tfilter: blur(5px);\n\t\ttransform: scale(1.1);\n}\nfigure.snip:hover figcaption span,\n\tfigure.snip.hover figcaption span {\n\t\ttransform: translate3d(0%, 0%, 0);\n}\nfigure.snip:hover figcaption h5,\n\tfigure.snip.hover figcaption h5 {\n\t\ttransform: translate3d(0%, -100%, 0);\n}\n.adv {\n\t\twidth: 100%;\n}\n.adv a {\n\t\tcolor: #fff;\n\t\tbackground-color: rgb(136, 190, 46);\n\t\ttransition: all 0.6s;\n}\n.adv a:hover {\n\t\tcolor: #fff;\n\t\ttransform: scale(1.2);\n\t\ttransition: all 0.6s;\n}\n\n\t/* Lateral User Options */\n.lateral-user-options {\n\t\tlist-style: none;\n}\n.lateral-user-options figure.snip {\n\t\theight: 100px !important;\n}\n", ""]);
 
 // exports
 
@@ -51067,7 +51147,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "row align-items-center" }, [
+      _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-sm-3 col-md-3" }, [
           _c("div", { staticClass: "box-profile-img" }, [
             _c("div", { staticClass: "head" }, [
@@ -51169,10 +51249,295 @@ var render = function() {
               ],
               1
             )
-          ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "ul",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.active,
+                  expression: "active"
+                }
+              ],
+              staticClass: "lateral-user-options mt-3"
+            },
+            [
+              _c("li", [
+                _c("div", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.stopPropagation()
+                          $event.preventDefault()
+                          return _vm.activePanel(1)
+                        }
+                      }
+                    },
+                    [_c("h5", [_vm._v("Información Empresa")])]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("div", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.stopPropagation()
+                          $event.preventDefault()
+                          return _vm.activePanel(2)
+                        }
+                      }
+                    },
+                    [_c("h5", [_vm._v("Ofertas")])]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("div", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.stopPropagation()
+                          $event.preventDefault()
+                          return _vm.activePanel(3)
+                        }
+                      }
+                    },
+                    [_c("h5", [_vm._v("Certificaciones")])]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("div", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.stopPropagation()
+                          $event.preventDefault()
+                          return _vm.activePanel(4)
+                        }
+                      }
+                    },
+                    [_c("h5", [_vm._v("Agendamientos")])]
+                  )
+                ])
+              ])
+            ]
+          )
         ]),
         _vm._v(" "),
-        _vm._m(1)
+        _c("div", { staticClass: "col-sm-9 col-md-9" }, [
+          _c(
+            "ul",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.active,
+                  expression: "!active"
+                }
+              ],
+              staticClass: "user-options",
+              attrs: { id: "userPanel" }
+            },
+            [
+              _c("li", [
+                _c("figure", { staticClass: "snip green" }, [
+                  _c("img", {
+                    attrs: {
+                      src:
+                        "/img/accounting-businesswoman-communication-38556 (1).jpg",
+                      alt: ""
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("figcaption", [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _vm._m(2),
+                    _c("a", {
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.stopPropagation()
+                          $event.preventDefault()
+                          return _vm.activePanel(1)
+                        }
+                      }
+                    })
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("figure", { staticClass: "snip green" }, [
+                  _c("img", {
+                    attrs: {
+                      src:
+                        "/img/food-berries-wallpaper-44416-45541-hd-wallpapers_1400_820.jpg",
+                      alt: ""
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("figcaption", [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _vm._m(4),
+                    _c("a", {
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.stopPropagation()
+                          $event.preventDefault()
+                          return _vm.activePanel(2)
+                        }
+                      }
+                    })
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("figure", { staticClass: "snip green" }, [
+                  _c("img", {
+                    attrs: {
+                      src:
+                        "/img/-cual-es-el-fruto-seco-mas-saludable-1-655x368.jpg",
+                      alt: ""
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("figcaption", [
+                    _vm._m(5),
+                    _vm._v(" "),
+                    _vm._m(6),
+                    _c("a", {
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.stopPropagation()
+                          $event.preventDefault()
+                          return _vm.activePanel(3)
+                        }
+                      }
+                    })
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("figure", { staticClass: "snip green" }, [
+                  _c("img", {
+                    attrs: {
+                      src:
+                        "/img/body-language-business-etiquette-businesspeople-1179804.jpg",
+                      alt: ""
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("figcaption", [
+                    _vm._m(7),
+                    _vm._v(" "),
+                    _vm._m(8),
+                    _c("a", {
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.stopPropagation()
+                          $event.preventDefault()
+                          return _vm.activePanel(4)
+                        }
+                      }
+                    })
+                  ])
+                ])
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.panel === 1,
+                  expression: "panel === 1"
+                }
+              ]
+            },
+            [_c("h3", [_vm._v("Información Empresa")])]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.panel === 2,
+                  expression: "panel === 2"
+                }
+              ]
+            },
+            [_c("h3", [_vm._v("Ofertas")])]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.panel === 3,
+                  expression: "panel === 3"
+                }
+              ]
+            },
+            [_c("h3", [_vm._v("Certificaciones")])]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.panel === 4,
+                  expression: "panel === 4"
+                }
+              ]
+            },
+            [_c("h3", [_vm._v("Agendamientos")])]
+          )
+        ])
       ])
     ])
   ])
@@ -51200,7 +51565,7 @@ var staticRenderFns = [
               )
             ]),
             _vm._v(" "),
-            _c("a", { staticClass: "btn", attrs: { href: "/princing" } }, [
+            _c("a", { staticClass: "btn", attrs: { href: "/planes" } }, [
               _c("span", { staticClass: "lead" }, [
                 _vm._v("\n\t\t\t\t\t\t\t\tIr a planes "),
                 _c("i", { staticClass: "fa fa-angle-double-right" })
@@ -51215,84 +51580,49 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-sm-9 col-md-9" }, [
-      _c("ul", { staticClass: "user-options" }, [
-        _c("li", [
-          _c("figure", { staticClass: "snip green" }, [
-            _c("img", {
-              attrs: {
-                src:
-                  "/img/accounting-businesswoman-communication-38556 (1).jpg",
-                alt: ""
-              }
-            }),
-            _vm._v(" "),
-            _c("figcaption", [
-              _c("div", [_c("span", [_vm._v("Información Empresa")])]),
-              _vm._v(" "),
-              _c("div", [_c("h5", [_vm._v("Información Empresa")])]),
-              _c("a", { attrs: { href: "#" } })
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("figure", { staticClass: "snip green" }, [
-            _c("img", {
-              attrs: {
-                src:
-                  "/img/food-berries-wallpaper-44416-45541-hd-wallpapers_1400_820.jpg",
-                alt: ""
-              }
-            }),
-            _vm._v(" "),
-            _c("figcaption", [
-              _c("div", [_c("span", [_vm._v("Ofertas")])]),
-              _vm._v(" "),
-              _c("div", [_c("h5", [_vm._v("Ofertas")])]),
-              _c("a", { attrs: { href: "#" } })
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("figure", { staticClass: "snip green" }, [
-            _c("img", {
-              attrs: {
-                src: "/img/-cual-es-el-fruto-seco-mas-saludable-1-655x368.jpg",
-                alt: ""
-              }
-            }),
-            _vm._v(" "),
-            _c("figcaption", [
-              _c("div", [_c("span", [_vm._v("Certificaciones")])]),
-              _vm._v(" "),
-              _c("div", [_c("h5", [_vm._v("Certificaciones")])]),
-              _c("a", { attrs: { href: "#" } })
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("figure", { staticClass: "snip green" }, [
-            _c("img", {
-              attrs: {
-                src:
-                  "/img/body-language-business-etiquette-businesspeople-1179804.jpg",
-                alt: ""
-              }
-            }),
-            _vm._v(" "),
-            _c("figcaption", [
-              _c("div", [_c("span", [_vm._v("Agendamiento")])]),
-              _vm._v(" "),
-              _c("div", [_c("h5", [_vm._v("Agendamiento")])]),
-              _c("a", { attrs: { href: "#" } })
-            ])
-          ])
-        ])
-      ])
-    ])
+    return _c("div", [_c("span", [_vm._v("Información Empresa")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("h5", [_vm._v("Información Empresa")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("span", [_vm._v("Ofertas")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("h5", [_vm._v("Ofertas")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("span", [_vm._v("Certificaciones")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("h5", [_vm._v("Certificaciones")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("span", [_vm._v("Agendamiento")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("h5", [_vm._v("Agendamiento")])])
   }
 ]
 render._withStripped = true
