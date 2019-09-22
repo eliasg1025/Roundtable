@@ -10,7 +10,7 @@
 						<div class="col-md-7">
 							<h2 class="display-4">Bienvenido!</h2>
 							<p class="lead">Descubre todos los beneficios incluidos en el plan Premium Business</p>
-							<a href="/princing" class="btn">
+							<a href="/planes" class="btn">
 								<span class="lead">
 									Ir a planes <i class="fa fa-angle-double-right"></i>
 								</span>
@@ -26,12 +26,15 @@
 					</a>
 				</div>
 			</div>
-			<div class="row align-items-center">
+			<div class="row">
 				<div class="col-sm-3 col-md-3">
+					<!-- Box Profile -->
 					<div class="box-profile-img">
+						<!-- Profile Logo -->
 						<div class="head">
 							<img :src="user.profile_img" width="100%">
 						</div>
+						<!-- Info -->
 						<div class="body" style="font-weight: 600;">
 							<rating-stars
 								:amount_rating="rating.amount"
@@ -85,9 +88,46 @@
 							</ul>
 						</div>
 					</div>
+					<!-- End Box Profile -->
+					<ul v-show="active" class="lateral-user-options mt-3">
+						<!-- Info Empresa -->
+						<li>
+							<div>
+								<button v-on:click.stop.prevent="activePanel(1)" class="btn" href="#">
+									<h5>Información Empresa</h5>
+								</button>
+							</div>
+						</li>
+						<!-- Ofertas -->
+						<li>
+							<div>
+								<button v-on:click.stop.prevent="activePanel(2)" class="btn" href="#">
+									<h5>Ofertas</h5>
+								</button>
+							</div>
+						</li>
+						<!-- Certificaciones -->
+						<li>
+							<div>
+								<button v-on:click.stop.prevent="activePanel(3)" class="btn" href="#">
+									<h5>Certificaciones</h5>
+								</button>
+							</div>
+						</li>
+						<!-- Agendamientos -->
+						<li>
+							<div>
+								<button v-on:click.stop.prevent="activePanel(4)" class="btn" href="#">
+									<h5>Agendamientos</h5>
+								</button>
+							</div>
+						</li>
+					</ul>
 				</div>
 				<div class="col-sm-9 col-md-9">
-					<ul class="user-options">
+					<!-- User Options -->
+					<ul id="userPanel" v-show="!active" class="user-options">
+						<!-- Info Empresa -->
 						<li>
 							<figure class="snip green">
 								<img src="/img/accounting-businesswoman-communication-38556 (1).jpg" alt=""/>
@@ -97,10 +137,11 @@
 									</div>
 									<div>
 										<h5>Información Empresa</h5>
-									</div><a href="#"></a>
+									</div><a v-on:click.stop.prevent="activePanel(1)" href="#"></a>
 								</figcaption>
 							</figure>
 						</li>
+						<!-- Ofertas -->
 						<li>
 							<figure class="snip green">
 								<img src="/img/food-berries-wallpaper-44416-45541-hd-wallpapers_1400_820.jpg" alt=""/>
@@ -110,10 +151,11 @@
 									</div>
 									<div>
 										<h5>Ofertas</h5>
-									</div><a href="#"></a>
+									</div><a v-on:click.stop.prevent="activePanel(2)" href="#"></a>
 								</figcaption>
 							</figure>
 						</li>
+						<!-- Certificaciones -->
 						<li>
 							<figure class="snip green">
 								<img src="/img/-cual-es-el-fruto-seco-mas-saludable-1-655x368.jpg" alt=""/>
@@ -123,10 +165,11 @@
 									</div>
 									<div>
 										<h5>Certificaciones</h5>
-									</div><a href="#"></a>
+									</div><a v-on:click.stop.prevent="activePanel(3)" href="#"></a>
 								</figcaption>
 							</figure>
 						</li>
+						<!-- Agendamientos -->
 						<li>
 							<figure class="snip green">
 								<img src="/img/body-language-business-etiquette-businesspeople-1179804.jpg" alt=""/>
@@ -136,11 +179,36 @@
 									</div>
 									<div>
 										<h5>Agendamiento</h5>
-									</div><a href="#"></a>
+									</div><a v-on:click.stop.prevent="activePanel(4)" href="#"></a>
 								</figcaption>
 							</figure>
 						</li>
 					</ul>
+					<!-- End User Options -->
+
+					<!-- Informacion Empresa Panel -->
+					<div v-show="panel === 1">
+						<h3>Información Empresa</h3>
+					</div>
+					<!-- End Panel -->
+
+					<!-- Ofertas Panel -->
+					<div v-show="panel === 2">
+						<h3>Ofertas</h3>
+					</div>
+					<!-- End Panel -->
+					
+					<!-- Certificaciones Panel -->
+					<div v-show="panel === 3">
+						<h3>Certificaciones</h3>
+					</div>
+					<!-- End Panel -->
+					
+					<!-- Agendamientos Panel -->
+					<div v-show="panel === 4">
+						<h3>Agendamientos</h3>
+					</div>
+					<!-- End Panel -->
 				</div>
 			</div>
 		</div>
@@ -163,6 +231,19 @@
 				'messages': this.data.messages,
 				'rating': this.data.account_data.rating_data,
 				'current_plan': this.data.user_plans[0],
+				// Panel state
+				'active': false,
+				'panel': 0,
+			}
+		},
+		methods: {
+			activePanel(option) {
+
+				if (this.active === false) {
+					this.active = true
+				}
+
+				this.panel = option
 			}
 		}
 	}
@@ -187,6 +268,13 @@
 		margin-right: 20px;
 		transition: all 0.6s;
 		color: #fff;
+	}
+
+	@media (max-width: 600px) {
+		.btn-view-profile {
+			width: 80%;
+			float: none;
+		}
 	}
 
 	.user_profile {
@@ -256,7 +344,6 @@
 		color: #fff;
 		position: relative;
 		overflow: hidden;
-		margin: 10px;
 		min-width: 220px;
 		max-width: 400px;
 		height: 205px;
@@ -402,5 +489,15 @@
 		color: #fff;
 		transform: scale(1.2);
 		transition: all 0.6s;
+	}
+
+	/* Lateral User Options */
+
+	.lateral-user-options {
+		list-style: none;
+	}
+
+	.lateral-user-options figure.snip {
+		height: 100px !important; 
 	}
 </style>
