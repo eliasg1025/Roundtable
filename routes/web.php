@@ -23,5 +23,7 @@ Route::get('/profile', 'ProfileController@index')->name('profile');
 
 Route::get('/business', 'BusinessController@index')->name('business');
 
+Route::get('/business/category/{slug}', 'BusinessController@category')->name('business.category');
+
 Route::get('/business/profile/{slug}', 'BusinessController@show')->name('business.show');
 
