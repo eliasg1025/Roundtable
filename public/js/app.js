@@ -3925,18 +3925,115 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'puntos',
-  props: ['data_puntos'],
-  mounted: function mounted() {
-    if (document.querySelector('#carousel-puntos') !== null) {
-      var slider_puntos = Tiny.tns({
-        containe: '#carousel-puntos',
-        nav: false,
-        mouseDrag: true
-      });
-    }
-  }
+  props: ['pack_data'],
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -8835,7 +8932,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.e12{\n    margin-top: -100px;\n    /*width:50%;*/\n    padding-left: 0px;\n    padding-right: 0px;\n}\n.ca .cabeza{\n    color: #ffffff;\n    background-image: linear-gradient(to right, #cb2d3e 0%, #cb2d3e 51%, #ef473a 100%);\n    margin-bottom: 40px;\n    padding-top: 130px;\n    padding-bottom: 20px;\n    padding-left: 20px;\n    padding-right: 20px;\n}\n.ce .cabeza{\n    color: #ffffff!important;\n    background-image: linear-gradient(to right, #000000 0%, #020202 51%, #0b0e0a 100%);\n    margin-bottom: 40px!important;\n    padding-top: 130px!important;\n    padding-bottom: 20px!important;\n    padding-left: 20px!important;\n    padding-right: 20px!important;\n}\n.cabeza{\n    position: relative;\n    display: inline-block;\n    width: auto;\n    text-decoration: none;\n    font-weight:500;\n}\n.emo{\n    float:left;\n    font-size: 2.6em;\n    color: #ce1b28;\n}\n.cuerpo{\n    color:#606961;\n    margin-top: 10px;\n    font-size: 16px;\n    font-weight: 400;\n}\n.parrafo{\n    margin-left: 60px;\n    margin-bottom: 40px;\n    font-family: 'Roboto',sans-serif;\n    /*font-style: normal;*/\n}\n.lista{\n    list-style-type: none;\n}\n.lis{\n    margin-top: 16px;\n    padding-right: 16px;\n}\n.lis>label{\n    font-family: 'Roboto',sans-serif;\n    /*font-size: normal;*/\n}\n.lis label>span{\n    color: #ce1b28;\n    font-size: 1.3em;\n    font-weight: 500;\n}\n.caja> .ee12{\n    height: 2.8em;\n}\n.caja> .ee{\n    width: 49%;\n}\n.caja> .ee .ee12{\n    margin-top:4px;\n    border-color: #7777;\n    height: 2.8em;\n    width:100%;\n    border-style: solid;\n    padding:7px 7px 7px 7px;\n    border-width: 2px;\n}\n.caja > .ee12{\n    margin-top:4px;\n    border-color: #7777;\n    height: 2.8em;\n    width:266px;\n    border-style: solid;\n    padding:7px 7px 7px 7px;\n    border-width: 2px;\n}\n.caja >textarea{\n    margin-top:4px;\n    border-color: #7777;\n    border-style: solid;\n    border-width: 2px;\n    padding:7px 7px 7px 7px;\n}\n.lis >button{\n        background-image: linear-gradient(to right, #56ab2f 0%, #a8e063 51%, #56ab2f 100%);\n\t\ttransition: 0.5s;\n\t\tbackground-size: 200% auto;\n\t\tborder: none;\n\t\tcolor: white;\n\t\tpadding: 7px 15px;\n\t\ttext-align: center;\n\t\ttext-decoration: none;\n\t\tfont-size: 15px;\n\t\tfont-family: 'Roboto',sans-serif;\n\t\tborder-radius: 3px;\n        width: 100%;\n}\n.lis >button:hover{\n    background-position: right center;\n\t\tcolor:rgb(231, 255, 255);\n}\n::-webkit-input-placeholder { color: #7777;\n}\ninput[class=\"ee12\"]:focus{\n  outline: 2px solid #ef473a;\n}\ntextarea:focus{\n    outline: 2px solid  #ef473a;\n}\n@media screen and (max-width: 768px){\n.e12{\n        float: left;\n        margin-top: 20px;\n        margin-left: 15px;\n}\n}\n\n", ""]);
+exports.push([module.i, "\n.e12{\r\n    margin-top: -100px;\r\n    /*width:50%;*/\r\n    padding-left: 0px;\r\n    padding-right: 0px;\n}\n.ca .cabeza{\r\n    color: #ffffff;\r\n    background-image: linear-gradient(to right, #cb2d3e 0%, #cb2d3e 51%, #ef473a 100%);\r\n    margin-bottom: 40px;\r\n    padding-top: 130px;\r\n    padding-bottom: 20px;\r\n    padding-left: 20px;\r\n    padding-right: 20px;\n}\n.ce .cabeza{\r\n    color: #ffffff!important;\r\n    background-image: linear-gradient(to right, #000000 0%, #020202 51%, #0b0e0a 100%);\r\n    margin-bottom: 40px!important;\r\n    padding-top: 130px!important;\r\n    padding-bottom: 20px!important;\r\n    padding-left: 20px!important;\r\n    padding-right: 20px!important;\n}\n.cabeza{\r\n    position: relative;\r\n    display: inline-block;\r\n    width: auto;\r\n    text-decoration: none;\r\n    font-weight:500;\n}\n.emo{\r\n    float:left;\r\n    font-size: 2.6em;\r\n    color: #ce1b28;\n}\n.cuerpo{\r\n    color:#606961;\r\n    margin-top: 10px;\r\n    font-size: 16px;\r\n    font-weight: 400;\n}\n.parrafo{\r\n    margin-left: 60px;\r\n    margin-bottom: 40px;\r\n    font-family: 'Roboto',sans-serif;\r\n    /*font-style: normal;*/\n}\n.lista{\r\n    list-style-type: none;\n}\n.lis{\r\n    margin-top: 16px;\r\n    padding-right: 16px;\n}\n.lis>label{\r\n    font-family: 'Roboto',sans-serif;\r\n    /*font-size: normal;*/\n}\n.lis label>span{\r\n    color: #ce1b28;\r\n    font-size: 1.3em;\r\n    font-weight: 500;\n}\n.caja> .ee12{\r\n    height: 2.8em;\n}\n.caja> .ee{\r\n    width: 49%;\n}\n.caja> .ee .ee12{\r\n    margin-top:4px;\r\n    border-color: #7777;\r\n    height: 2.8em;\r\n    width:100%;\r\n    border-style: solid;\r\n    padding:7px 7px 7px 7px;\r\n    border-width: 2px;\n}\n.caja > .ee12{\r\n    margin-top:4px;\r\n    border-color: #7777;\r\n    height: 2.8em;\r\n    width:266px;\r\n    border-style: solid;\r\n    padding:7px 7px 7px 7px;\r\n    border-width: 2px;\n}\n.caja >textarea{\r\n    margin-top:4px;\r\n    border-color: #7777;\r\n    border-style: solid;\r\n    border-width: 2px;\r\n    padding:7px 7px 7px 7px;\n}\n.lis >button{\r\n        background-image: linear-gradient(to right, #56ab2f 0%, #a8e063 51%, #56ab2f 100%);\r\n\t\ttransition: 0.5s;\r\n\t\tbackground-size: 200% auto;\r\n\t\tborder: none;\r\n\t\tcolor: white;\r\n\t\tpadding: 7px 15px;\r\n\t\ttext-align: center;\r\n\t\ttext-decoration: none;\r\n\t\tfont-size: 15px;\r\n\t\tfont-family: 'Roboto',sans-serif;\r\n\t\tborder-radius: 3px;\r\n        width: 100%;\n}\n.lis >button:hover{\r\n    background-position: right center;\r\n\t\tcolor:rgb(231, 255, 255);\n}\n::-webkit-input-placeholder { color: #7777;\n}\ninput[class=\"ee12\"]:focus{\r\n  outline: 2px solid #ef473a;\n}\ntextarea:focus{\r\n    outline: 2px solid  #ef473a;\n}\n@media screen and (max-width: 768px){\n.e12{\r\n        float: left;\r\n        margin-top: 20px;\r\n        margin-left: 15px;\n}\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -8854,7 +8951,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.e14{\n   margin-bottom: 50px;\n}\n.e15 .card-block {\n   margin-top: 35px;\n}\n.comprar{\n  float:right;\n}\ndiv>.b1{\n  background-color: #0067b8;\n  border-radius: 0px;\n  width: 50%;\n}\n.c1{\n  text-align: center;\n}\n", ""]);
+exports.push([module.i, "\n.e14{\n    margin-bottom: 50px;\n}\n.carousel-indicators li{\n  background-color: darkgray;\n}\n.carousel-indicators .active{\n  background-color: black;\n}\n.carousel{\n  box-shadow: 0 8px 12px 0 rgba(15, 15, 15, 0.2)\n}\n.e15 .card-block {\n    margin-top: 35px;\n}\n.comprar{\n   float:right;\n}\ndiv>.b1{\n   background-color: #0067b8;\n   border-radius: 0px;\n   width: 50%;\n}\n.c1{\n   text-align: center;\n}\n", ""]);
 
 // exports
 
@@ -52272,71 +52369,122 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("section", { staticClass: "container e14" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "carousel slide",
+        attrs: { id: "demo", "data-ride": "carousel" }
+      },
+      [
+        _vm._m(1),
+        _vm._v(" "),
+        _vm._l(_vm.pack_data, function(pack_data, index) {
+          return _c("div", { key: index, staticClass: "carousel-inner" }, [
+            _c("div", { staticClass: "carousel-item active" }, [
+              _c("div", { staticClass: "card" }, [
+                _c("div", { staticClass: "row " }, [
+                  _vm._m(2, true),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "e15 col-md-5 px-3" }, [
+                    _c("div", { staticClass: "card-block px-3" }, [
+                      _c("div", [
+                        _c("h4", { staticClass: "card-title" }, [
+                          _vm._v(_vm._s(pack_data.packs.name))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(3, true)
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(4, true)
+                ])
+              ])
+            ])
+          ])
+        })
+      ],
+      2
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "e14 container" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("div", { staticClass: "titulo_seccion" }, [
-          _c("h3", { staticClass: "text-uppercase" }, [
-            _vm._v("paquetes de puntos")
-          ]),
-          _vm._v(" "),
-          _c("h5", [_vm._v("Elige el paquete que mas te convenga")])
-        ])
-      ]),
+    return _c("div", { staticClass: "col-lg-12" }, [
+      _c("div", { staticClass: "titulo_seccion" }, [
+        _c("h3", { staticClass: "text-uppercase" }, [
+          _vm._v("paquetes de puntos")
+        ]),
+        _vm._v(" "),
+        _c("h5", [_vm._v("Elige el paquete que mas te convenga")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "carousel-indicators" }, [
+      _c("li", {
+        staticClass: "active",
+        attrs: { "data-target": "#demo", "data-slide-to": "0" }
+      }),
       _vm._v(" "),
-      _c("div", { attrs: { id: "carousel-puntos" } }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "row " }, [
-            _c("div", { staticClass: "col-md-4" }, [
-              _c("img", {
-                staticClass: "w-100",
-                attrs: { src: "/img/empresa/empresa1/portada_enpresa.jpg" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "e15 col-md-5 px-3" }, [
-              _c("div", { staticClass: "card-block px-3" }, [
-                _c("div", [
-                  _c("h4", { staticClass: "card-title" }, [
-                    _vm._v("Paquete de 10 puntos")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v(
-                      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-                    )
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "e15 col-md-3 px-3" }, [
-              _c("div", { staticClass: "c1 card-block" }, [
-                _c("div", [
-                  _c("h4", { staticClass: "card-title" }, [_vm._v("$ 20.00")])
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "b1 btn btn-primary card-text",
-                      attrs: { href: "#" }
-                    },
-                    [_vm._v("Comprar")]
-                  )
-                ])
-              ])
-            ])
-          ])
+      _c("li", { attrs: { "data-target": "#demo", "data-slide-to": "1" } }),
+      _vm._v(" "),
+      _c("li", { attrs: { "data-target": "#demo", "data-slide-to": "2" } }),
+      _vm._v(" "),
+      _c("li", { attrs: { "data-target": "#demo", "data-slide-to": "3" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("img", {
+        staticClass: "w-100",
+        attrs: { src: "/img/tabla-precio/monedi.jpg" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("p", { staticClass: "card-text" }, [
+        _vm._v(
+          "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "e15 col-md-3 px-3" }, [
+      _c("div", { staticClass: "c1 card-block" }, [
+        _c("div", [
+          _c("h4", { staticClass: "card-title" }, [_vm._v("$ 20.00")])
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c(
+            "a",
+            {
+              staticClass: "b1 btn btn-primary card-text",
+              attrs: { href: "#" }
+            },
+            [_vm._v("Comprar")]
+          )
         ])
       ])
     ])
@@ -68234,8 +68382,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/elias/Documents/projects/roundtable/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/elias/Documents/projects/roundtable/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\roundtable\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\roundtable\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
