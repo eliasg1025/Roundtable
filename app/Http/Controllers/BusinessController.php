@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 
 class BusinessController extends Controller
 {
@@ -19,6 +20,13 @@ class BusinessController extends Controller
 		return view('search', compact('data'));
 	}
 
+	public function searchBusiness() {
+		$query = Input::get('query');
+		$users = User::where('commercial_name', 'like', '%'.$query.'%')->get();
+
+		return response()->json($users);
+	}
+
 	public function getBusiness() {
 		$ratingInfo = DB::table('ratings')
                             ->select('user_id', DB::raw('COUNT(*) as amount_rating, SUM(value) as total_rating, AVG(value) as avg_rating'))
@@ -29,7 +37,7 @@ class BusinessController extends Controller
 							$join->on('users.id', '=', 'rating_info.user_id');
 						})
 						->orderBy('total_rating', 'DESC', 'avg_rating', 'DESC')
-						->paginate(3); // Cantidad de empresas por pagina
+						->paginate(4); // Cantidad de empresas por pagina
 
 		return response()->json($users);
 	}
@@ -53,11 +61,13 @@ class BusinessController extends Controller
 							$join->on('users.id', '=', 'cat_user.user_id');
 						})
 						->orderBy('total_rating', 'DESC', 'avg_rating', 'DESC')
-						->paginate(3); // Cantidad de empresas por pagina
+						->paginate(4); // Cantidad de empresas por pagina
 
 		return response()->json($users);
 	}
 
+
+	// View business Profile -> return view
 	public function show($slug)
 	{
 		$uuid = substr($slug, -5);
@@ -81,7 +91,7 @@ class BusinessController extends Controller
 		return view('business', compact('user', 'media_data', 'account_data'));
 	}
 
-	// Private functions
+	// Get data functions
 
 	private function getMediaData(User $user)
 	{
