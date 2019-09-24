@@ -39,6 +39,7 @@ Vue.component('BusinessProducts', require('./components/BusinessProducts.vue').d
 
 //planes
 Vue.component('planes', require('./components/Planes.vue').default);
+Vue.component('puntos',require('./components/puntos.vue').default);
 //contacto
 Vue.component('contacto', require('./components/contacto.vue').default);
 

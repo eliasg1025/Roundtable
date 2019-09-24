@@ -28,7 +28,7 @@ class planesController extends Controller
 	public function index()
 	{
 		$type_plans = Plan::all();
-		
+
 		if (!empty(Auth::user())) {
 			$user = Auth::user();
 			$plans = DB::table('plan_user')
@@ -38,16 +38,23 @@ class planesController extends Controller
 			$data = [
 				'user_plans' => $plans,
 				'loged' => true,
-				'type_plans' => $type_plans
+				'type_plans' => $type_plans,
+				'packs' => $this->getCoinPacks()
 			];
 
 		} else {
 			$data = [
 				'loged' => false,
-				'type_plans' => $type_plans
+				'type_plans' => $type_plans,
+				'packs' => $this->getCoinPacks()
 			];
 		}
-		
+
 		return view('planes', compact('data'));
+	}
+
+	private function getCoinPacks(){
+		$pack = DB::table('coin_packs')->get();
+		return view('planes',compact('pack'));
 	}
 }
