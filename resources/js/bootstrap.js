@@ -55,4 +55,5 @@ if (token) {
 // });
 
 window.Tiny = require('tiny-slider/src/tiny-slider');
-window.Swal = require('sweetalert2')
+window.Swal = require('sweetalert2');
+window.Tippy = require('tippy.js');

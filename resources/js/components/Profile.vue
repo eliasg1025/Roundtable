@@ -1,7 +1,7 @@
 <template>
 	<section class="user_profile">
 		<div class="container">
-			<div class="row mt-5">
+			<div class="row mt-3">
 				<div class="adv jumbotron jumbotron-fluid">
 					<div class="row container">
 						<div class="col-md-5 text-center">
@@ -27,6 +27,7 @@
 				</div>
 			</div>
 			<div class="row">
+				<!-- Left side -->
 				<div class="col-sm-3 col-md-3">
 					<!-- Box Profile -->
 					<div class="box-profile-img">
@@ -53,7 +54,7 @@
 											role="button"
 											data-toggle="popover"
 											data-trigger="focus"
-											data-content="And here's some amazing content. It's very engaging. Right?"
+											data-content="¿Quieres adquirir mas coins? <a href='#'>Haz click aquí</a>"
 										>
 											Tienes <span class="badge badge-success">{{user.coins}} coins</span>
 										</a>
@@ -79,7 +80,7 @@
 											role="button"
 											data-toggle="popover"
 											data-trigger="focus"
-											data-content="And here's some amazing content. It's very engaging. Right?"
+											data-content="Mejora tu plan <a href='#'>aquí</a>"
 										>
 											Plan Actual <span class="badge badge-secondary">{{ current_plan.name }}</span>
 										</a>
@@ -89,47 +90,38 @@
 						</div>
 					</div>
 					<!-- End Box Profile -->
-					<ul v-show="active" class="lateral-user-options mt-3">
-						<!-- Info Empresa -->
-						<li>
-							<div>
-								<button v-on:click.stop.prevent="activePanel(1)" class="btn" href="#">
-									<h5>Información Empresa</h5>
-								</button>
-							</div>
-						</li>
-						<!-- Ofertas -->
-						<li>
-							<div>
-								<button v-on:click.stop.prevent="activePanel(2)" class="btn" href="#">
-									<h5>Ofertas</h5>
-								</button>
-							</div>
-						</li>
-						<!-- Certificaciones -->
-						<li>
-							<div>
-								<button v-on:click.stop.prevent="activePanel(3)" class="btn" href="#">
-									<h5>Certificaciones</h5>
-								</button>
-							</div>
-						</li>
-						<!-- Agendamientos -->
-						<li>
-							<div>
-								<button v-on:click.stop.prevent="activePanel(4)" class="btn" href="#">
-									<h5>Agendamientos</h5>
-								</button>
-							</div>
-						</li>
-					</ul>
+					<div v-show="active" class="lateral-user-options mt-3">
+						<!-- Menu Options -->
+						<div class="card-header text-white text-uppercase title-sidebar">
+							<i class="fa fa-list"></i> Menú
+						</div>
+						<div class="list-group">
+							<a href="#" v-on:click.stop.prevent="activePanel(1)" class="list-group-item item-siderbar">Información Empresa</a>
+							<a href="#" v-on:click.stop.prevent="activePanel(2)" class="list-group-item item-siderbar">Ofertas</a>
+							<a href="#" v-on:click.stop.prevent="activePanel(3)" class="list-group-item item-siderbar">Certificaciones</a>
+							<a href="#" v-on:click.stop.prevent="activePanel(4)" class="list-group-item item-siderbar">Agendamientos</a>
+						</div>
+					</div>
 				</div>
+
+				<!-- Rigth Side -->
 				<div class="col-sm-9 col-md-9">
+					<!-- Top user Options -->
+					<div class="top-user-options my-3" >
+						<div class="list-group list-group-horizontal" v-show="active">
+							<a href="#" v-on:click.stop.prevent="activePanel(1)" class="list-group-item item-topbar"><i class="fa fa-building-o" aria-hidden="true"></i> Información Empresa</a>
+							<a href="#" v-on:click.stop.prevent="activePanel(2)" class="list-group-item item-topbar"><i class="fa fa-lemon-o" aria-hidden="true"></i> Ofertas</a>
+							<a href="#" v-on:click.stop.prevent="activePanel(3)" class="list-group-item item-topbar"><i class="fa fa-certificate" aria-hidden="true"></i> Certificaciones</a>
+							<a href="#" v-on:click.stop.prevent="activePanel(4)" class="list-group-item item-topbar"><i class="fa fa-address-book-o" aria-hidden="true"></i> Agendamientos</a>
+						</div>
+					</div>
+
+
 					<!-- User Options -->
 					<ul id="userPanel" v-show="!active" class="user-options">
 						<!-- Info Empresa -->
 						<li>
-							<figure class="snip green">
+							<figure class="snip">
 								<img src="/img/accounting-businesswoman-communication-38556 (1).jpg" alt=""/>
 								<figcaption>
 									<div>
@@ -137,13 +129,14 @@
 									</div>
 									<div>
 										<h5>Información Empresa</h5>
-									</div><a v-on:click.stop.prevent="activePanel(1)" href="#"></a>
+									</div>
+									<a v-on:click.stop.prevent="activePanel(1)" href="#"></a>
 								</figcaption>
 							</figure>
 						</li>
 						<!-- Ofertas -->
 						<li>
-							<figure class="snip green">
+							<figure class="snip">
 								<img src="/img/food-berries-wallpaper-44416-45541-hd-wallpapers_1400_820.jpg" alt=""/>
 								<figcaption>
 									<div>
@@ -151,27 +144,29 @@
 									</div>
 									<div>
 										<h5>Ofertas</h5>
-									</div><a v-on:click.stop.prevent="activePanel(2)" href="#"></a>
+									</div>
+									<a v-on:click.stop.prevent="activePanel(2)" href="#"></a>
 								</figcaption>
 							</figure>
 						</li>
 						<!-- Certificaciones -->
 						<li>
-							<figure class="snip green">
-								<img src="/img/-cual-es-el-fruto-seco-mas-saludable-1-655x368.jpg" alt=""/>
+							<figure class="snip">
+								<img src="/img/certificados/stock-photo-office-paper-document-stamp-in-business-human-hand-73802812-680x365_c.jpg" alt=""/>
 								<figcaption>
 									<div>
 										<span>Certificaciones</span>
 									</div>
 									<div>
 										<h5>Certificaciones</h5>
-									</div><a v-on:click.stop.prevent="activePanel(3)" href="#"></a>
+									</div>
+									<a v-on:click.stop.prevent="activePanel(3)" href="#"></a>
 								</figcaption>
 							</figure>
 						</li>
 						<!-- Agendamientos -->
 						<li>
-							<figure class="snip green">
+							<figure class="snip">
 								<img src="/img/body-language-business-etiquette-businesspeople-1179804.jpg" alt=""/>
 								<figcaption>
 									<div>
@@ -179,36 +174,42 @@
 									</div>
 									<div>
 										<h5>Agendamiento</h5>
-									</div><a v-on:click.stop.prevent="activePanel(4)" href="#"></a>
+									</div>
+									<a v-on:click.stop.prevent="activePanel(4)" href="#"></a>
 								</figcaption>
 							</figure>
 						</li>
 					</ul>
 					<!-- End User Options -->
 
-					<!-- Informacion Empresa Panel -->
-					<div v-show="panel === 1">
-						<h3>Información Empresa</h3>
-					</div>
-					<!-- End Panel -->
+					<section class="panels">
+						<div class="spinner-container" v-show="loading">
+							<spinner></spinner>
+						</div>
 
-					<!-- Ofertas Panel -->
-					<div v-show="panel === 2">
-						<h3>Ofertas</h3>
-					</div>
-					<!-- End Panel -->
-					
-					<!-- Certificaciones Panel -->
-					<div v-show="panel === 3">
-						<h3>Certificaciones</h3>
-					</div>
-					<!-- End Panel -->
-					
-					<!-- Agendamientos Panel -->
-					<div v-show="panel === 4">
-						<h3>Agendamientos</h3>
-					</div>
-					<!-- End Panel -->
+						<!-- Informacion Empresa Panel -->
+						<div class="panel" v-show="panel === 1">
+							<panel-info
+								:user="user"
+							></panel-info>
+						</div>
+
+						<!-- Ofertas Panel -->
+						<div class="panel" v-show="panel === 2">
+							<panel-offer></panel-offer>
+						</div>
+
+						<!-- Certificaciones Panel -->
+						<div class="panel" v-show="panel === 3">
+							<panel-cert></panel-cert>
+						</div>
+
+						<!-- Agendamientos Panel -->
+						<div class="panel" v-show="panel === 4">
+							<panel-meet></panel-meet>
+						</div>
+					</section>
+
 				</div>
 			</div>
 		</div>
@@ -216,35 +217,50 @@
 </template>
 
 <script>
-	$(function () {
-  		$('[data-toggle="popover"]').popover()
-	});
+	import PanelInfo from "./ProfilePanelInfo";
+	import PanelOffer from "./ProfilePanelOffer";
+	import PanelCert from "./ProfilePanelCert";
+	import PanelMeet from "./ProfilePanelMeet";
+	import Spinner from "./Spinner";
 
 	export default {
+		components: {
+			PanelInfo,
+			PanelOffer,
+			PanelCert,
+			PanelMeet
+		},
 		props: [
 			'data',
 		],
 		data() {
 			return {
-				'user': this.data.user,
-				'user_plans': this.data.user_plans,
-				'messages': this.data.messages,
-				'rating': this.data.account_data.rating_data,
-				'current_plan': this.data.user_plans[0],
+				user: this.data.user,
+				user_plans: this.data.user_plans,
+				messages: this.data.messages,
+				rating: this.data.account_data.rating_data,
+				current_plan: this.data.user_plans[0],
 				// Panel state
-				'active': false,
-				'panel': 0,
+				active: false,
+				panel: 0,
+				loading: false,
 			}
 		},
 		methods: {
 			activePanel(option) {
-
-				if (this.active === false) {
-					this.active = true
-				}
-
-				this.panel = option
+				this.active = true
+				this.panel = 0
+				this.loading = true
+				setTimeout(() => {
+					this.panel = option
+					this.loading = false
+				}, 500)
 			}
+		},
+		mounted() {
+			$(function () {
+				$('[data-toggle="popover"]').popover()
+			});
 		}
 	}
 </script>
@@ -268,13 +284,6 @@
 		margin-right: 20px;
 		transition: all 0.6s;
 		color: #fff;
-	}
-
-	@media (max-width: 600px) {
-		.btn-view-profile {
-			width: 80%;
-			float: none;
-		}
 	}
 
 	.user_profile {
@@ -332,16 +341,10 @@
 		border-radius: 15px;
 	}
 
-	@media (max-width: 600px) {
-		.user-options > li {
-			width: 100%;
-		}
-	}
-
 	figure.snip {
 		font-family: 'Poppins', sans-serif;
 		font-weight: 600;
-		color: #fff;
+		color: #ececec;
 		position: relative;
 		overflow: hidden;
 		min-width: 220px;
@@ -384,8 +387,7 @@
 		height: 50%;
 	}
 
-	figure.snip h5,
-	figure.snip span {
+	figure.snip h5, figure.snip span {
 		margin: 0;
 		padding: 10px 15px;
 		display: inline-block;
@@ -394,8 +396,8 @@
 	}
 
 	figure.snip span {
-		background: rgba(256, 256, 256, 1);
-		color: #4d4d4d;
+		background: #88be2e;
+		color: #fff; /*#4d4d4d*/
 		position: relative;
 		bottom: 0;
 		left: 0;
@@ -422,40 +424,7 @@
 		color: #ffffff;
 	}
 
-	figure.snip.blue {
-		background: #0a212f;
-	}
-
-	figure.snip.blue h5 {
-		background: #2980b9;
-	}
-
-	figure.snip.red {
-		background: #36100c;
-	}
-
-	figure.snip.red h5 {
-		background: #c0392b;
-	}
-
-	figure.snip.yellow {
-		background: #583804;
-	}
-
-	figure.snip.yellow h5 {
-		background: #f39c12;
-	}
-
-	figure.snip.navy {
-		background: #000000;
-	}
-
-	figure.snip.navy h5 {
-		background: #34495e;
-	}
-
-	figure.snip:hover img,
-	figure.snip.hover img {
+	figure.snip:hover img, figure.snip.hover img {
 		opacity: 0.35;
 		-webkit-filter: blur(5px);
 		filter: blur(5px);
@@ -463,14 +432,12 @@
 		transform: scale(1.1);
 	}
 
-	figure.snip:hover figcaption span,
-	figure.snip.hover figcaption span {
+	figure.snip:hover figcaption span, figure.snip.hover figcaption span {
 		-webkit-transform: translate3d(0%, 0%, 0);
 		transform: translate3d(0%, 0%, 0);
 	}
 
-	figure.snip:hover figcaption h5,
-	figure.snip.hover figcaption h5 {
+	figure.snip:hover figcaption h5, figure.snip.hover figcaption h5 {
 		-webkit-transform: translate3d(0%, -100%, 0);
 		transform: translate3d(0%, -100%, 0);
 	}
@@ -495,9 +462,49 @@
 
 	.lateral-user-options {
 		list-style: none;
+		display: none;
 	}
 
-	.lateral-user-options figure.snip {
-		height: 100px !important; 
+	.item-topbar {
+		color: black;
+		transition: all ease 500ms;
+	}
+
+	.item-topbar:hover {
+		background-color:#E9ECEF;
+		color: #88BE2E;
+		margin-top: 1%;
+		margin-bottom: -1%;
+	}
+
+	.panels {
+		margin-top: 10px;
+	}
+
+	.panel {
+		margin-top: 25px;
+	}
+
+	.spinner-container {
+		margin-top: 50px;
+	}
+
+	@media (max-width: 600px) {
+		.btn-view-profile {
+			width: 80%;
+			float: none;
+		}
+
+		.user-options > li {
+			width: 100%;
+		}
+
+		.lateral-user-options {
+			display: block;
+		}
+
+		.top-user-options {
+			display: none;
+		}
 	}
 </style>

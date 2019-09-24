@@ -164,7 +164,7 @@
 								<h5 class="modal-title h3" id="modalStats-rating">Categorías</h5>
 							</div>
 							<div class="business-stat-modal container">
-								<div v-if="certifications.length > 0">
+								<div v-if="categories.length > 0">
 									<ul class="nav justify-content-center">
 										<!-- For category -->
 										<li v-for="(category, index) in categories" :key="index" class="nav-item">

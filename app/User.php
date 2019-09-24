@@ -92,6 +92,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getSlugAttribute(): string
     {
-        return str_slug($this->name) . '-' . $this->uuid;
+        return str_slug($this->commercial_name) . '-' . $this->uuid;
     }
 }
