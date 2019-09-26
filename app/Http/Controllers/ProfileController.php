@@ -39,6 +39,7 @@ class ProfileController extends Controller
 			'user_plans' => $plans,
 			'messages' => $messages,
 			'account_data' => $account_data,
+			'media_data' => $this->getMediaData($user),
 		];
 
         return view('profile', compact('data'));
@@ -83,8 +84,20 @@ class ProfileController extends Controller
 		return $data;
 	}
 
-	private function getCertifications($user) {
+	private function getCertifications($user)
+	{
 		$user_certifications = $user->user_certifications()->get();
 		return $user_certifications;
+	}
+
+	private function getMediaData($user)
+	{
+		$images = $user->images()->get();
+		$videos = $user->videos()->get();
+
+		return [
+			'images' => $images,
+			'videos' => $videos
+		];
 	}
 }

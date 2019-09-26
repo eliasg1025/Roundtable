@@ -11,6 +11,8 @@ class UserObserver
     {
         $user->uuid = $this->generateStringUnique();
 		$user->commercial_name = $user->name;
+		$user->slug = str_slug($user->commercial_name);
+		$user->coins = 5; ///////////// Cambiar
     }
 
     private function generateStringUnique(): string
