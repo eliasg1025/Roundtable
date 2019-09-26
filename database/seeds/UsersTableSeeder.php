@@ -28,7 +28,7 @@ class UsersTableSeeder extends Seeder
 
         App\User::create([
             'name' => 'Empresa de prueba 1',
-            'email' => 'empresa1@prueba1.com',
+            'email' => 'empresa1@prueba.com',
             'password' => bcrypt('12345678'),
             'ruc' => '20602926062',
             'legal_registration' => '20602926062',

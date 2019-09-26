@@ -28,7 +28,7 @@
 			</div>
 			<div class="row">
 				<!-- Left side -->
-				<div class="col-sm-3 col-md-3">
+				<div class="col-md-3">
 					<!-- Box Profile -->
 					<div class="box-profile-img">
 						<!-- Profile Logo -->
@@ -46,43 +46,32 @@
 							</rating-stars>
 							<h4 class="text-center">{{ user.commercial_name }}</h4>
 							<hr>
-							<ul class="notifications">
-								<li class="align-top">
+							<ul class="notifications container">
+								<li class="align-top d-flex justify-content-between align-items-center">
 									<div class="p-1">
-										<a
-											tabindex="0"
-											role="button"
-											data-toggle="popover"
-											data-trigger="focus"
-											data-content="¿Quieres adquirir mas coins? <a href='#'>Haz click aquí</a>"
-										>
+										<a href="#">
+											Plan Actual <span class="badge badge-secondary">{{ current_plan.name }}</span>
+										</a>
+									</div>
+								</li>
+								<li class="align-top d-flex justify-content-between align-items-center">
+									<div class="p-1">
+										<a href="#">
 											Tienes <span class="badge badge-success">{{user.coins}} coins</span>
 										</a>
 									</div>
 								</li>
-								<li class="align-top">
+								<li class="align-top d-flex justify-content-between align-items-center">
 									<div class="p-1">
-										<a
-											tabindex="0"
-											role="button"
-											data-toggle="popover"
-											data-trigger="focus"
-											data-content="And here's some amazing content. It's very engaging. Right?"
-										>
-											Notificaciones <span class="badge badge-info">{{ messages.length }}</span>
+										<a href="#">
+											Visitas <span class="badge badge-success">{{ user.views }}</span>
 										</a>
 									</div>
 								</li>
-								<li class="align-top">
+								<li class="align-top d-flex justify-content-between align-items-center">
 									<div class="p-1">
-										<a
-											tabindex="0"
-											role="button"
-											data-toggle="popover"
-											data-trigger="focus"
-											data-content="Mejora tu plan <a href='#'>aquí</a>"
-										>
-											Plan Actual <span class="badge badge-secondary">{{ current_plan.name }}</span>
+										<a href="#">
+											Notificaciones <span class="badge badge-success">{{ messages.length }}</span>
 										</a>
 									</div>
 								</li>
@@ -105,14 +94,14 @@
 				</div>
 
 				<!-- Rigth Side -->
-				<div class="col-sm-9 col-md-9">
+				<div class="col-md-9">
 					<!-- Top user Options -->
-					<div class="top-user-options my-3" >
-						<div class="list-group list-group-horizontal" v-show="active">
-							<a href="#" v-on:click.stop.prevent="activePanel(1)" class="list-group-item item-topbar"><i class="fa fa-building-o" aria-hidden="true"></i> Información Empresa</a>
-							<a href="#" v-on:click.stop.prevent="activePanel(2)" class="list-group-item item-topbar"><i class="fa fa-lemon-o" aria-hidden="true"></i> Ofertas</a>
-							<a href="#" v-on:click.stop.prevent="activePanel(3)" class="list-group-item item-topbar"><i class="fa fa-certificate" aria-hidden="true"></i> Certificaciones</a>
-							<a href="#" v-on:click.stop.prevent="activePanel(4)" class="list-group-item item-topbar"><i class="fa fa-address-book-o" aria-hidden="true"></i> Agendamientos</a>
+					<div class="top-user-options my-3">
+						<div class="list-group list-group-horizontal row" v-show="active">
+							<a href="#" v-on:click.stop.prevent="activePanel(1)" class="list-group-item item-topbar col-md-3"><div>Información Empresa</div></a>
+							<a href="#" v-on:click.stop.prevent="activePanel(2)" class="list-group-item item-topbar col-md-3"><div>Ofertas</div></a>
+							<a href="#" v-on:click.stop.prevent="activePanel(3)" class="list-group-item item-topbar col-md-3"><div>Certificaciones</div></a>
+							<a href="#" v-on:click.stop.prevent="activePanel(4)" class="list-group-item item-topbar col-md-3"><div>Agendamientos</div></a>
 						</div>
 					</div>
 
@@ -191,6 +180,8 @@
 						<div class="panel" v-show="panel === 1">
 							<panel-info
 								:user="user"
+								:media_data="media_data"
+								:current_plan="current_plan"
 							></panel-info>
 						</div>
 
@@ -208,6 +199,11 @@
 						<div class="panel" v-show="panel === 4">
 							<panel-meet></panel-meet>
 						</div>
+
+						<!-- Notificaciones Panel -->
+						<div class="panel" v-show="panel === 5">
+							<panel-noti></panel-noti>
+						</div>
 					</section>
 
 				</div>
@@ -221,6 +217,7 @@
 	import PanelOffer from "./ProfilePanelOffer";
 	import PanelCert from "./ProfilePanelCert";
 	import PanelMeet from "./ProfilePanelMeet";
+	import PanelNoti from "./ProfilePanelNoti.vue";
 	import Spinner from "./Spinner";
 
 	export default {
@@ -228,7 +225,8 @@
 			PanelInfo,
 			PanelOffer,
 			PanelCert,
-			PanelMeet
+			PanelMeet,
+			PanelNoti
 		},
 		props: [
 			'data',
@@ -239,11 +237,16 @@
 				user_plans: this.data.user_plans,
 				messages: this.data.messages,
 				rating: this.data.account_data.rating_data,
-				current_plan: this.data.user_plans[0],
+				media_data: this.data.media_data,
 				// Panel state
 				active: false,
 				panel: 0,
 				loading: false,
+			}
+		},
+		computed: {
+			current_plan() {
+				return this.user_plans[0]
 			}
 		},
 		methods: {
@@ -308,7 +311,6 @@
 
 	.notifications {
 		list-style: none;
-		text-align: center;
 		margin-bottom: 5px;
 	}
 
@@ -468,6 +470,8 @@
 	.item-topbar {
 		color: black;
 		transition: all ease 500ms;
+		text-align: center;
+		vertical-align: middle;
 	}
 
 	.item-topbar:hover {
@@ -489,7 +493,25 @@
 		margin-top: 50px;
 	}
 
+	@media screen and (max-width: 768px) {
+		figure.snip {
+			height: 180px;
+		}
+
+		.box-profile-img h4 {
+			font-size: 16px;
+		}
+
+		.box-profile-img ul {
+			font-size: 12px;
+		}
+	}
+
 	@media (max-width: 600px) {
+		.box-profile-img {
+			margin-bottom: 35px;
+		}
+
 		.btn-view-profile {
 			width: 80%;
 			float: none;
@@ -505,6 +527,14 @@
 
 		.top-user-options {
 			display: none;
+		}
+
+		.box-profile-img h4 {
+			font-size: 26px;
+		}
+
+		.box-profile-img ul {
+			font-size: 18px;
 		}
 	}
 </style>
