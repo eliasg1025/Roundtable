@@ -187,22 +187,21 @@
 
 						<!-- Ofertas Panel -->
 						<div class="panel" v-show="panel === 2">
-							<panel-offer></panel-offer>
+							<panel-offer
+								:data_offers="data_offers"
+							></panel-offer>
 						</div>
 
 						<!-- Certificaciones Panel -->
 						<div class="panel" v-show="panel === 3">
-							<panel-cert></panel-cert>
+							<panel-cert
+								:certifications="certifications"
+							></panel-cert>
 						</div>
 
 						<!-- Agendamientos Panel -->
 						<div class="panel" v-show="panel === 4">
 							<panel-meet></panel-meet>
-						</div>
-
-						<!-- Notificaciones Panel -->
-						<div class="panel" v-show="panel === 5">
-							<panel-noti></panel-noti>
 						</div>
 					</section>
 
@@ -217,7 +216,6 @@
 	import PanelOffer from "./ProfilePanelOffer";
 	import PanelCert from "./ProfilePanelCert";
 	import PanelMeet from "./ProfilePanelMeet";
-	import PanelNoti from "./ProfilePanelNoti.vue";
 	import Spinner from "./Spinner";
 
 	export default {
@@ -225,8 +223,7 @@
 			PanelInfo,
 			PanelOffer,
 			PanelCert,
-			PanelMeet,
-			PanelNoti
+			PanelMeet
 		},
 		props: [
 			'data',
@@ -236,8 +233,10 @@
 				user: this.data.user,
 				user_plans: this.data.user_plans,
 				messages: this.data.messages,
-				rating: this.data.account_data.rating_data,
 				media_data: this.data.media_data,
+				rating: this.data.account_data.rating_data,
+				data_offers: this.data.account_data.offers_data,
+				certifications: this.data.account_data.user_certifications,
 				// Panel state
 				active: false,
 				panel: 0,

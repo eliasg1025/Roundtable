@@ -18,6 +18,7 @@ class CreatePlansTable extends Migration
             $table->string('name');
             $table->float('cost');
 			$table->integer('initial_coins');
+			$table->json('benefits');
             $table->timestamps();
         });
     }

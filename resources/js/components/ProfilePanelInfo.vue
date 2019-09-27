@@ -120,8 +120,21 @@
 					</div>
 				</div>
 			</div>
-			<div class="multi-preview jumbotron">
-				Puedes agregar: {{ might_add_image }} imagen(s)
+			<div class="multi-preview">
+				<p class="multi-preview-info">Puedes agregar: {{ might_add_images }} imagenes(s)</p>
+				<div class="multi-preview-content">
+					<div class="multi-preview-disable text-center">
+						<div class="no-image__container">
+							<img src="/img/iconos/no-image-icon-23492.png" class="no-image">
+						</div>
+						<p style="color: #6C757D;" class="select_multi">Selecciona una imagen</p>
+					</div>
+					<div class="multi-preview-enable">
+						<button class="btn btn-danger btn-delete-multi">
+							Eliminar
+						</button>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -158,8 +171,20 @@
 					</div>
 				</div>
 			</div>
-			<div class="multi-preview jumbotron">
-				Puedes agregar: {{ might_add_videos }} video(s)
+
+			<div class="multi-preview">
+				<p class="multi-preview-info">Puedes agregar: {{ might_add_videos }} video(s)</p>
+				<div class="multi-preview-disable text-center">
+					<div class="no-image__container">
+						<img src="/img/iconos/no-image-icon-23492.png" class="no-image">
+					</div>
+					<p style="color: #6C757D;" class="select_multi">Selecciona un video</p>
+				</div>
+				<div class="multi-preview-enable">
+					<button class="btn btn-danger btn-delete-multi">
+						Eliminar
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -254,11 +279,11 @@
 			profile_link() {
 				return window.location.origin + '/business/profile/' + this.user.slug
 			},
-			might_add_image() {
-				return this.plans[0].images - this.images.length
+			might_add_images() {
+				return JSON.parse(this.current_plan.benefits).images - this.images.length // Temporal
 			},
 			might_add_videos() {
-				return this.plans[0].videos - this.videos.length
+				return JSON.parse(this.current_plan.benefits).videos - this.videos.length // Temporal
 			}
 		},
 		methods: {
@@ -281,6 +306,37 @@
 </script>
 
 <style>
+	.multi-preview {
+		padding: 20px;
+		background-color: #dbd7d7;
+		border: 1px solid #dbd7d7;
+		border-radius: 12px;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+	}
+
+	.multi-preview-info {
+		font-family: 'Poppins', sans-serif;
+		font-size: 20px;
+	}
+
+	.select_multi {
+		font-size: 30px;
+	}
+
+	.no-image__container {
+		margin-top: 15px;
+		margin-bottom: 25px;
+	}
+
+	.no-image {
+		width: 200px;
+		height: 150px;
+	}
+
+	.btn-delete-multi {
+		float: right;
+	}
+
 	.active-plan {
 		font-weight: bold;
 	}
