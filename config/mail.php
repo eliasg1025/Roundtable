@@ -136,13 +136,14 @@
 ];*/
 return [
     "driver" => "smtp",
-    "host" => "smtp.mailtrap.io",
-    "port" => 2525,
+    "host" => "mail.roundtableperu.com",
+    "port" => 465,
     "from" => array(
-        "address" => "from@example.com",
-        "name" => "Example"
+        "address" => "Support@roundtableperu.com",
+        "name" => "Roundtable Perú"
     ),
-    "username" => "7d026d638eec13",
-    "password" => "bba83bce282aa4",
-    "sendmail" => "/usr/sbin/sendmail -bs"
+    "username" => "support@roundtableperu.com",
+    "password" => "R6lve7micHQ3",
+    "sendmail" => "/usr/sbin/sendmail -bs",
+    "encryption" => "ssl",
   ];

@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
     {
         App\User::create([
             'name' => 'Surandina Peru',
-            'email' => 'contacto@surandinaperu.pe',
+            'email' => 'eliasguere1025@gmail.com',
             'password' => bcrypt('12345678'),
             'ruc' => '20602926061',
             'legal_registration' => '20602926061',
