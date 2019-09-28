@@ -52,13 +52,13 @@
 							</li>
 							<li class="nav-item">
 								<a href="" class="nav-link nav__business-stat" data-toggle="modal" data-target="#modalStats-certifications">
-									<div class="stat-value"><i class="fa fa-certificate"></i> {{ this.certifications.length }} </div>
+									<div class="stat-value"><i class="fas fa-award"></i> {{ this.certifications.length }} </div>
 									<div class="stat-name">Certificados</div>
 								</a>
 							</li>
 							<li class="nav-item">
 								<a href="#businessProductSection" class="nav-link nav__business-stat">
-									<div class="stat-value"><i class="fa fa-lemon-o"></i> {{ this.amount_offers }} </div>
+									<div class="stat-value"><i class="fas fa-apple-alt"></i> {{ this.amount_offers }} </div>
 									<div class="stat-name">Ofertas</div>
 								</a>
 							</li>
@@ -134,7 +134,7 @@
 										<!-- For certification -->
 										<li v-for="(certification, index) in certifications" :key="index" class="nav-item">
 											<a :href="certification.url" target="_blank" class="business-stat-modal__item">
-												<i class="fa fa-file-pdf-o" aria-hidden="true" style="color: #D54841; font-size: 50px;"></i>
+												<i class="fas fa-file-pdf" aria-hidden="true" style="color: #D54841; font-size: 50px;"></i>
 												<p style="margin-top: 15px;">{{ certification.title }}</p>
 											</a>
 										</li>
@@ -361,7 +361,7 @@
 	.business-stats .nav-item {
 		width: 25%;
 		text-align: center;
-		
+
 	}
 
 	.nav__business-stat:hover {

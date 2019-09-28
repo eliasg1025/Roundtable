@@ -535,5 +535,9 @@
 		.box-profile-img ul {
 			font-size: 18px;
 		}
+
+		.panel-alert {
+			font-size: 14px;
+		}
 	}
 </style>
