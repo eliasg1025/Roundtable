@@ -1,7 +1,7 @@
 <template>
 	<div id="info-panel" >
 		<h3>Información Empresa</h3>
-		<div class="alert alert-secondary mt-3" role="alert">
+		<div class="panel-alert alert alert-secondary mt-3" role="alert">
 			Modifica los datos de tu empresa, además agrega contenido multimedia. <i>¡Ten en cuenta que tu información de contacto será revelada <b>sólo</b> a las empresas que quieran hacer negocios contigo!</i>
 		</div>
 		<div class="container">
@@ -92,7 +92,7 @@
 		</div>
 		<div class="panel-info-section">
 			<div class="container">
-				<div class="alert alert-success" role="alert">
+				<div class="panel-alert alert alert-success" role="alert">
 					<p>Dependiendo del tipo de plan que tengas puedes subir cierta cantidad de Imagenes:</p>
 					<ul style="margin-left: 15px;">
 						<li v-for="plan in plans" :key="plan.id" v-bind:class="{'active-plan': current_plan.id === plan.id}">
@@ -101,11 +101,13 @@
 					</ul>
 				</div>
 			</div>
-
+			<!-- Carousel que muestra las imagenes actuales -->
 			<div id="multi-carousel-images">
 				<div class="multi-carousel-item" v-for="image in images" :key="image.id">
 					<div class="multi-image-container">
-						<img :src="image.url" class="multi-image">
+						<a href="#" v-on:click.prevent.stop="previewImage(image)">
+							<img :src="image.url" class="multi-image">
+						</a>
 					</div>
 				</div>
 				<div class="multi-carousel-item">
@@ -120,17 +122,20 @@
 					</div>
 				</div>
 			</div>
+			<!-- Previsualizacion de la imagen seleccionada -->
 			<div class="multi-preview">
 				<p class="multi-preview-info">Puedes agregar: {{ might_add_images }} imagenes(s)</p>
 				<div class="multi-preview-content">
-					<div class="multi-preview-disable text-center">
+					<!-- Si es que NO hay elemento seleccionado -->
+					<div class="multi-preview-disable text-center" v-show="!active_image">
 						<div class="no-image__container">
 							<img src="/img/iconos/no-image-icon-23492.png" class="no-image">
 						</div>
 						<p style="color: #6C757D;" class="select_multi">Selecciona una imagen</p>
 					</div>
+					<!-- Si es que SI hay elemento seleccionado -->
 					<div class="multi-preview-enable">
-						<button class="btn btn-danger btn-delete-multi">
+						<button class="btn btn-danger btn-delete-multi" v-show="active_image">
 							Eliminar
 						</button>
 					</div>
@@ -144,7 +149,7 @@
 		</div>
 		<div class="panel-info-section">
 			<div class="container">
-				<div class="alert alert-success" role="alert">
+				<div class="panel-alert alert alert-success" role="alert">
 					<p>Dependiendo del tipo de plan que tengas puedes subir cierta cantidad de videos:</p>
 					<ul style="margin-left: 15px;">
 						<li v-for="plan in plans" :key="plan.id" v-bind:class="{'active-plan': current_plan.id === plan.id}">
@@ -153,10 +158,13 @@
 					</ul>
 				</div>
 			</div>
+			<!-- Carousel que muestra los videos actuales -->
 			<div id="multi-carousel-videos">
 				<div class="multi-carousel-item" v-for="video in videos" :key="video.id">
 					<div class="multi-image-container">
-						<video :src="video.url" class="multi-image"></video>
+						<a href="#" v-on:click.prevent.stop="previewVideo(video)">
+							<video :src="video.url" class="multi-image"></video>
+						</a>
 					</div>
 				</div>
 				<div class="multi-carousel-item">
@@ -171,17 +179,19 @@
 					</div>
 				</div>
 			</div>
-
+			<!-- Previsualizacion del video seleccionado -->
 			<div class="multi-preview">
 				<p class="multi-preview-info">Puedes agregar: {{ might_add_videos }} video(s)</p>
-				<div class="multi-preview-disable text-center">
+				<!-- Si es que NO hay elemento seleccionado -->
+				<div class="multi-preview-disable text-center" v-show="!active_video">
 					<div class="no-image__container">
 						<img src="/img/iconos/no-image-icon-23492.png" class="no-image">
 					</div>
 					<p style="color: #6C757D;" class="select_multi">Selecciona un video</p>
 				</div>
+				<!-- Si es que SI hay elemento seleccionado -->
 				<div class="multi-preview-enable">
-					<button class="btn btn-danger btn-delete-multi">
+					<button class="btn btn-danger btn-delete-multi" v-show="active_video">
 						Eliminar
 					</button>
 				</div>
@@ -230,7 +240,10 @@
 						images: 10,
 						videos: 3
 					}
-				]
+				],
+				// Active Preview
+				active_image: false,
+				active_video: false,
 			}
 		},
 		created() {
@@ -249,6 +262,11 @@
 		mounted() {
 			const multi_carousel_images = Tiny.tns({
 				container: '#multi-carousel-images',
+				autoplay: true,
+                mouseDrag: true,
+                controls: false,
+                nav: false,
+                autoplayButtonOutput: false,
 				items: 1,
 				slideBy: 1,
 				responsive: {
@@ -263,6 +281,11 @@
 
 			const multi_carousel_videos = Tiny.tns({
 				container: '#multi-carousel-videos',
+				autoplay: true,
+                mouseDrag: true,
+                controls: false,
+                nav: false,
+                autoplayButtonOutput: false,
 				items: 1,
 				slideBy: 1,
 				responsive: {
@@ -300,6 +323,12 @@
 					showConfirmButton: false,
 					timer: 1500
 				})
+			},
+			previewImage(image) {
+				console.log(image)
+			},
+			previewVideo(video) {
+				console.log(video)
 			}
 		}
 	}
@@ -324,7 +353,7 @@
 	}
 
 	.no-image__container {
-		margin-top: 15px;
+		margin-top: 20px;
 		margin-bottom: 25px;
 	}
 
@@ -527,9 +556,10 @@
 			height: 170px;
 		}
 
+		/*
 		.multi-image-container {
 			height: 100px;
-		}
+		}*/
 	}
 
 	@media screen and (max-width: 600px) {
@@ -548,6 +578,19 @@
 		}
 		.multi-image-container {
 			height: 150px;
+		}
+
+		.multi-preview-info {
+			font-size: 13px;
+		}
+
+		.select_multi {
+			font-size: 20px;
+		}
+
+		.no-image {
+			width: 150px;
+			height: auto;
 		}
 	}
 </style>

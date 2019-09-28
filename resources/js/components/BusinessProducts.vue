@@ -73,7 +73,7 @@
 														<ul class="nav justify-content-center">
 															<li v-for="(certification, index) in data_offer.certifications" :key="index" class="nav-item" style="padding: 5px;">
 																<a :href="certification.url" class="btn btn-light btn-block" target="_blank" style="height: 100%; border: 1px solid #cecece;">
-																	<i class="fa fa-file-pdf-o" aria-hidden="true" style="color: #D54841; font-size: 25px;"></i>
+																	<i class="fas fa-file-pdf" aria-hidden="true" style="color: #D54841; font-size: 25px;"></i>
 																	<span class="product-certification-title">{{ certification.title }}</span>
 																</a>
 															</li>

@@ -2,7 +2,7 @@
 	<ul class="rating" v-if="show_rating === true">
 
 		<li v-for="n in stars.rating_star" :key="n"><i class="fa fa-star rating-star"></i></li><!--
-		--><li v-if="stars.half_rating_star === 1"><i class="fa fa-star-half-o rating-star"></i></li><!--
+		--><li v-if="stars.half_rating_star === 1"><i class="fas fa-star-half-alt rating-star"></i></li><!--
 		--><li v-for="m in stars.no_rating_star" :key="m + 5"><i class="fa fa-star no-rating-star"></i></li>
 		<li v-if="show_number === true"><p class="text-muted">{{ value_rating }} ({{ amount_rating }})</p></li>
 	</ul>
@@ -12,6 +12,7 @@
 		--><li><i class="fa fa-star no-rating-star"></i></li><!--
 		--><li><i class="fa fa-star no-rating-star"></i></li><!--
 		--><li><i class="fa fa-star no-rating-star"></i></li>
+		<br>
 		<li><p class="text-muted">Sin valoración</p></li>
 	</ul>
 </template>
