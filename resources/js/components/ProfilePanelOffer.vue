@@ -28,7 +28,6 @@
 							<td>
 								<div class="img-cell">
 									<a :data-target="'#xasdklj'+data_offer.offer.id" data-toggle="modal" href="#">
-										<div class="layer"></div>
 										<img :src="data_offer.offer.image_url">
 									</a>
 								</div>

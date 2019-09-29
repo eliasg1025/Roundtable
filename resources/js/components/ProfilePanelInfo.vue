@@ -101,11 +101,13 @@
 					</ul>
 				</div>
 			</div>
-			<!-- Carousel que muestra las imagenes actuales -->
+			<p class="multi-preview-info">Puedes agregar: {{ might_add_images }} imagenes(s)</p>
+			<!-- Carousel imagenes -->
 			<div id="multi-carousel-images">
 				<div class="multi-carousel-item" v-for="image in images" :key="image.id">
+					<!-- Imagen -->
 					<div class="multi-image-container">
-						<a href="#" v-on:click.prevent.stop="previewImage(image)">
+						<a :data-target="'#xdasdas'+image.id" data-toggle="modal" href="#">
 							<img :src="image.url" class="multi-image">
 						</a>
 					</div>
@@ -122,25 +124,22 @@
 					</div>
 				</div>
 			</div>
-			<!-- Previsualizacion de la imagen seleccionada -->
-			<div class="multi-preview">
-				<p class="multi-preview-info">Puedes agregar: {{ might_add_images }} imagenes(s)</p>
-				<div class="multi-preview-content">
-					<!-- Si es que NO hay elemento seleccionado -->
-					<div class="multi-preview-disable text-center" v-show="!active_image">
-						<div class="no-image__container">
-							<img src="/img/iconos/no-image-icon-23492.png" class="no-image">
+			<!-- Modals -->
+			<div v-for="image in images" :key="image.id" class="modal fade" :id="'xdasdas'+image.id" role="dialog" tabindex="-1" aria-hidden="true">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-body mb-0 p-0">
+							<img :src="image.url" style="width: 100%;">
 						</div>
-						<p style="color: #6C757D;" class="select_multi">Selecciona una imagen</p>
-					</div>
-					<!-- Si es que SI hay elemento seleccionado -->
-					<div class="multi-preview-enable">
-						<button class="btn btn-danger btn-delete-multi" v-show="active_image">
-							Eliminar
-						</button>
+						<div class="modal-footer p-0">
+							<button class="btn btn-danger btn-block" @click="deleteImage()">
+								Eliminar
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
+			<!-- End -->
 		</div>
 
 		<!-- Videos -->
@@ -158,11 +157,12 @@
 					</ul>
 				</div>
 			</div>
-			<!-- Carousel que muestra los videos actuales -->
+			<!-- Carousel videos -->
+			<p class="multi-preview-info">Puedes agregar: {{ might_add_videos }} video(s)</p>
 			<div id="multi-carousel-videos">
 				<div class="multi-carousel-item" v-for="video in videos" :key="video.id">
 					<div class="multi-image-container">
-						<a href="#" v-on:click.prevent.stop="previewVideo(video)">
+						<a :data-target="'#sdasdas'+video.id" data-toggle="modal" href="#">
 							<video :src="video.url" class="multi-image"></video>
 						</a>
 					</div>
@@ -179,21 +179,22 @@
 					</div>
 				</div>
 			</div>
-			<!-- Previsualizacion del video seleccionado -->
-			<div class="multi-preview">
-				<p class="multi-preview-info">Puedes agregar: {{ might_add_videos }} video(s)</p>
-				<!-- Si es que NO hay elemento seleccionado -->
-				<div class="multi-preview-disable text-center" v-show="!active_video">
-					<div class="no-image__container">
-						<img src="/img/iconos/no-image-icon-23492.png" class="no-image">
+
+			<!-- Modals -->
+			<div v-for="video in videos" :key="video.id" class="modal fade" :id="'sdasdas'+video.id" role="dialog" tabindex="-1" aria-hidden="true">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-body mb-0 p-0">
+							<video controls style="width: 100%">
+								<source :src="video.url">
+							</video>
+						</div>
+						<div class="modal-footer p-0">
+							<button class="btn btn-danger btn-block" @click="deleteVideo()">
+								Eliminar
+							</button>
+						</div>
 					</div>
-					<p style="color: #6C757D;" class="select_multi">Selecciona un video</p>
-				</div>
-				<!-- Si es que SI hay elemento seleccionado -->
-				<div class="multi-preview-enable">
-					<button class="btn btn-danger btn-delete-multi" v-show="active_video">
-						Eliminar
-					</button>
 				</div>
 			</div>
 		</div>
@@ -240,10 +241,7 @@
 						images: 10,
 						videos: 3
 					}
-				],
-				// Active Preview
-				active_image: false,
-				active_video: false,
+				]
 			}
 		},
 		created() {
@@ -324,11 +322,27 @@
 					timer: 1500
 				})
 			},
-			previewImage(image) {
-				console.log(image)
+			deleteImage() {
+				Swal.fire({
+					title: '¿Estas seguro que deseas eliminar esta imagen?',
+					type: 'warning',
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Si',
+					cancelButtonText: 'Cancelar',
+					showCancelButton: true,
+				})
 			},
-			previewVideo(video) {
-				console.log(video)
+			deleteVideo() {
+				Swal.fire({
+					title: '¿Estas seguro que deseas eliminar este video?',
+					type: 'warning',
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Si',
+					cancelButtonText: 'Cancelar',
+					showCancelButton: true,
+				})
 			}
 		}
 	}
@@ -360,6 +374,17 @@
 	.no-image {
 		width: 200px;
 		height: 150px;
+	}
+
+	.preview-image {
+		width: 70%;
+		height: auto;
+		border-radius: 6px;
+	}
+
+	.preview-image__container {
+		margin-top: 15px;
+		margin-bottom: 15px;
 	}
 
 	.btn-delete-multi {
@@ -591,6 +616,10 @@
 		.no-image {
 			width: 150px;
 			height: auto;
+		}
+
+		.multi-preview {
+			padding: 5px;
 		}
 	}
 </style>

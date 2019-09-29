@@ -3833,6 +3833,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user', 'media_data', 'current_plan'],
   data: function data() {
@@ -3864,10 +3865,7 @@ __webpack_require__.r(__webpack_exports__);
         name: 'Premium Business',
         images: 10,
         videos: 3
-      }],
-      // Active Preview
-      active_image: false,
-      active_video: false
+      }]
     };
   },
   created: function created() {
@@ -3946,11 +3944,27 @@ __webpack_require__.r(__webpack_exports__);
         timer: 1500
       });
     },
-    previewImage: function previewImage(image) {
-      console.log(image);
+    deleteImage: function deleteImage() {
+      Swal.fire({
+        title: '¿Estas seguro que deseas eliminar esta imagen?',
+        type: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true
+      });
     },
-    previewVideo: function previewVideo(video) {
-      console.log(video);
+    deleteVideo: function deleteVideo() {
+      Swal.fire({
+        title: '¿Estas seguro que deseas eliminar este video?',
+        type: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true
+      });
     }
   }
 });
@@ -4025,7 +4039,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -9569,7 +9582,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.multi-preview {\n\tpadding: 20px;\n\tbackground-color: #dbd7d7;\n\tborder: 1px solid #dbd7d7;\n\tborder-radius: 12px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.05);\n}\n.multi-preview-info {\n\tfont-family: 'Poppins', sans-serif;\n\tfont-size: 20px;\n}\n.select_multi {\n\tfont-size: 30px;\n}\n.no-image__container {\n\tmargin-top: 20px;\n\tmargin-bottom: 25px;\n}\n.no-image {\n\twidth: 200px;\n\theight: 150px;\n}\n.btn-delete-multi {\n\tfloat: right;\n}\n.active-plan {\n\tfont-weight: bold;\n}\n.multi-carousel-item {\n\tpadding: 10px;\n}\n.upload-info-img {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n}\n.upload-info-img * {\n\tbox-sizing: border-box;\n\ttransition: all 0.6s ease;\n}\n.upload-info-img img {\n\topacity: 1;\n\tdisplay: block;\n\theight: 250px;\n\tposition: relative;\n}\n.upload-info-img figcaption {\n\ttop: 25%;\n\tleft: 0;\n\tright: 0;\n\tbottom: 0;\n\tmargin: 10px 12px 5px;\n\tposition: absolute;\n}\n.upload-info-img h4, .upload-info-img i {\n\tcolor: rgba(0, 0, 0, 0.7);\n}\n.upload-info-img i {\n\tfont-size: 100px;\n}\n.upload-info-img a {\n\ttext-decoration: none;\n}\n.upload-info-img .bottom-middle, .upload-info-img .bottom-right {\n\tbottom: 40%;\n\topacity: 0;\n}\n.upload-info-img .bottom-middle {\n\ttransform: translate(0%, 50%);\n}\n.upload-info-img:hover img, .upload-info-img.hover img {\n\topacity: 0.6;\n\ttransform: scale(1.1);\n}\n.upload-info-img:hover figcaption .bottom-middle, .upload-info-img.hover figcaption .bottom-middle,\n.upload-info-img:hover figcaption .bottom-right, .upload-info-img.hover figcaption .bottom-right {\n\ttransform: translate(0, 0);\n\topacity: 1;\n}\n.upload-info-input > input {\n\tdisplay: none;\n}\n.upload-info-input > label {\n\tcursor: pointer;\n}\n.container-profile-img img {\n\twidth: 85%;\n\tmargin: auto;\n}\n.container-cover-img img {\n\twidth: 100%;\n}\n\n/* Form styles */\n.btn-save {\n\tbackground-image: linear-gradient(to right, #56ab2f 0%, #a8e063 51%, #56ab2f 100%);\n\ttransition: 0.5s;\n\tbackground-size: 200% auto;\n\tfont-family: 'Roboto',sans-serif;\n\tcolor:rgb(231, 255, 255);\n}\n.btn-save:hover {\n\tbackground-position: right center;\n\tcolor:rgb(231, 255, 255);\n}\n.info-icon {\n\tcolor: rgb(93, 151, 240);\n\tcursor: pointer;\n}\n.info-icon:hover {\n\tcolor: rgb(81, 126, 194);\n\ttransition: all ease 500ms;\n}\n.panel-info-section {\n\tborder: solid 1px #e6e6e6;\n\tborder-radius: 15px;\n\tpadding: 25px;\n\tmargin-bottom: 35px;\n}\n.panel-info-subtitle {\n\tmargin-bottom: 15px;\n}\n.panel-info-subtitle label {\n\tmargin: 0;\n}\n.multi-image-container {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n\tbackground-color: #000;\n\tcursor: pointer;\n\theight: 150px;\n}\n.multi-add-container {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n\theight: 150px;\n}\n.multi-image {\n\topacity: 1;\n\tdisplay: block;\n\theight: 100%;\n\tposition: relative;\n\twidth: 100%;\n\tbox-sizing: border-box;\n\ttransition: all 0.6s ease;\n}\n.multi-add-text {\n\tmargin-top: 20%;\n\tcursor: pointer;\n}\n.multi-add-text p {\n\tmargin-bottom: 0px;\n\tfont-size: 20px;\n\tcolor: #D87B4B;\n}\n.multi-image:hover{\n\topacity: 0.6;\n\ttransform: scale(1.1);\n}\n@media screen and (max-width: 768px) {\n.container-profile-img img {\n\t\theight: 170px;\n}\n.container-cover-img img {\n\t\theight: 170px;\n}\n\n\t/*\n\t.multi-image-container {\n\t\theight: 100px;\n\t}*/\n}\n@media screen and (max-width: 600px) {\n.container-profile-img {\n\t\twidth: 80%;\n\t\tmargin: auto;\n}\n.container-profile-img img {\n\t\theight: 150px;\n}\n.container-cover-img img {\n\t\theight: 150px;\n}\n.title-image-cover {\n\t\tmargin-top: 25px;\n}\n.multi-image-container {\n\t\theight: 150px;\n}\n.multi-preview-info {\n\t\tfont-size: 13px;\n}\n.select_multi {\n\t\tfont-size: 20px;\n}\n.no-image {\n\t\twidth: 150px;\n\t\theight: auto;\n}\n}\n", ""]);
+exports.push([module.i, "\n.multi-preview {\n\tpadding: 20px;\n\tbackground-color: #dbd7d7;\n\tborder: 1px solid #dbd7d7;\n\tborder-radius: 12px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.05);\n}\n.multi-preview-info {\n\tfont-family: 'Poppins', sans-serif;\n\tfont-size: 20px;\n}\n.select_multi {\n\tfont-size: 30px;\n}\n.no-image__container {\n\tmargin-top: 20px;\n\tmargin-bottom: 25px;\n}\n.no-image {\n\twidth: 200px;\n\theight: 150px;\n}\n.preview-image {\n\twidth: 70%;\n\theight: auto;\n\tborder-radius: 6px;\n}\n.preview-image__container {\n\tmargin-top: 15px;\n\tmargin-bottom: 15px;\n}\n.btn-delete-multi {\n\tfloat: right;\n}\n.active-plan {\n\tfont-weight: bold;\n}\n.multi-carousel-item {\n\tpadding: 10px;\n}\n.upload-info-img {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n}\n.upload-info-img * {\n\tbox-sizing: border-box;\n\ttransition: all 0.6s ease;\n}\n.upload-info-img img {\n\topacity: 1;\n\tdisplay: block;\n\theight: 250px;\n\tposition: relative;\n}\n.upload-info-img figcaption {\n\ttop: 25%;\n\tleft: 0;\n\tright: 0;\n\tbottom: 0;\n\tmargin: 10px 12px 5px;\n\tposition: absolute;\n}\n.upload-info-img h4, .upload-info-img i {\n\tcolor: rgba(0, 0, 0, 0.7);\n}\n.upload-info-img i {\n\tfont-size: 100px;\n}\n.upload-info-img a {\n\ttext-decoration: none;\n}\n.upload-info-img .bottom-middle, .upload-info-img .bottom-right {\n\tbottom: 40%;\n\topacity: 0;\n}\n.upload-info-img .bottom-middle {\n\ttransform: translate(0%, 50%);\n}\n.upload-info-img:hover img, .upload-info-img.hover img {\n\topacity: 0.6;\n\ttransform: scale(1.1);\n}\n.upload-info-img:hover figcaption .bottom-middle, .upload-info-img.hover figcaption .bottom-middle,\n.upload-info-img:hover figcaption .bottom-right, .upload-info-img.hover figcaption .bottom-right {\n\ttransform: translate(0, 0);\n\topacity: 1;\n}\n.upload-info-input > input {\n\tdisplay: none;\n}\n.upload-info-input > label {\n\tcursor: pointer;\n}\n.container-profile-img img {\n\twidth: 85%;\n\tmargin: auto;\n}\n.container-cover-img img {\n\twidth: 100%;\n}\n\n/* Form styles */\n.btn-save {\n\tbackground-image: linear-gradient(to right, #56ab2f 0%, #a8e063 51%, #56ab2f 100%);\n\ttransition: 0.5s;\n\tbackground-size: 200% auto;\n\tfont-family: 'Roboto',sans-serif;\n\tcolor:rgb(231, 255, 255);\n}\n.btn-save:hover {\n\tbackground-position: right center;\n\tcolor:rgb(231, 255, 255);\n}\n.info-icon {\n\tcolor: rgb(93, 151, 240);\n\tcursor: pointer;\n}\n.info-icon:hover {\n\tcolor: rgb(81, 126, 194);\n\ttransition: all ease 500ms;\n}\n.panel-info-section {\n\tborder: solid 1px #e6e6e6;\n\tborder-radius: 15px;\n\tpadding: 25px;\n\tmargin-bottom: 35px;\n}\n.panel-info-subtitle {\n\tmargin-bottom: 15px;\n}\n.panel-info-subtitle label {\n\tmargin: 0;\n}\n.multi-image-container {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n\tbackground-color: #000;\n\tcursor: pointer;\n\theight: 150px;\n}\n.multi-add-container {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n\theight: 150px;\n}\n.multi-image {\n\topacity: 1;\n\tdisplay: block;\n\theight: 100%;\n\tposition: relative;\n\twidth: 100%;\n\tbox-sizing: border-box;\n\ttransition: all 0.6s ease;\n}\n.multi-add-text {\n\tmargin-top: 20%;\n\tcursor: pointer;\n}\n.multi-add-text p {\n\tmargin-bottom: 0px;\n\tfont-size: 20px;\n\tcolor: #D87B4B;\n}\n.multi-image:hover{\n\topacity: 0.6;\n\ttransform: scale(1.1);\n}\n@media screen and (max-width: 768px) {\n.container-profile-img img {\n\t\theight: 170px;\n}\n.container-cover-img img {\n\t\theight: 170px;\n}\n\n\t/*\n\t.multi-image-container {\n\t\theight: 100px;\n\t}*/\n}\n@media screen and (max-width: 600px) {\n.container-profile-img {\n\t\twidth: 80%;\n\t\tmargin: auto;\n}\n.container-profile-img img {\n\t\theight: 150px;\n}\n.container-cover-img img {\n\t\theight: 150px;\n}\n.title-image-cover {\n\t\tmargin-top: 25px;\n}\n.multi-image-container {\n\t\theight: 150px;\n}\n.multi-preview-info {\n\t\tfont-size: 13px;\n}\n.select_multi {\n\t\tfont-size: 20px;\n}\n.no-image {\n\t\twidth: 150px;\n\t\theight: auto;\n}\n.multi-preview {\n\t\tpadding: 5px;\n}\n}\n", ""]);
 
 // exports
 
@@ -55123,245 +55136,211 @@ var render = function() {
     _vm._v(" "),
     _vm._m(14),
     _vm._v(" "),
-    _c("div", { staticClass: "panel-info-section" }, [
-      _c("div", { staticClass: "container" }, [
-        _c(
-          "div",
-          {
-            staticClass: "panel-alert alert alert-success",
-            attrs: { role: "alert" }
-          },
-          [
-            _c("p", [
-              _vm._v(
-                "Dependiendo del tipo de plan que tengas puedes subir cierta cantidad de Imagenes:"
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "ul",
-              { staticStyle: { "margin-left": "15px" } },
-              _vm._l(_vm.plans, function(plan) {
-                return _c(
-                  "li",
-                  {
-                    key: plan.id,
-                    class: { "active-plan": _vm.current_plan.id === plan.id }
-                  },
-                  [
-                    _vm._v(
-                      "\n\t\t\t\t\t\t" +
-                        _vm._s(plan.name) +
-                        ": " +
-                        _vm._s(plan.images) +
-                        " imagenes "
-                    ),
-                    _vm.current_plan.id === plan.id
-                      ? _c("span", [
-                          _c("i", {
-                            staticClass: "fa fa-arrow-left",
-                            attrs: { "aria-hidden": "true" }
-                          }),
-                          _vm._v(" Tu plan")
-                        ])
-                      : _vm._e()
-                  ]
+    _c(
+      "div",
+      { staticClass: "panel-info-section" },
+      [
+        _c("div", { staticClass: "container" }, [
+          _c(
+            "div",
+            {
+              staticClass: "panel-alert alert alert-success",
+              attrs: { role: "alert" }
+            },
+            [
+              _c("p", [
+                _vm._v(
+                  "Dependiendo del tipo de plan que tengas puedes subir cierta cantidad de Imagenes:"
                 )
-              }),
-              0
-            )
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { attrs: { id: "multi-carousel-images" } },
-        [
-          _vm._l(_vm.images, function(image) {
-            return _c(
-              "div",
-              { key: image.id, staticClass: "multi-carousel-item" },
-              [
-                _c("div", { staticClass: "multi-image-container" }, [
-                  _c(
-                    "a",
+              ]),
+              _vm._v(" "),
+              _c(
+                "ul",
+                { staticStyle: { "margin-left": "15px" } },
+                _vm._l(_vm.plans, function(plan) {
+                  return _c(
+                    "li",
                     {
-                      attrs: { href: "#" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          $event.stopPropagation()
-                          return _vm.previewImage(image)
-                        }
-                      }
+                      key: plan.id,
+                      class: { "active-plan": _vm.current_plan.id === plan.id }
                     },
                     [
-                      _c("img", {
-                        staticClass: "multi-image",
-                        attrs: { src: image.url }
-                      })
+                      _vm._v(
+                        "\n\t\t\t\t\t\t" +
+                          _vm._s(plan.name) +
+                          ": " +
+                          _vm._s(plan.images) +
+                          " imagenes "
+                      ),
+                      _vm.current_plan.id === plan.id
+                        ? _c("span", [
+                            _c("i", {
+                              staticClass: "fa fa-arrow-left",
+                              attrs: { "aria-hidden": "true" }
+                            }),
+                            _vm._v(" Tu plan")
+                          ])
+                        : _vm._e()
                     ]
                   )
-                ])
-              ]
-            )
-          }),
-          _vm._v(" "),
-          _vm._m(15)
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "multi-preview" }, [
+                }),
+                0
+              )
+            ]
+          )
+        ]),
+        _vm._v(" "),
         _c("p", { staticClass: "multi-preview-info" }, [
           _vm._v(
             "Puedes agregar: " + _vm._s(_vm.might_add_images) + " imagenes(s)"
           )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "multi-preview-content" }, [
+        _c(
+          "div",
+          { attrs: { id: "multi-carousel-images" } },
+          [
+            _vm._l(_vm.images, function(image) {
+              return _c(
+                "div",
+                { key: image.id, staticClass: "multi-carousel-item" },
+                [
+                  _c("div", { staticClass: "multi-image-container" }, [
+                    _c(
+                      "a",
+                      {
+                        attrs: {
+                          "data-target": "#xdasdas" + image.id,
+                          "data-toggle": "modal",
+                          href: "#"
+                        }
+                      },
+                      [
+                        _c("img", {
+                          staticClass: "multi-image",
+                          attrs: { src: image.url }
+                        })
+                      ]
+                    )
+                  ])
+                ]
+              )
+            }),
+            _vm._v(" "),
+            _vm._m(15)
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _vm._l(_vm.images, function(image) {
+          return _c(
+            "div",
+            {
+              key: image.id,
+              staticClass: "modal fade",
+              attrs: {
+                id: "xdasdas" + image.id,
+                role: "dialog",
+                tabindex: "-1",
+                "aria-hidden": "true"
+              }
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "modal-dialog modal-lg",
+                  attrs: { role: "document" }
+                },
+                [
+                  _c("div", { staticClass: "modal-content" }, [
+                    _c("div", { staticClass: "modal-body mb-0 p-0" }, [
+                      _c("img", {
+                        staticStyle: { width: "100%" },
+                        attrs: { src: image.url }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "modal-footer p-0" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-block",
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteImage()
+                            }
+                          }
+                        },
+                        [_vm._v("\n\t\t\t\t\t\t\tEliminar\n\t\t\t\t\t\t")]
+                      )
+                    ])
+                  ])
+                ]
+              )
+            ]
+          )
+        })
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _vm._m(16),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "panel-info-section" },
+      [
+        _c("div", { staticClass: "container" }, [
           _c(
             "div",
             {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: !_vm.active_image,
-                  expression: "!active_image"
-                }
-              ],
-              staticClass: "multi-preview-disable text-center"
+              staticClass: "panel-alert alert alert-success",
+              attrs: { role: "alert" }
             },
             [
-              _vm._m(16),
+              _c("p", [
+                _vm._v(
+                  "Dependiendo del tipo de plan que tengas puedes subir cierta cantidad de videos:"
+                )
+              ]),
               _vm._v(" "),
               _c(
-                "p",
-                {
-                  staticClass: "select_multi",
-                  staticStyle: { color: "#6C757D" }
-                },
-                [_vm._v("Selecciona una imagen")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "multi-preview-enable" }, [
-            _c(
-              "button",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.active_image,
-                    expression: "active_image"
-                  }
-                ],
-                staticClass: "btn btn-danger btn-delete-multi"
-              },
-              [_vm._v("\n\t\t\t\t\t\tEliminar\n\t\t\t\t\t")]
-            )
-          ])
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _vm._m(17),
-    _vm._v(" "),
-    _c("div", { staticClass: "panel-info-section" }, [
-      _c("div", { staticClass: "container" }, [
-        _c(
-          "div",
-          {
-            staticClass: "panel-alert alert alert-success",
-            attrs: { role: "alert" }
-          },
-          [
-            _c("p", [
-              _vm._v(
-                "Dependiendo del tipo de plan que tengas puedes subir cierta cantidad de videos:"
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "ul",
-              { staticStyle: { "margin-left": "15px" } },
-              _vm._l(_vm.plans, function(plan) {
-                return _c(
-                  "li",
-                  {
-                    key: plan.id,
-                    class: { "active-plan": _vm.current_plan.id === plan.id }
-                  },
-                  [
-                    _vm._v(
-                      "\n\t\t\t\t\t\t" +
-                        _vm._s(plan.name) +
-                        ": " +
-                        _vm._s(plan.videos) +
-                        " videos "
-                    ),
-                    _vm.current_plan.id === plan.id
-                      ? _c("span", [
-                          _c("i", {
-                            staticClass: "fa fa-arrow-left",
-                            attrs: { "aria-hidden": "true" }
-                          }),
-                          _vm._v(" Tu plan")
-                        ])
-                      : _vm._e()
-                  ]
-                )
-              }),
-              0
-            )
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { attrs: { id: "multi-carousel-videos" } },
-        [
-          _vm._l(_vm.videos, function(video) {
-            return _c(
-              "div",
-              { key: video.id, staticClass: "multi-carousel-item" },
-              [
-                _c("div", { staticClass: "multi-image-container" }, [
-                  _c(
-                    "a",
+                "ul",
+                { staticStyle: { "margin-left": "15px" } },
+                _vm._l(_vm.plans, function(plan) {
+                  return _c(
+                    "li",
                     {
-                      attrs: { href: "#" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          $event.stopPropagation()
-                          return _vm.previewVideo(video)
-                        }
-                      }
+                      key: plan.id,
+                      class: { "active-plan": _vm.current_plan.id === plan.id }
                     },
                     [
-                      _c("video", {
-                        staticClass: "multi-image",
-                        attrs: { src: video.url }
-                      })
+                      _vm._v(
+                        "\n\t\t\t\t\t\t" +
+                          _vm._s(plan.name) +
+                          ": " +
+                          _vm._s(plan.videos) +
+                          " videos "
+                      ),
+                      _vm.current_plan.id === plan.id
+                        ? _c("span", [
+                            _c("i", {
+                              staticClass: "fa fa-arrow-left",
+                              attrs: { "aria-hidden": "true" }
+                            }),
+                            _vm._v(" Tu plan")
+                          ])
+                        : _vm._e()
                     ]
                   )
-                ])
-              ]
-            )
-          }),
-          _vm._v(" "),
-          _vm._m(18)
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "multi-preview" }, [
+                }),
+                0
+              )
+            ]
+          )
+        ]),
+        _vm._v(" "),
         _c("p", { staticClass: "multi-preview-info" }, [
           _vm._v(
             "Puedes agregar: " + _vm._s(_vm.might_add_videos) + " video(s)"
@@ -55370,50 +55349,96 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: !_vm.active_video,
-                expression: "!active_video"
-              }
-            ],
-            staticClass: "multi-preview-disable text-center"
-          },
+          { attrs: { id: "multi-carousel-videos" } },
           [
-            _vm._m(19),
+            _vm._l(_vm.videos, function(video) {
+              return _c(
+                "div",
+                { key: video.id, staticClass: "multi-carousel-item" },
+                [
+                  _c("div", { staticClass: "multi-image-container" }, [
+                    _c(
+                      "a",
+                      {
+                        attrs: {
+                          "data-target": "#sdasdas" + video.id,
+                          "data-toggle": "modal",
+                          href: "#"
+                        }
+                      },
+                      [
+                        _c("video", {
+                          staticClass: "multi-image",
+                          attrs: { src: video.url }
+                        })
+                      ]
+                    )
+                  ])
+                ]
+              )
+            }),
             _vm._v(" "),
-            _c(
-              "p",
-              {
-                staticClass: "select_multi",
-                staticStyle: { color: "#6C757D" }
-              },
-              [_vm._v("Selecciona un video")]
-            )
-          ]
+            _vm._m(17)
+          ],
+          2
         ),
         _vm._v(" "),
-        _c("div", { staticClass: "multi-preview-enable" }, [
-          _c(
-            "button",
+        _vm._l(_vm.videos, function(video) {
+          return _c(
+            "div",
             {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.active_video,
-                  expression: "active_video"
-                }
-              ],
-              staticClass: "btn btn-danger btn-delete-multi"
+              key: video.id,
+              staticClass: "modal fade",
+              attrs: {
+                id: "sdasdas" + video.id,
+                role: "dialog",
+                tabindex: "-1",
+                "aria-hidden": "true"
+              }
             },
-            [_vm._v("\n\t\t\t\t\tEliminar\n\t\t\t\t")]
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "modal-dialog modal-lg",
+                  attrs: { role: "document" }
+                },
+                [
+                  _c("div", { staticClass: "modal-content" }, [
+                    _c("div", { staticClass: "modal-body mb-0 p-0" }, [
+                      _c(
+                        "video",
+                        {
+                          staticStyle: { width: "100%" },
+                          attrs: { controls: "" }
+                        },
+                        [_c("source", { attrs: { src: video.url } })]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "modal-footer p-0" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-block",
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteVideo()
+                            }
+                          }
+                        },
+                        [_vm._v("\n\t\t\t\t\t\t\tEliminar\n\t\t\t\t\t\t")]
+                      )
+                    ])
+                  ])
+                ]
+              )
+            ]
           )
-        ])
-      ])
-    ])
+        })
+      ],
+      2
+    )
   ])
 }
 var staticRenderFns = [
@@ -55653,17 +55678,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "no-image__container" }, [
-      _c("img", {
-        staticClass: "no-image",
-        attrs: { src: "/img/iconos/no-image-icon-23492.png" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "text-center panel-info-subtitle" }, [
       _c("label", { staticClass: "text-uppercase h5", attrs: { for: "" } }, [
         _vm._v("Videos")
@@ -55701,17 +55715,6 @@ var staticRenderFns = [
           })
         ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "no-image__container" }, [
-      _c("img", {
-        staticClass: "no-image",
-        attrs: { src: "/img/iconos/no-image-icon-23492.png" }
-      })
     ])
   }
 ]
@@ -55918,8 +55921,6 @@ var render = function() {
                         }
                       },
                       [
-                        _c("div", { staticClass: "layer" }),
-                        _vm._v(" "),
                         _c("img", {
                           attrs: { src: data_offer.offer.image_url }
                         })
