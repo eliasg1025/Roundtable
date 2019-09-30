@@ -182,6 +182,7 @@
 								:user="user"
 								:media_data="media_data"
 								:current_plan="current_plan"
+								:categories_data="categories_data"
 							></panel-info>
 						</div>
 
@@ -237,6 +238,7 @@
 				rating: this.data.account_data.rating_data,
 				data_offers: this.data.account_data.offers_data,
 				certifications: this.data.account_data.user_certifications,
+				categories_data: this.data.account_data.categories_data,
 				// Panel state
 				active: false,
 				panel: 0,

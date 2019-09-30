@@ -59,6 +59,44 @@
 				<label for="">Nombre comercial <span class="info-icon"><i class="fa fa-info-circle"></i></span></label>
 				<input type="text" class="form-control" placeholder="Nombre Comercial" v-model="commercial_name">
 			</div>
+
+			<div class="form-group">
+				<label for="">Categorías</label>
+				<div class="btn-group select-category ">
+					<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Seleccione una categoría
+					</button>
+					<div class="dropdown-menu scrollable-menu" role="menu">
+						<a
+							class="dropdown-item" href="#"
+							v-for="category in categories" :key="category.id"
+							@click.prevent.stop="addCategory(category)"
+						>
+							<img :src="category.picture" height="20" class="mr-2">
+							<span class="mr-2">{{ category.name }}</span>
+							<span v-if="checkIfIncludes(category.id)" style="color: #88BE2E;">
+								<i class="fas fa-check"></i>
+							</span>
+						</a>
+					</div>
+				</div>
+				<small class="text-muted">
+					Seleccione máximo 5 categorias.
+				</small>
+				<div class="selected-categories mt-3">
+					<div class="container row">
+						<div class="col-md-3" v-for="user_category in user_categories" :key="user_category.id">
+							<div class="p-1">
+								<span class="badge badge-success" style="padding: 7px;">
+									{{ user_category.name }}
+								</span>
+								<a href="#" @click.prevent.stop="quitCategory(user_category.id)"><span class="badge badge-danger">x</span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<div class="form-group">
 				<label for="">Descripción <span class="info-icon"><i class="fa fa-info-circle"></i></span></label>
 				<textarea class="form-control" id="" rows="5" v-model="description"></textarea>
@@ -206,7 +244,8 @@
 		props: [
 			'user',
 			'media_data',
-			'current_plan'
+			'current_plan',
+			'categories_data'
 		],
 		data() {
 			return {
@@ -241,7 +280,9 @@
 						images: 10,
 						videos: 3
 					}
-				]
+				],
+				categories: [],
+				user_categories: [],
 			}
 		},
 		created() {
@@ -256,6 +297,12 @@
 			this.cover_img = this.user.cover_img
 			this.images = this.media_data.images
 			this.videos = this.media_data.videos
+			this.user_categories = this.categories_data
+
+			axios.get('/api/categories')
+					.then(res => {
+						this.categories = res.data
+					})
 		},
 		mounted() {
 			const multi_carousel_images = Tiny.tns({
@@ -322,6 +369,65 @@
 					timer: 1500
 				})
 			},
+			checkIfIncludes(category_id) {
+				if(this.user_categories.some(e => e.id == category_id)) {
+					return true
+				} else {
+					return false
+				}
+			},
+			addCategory(category) {
+				if (this.user_categories.length < 5) {
+					if (!this.checkIfIncludes(category.id) === true) {
+						this.user_categories.push(category)
+
+						Swal.fire({
+							position: 'top-end',
+							type: 'success',
+							title: 'Categoría agregada',
+							showConfirmButton: false,
+							timer: 1500
+						})
+					} else {
+						Swal.fire({
+							position: 'top-end',
+							type: 'info',
+							title: 'La categoría ya fue agregada',
+							showConfirmButton: false,
+							timer: 1500
+						})
+					}
+				} else {
+					Swal.fire({
+						position: 'top-end',
+						type: 'info',
+						title: 'Sólo puedes agregar 5 categorias como máximo',
+						showConfirmButton: false,
+						timer: 1500
+					})
+				}
+				
+			},
+			quitCategory(category_id) {
+				Swal.fire({
+					title: '¿Estas seguro que deseas remover esta categoría?',
+					type: 'warning',
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Si',
+					cancelButtonText: 'Cancelar',
+					showCancelButton: true,
+				})
+					.then(res => {
+						if (res.value == true) {
+							this.user_categories.forEach((element, index) => {
+								if (element.id === category_id) {
+									this.user_categories.splice(index, 1)
+								}
+							});
+						}
+					})
+			},
 			deleteImage() {
 				Swal.fire({
 					title: '¿Estas seguro que deseas eliminar esta imagen?',
@@ -349,21 +455,36 @@
 </script>
 
 <style>
-	.multi-preview {
-		padding: 20px;
-		background-color: #dbd7d7;
-		border: 1px solid #dbd7d7;
-		border-radius: 12px;
-		box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+	.select-category {
+		width: 100%;
+	}
+
+	.select-category .btn {
+		background-color: #FFFFFF;
+		border: 1px solid #ced4da;
+		text-align: left;
+	}
+
+	.select-category .dropdown-menu {
+		width: 100%;
+	}
+
+	.selected-categories {
+		padding: 10px;
+		background-color: #E9ECEF;
+		border: 1px solid #E9ECEF;
+		border-radius: 6px;
+	}
+
+	.scrollable-menu {
+		height: auto;
+		max-height: 200px;
+		overflow-x: hidden;
 	}
 
 	.multi-preview-info {
 		font-family: 'Poppins', sans-serif;
 		font-size: 20px;
-	}
-
-	.select_multi {
-		font-size: 30px;
 	}
 
 	.no-image__container {
@@ -607,19 +728,6 @@
 
 		.multi-preview-info {
 			font-size: 13px;
-		}
-
-		.select_multi {
-			font-size: 20px;
-		}
-
-		.no-image {
-			width: 150px;
-			height: auto;
-		}
-
-		.multi-preview {
-			padding: 5px;
 		}
 	}
 </style>
