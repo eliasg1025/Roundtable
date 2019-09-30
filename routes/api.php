@@ -26,3 +26,5 @@ Route::get('/business/search', 'BusinessController@searchBusiness');
 Route::middleware('auth:api')->delete('/products', 'ProductsController@destroy');
 
 Route::middleware('auth:api')->put('/products', 'ProductsController@edit');
+
+Route::get('/categories', 'Api\CategoriesController@index');

@@ -3460,6 +3460,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -3482,6 +3483,7 @@ __webpack_require__.r(__webpack_exports__);
       rating: this.data.account_data.rating_data,
       data_offers: this.data.account_data.offers_data,
       certifications: this.data.account_data.user_certifications,
+      categories_data: this.data.account_data.categories_data,
       // Panel state
       active: false,
       panel: 0,
@@ -3834,8 +3836,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['user', 'media_data', 'current_plan'],
+  props: ['user', 'media_data', 'current_plan', 'categories_data'],
   data: function data() {
     return {
       name: '',
@@ -3865,10 +3905,14 @@ __webpack_require__.r(__webpack_exports__);
         name: 'Premium Business',
         images: 10,
         videos: 3
-      }]
+      }],
+      categories: [],
+      user_categories: []
     };
   },
   created: function created() {
+    var _this = this;
+
     this.name = this.user.name;
     this.commercial_name = this.user.commercial_name;
     this.phone = this.user.phone;
@@ -3880,6 +3924,10 @@ __webpack_require__.r(__webpack_exports__);
     this.cover_img = this.user.cover_img;
     this.images = this.media_data.images;
     this.videos = this.media_data.videos;
+    this.user_categories = this.categories_data;
+    axios.get('/api/categories').then(function (res) {
+      _this.categories = res.data;
+    });
   },
   mounted: function mounted() {
     var multi_carousel_images = Tiny.tns({
@@ -3942,6 +3990,66 @@ __webpack_require__.r(__webpack_exports__);
         title: 'Link copiado',
         showConfirmButton: false,
         timer: 1500
+      });
+    },
+    checkIfIncludes: function checkIfIncludes(category_id) {
+      if (this.user_categories.some(function (e) {
+        return e.id == category_id;
+      })) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    addCategory: function addCategory(category) {
+      if (this.user_categories.length < 5) {
+        if (!this.checkIfIncludes(category.id) === true) {
+          this.user_categories.push(category);
+          Swal.fire({
+            position: 'top-end',
+            type: 'success',
+            title: 'Categoría agregada',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        } else {
+          Swal.fire({
+            position: 'top-end',
+            type: 'info',
+            title: 'La categoría ya fue agregada',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
+      } else {
+        Swal.fire({
+          position: 'top-end',
+          type: 'info',
+          title: 'Sólo puedes agregar 5 categorias como máximo',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    },
+    quitCategory: function quitCategory(category_id) {
+      var _this2 = this;
+
+      Swal.fire({
+        title: '¿Estas seguro que deseas remover esta categoría?',
+        type: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true
+      }).then(function (res) {
+        if (res.value == true) {
+          _this2.user_categories.forEach(function (element, index) {
+            if (element.id === category_id) {
+              _this2.user_categories.splice(index, 1);
+            }
+          });
+        }
       });
     },
     deleteImage: function deleteImage() {
@@ -9582,7 +9690,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.multi-preview {\n\tpadding: 20px;\n\tbackground-color: #dbd7d7;\n\tborder: 1px solid #dbd7d7;\n\tborder-radius: 12px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.05);\n}\n.multi-preview-info {\n\tfont-family: 'Poppins', sans-serif;\n\tfont-size: 20px;\n}\n.select_multi {\n\tfont-size: 30px;\n}\n.no-image__container {\n\tmargin-top: 20px;\n\tmargin-bottom: 25px;\n}\n.no-image {\n\twidth: 200px;\n\theight: 150px;\n}\n.preview-image {\n\twidth: 70%;\n\theight: auto;\n\tborder-radius: 6px;\n}\n.preview-image__container {\n\tmargin-top: 15px;\n\tmargin-bottom: 15px;\n}\n.btn-delete-multi {\n\tfloat: right;\n}\n.active-plan {\n\tfont-weight: bold;\n}\n.multi-carousel-item {\n\tpadding: 10px;\n}\n.upload-info-img {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n}\n.upload-info-img * {\n\tbox-sizing: border-box;\n\ttransition: all 0.6s ease;\n}\n.upload-info-img img {\n\topacity: 1;\n\tdisplay: block;\n\theight: 250px;\n\tposition: relative;\n}\n.upload-info-img figcaption {\n\ttop: 25%;\n\tleft: 0;\n\tright: 0;\n\tbottom: 0;\n\tmargin: 10px 12px 5px;\n\tposition: absolute;\n}\n.upload-info-img h4, .upload-info-img i {\n\tcolor: rgba(0, 0, 0, 0.7);\n}\n.upload-info-img i {\n\tfont-size: 100px;\n}\n.upload-info-img a {\n\ttext-decoration: none;\n}\n.upload-info-img .bottom-middle, .upload-info-img .bottom-right {\n\tbottom: 40%;\n\topacity: 0;\n}\n.upload-info-img .bottom-middle {\n\ttransform: translate(0%, 50%);\n}\n.upload-info-img:hover img, .upload-info-img.hover img {\n\topacity: 0.6;\n\ttransform: scale(1.1);\n}\n.upload-info-img:hover figcaption .bottom-middle, .upload-info-img.hover figcaption .bottom-middle,\n.upload-info-img:hover figcaption .bottom-right, .upload-info-img.hover figcaption .bottom-right {\n\ttransform: translate(0, 0);\n\topacity: 1;\n}\n.upload-info-input > input {\n\tdisplay: none;\n}\n.upload-info-input > label {\n\tcursor: pointer;\n}\n.container-profile-img img {\n\twidth: 85%;\n\tmargin: auto;\n}\n.container-cover-img img {\n\twidth: 100%;\n}\n\n/* Form styles */\n.btn-save {\n\tbackground-image: linear-gradient(to right, #56ab2f 0%, #a8e063 51%, #56ab2f 100%);\n\ttransition: 0.5s;\n\tbackground-size: 200% auto;\n\tfont-family: 'Roboto',sans-serif;\n\tcolor:rgb(231, 255, 255);\n}\n.btn-save:hover {\n\tbackground-position: right center;\n\tcolor:rgb(231, 255, 255);\n}\n.info-icon {\n\tcolor: rgb(93, 151, 240);\n\tcursor: pointer;\n}\n.info-icon:hover {\n\tcolor: rgb(81, 126, 194);\n\ttransition: all ease 500ms;\n}\n.panel-info-section {\n\tborder: solid 1px #e6e6e6;\n\tborder-radius: 15px;\n\tpadding: 25px;\n\tmargin-bottom: 35px;\n}\n.panel-info-subtitle {\n\tmargin-bottom: 15px;\n}\n.panel-info-subtitle label {\n\tmargin: 0;\n}\n.multi-image-container {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n\tbackground-color: #000;\n\tcursor: pointer;\n\theight: 150px;\n}\n.multi-add-container {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n\theight: 150px;\n}\n.multi-image {\n\topacity: 1;\n\tdisplay: block;\n\theight: 100%;\n\tposition: relative;\n\twidth: 100%;\n\tbox-sizing: border-box;\n\ttransition: all 0.6s ease;\n}\n.multi-add-text {\n\tmargin-top: 20%;\n\tcursor: pointer;\n}\n.multi-add-text p {\n\tmargin-bottom: 0px;\n\tfont-size: 20px;\n\tcolor: #D87B4B;\n}\n.multi-image:hover{\n\topacity: 0.6;\n\ttransform: scale(1.1);\n}\n@media screen and (max-width: 768px) {\n.container-profile-img img {\n\t\theight: 170px;\n}\n.container-cover-img img {\n\t\theight: 170px;\n}\n\n\t/*\n\t.multi-image-container {\n\t\theight: 100px;\n\t}*/\n}\n@media screen and (max-width: 600px) {\n.container-profile-img {\n\t\twidth: 80%;\n\t\tmargin: auto;\n}\n.container-profile-img img {\n\t\theight: 150px;\n}\n.container-cover-img img {\n\t\theight: 150px;\n}\n.title-image-cover {\n\t\tmargin-top: 25px;\n}\n.multi-image-container {\n\t\theight: 150px;\n}\n.multi-preview-info {\n\t\tfont-size: 13px;\n}\n.select_multi {\n\t\tfont-size: 20px;\n}\n.no-image {\n\t\twidth: 150px;\n\t\theight: auto;\n}\n.multi-preview {\n\t\tpadding: 5px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.select-category {\n\twidth: 100%;\n}\n.select-category .btn {\n\tbackground-color: #FFFFFF;\n\tborder: 1px solid #ced4da;\n\ttext-align: left;\n}\n.select-category .dropdown-menu {\n\twidth: 100%;\n}\n.selected-categories {\n\tpadding: 10px;\n\tbackground-color: #E9ECEF;\n\tborder: 1px solid #E9ECEF;\n\tborder-radius: 6px;\n}\n.scrollable-menu {\n\theight: auto;\n\tmax-height: 200px;\n\toverflow-x: hidden;\n}\n.multi-preview-info {\n\tfont-family: 'Poppins', sans-serif;\n\tfont-size: 20px;\n}\n.no-image__container {\n\tmargin-top: 20px;\n\tmargin-bottom: 25px;\n}\n.no-image {\n\twidth: 200px;\n\theight: 150px;\n}\n.preview-image {\n\twidth: 70%;\n\theight: auto;\n\tborder-radius: 6px;\n}\n.preview-image__container {\n\tmargin-top: 15px;\n\tmargin-bottom: 15px;\n}\n.btn-delete-multi {\n\tfloat: right;\n}\n.active-plan {\n\tfont-weight: bold;\n}\n.multi-carousel-item {\n\tpadding: 10px;\n}\n.upload-info-img {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n}\n.upload-info-img * {\n\tbox-sizing: border-box;\n\ttransition: all 0.6s ease;\n}\n.upload-info-img img {\n\topacity: 1;\n\tdisplay: block;\n\theight: 250px;\n\tposition: relative;\n}\n.upload-info-img figcaption {\n\ttop: 25%;\n\tleft: 0;\n\tright: 0;\n\tbottom: 0;\n\tmargin: 10px 12px 5px;\n\tposition: absolute;\n}\n.upload-info-img h4, .upload-info-img i {\n\tcolor: rgba(0, 0, 0, 0.7);\n}\n.upload-info-img i {\n\tfont-size: 100px;\n}\n.upload-info-img a {\n\ttext-decoration: none;\n}\n.upload-info-img .bottom-middle, .upload-info-img .bottom-right {\n\tbottom: 40%;\n\topacity: 0;\n}\n.upload-info-img .bottom-middle {\n\ttransform: translate(0%, 50%);\n}\n.upload-info-img:hover img, .upload-info-img.hover img {\n\topacity: 0.6;\n\ttransform: scale(1.1);\n}\n.upload-info-img:hover figcaption .bottom-middle, .upload-info-img.hover figcaption .bottom-middle,\n.upload-info-img:hover figcaption .bottom-right, .upload-info-img.hover figcaption .bottom-right {\n\ttransform: translate(0, 0);\n\topacity: 1;\n}\n.upload-info-input > input {\n\tdisplay: none;\n}\n.upload-info-input > label {\n\tcursor: pointer;\n}\n.container-profile-img img {\n\twidth: 85%;\n\tmargin: auto;\n}\n.container-cover-img img {\n\twidth: 100%;\n}\n\n/* Form styles */\n.btn-save {\n\tbackground-image: linear-gradient(to right, #56ab2f 0%, #a8e063 51%, #56ab2f 100%);\n\ttransition: 0.5s;\n\tbackground-size: 200% auto;\n\tfont-family: 'Roboto',sans-serif;\n\tcolor:rgb(231, 255, 255);\n}\n.btn-save:hover {\n\tbackground-position: right center;\n\tcolor:rgb(231, 255, 255);\n}\n.info-icon {\n\tcolor: rgb(93, 151, 240);\n\tcursor: pointer;\n}\n.info-icon:hover {\n\tcolor: rgb(81, 126, 194);\n\ttransition: all ease 500ms;\n}\n.panel-info-section {\n\tborder: solid 1px #e6e6e6;\n\tborder-radius: 15px;\n\tpadding: 25px;\n\tmargin-bottom: 35px;\n}\n.panel-info-subtitle {\n\tmargin-bottom: 15px;\n}\n.panel-info-subtitle label {\n\tmargin: 0;\n}\n.multi-image-container {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n\tbackground-color: #000;\n\tcursor: pointer;\n\theight: 150px;\n}\n.multi-add-container {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n\theight: 150px;\n}\n.multi-image {\n\topacity: 1;\n\tdisplay: block;\n\theight: 100%;\n\tposition: relative;\n\twidth: 100%;\n\tbox-sizing: border-box;\n\ttransition: all 0.6s ease;\n}\n.multi-add-text {\n\tmargin-top: 20%;\n\tcursor: pointer;\n}\n.multi-add-text p {\n\tmargin-bottom: 0px;\n\tfont-size: 20px;\n\tcolor: #D87B4B;\n}\n.multi-image:hover{\n\topacity: 0.6;\n\ttransform: scale(1.1);\n}\n@media screen and (max-width: 768px) {\n.container-profile-img img {\n\t\theight: 170px;\n}\n.container-cover-img img {\n\t\theight: 170px;\n}\n\n\t/*\n\t.multi-image-container {\n\t\theight: 100px;\n\t}*/\n}\n@media screen and (max-width: 600px) {\n.container-profile-img {\n\t\twidth: 80%;\n\t\tmargin: auto;\n}\n.container-profile-img img {\n\t\theight: 150px;\n}\n.container-cover-img img {\n\t\theight: 150px;\n}\n.title-image-cover {\n\t\tmargin-top: 25px;\n}\n.multi-image-container {\n\t\theight: 150px;\n}\n.multi-preview-info {\n\t\tfont-size: 13px;\n}\n}\n", ""]);
 
 // exports
 
@@ -54523,7 +54631,8 @@ var render = function() {
                   attrs: {
                     user: _vm.user,
                     media_data: _vm.media_data,
-                    current_plan: _vm.current_plan
+                    current_plan: _vm.current_plan,
+                    categories_data: _vm.categories_data
                   }
                 })
               ],
@@ -54984,6 +55093,123 @@ var render = function() {
             }
           }
         })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Categorías")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "btn-group select-category " }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn dropdown-toggle",
+              attrs: {
+                type: "button",
+                "data-toggle": "dropdown",
+                "aria-haspopup": "true",
+                "aria-expanded": "false"
+              }
+            },
+            [_vm._v("\n\t\t\t\t\tSeleccione una categoría\n\t\t\t\t")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "dropdown-menu scrollable-menu",
+              attrs: { role: "menu" }
+            },
+            _vm._l(_vm.categories, function(category) {
+              return _c(
+                "a",
+                {
+                  key: category.id,
+                  staticClass: "dropdown-item",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      $event.stopPropagation()
+                      return _vm.addCategory(category)
+                    }
+                  }
+                },
+                [
+                  _c("img", {
+                    staticClass: "mr-2",
+                    attrs: { src: category.picture, height: "20" }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "mr-2" }, [
+                    _vm._v(_vm._s(category.name))
+                  ]),
+                  _vm._v(" "),
+                  _vm.checkIfIncludes(category.id)
+                    ? _c("span", { staticStyle: { color: "#88BE2E" } }, [
+                        _c("i", { staticClass: "fas fa-check" })
+                      ])
+                    : _vm._e()
+                ]
+              )
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _c("small", { staticClass: "text-muted" }, [
+          _vm._v("\n\t\t\t\tSeleccione máximo 5 categorias.\n\t\t\t")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "selected-categories mt-3" }, [
+          _c(
+            "div",
+            { staticClass: "container row" },
+            _vm._l(_vm.user_categories, function(user_category) {
+              return _c(
+                "div",
+                { key: user_category.id, staticClass: "col-md-3" },
+                [
+                  _c("div", { staticClass: "p-1" }, [
+                    _c(
+                      "span",
+                      {
+                        staticClass: "badge badge-success",
+                        staticStyle: { padding: "7px" }
+                      },
+                      [
+                        _vm._v(
+                          "\n\t\t\t\t\t\t\t\t" +
+                            _vm._s(user_category.name) +
+                            "\n\t\t\t\t\t\t\t"
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            $event.stopPropagation()
+                            return _vm.quitCategory(user_category.id)
+                          }
+                        }
+                      },
+                      [
+                        _c("span", { staticClass: "badge badge-danger" }, [
+                          _vm._v("x")
+                        ])
+                      ]
+                    )
+                  ])
+                ]
+              )
+            }),
+            0
+          )
+        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
