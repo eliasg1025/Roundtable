@@ -6,6 +6,16 @@
 			<br>
 			<i>Subir <b>una certificación</b> te cuesta <a href="/planes" target="_blank"><b>20 coins</b></a></i>.
 		</div>
+		<!-- Btn para agregar productos -->
+		<div class="container text-center">
+			<button class="btn btn-add" data-toggle="modal" data-target="#modalAddCert">
+				<i class="fas fa-plus"></i> Agregar Certificación
+			</button>
+			<br>
+			<small class="mt-1">
+				<span class="text-muted">Esta operación cuesta 20 coins. <a href="/planes" target="_blank">Conseguir coins.</a></span>
+			</small>
+		</div>
 		<div class="container">
 			<div class="table-responsive mt-5">
 				<table class="table table-hover">
@@ -31,7 +41,9 @@
 							</td>
 							<td>
 								<div class="container mb-1">
-									<button class="btn btn-secondary btn-block" @click="editCert(cert.id)">Editar</button>
+									<button class="btn btn-primary btn-block" data-toggle="modal" :data-target="'#certfasd'+cert.id">
+										Editar
+									</button>
 								</div>
 								<div class="container">
 									<button class="btn btn-danger btn-block" @click="deleteCert(cert.id)">Eliminar</button>
@@ -45,15 +57,61 @@
 				<p style="color: #6C757D; font-size: 25px;">Aún no tienes certificados subidos</p>
 			</div>
 		</div>
+
+		<!-- Modal Add Cert -->
+		<div id="modalAddCert" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Agregar Certificación</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="">Titulo</label>
+							<input type="text" class="form-control" placeholder="Nombre del certificado">
+						</div>
+						<div class="form-group">
+							<label for="">Documento</label>
+							<div class="custom-file">
+								<input type="file" class="custom-file-input" id="addCertFile" accept="application/pdf">
+								<label class="custom-file-label" for="addCertFile"><i class="fas fa-file-pdf"></i> Selecciona un archivo(.pdf)</label>
+								<small><span class="text-muted">Solamente se aceptará archivos de formato pdf</span></small>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-add" @click="addCert()">Agregar</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modals Edit Cert -->
+		<modal-cert-edit
+			v-for="certification in certifications" :key="certification.id"
+			:certification="certification"
+		></modal-cert-edit>
 	</div>
 </template>
 
 <script>
+	import ModalCertEdit from './ProfileModalCertEdit.vue';
+
 	export default {
+		components: {
+			ModalCertEdit
+		},
 		props: [
 			'certifications',
 		],
 		methods: {
+			addCert() {
+				console.log('Agregado')
+			},
 			deleteCert(cert_id) {
 				Swal.fire({
 					title: '¿Estas seguro que deseas eliminar este certificado?',

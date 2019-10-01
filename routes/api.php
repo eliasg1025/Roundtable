@@ -18,13 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/business', 'BusinessController@getBusiness');
-
 Route::get('/business/category/{slug}', 'BusinessController@getBusinessByCategory');
-
 Route::get('/business/search', 'BusinessController@searchBusiness');
 
 Route::middleware('auth:api')->delete('/products', 'ProductsController@destroy');
-
 Route::middleware('auth:api')->put('/products', 'ProductsController@edit');
 
+
+// Get Data
 Route::get('/categories', 'Api\CategoriesController@index');
+Route::get('/plans', 'Api\PlansController@index');

@@ -139,7 +139,10 @@
 					</ul>
 				</div>
 			</div>
-			<p class="multi-preview-info">Puedes agregar: {{ might_add_images }} imagenes(s)</p>
+			<p class="multi-preview-info">
+				Puedes agregar: {{ might_add_images.number }} imagen(es)
+				<a href="#" style="font-family: arial, sans-serif;"><small>Mejora tu plan</small></a>
+			</p>
 			<!-- Carousel imagenes -->
 			<div id="multi-carousel-images">
 				<div class="multi-carousel-item" v-for="image in images" :key="image.id">
@@ -150,7 +153,8 @@
 						</a>
 					</div>
 				</div>
-				<div class="multi-carousel-item">
+				<!-- Si es que AUN puede agregar IMAGENES -->
+				<div class="multi-carousel-item" v-if="might_add_images.can">
 					<div class="multi-add-container">
 						<div class="multi-image">
 							<label class="multi-add-text" for="upload-multi-image">
@@ -158,6 +162,21 @@
 								<p>Agregar Imagen</p>
 							</label>
 							<input type="file" accept="image/*" id="upload-multi-image" style="display: none;">
+						</div>
+					</div>
+				</div>
+				<!-- Si es que NO puede agregar -->
+				<div class="multi-carousel-item" v-if="might_add_images.can == false && might_add_images.limit == false">
+					<div class="multi-locked-upload">
+						<div style="margin-top: 15%;">
+							<span style="margin-bottom: 5px;">
+								<i style="font-size: 50px;" class="fas fa-lock"></i>
+							</span>
+							<p>
+								<span style="font-size: 20px;">No puedes agregar</span>
+								<br>
+								<a href="#"><small style="font-family: arial, sans-serif;">Ver más</small></a>
+							</p>
 						</div>
 					</div>
 				</div>
@@ -196,7 +215,10 @@
 				</div>
 			</div>
 			<!-- Carousel videos -->
-			<p class="multi-preview-info">Puedes agregar: {{ might_add_videos }} video(s)</p>
+			<p class="multi-preview-info">
+				Puedes agregar: {{ might_add_videos.number }} video(s)
+				<a href="#" style="font-family: arial, sans-serif;"><small>Mejora tu plan</small></a>
+			</p>
 			<div id="multi-carousel-videos">
 				<div class="multi-carousel-item" v-for="video in videos" :key="video.id">
 					<div class="multi-image-container">
@@ -205,7 +227,8 @@
 						</a>
 					</div>
 				</div>
-				<div class="multi-carousel-item">
+				<!-- Si es que AUN puede agregar VIDEOS -->
+				<div class="multi-carousel-item" v-if="might_add_videos.can">
 					<div class="multi-add-container">
 						<div class="multi-image">
 							<label class="multi-add-text" for="upload-multi-video">
@@ -213,6 +236,21 @@
 								<p>Agregar Video</p>
 							</label>
 							<input type="file" accept="video/*" id="upload-multi-video" style="display: none;">
+						</div>
+					</div>
+				</div>
+				<!-- Si es que NO puede agregar -->
+				<div class="multi-carousel-item" v-if="might_add_videos.can == false && might_add_videos.limit == false">
+					<div class="multi-locked-upload">
+						<div style="margin-top: 15%;">
+							<span style="margin-bottom: 5px;">
+								<i style="font-size: 50px;" class="fas fa-lock"></i>
+							</span>
+							<p>
+								<span style="font-size: 20px;">No puedes agregar</span>
+								<br>
+								<a href="#"><small style="font-family: arial, sans-serif;">Ver más</small></a>
+							</p>
 						</div>
 					</div>
 				</div>
@@ -260,27 +298,7 @@
 				cover_img: '',
 				images: [],
 				videos: [],
-				// Debe ser obtenido de una API
-				plans: [
-					{
-						id: 1,
-						name: 'Free',
-						images: 3,
-						videos: 0
-					},
-					{
-						id: 2,
-						name: 'Standard Business',
-						images: 6,
-						videos: 1
-					},
-					{
-						id: 3,
-						name: 'Premium Business',
-						images: 10,
-						videos: 3
-					}
-				],
+				plans: [],
 				categories: [],
 				user_categories: [],
 			}
@@ -302,6 +320,11 @@
 			axios.get('/api/categories')
 					.then(res => {
 						this.categories = res.data
+					});
+
+			axios.get('/api/plans')
+					.then(res => {
+						this.plans = res.data
 					})
 		},
 		mounted() {
@@ -322,7 +345,7 @@
 						items: 3
 					}
 				}
-			})
+			});
 
 			const multi_carousel_videos = Tiny.tns({
 				container: '#multi-carousel-videos',
@@ -341,17 +364,29 @@
 						items: 3
 					}
 				}
-			})
+			});
 		},
 		computed: {
 			profile_link() {
 				return window.location.origin + '/business/profile/' + this.user.slug
 			},
 			might_add_images() {
-				return JSON.parse(this.current_plan.benefits).images - this.images.length // Temporal
+				const number = this.current_plan.images - this.images.length
+
+				return {
+					'number': number,
+					'can': number > 0 ? true : false,
+					'limit': this.current_plan.is_best ? true : false,
+				}
 			},
 			might_add_videos() {
-				return JSON.parse(this.current_plan.benefits).videos - this.videos.length // Temporal
+				const number = this.current_plan.videos - this.videos.length 
+
+				return  {
+					'number': number,
+					'can': number > 0 ? true : false,
+					'limit': this.current_plan.is_best ? true : false,
+				}
 			}
 		},
 		methods: {
@@ -691,6 +726,17 @@
 		opacity: 0.6;
 		-webkit-transform: scale(1.1);
 		transform: scale(1.1);
+	}
+
+	.multi-locked-upload {
+		height: 150px;
+		background-color: #E2E3E5;
+		border: 1px solid #d6d8db;
+		color: #383d41;
+		background-color: #e2e3e5;
+		border-radius: 0.25rem;
+		margin: 10px;
+		text-align: center;
 	}
 
 	@media screen and (max-width: 768px) {
