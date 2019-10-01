@@ -71,9 +71,24 @@
 						</ul>
 					</div>
 					<div class="col-md-4" style="margin: auto;">
-						<button class="btn btn-block btn-agendar">
-							Agendar
-						</button>
+						<div v-if="data_visit_user.data.id === data_user.id" class="text-center">
+							<button type="button" class="btn btn-block btn-agendar" data-toggle="modal" data-target="#modalAgendar">
+								Agendar
+							</button>
+							<small class="mt-1">
+								<span class="text-muted">Esta operación cuesta 30 coins. <a href="/planes" target="_blank">Conseguir coins.</a></span>
+							</small>
+						</div>
+						
+						<!--
+						<a
+							v-if="data_visit_user.data.id === data_user.id"
+							class="btn btn-block btn-agendar"
+							href="/profile"
+						>
+							Editar Perfil
+						</a>
+						-->
 					</div>
 				</div>
 			</div>
@@ -109,7 +124,7 @@
 							</div>
 							<div class="text-center">
 								<p v-if="show_rating == true" class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Basados en la calificación de {{ data_account.rating_data.amount }} usuarios</p>
-								<p v-else class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Necesita mínimo 3 votos para promediar una calificación</p>
+								<p v-else class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Se necesitan mínimo 3 votos para promediar una calificación</p>
 							</div>
 						</div>
 					</div>
@@ -185,6 +200,54 @@
 					</div>
 				</div>
 			</div>
+
+			<!-- Modal Agendar -->
+			<div class="modal fade" id="modalAgendar" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Agendar Reunión</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-6">
+									<p class="form-destinity">De:</p>
+									<div class="business-meet-card text-center">
+										<div class="container">
+											<img :src="data_user.profile_img" width="100%">
+										</div>
+										<p class="my-2">{{ data_user.commercial_name }}</p>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<p class="form-destinity second">Para:</p>
+									<div class="business-meet-card text-center">
+										<div class="container">
+											<img :src="data_visit_user.data.profile_img" width="100%">
+										</div>
+										<p class="my-2">{{ data_visit_user.data.commercial_name }}</p>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<div class="form-group mt-3">
+										<label for="">Mensaje:</label>
+										<textarea class="form-control" id="" rows="4" placeholder="Deja tu mensaje para esta empresa. (Opcional)"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-add" @click="agendar()">Agendar</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</section>
 </template>
@@ -193,7 +256,8 @@
 	export default {
 		props: [
 			'data_user',
-			'data_account'
+			'data_account',
+			'data_visit_user',
 		],
 		data() {
 			return {
@@ -209,6 +273,25 @@
 		mounted() {
 			let el = document.querySelector(`#${this.id}`);
 			el.style = `background-image: url('${this.data_user.cover_img}')`;
+		},
+		methods: {
+			agendar() {
+				Swal.fire({
+					title: 'Estas consumiendo 30 coins en esta operación',
+					text: '¿Estas seguro de realizarla?',
+					type: 'info',
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Si',
+					cancelButtonText: 'Cancelar',
+					showCancelButton: true,
+				})
+					.then(res => {
+						if (res.value == true) {
+							console.log('Agendado')
+						}
+					})
+			}
 		}
 	}
 </script>
@@ -250,13 +333,6 @@
 	.profile-img img {
 		max-width: 100%;
 		padding: 30px;
-	}
-
-	@media (max-width: 600px) {
-		.profile-img {
-			margin-top: 170px;
-			max-width: 200px;
-		}
 	}
 
 	.business-text {
@@ -314,20 +390,6 @@
 		margin-top: 15px;
 	}
 
-	@media (max-width: 600px) {
-		.business-name h2 {
-			font-size: 25px;
-		}
-
-		.business-address {
-			font-size: 14px;
-		}
-
-		.business-description {
-			font-size: 15px;
-		}
-	}
-
 	/* Stat names */
 
 	.business-stats {
@@ -347,8 +409,8 @@
 	}
 
 	.business-stats .btn-agendar:hover {
-		margin-top: -5px;
-		margin-left: -5px;
+		margin-top: -2px;
+		margin-left: -2px;
 		transition: ease 0.3s;
 		box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);
 	}
@@ -376,30 +438,6 @@
 
 	.stat-name {
 		font-size: 20px;
-	}
-
-	@media (max-width: 600px) {
-		.stat-value {
-			font-size: 20px;
-		}
-
-		.stat-name {
-			font-size: 15px;
-		}
-	}
-
-	@media (max-width: 360px) {
-		.business-description {
-			font-size: 14px;
-		}
-
-		.stat-value {
-			font-size: 17px;
-		}
-
-		.stat-name {
-			font-size: 12px;
-		}
 	}
 
 	/* Modals */
@@ -435,4 +473,66 @@
 		text-decoration: none;
 		color: #212529;
 	}
+
+	#modalAgendar {
+		font-family: 'Nunito', sans-serif;
+	}
+
+	.business-meet-card {
+		color: #383d41;
+		background-color: #e2e3e5;
+		border: 1px solid #d6d8db;
+		border-radius: 6px;
+	}
+
+	.form-destinity {
+		margin-bottom: 5px;
+	}
+
+	@media (max-width: 600px) {
+
+		.profile-img {
+			margin-top: 170px;
+			max-width: 200px;
+		}
+
+		.business-name h2 {
+			font-size: 25px;
+		}
+
+		.business-address {
+			font-size: 14px;
+		}
+
+		.business-description {
+			font-size: 15px;
+		}
+
+		.stat-value {
+			font-size: 20px;
+		}
+
+		.stat-name {
+			font-size: 15px;
+		}
+
+		.form-destinity.second {
+			margin-top: 15px;
+		}
+	}
+
+	@media (max-width: 360px) {
+		.business-description {
+			font-size: 14px;
+		}
+
+		.stat-value {
+			font-size: 17px;
+		}
+
+		.stat-name {
+			font-size: 12px;
+		}
+	}
+	
 </style>
