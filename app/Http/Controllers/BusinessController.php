@@ -71,15 +71,23 @@ class BusinessController extends Controller
 	public function show($slug)
 	{
 		$uuid = substr($slug, -5);
-		$user = User::whereUuid($uuid)->firstOrFail();
+		$user = User::whereUuid($uuid)
+					->firstOrFail();
 
 		if ($slug !== $user->slug) {
 			return redirect()->to($user->url);
 		}
 
+		$user->select('id', 'commercial_name', 'uuid', 'slug', 'verified', 'cover_img', 'profile_img', 'type_id', 'description');
+
 		// Media data
 		$media_data = $this->getMediaData($user);
-
+		
+		$visit_user = [
+			'loged' => false,
+			'data' => empty(Auth::user()) ? false : Auth::user(),
+		];
+	
 		// Account data
 		$account_data = [
 			'rating_data' => $this->getRating($user),
@@ -87,8 +95,8 @@ class BusinessController extends Controller
 			'user_certifications' => $this->getCertifications($user),
 			'offers_data' => $this->getOffers($user)
 		];
-
-		return view('business', compact('user', 'media_data', 'account_data'));
+	
+		return view('business', compact('visit_user', 'user', 'media_data', 'account_data'));
 	}
 
 	// Get data functions

@@ -3,6 +3,7 @@
 		<business-banner
 			:data_user="data_user"
 			:data_account="data_account"
+			:data_visit_user="data_visit_user"
 		>
 		</business-banner>
 
@@ -39,6 +40,7 @@
 			'data_user',
 			'data_media',
 			'data_account',
+			'data_visit_user',
 			'csrf',
 			'href_login',
 			'href_register',

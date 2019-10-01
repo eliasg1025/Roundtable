@@ -1731,9 +1731,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'business',
-  props: ['data_user', 'data_media', 'data_account', 'csrf', 'href_login', 'href_register', 'href_reset_password']
+  props: ['data_user', 'data_media', 'data_account', 'data_visit_user', 'csrf', 'href_login', 'href_register', 'href_reset_password']
 });
 
 /***/ }),
@@ -1938,8 +1939,71 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data_user', 'data_account'],
+  props: ['data_user', 'data_account', 'data_visit_user'],
   data: function data() {
     return {
       id: this.data_user.name.replace(/ |:|,|'/gi, '-'),
@@ -1954,6 +2018,24 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var el = document.querySelector("#".concat(this.id));
     el.style = "background-image: url('".concat(this.data_user.cover_img, "')");
+  },
+  methods: {
+    agendar: function agendar() {
+      Swal.fire({
+        title: 'Estas consumiendo 30 coins en esta operación',
+        text: '¿Estas seguro de realizarla?',
+        type: 'info',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true
+      }).then(function (res) {
+        if (res.value == true) {
+          console.log('Agendado');
+        }
+      });
+    }
   }
 });
 
@@ -9956,7 +10038,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.businessBanner {\n\tpadding: 200px 0 100px 0;\n\tbackground-size: cover;\n\tbackground-position: center;\n\tposition: relative;\n\tbackground-color: #FDFDFD;\n\tbox-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);\n}\n.businessBanner:before {\n\tcontent: \"\";\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 100%;\n\tbackground: #000;\n\topacity: .3;\n}\n.wave {\n\tmargin-top: -100px;\n\tz-index: 100;\n\tposition: relative;\n}\n.profile-img {\n\tbackground-color: #fff;\n\tdisplay: inline-block;\n\tmax-width: 270px;\n\tborder-radius: 50%;\n\tbox-shadow: 0px 0px 1px 1px #B7B7B76B;\n\tmargin-top: 150px;\n\tposition: relative;\n\tz-index: 1000;\n}\n.profile-img img {\n\tmax-width: 100%;\n\tpadding: 30px;\n}\n@media (max-width: 600px) {\n.profile-img {\n\t\tmargin-top: 170px;\n\t\tmax-width: 200px;\n}\n}\n.business-text {\n\tz-index: 1000;\n\tmargin-bottom: 100px;\n}\n.business-name {\n\tmargin-top: 20px;\n}\n.business-name h2 {\n\tfont-family: 'Roboto', sans-serif;\n\ttext-transform: uppercase;\n\tfont-weight: 700;\n\tdisplay: inline-block;\n\tposition: relative;\n\tmargin-top: 10px;\n\tborder-left: 5px solid #88be2e;\n\tborder-right: 5px solid #88be2e;\n\tpadding-left: 8px;\n\tpadding-right: 8px;\n}\n.business-name h2:before {\n\tcontent: \"\";\n    height: 5px;\n    width: 40px;\n\tbackground-color: #88be2e;\n\tposition: absolute;\n\tleft: 0;\n\ttop: 0;\n\tmargin-top: -5px;\n\tmargin-left: -5px;\n}\n.business-name h2:after {\n\tcontent: \"\";\n    height: 5px;\n    width: 40px;\n\tbackground-color: #88be2e;\n\tposition: absolute;\n\tbottom: 0;\n\tright: 0;\n\tmargin-bottom: -5px;\n\tmargin-right: -5px;\n}\n.business-address {\n\tmargin-top: 10px;\n\tfont-weight: 600;\n}\n.business-description {\n\tmargin-top: 15px;\n}\n@media (max-width: 600px) {\n.business-name h2 {\n\t\tfont-size: 25px;\n}\n.business-address {\n\t\tfont-size: 14px;\n}\n.business-description {\n\t\tfont-size: 15px;\n}\n}\n\n/* Stat names */\n.business-stats {\n\tpadding-top: 350px;\n\tpadding-bottom: 20px;\n}\n.business-stats .btn-agendar {\n\tbackground-color: #88be2e;\n\tcolor: #fff;\n\tfont-family: 'Roboto', sans-serif;\n\ttext-transform: uppercase;\n\ttransition: ease 0.3s;\n\tbox-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);\n\tletter-spacing: 2px;\n\tfont-weight: 700;\n}\n.business-stats .btn-agendar:hover {\n\tmargin-top: -5px;\n\tmargin-left: -5px;\n\ttransition: ease 0.3s;\n\tbox-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);\n}\n.nav__business-stat {\n\tcolor: #212529;\n\tfont-family: 'Roboto', sans-serif;\n}\n.business-stats .nav-item {\n\twidth: 25%;\n\ttext-align: center;\n}\n.nav__business-stat:hover {\n\tcolor: #88be2e;\n\tmargin-top: -1px;\n\tmargin-left: -1px;\n}\n.stat-value {\n\tfont-size: 30px;\n}\n.stat-name {\n\tfont-size: 20px;\n}\n@media (max-width: 600px) {\n.stat-value {\n\t\tfont-size: 20px;\n}\n.stat-name {\n\t\tfont-size: 15px;\n}\n}\n@media (max-width: 360px) {\n.business-description {\n\t\tfont-size: 14px;\n}\n.stat-value {\n\t\tfont-size: 17px;\n}\n.stat-name {\n\t\tfont-size: 12px;\n}\n}\n\n/* Modals */\n.stats-modals {\n\tfont-family: 'Roboto', sans-serif;\n}\n.rating-stars-modal {\n\tfont-size: 40px;\n}\n.rating-stars-modal li {\n\tmargin-right: 10px;\n}\n.business-stat-modal .nav {\n\tmargin-top: 25px;\n}\n.business-stat-modal .nav-item {\n\twidth: 33%;\n\ttext-align: center;\n\tpadding: 10px;\n}\n.business-stat-modal__item {\n\tdisplay: block;\n\tpadding: 5px;\n\tbackground: #f1f1f1;\n\tborder-radius: 5px;\n\tbox-shadow: 0px 0px 1px 1px #cecece;\n\ttext-decoration: none;\n\tcolor: #212529;\n}\n", ""]);
+exports.push([module.i, "\n.businessBanner {\n\tpadding: 200px 0 100px 0;\n\tbackground-size: cover;\n\tbackground-position: center;\n\tposition: relative;\n\tbackground-color: #FDFDFD;\n\tbox-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);\n}\n.businessBanner:before {\n\tcontent: \"\";\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 100%;\n\tbackground: #000;\n\topacity: .3;\n}\n.wave {\n\tmargin-top: -100px;\n\tz-index: 100;\n\tposition: relative;\n}\n.profile-img {\n\tbackground-color: #fff;\n\tdisplay: inline-block;\n\tmax-width: 270px;\n\tborder-radius: 50%;\n\tbox-shadow: 0px 0px 1px 1px #B7B7B76B;\n\tmargin-top: 150px;\n\tposition: relative;\n\tz-index: 1000;\n}\n.profile-img img {\n\tmax-width: 100%;\n\tpadding: 30px;\n}\n.business-text {\n\tz-index: 1000;\n\tmargin-bottom: 100px;\n}\n.business-name {\n\tmargin-top: 20px;\n}\n.business-name h2 {\n\tfont-family: 'Roboto', sans-serif;\n\ttext-transform: uppercase;\n\tfont-weight: 700;\n\tdisplay: inline-block;\n\tposition: relative;\n\tmargin-top: 10px;\n\tborder-left: 5px solid #88be2e;\n\tborder-right: 5px solid #88be2e;\n\tpadding-left: 8px;\n\tpadding-right: 8px;\n}\n.business-name h2:before {\n\tcontent: \"\";\n    height: 5px;\n    width: 40px;\n\tbackground-color: #88be2e;\n\tposition: absolute;\n\tleft: 0;\n\ttop: 0;\n\tmargin-top: -5px;\n\tmargin-left: -5px;\n}\n.business-name h2:after {\n\tcontent: \"\";\n    height: 5px;\n    width: 40px;\n\tbackground-color: #88be2e;\n\tposition: absolute;\n\tbottom: 0;\n\tright: 0;\n\tmargin-bottom: -5px;\n\tmargin-right: -5px;\n}\n.business-address {\n\tmargin-top: 10px;\n\tfont-weight: 600;\n}\n.business-description {\n\tmargin-top: 15px;\n}\n\n/* Stat names */\n.business-stats {\n\tpadding-top: 350px;\n\tpadding-bottom: 20px;\n}\n.business-stats .btn-agendar {\n\tbackground-color: #88be2e;\n\tcolor: #fff;\n\tfont-family: 'Roboto', sans-serif;\n\ttext-transform: uppercase;\n\ttransition: ease 0.3s;\n\tbox-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);\n\tletter-spacing: 2px;\n\tfont-weight: 700;\n}\n.business-stats .btn-agendar:hover {\n\tmargin-top: -2px;\n\tmargin-left: -2px;\n\ttransition: ease 0.3s;\n\tbox-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);\n}\n.nav__business-stat {\n\tcolor: #212529;\n\tfont-family: 'Roboto', sans-serif;\n}\n.business-stats .nav-item {\n\twidth: 25%;\n\ttext-align: center;\n}\n.nav__business-stat:hover {\n\tcolor: #88be2e;\n\tmargin-top: -1px;\n\tmargin-left: -1px;\n}\n.stat-value {\n\tfont-size: 30px;\n}\n.stat-name {\n\tfont-size: 20px;\n}\n\n/* Modals */\n.stats-modals {\n\tfont-family: 'Roboto', sans-serif;\n}\n.rating-stars-modal {\n\tfont-size: 40px;\n}\n.rating-stars-modal li {\n\tmargin-right: 10px;\n}\n.business-stat-modal .nav {\n\tmargin-top: 25px;\n}\n.business-stat-modal .nav-item {\n\twidth: 33%;\n\ttext-align: center;\n\tpadding: 10px;\n}\n.business-stat-modal__item {\n\tdisplay: block;\n\tpadding: 5px;\n\tbackground: #f1f1f1;\n\tborder-radius: 5px;\n\tbox-shadow: 0px 0px 1px 1px #cecece;\n\ttext-decoration: none;\n\tcolor: #212529;\n}\n#modalAgendar {\n\tfont-family: 'Nunito', sans-serif;\n}\n.business-meet-card {\n\tcolor: #383d41;\n\tbackground-color: #e2e3e5;\n\tborder: 1px solid #d6d8db;\n\tborder-radius: 6px;\n}\n.form-destinity {\n\tmargin-bottom: 5px;\n}\n@media (max-width: 600px) {\n.profile-img {\n\t\tmargin-top: 170px;\n\t\tmax-width: 200px;\n}\n.business-name h2 {\n\t\tfont-size: 25px;\n}\n.business-address {\n\t\tfont-size: 14px;\n}\n.business-description {\n\t\tfont-size: 15px;\n}\n.stat-value {\n\t\tfont-size: 20px;\n}\n.stat-name {\n\t\tfont-size: 15px;\n}\n.form-destinity.second {\n\t\tmargin-top: 15px;\n}\n}\n@media (max-width: 360px) {\n.business-description {\n\t\tfont-size: 14px;\n}\n.stat-value {\n\t\tfont-size: 17px;\n}\n.stat-name {\n\t\tfont-size: 12px;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -51325,7 +51407,11 @@ var render = function() {
     "main",
     [
       _c("business-banner", {
-        attrs: { data_user: _vm.data_user, data_account: _vm.data_account }
+        attrs: {
+          data_user: _vm.data_user,
+          data_account: _vm.data_account,
+          data_visit_user: _vm.data_visit_user
+        }
       }),
       _vm._v(" "),
       _c("business-products", {
@@ -51497,7 +51583,30 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(0)
+          _c(
+            "div",
+            { staticClass: "col-md-4", staticStyle: { margin: "auto" } },
+            [
+              _vm.data_visit_user.data.id === _vm.data_user.id
+                ? _c("div", { staticClass: "text-center" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-block btn-agendar",
+                        attrs: {
+                          type: "button",
+                          "data-toggle": "modal",
+                          "data-target": "#modalAgendar"
+                        }
+                      },
+                      [_vm._v("\n\t\t\t\t\t\t\tAgendar\n\t\t\t\t\t\t")]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ])
+                : _vm._e()
+            ]
+          )
         ])
       ])
     ]),
@@ -51589,7 +51698,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "Necesita mínimo 3 votos para promediar una calificación"
+                              "Se necesitan mínimo 3 votos para promediar una calificación"
                             )
                           ]
                         )
@@ -51780,6 +51889,113 @@ var render = function() {
             ]
           )
         ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "modalAgendar",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog", attrs: { role: "document" } },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(6),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("p", { staticClass: "form-destinity" }, [
+                        _vm._v("De:")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "business-meet-card text-center" },
+                        [
+                          _c("div", { staticClass: "container" }, [
+                            _c("img", {
+                              attrs: {
+                                src: _vm.data_user.profile_img,
+                                width: "100%"
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "my-2" }, [
+                            _vm._v(_vm._s(_vm.data_user.commercial_name))
+                          ])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("p", { staticClass: "form-destinity second" }, [
+                        _vm._v("Para:")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "business-meet-card text-center" },
+                        [
+                          _c("div", { staticClass: "container" }, [
+                            _c("img", {
+                              attrs: {
+                                src: _vm.data_visit_user.data.profile_img,
+                                width: "100%"
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "my-2" }, [
+                            _vm._v(
+                              _vm._s(_vm.data_visit_user.data.commercial_name)
+                            )
+                          ])
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(7)
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-add",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.agendar()
+                        }
+                      }
+                    },
+                    [_vm._v("Agendar")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", "data-dismiss": "modal" }
+                    },
+                    [_vm._v("Cerrar")]
+                  )
+                ])
+              ])
+            ]
+          )
+        ]
       )
     ])
   ])
@@ -51789,15 +52005,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "col-md-4", staticStyle: { margin: "auto" } },
-      [
-        _c("button", { staticClass: "btn btn-block btn-agendar" }, [
-          _vm._v("\n\t\t\t\t\t\tAgendar\n\t\t\t\t\t")
+    return _c("small", { staticClass: "mt-1" }, [
+      _c("span", { staticClass: "text-muted" }, [
+        _vm._v("Esta operación cuesta 30 coins. "),
+        _c("a", { attrs: { href: "/planes", target: "_blank" } }, [
+          _vm._v("Conseguir coins.")
         ])
-      ]
-    )
+      ])
+    ])
   },
   function() {
     var _vm = this
@@ -51890,6 +52105,52 @@ var staticRenderFns = [
         { staticClass: "modal-title h3", attrs: { id: "modalStats-rating" } },
         [_vm._v("Categorías")]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Agendar Reunión")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col" }, [
+        _c("div", { staticClass: "form-group mt-3" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Mensaje:")]),
+          _vm._v(" "),
+          _c("textarea", {
+            staticClass: "form-control",
+            attrs: {
+              id: "",
+              rows: "4",
+              placeholder: "Deja tu mensaje para esta empresa. (Opcional)"
+            }
+          })
+        ])
+      ])
     ])
   }
 ]
