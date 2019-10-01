@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PlansController extends Controller
 {
@@ -15,7 +15,8 @@ class PlansController extends Controller
      */
     public function index()
     {
-        //
+		$plans = DB::table('plans')->get();
+		return response()->json($plans);
     }
 
     /**

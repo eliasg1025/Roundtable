@@ -6,6 +6,17 @@
 			<br>
 			<i>Subir <b>una oferta</b> te cuesta <a href="/planes" target="_blank"><b>30 coins</b></a></i>.
 		</div>
+		<!-- Btn para agregar productos -->
+		<div class="container text-center">
+			<button class="btn btn-add" data-toggle="modal" data-target="#modalAddProduct">
+				<i class="fas fa-plus"></i> Agregar Producto
+			</button>
+			<br>
+			<small class="mt-1">
+				<span class="text-muted">Esta operación cuesta 30 coins. <a href="/planes" target="_blank">Conseguir coins.</a></span>
+			</small>
+		</div>
+		<!-- Tabla de productos -->
 		<div class="container">
 			<div class="table-responsive mt-5">
 				<table class="table table-hover">
@@ -45,6 +56,7 @@
 							<td>
 								<a
 									v-for="certification in data_offer.certifications"
+									:key="certification.id"
 									:href="certification.url" target="_blank"
 									class="btn btn-light btn-cert" style="border: 1px solid #cecece;"
 								>
@@ -60,9 +72,12 @@
 							</td>
 							<td>
 								<div class="container mb-1">
-									<button class="btn btn-secondary btn-block" @click="editProduct(data_offer.offer.id)">Editar</button>
+									<button class="btn btn-primary btn-block" data-toggle="modal" :data-target="'#lijtgh'+data_offer.offer.id">Editar</button>
 								</div>
-								<div class="container">
+								<div class="container mb-1">
+									<button class="btn btn-secondary btn-block" data-toggle="modal" :data-target="'#eeadsas'+data_offer.offer.id">Certificados</button>
+								</div>
+								<div class="container mb-1">
 									<button class="btn btn-danger btn-block" @click="deleteProduct(data_offer.offer.id)">Eliminar</button>
 								</div>
 							</td>
@@ -74,21 +89,92 @@
 			<div class="mt-5 text-center" v-if="data_offers.length === 0">
 				<p style="color: #6C757D; font-size: 25px;">Aún no tienes productos ofertados</p>
 			</div>
+
+			<!-- Modal Add Product -->
+			<div id="modalAddProduct" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Agregar Producto</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="">Título</label>
+								<input type="text" class="form-control" placeholder="Nombre del producto">
+							</div>
+							<div class="form-group">
+								<label for="">Categoría</label>
+								<select class="custom-select">
+									<option
+										v-for="category in categories" :key="category.id"
+										:value="category.id"
+									>
+										{{ category.name }}
+									</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="">Subir Imagen</label>
+								<div class="custom-file">
+									<input type="file" class="custom-file-input" id="addProductImage" lang="es" accept="image/*">
+									<label class="custom-file-label" for="addProductImage"><i class="fas fa-camera"></i> Seleccione una imagen</label>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-add" @click.prevent.stop="addProduct()">Agregar</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Modals Edit Product -->
+			<modal-offer
+				v-for="data_offer in data_offers" :key="data_offer.offer.id"
+				:data_offer="data_offer"
+				:categories="categories"
+			></modal-offer>
+
+			<!-- Modals certs -->
+			<modal-offer-cert
+				v-for="data_offer in data_offers" :key="100-data_offer.offer.id"
+				:data_offer="data_offer"
+			></modal-offer-cert>
 		</div>
 	</div>
 </template>
 
 <script>
+	import ModalOffer from "./ProfileModalOffer";
+	import ModalOfferCert from "./ProfileModalOfferCert.vue";
+
 	export default {
+		components: {
+			ModalOffer,
+			ModalOfferCert,
+		},
 		props: [
 			'data_offers'
 		],
 		data() {
 			return {
-
+				categories: [],
 			}
 		},
+		created() {
+			axios.get('api/categories')
+				.then(res => {
+					this.categories = res.data
+				})
+		},
 		methods: {
+			addProduct() {
+
+			},
 			deleteProduct(product_id) {
 				Swal.fire({
 					title: '¿Estas seguro que deseas eliminar este producto?',
@@ -129,14 +215,23 @@
 							})
 					})
 			},
-			editProduct(product_id) {
-				console.log('Works')
-			}
 		}
 	}
 </script>
 
 <style>
+	.btn-add {
+		color: #fff;
+    	background-color: #88BE2E;
+    	border-color: #88BE2E;
+    	font-size: 1.1rem;
+	}
+
+	.btn-add:hover {
+		background-color: #A1DF35;
+		color: #fff;
+	}
+
 	.img-cell {
 		width: 200px;
 		height: auto;
@@ -158,12 +253,14 @@
 	.btn-category {
 		width: 100%;
 		display: block;
+		font-size: 13px;
 	}
 
 	.btn-cert {
 		width: 100%;
 		text-align: left;
 		margin-bottom: 5px;
+		font-size: 13px;
 	}
 
 	.table-product__title {

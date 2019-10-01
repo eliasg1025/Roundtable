@@ -79,7 +79,7 @@
 						</div>
 					</div>
 					<!-- End Box Profile -->
-					<div v-show="active" class="lateral-user-options mt-3">
+					<div v-if="active" class="lateral-user-options mt-3">
 						<!-- Menu Options -->
 						<div class="card-header text-white text-uppercase title-sidebar">
 							<i class="fa fa-list"></i> Menú
@@ -97,7 +97,7 @@
 				<div class="col-md-9">
 					<!-- Top user Options -->
 					<div class="top-user-options my-3">
-						<div class="list-group list-group-horizontal row" v-show="active">
+						<div class="list-group list-group-horizontal row" v-if="active">
 							<a href="#" v-on:click.stop.prevent="activePanel(1)" class="list-group-item item-topbar col-md-3"><div>Información Empresa</div></a>
 							<a href="#" v-on:click.stop.prevent="activePanel(2)" class="list-group-item item-topbar col-md-3"><div>Ofertas</div></a>
 							<a href="#" v-on:click.stop.prevent="activePanel(3)" class="list-group-item item-topbar col-md-3"><div>Certificaciones</div></a>
@@ -107,7 +107,7 @@
 
 
 					<!-- User Options -->
-					<ul id="userPanel" v-show="!active" class="user-options">
+					<ul id="userPanel" v-if="!active" class="user-options">
 						<!-- Info Empresa -->
 						<li>
 							<figure class="snip">
@@ -177,7 +177,7 @@
 						</div>
 
 						<!-- Informacion Empresa Panel -->
-						<div class="panel" v-show="panel === 1">
+						<div class="panel" v-if="panel === 1">
 							<panel-info
 								:user="user"
 								:media_data="media_data"
@@ -187,21 +187,21 @@
 						</div>
 
 						<!-- Ofertas Panel -->
-						<div class="panel" v-show="panel === 2">
+						<div class="panel" v-if="panel === 2">
 							<panel-offer
 								:data_offers="data_offers"
 							></panel-offer>
 						</div>
 
 						<!-- Certificaciones Panel -->
-						<div class="panel" v-show="panel === 3">
+						<div class="panel" v-if="panel === 3">
 							<panel-cert
 								:certifications="certifications"
 							></panel-cert>
 						</div>
 
 						<!-- Agendamientos Panel -->
-						<div class="panel" v-show="panel === 4">
+						<div class="panel" v-if="panel === 4">
 							<panel-meet></panel-meet>
 						</div>
 					</section>

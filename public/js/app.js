@@ -3517,10 +3517,85 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfilePanelCert.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProfilePanelCert.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileModalCertEdit.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProfileModalCertEdit.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['certification'],
+  data: function data() {
+    return {
+      title: '',
+      url: ''
+    };
+  },
+  created: function created() {
+    this.title = this.certification.title;
+    this.url = this.certification.url;
+  },
+  methods: {
+    editCert: function editCert() {
+      Swal.fire({
+        title: '¿Realmente deseas editar los datos de este certificado?',
+        type: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true
+      }).then(function (res) {
+        if (res.value == true) {
+          console.log('Datos guardados');
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileModalOffer.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProfileModalOffer.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3576,9 +3651,384 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['data_offer', 'categories'],
+  data: function data() {
+    return {
+      title: '',
+      image_url: '',
+      category_id: ''
+    };
+  },
+  created: function created() {
+    this.title = this.data_offer.offer.title;
+    this.image_url = this.data_offer.offer.image_url;
+    this.category_id = this.data_offer.offer.category_id;
+  },
+  methods: {
+    editProduct: function editProduct() {
+      Swal.fire({
+        title: '¿Realmente deseas editar los datos de este producto?',
+        type: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true
+      }).then(function (res) {
+        if (res.value == true) {
+          console.log('Datos guardados');
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileModalOfferCert.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProfileModalOfferCert.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ProfileModalOfferCertEdit_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProfileModalOfferCertEdit.vue */ "./resources/js/components/ProfileModalOfferCertEdit.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    ModalOfferCertEdit: _ProfileModalOfferCertEdit_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: ['data_offer'],
+  methods: {
+    addOfferCert: function addOfferCert() {
+      console.log('Added');
+    },
+    deleteOfferCert: function deleteOfferCert() {
+      Swal.fire({
+        title: '¿Estas seguro que deseas eliminar el certificado de este producto?',
+        text: 'Esta acción es irreversible',
+        type: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true
+      }).then(function (res) {
+        if (res.value == true) {
+          console.log('Deleted');
+        }
+      })["catch"](function (err) {
+        console.log("Error:".concat(err.data, ". Comunicate con support@roundtableperu.com"));
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileModalOfferCertEdit.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProfileModalOfferCertEdit.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['certification'],
+  data: function data() {
+    return {
+      title: '',
+      url: ''
+    };
+  },
+  created: function created() {
+    this.title = this.certification.title;
+    this.url = this.certification.url;
+  },
+  methods: {
+    editOfferCert: function editOfferCert() {
+      Swal.fire({
+        title: '¿Realmente deseas editar los datos de este certificado?',
+        type: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true
+      }).then(function (res) {
+        if (res.value == true) {
+          console.log('Datos guardados');
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfilePanelCert.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProfilePanelCert.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ProfileModalCertEdit_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProfileModalCertEdit.vue */ "./resources/js/components/ProfileModalCertEdit.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    ModalCertEdit: _ProfileModalCertEdit_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   props: ['certifications'],
   methods: {
+    addCert: function addCert() {
+      console.log('Agregado');
+    },
     deleteCert: function deleteCert(cert_id) {
       var _this = this;
 
@@ -3874,6 +4324,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user', 'media_data', 'current_plan', 'categories_data'],
   data: function data() {
@@ -3889,23 +4377,7 @@ __webpack_require__.r(__webpack_exports__);
       cover_img: '',
       images: [],
       videos: [],
-      // Debe ser obtenido de una API
-      plans: [{
-        id: 1,
-        name: 'Free',
-        images: 3,
-        videos: 0
-      }, {
-        id: 2,
-        name: 'Standard Business',
-        images: 6,
-        videos: 1
-      }, {
-        id: 3,
-        name: 'Premium Business',
-        images: 10,
-        videos: 3
-      }],
+      plans: [],
       categories: [],
       user_categories: []
     };
@@ -3927,6 +4399,9 @@ __webpack_require__.r(__webpack_exports__);
     this.user_categories = this.categories_data;
     axios.get('/api/categories').then(function (res) {
       _this.categories = res.data;
+    });
+    axios.get('/api/plans').then(function (res) {
+      _this.plans = res.data;
     });
   },
   mounted: function mounted() {
@@ -3972,10 +4447,20 @@ __webpack_require__.r(__webpack_exports__);
       return window.location.origin + '/business/profile/' + this.user.slug;
     },
     might_add_images: function might_add_images() {
-      return JSON.parse(this.current_plan.benefits).images - this.images.length; // Temporal
+      var number = this.current_plan.images - this.images.length;
+      return {
+        'number': number,
+        'can': number > 0 ? true : false,
+        'limit': this.current_plan.is_best ? true : false
+      };
     },
     might_add_videos: function might_add_videos() {
-      return JSON.parse(this.current_plan.benefits).videos - this.videos.length; // Temporal
+      var number = this.current_plan.videos - this.videos.length;
+      return {
+        'number': number,
+        'can': number > 0 ? true : false,
+        'limit': this.current_plan.is_best ? true : false
+      };
     }
   },
   methods: {
@@ -4147,6 +4632,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ProfileModalOffer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProfileModalOffer */ "./resources/js/components/ProfileModalOffer.vue");
+/* harmony import */ var _ProfileModalOfferCert_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProfileModalOfferCert.vue */ "./resources/js/components/ProfileModalOfferCert.vue");
 //
 //
 //
@@ -4227,14 +4714,100 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    ModalOffer: _ProfileModalOffer__WEBPACK_IMPORTED_MODULE_0__["default"],
+    ModalOfferCert: _ProfileModalOfferCert_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   props: ['data_offers'],
   data: function data() {
-    return {};
+    return {
+      categories: []
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get('api/categories').then(function (res) {
+      _this.categories = res.data;
+    });
   },
   methods: {
+    addProduct: function addProduct() {},
     deleteProduct: function deleteProduct(product_id) {
-      var _this = this;
+      var _this2 = this;
 
       Swal.fire({
         title: '¿Estas seguro que deseas eliminar este producto?',
@@ -4252,7 +4825,7 @@ __webpack_require__.r(__webpack_exports__);
 
         axios["delete"]('api/products', {
           'product_id': product_id,
-          'user_id': _this.user.id
+          'user_id': _this2.user.id
         }).then(function (res) {
           if (res.data == 'OK') {
             //
@@ -4271,9 +4844,6 @@ __webpack_require__.r(__webpack_exports__);
           });
         });
       });
-    },
-    editProduct: function editProduct(product_id) {
-      console.log('Works');
     }
   }
 });
@@ -9690,7 +10260,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.select-category {\n\twidth: 100%;\n}\n.select-category .btn {\n\tbackground-color: #FFFFFF;\n\tborder: 1px solid #ced4da;\n\ttext-align: left;\n}\n.select-category .dropdown-menu {\n\twidth: 100%;\n}\n.selected-categories {\n\tpadding: 10px;\n\tbackground-color: #E9ECEF;\n\tborder: 1px solid #E9ECEF;\n\tborder-radius: 6px;\n}\n.scrollable-menu {\n\theight: auto;\n\tmax-height: 200px;\n\toverflow-x: hidden;\n}\n.multi-preview-info {\n\tfont-family: 'Poppins', sans-serif;\n\tfont-size: 20px;\n}\n.no-image__container {\n\tmargin-top: 20px;\n\tmargin-bottom: 25px;\n}\n.no-image {\n\twidth: 200px;\n\theight: 150px;\n}\n.preview-image {\n\twidth: 70%;\n\theight: auto;\n\tborder-radius: 6px;\n}\n.preview-image__container {\n\tmargin-top: 15px;\n\tmargin-bottom: 15px;\n}\n.btn-delete-multi {\n\tfloat: right;\n}\n.active-plan {\n\tfont-weight: bold;\n}\n.multi-carousel-item {\n\tpadding: 10px;\n}\n.upload-info-img {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n}\n.upload-info-img * {\n\tbox-sizing: border-box;\n\ttransition: all 0.6s ease;\n}\n.upload-info-img img {\n\topacity: 1;\n\tdisplay: block;\n\theight: 250px;\n\tposition: relative;\n}\n.upload-info-img figcaption {\n\ttop: 25%;\n\tleft: 0;\n\tright: 0;\n\tbottom: 0;\n\tmargin: 10px 12px 5px;\n\tposition: absolute;\n}\n.upload-info-img h4, .upload-info-img i {\n\tcolor: rgba(0, 0, 0, 0.7);\n}\n.upload-info-img i {\n\tfont-size: 100px;\n}\n.upload-info-img a {\n\ttext-decoration: none;\n}\n.upload-info-img .bottom-middle, .upload-info-img .bottom-right {\n\tbottom: 40%;\n\topacity: 0;\n}\n.upload-info-img .bottom-middle {\n\ttransform: translate(0%, 50%);\n}\n.upload-info-img:hover img, .upload-info-img.hover img {\n\topacity: 0.6;\n\ttransform: scale(1.1);\n}\n.upload-info-img:hover figcaption .bottom-middle, .upload-info-img.hover figcaption .bottom-middle,\n.upload-info-img:hover figcaption .bottom-right, .upload-info-img.hover figcaption .bottom-right {\n\ttransform: translate(0, 0);\n\topacity: 1;\n}\n.upload-info-input > input {\n\tdisplay: none;\n}\n.upload-info-input > label {\n\tcursor: pointer;\n}\n.container-profile-img img {\n\twidth: 85%;\n\tmargin: auto;\n}\n.container-cover-img img {\n\twidth: 100%;\n}\n\n/* Form styles */\n.btn-save {\n\tbackground-image: linear-gradient(to right, #56ab2f 0%, #a8e063 51%, #56ab2f 100%);\n\ttransition: 0.5s;\n\tbackground-size: 200% auto;\n\tfont-family: 'Roboto',sans-serif;\n\tcolor:rgb(231, 255, 255);\n}\n.btn-save:hover {\n\tbackground-position: right center;\n\tcolor:rgb(231, 255, 255);\n}\n.info-icon {\n\tcolor: rgb(93, 151, 240);\n\tcursor: pointer;\n}\n.info-icon:hover {\n\tcolor: rgb(81, 126, 194);\n\ttransition: all ease 500ms;\n}\n.panel-info-section {\n\tborder: solid 1px #e6e6e6;\n\tborder-radius: 15px;\n\tpadding: 25px;\n\tmargin-bottom: 35px;\n}\n.panel-info-subtitle {\n\tmargin-bottom: 15px;\n}\n.panel-info-subtitle label {\n\tmargin: 0;\n}\n.multi-image-container {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n\tbackground-color: #000;\n\tcursor: pointer;\n\theight: 150px;\n}\n.multi-add-container {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n\theight: 150px;\n}\n.multi-image {\n\topacity: 1;\n\tdisplay: block;\n\theight: 100%;\n\tposition: relative;\n\twidth: 100%;\n\tbox-sizing: border-box;\n\ttransition: all 0.6s ease;\n}\n.multi-add-text {\n\tmargin-top: 20%;\n\tcursor: pointer;\n}\n.multi-add-text p {\n\tmargin-bottom: 0px;\n\tfont-size: 20px;\n\tcolor: #D87B4B;\n}\n.multi-image:hover{\n\topacity: 0.6;\n\ttransform: scale(1.1);\n}\n@media screen and (max-width: 768px) {\n.container-profile-img img {\n\t\theight: 170px;\n}\n.container-cover-img img {\n\t\theight: 170px;\n}\n\n\t/*\n\t.multi-image-container {\n\t\theight: 100px;\n\t}*/\n}\n@media screen and (max-width: 600px) {\n.container-profile-img {\n\t\twidth: 80%;\n\t\tmargin: auto;\n}\n.container-profile-img img {\n\t\theight: 150px;\n}\n.container-cover-img img {\n\t\theight: 150px;\n}\n.title-image-cover {\n\t\tmargin-top: 25px;\n}\n.multi-image-container {\n\t\theight: 150px;\n}\n.multi-preview-info {\n\t\tfont-size: 13px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.select-category {\n\twidth: 100%;\n}\n.select-category .btn {\n\tbackground-color: #FFFFFF;\n\tborder: 1px solid #ced4da;\n\ttext-align: left;\n}\n.select-category .dropdown-menu {\n\twidth: 100%;\n}\n.selected-categories {\n\tpadding: 10px;\n\tbackground-color: #E9ECEF;\n\tborder: 1px solid #E9ECEF;\n\tborder-radius: 6px;\n}\n.scrollable-menu {\n\theight: auto;\n\tmax-height: 200px;\n\toverflow-x: hidden;\n}\n.multi-preview-info {\n\tfont-family: 'Poppins', sans-serif;\n\tfont-size: 20px;\n}\n.no-image__container {\n\tmargin-top: 20px;\n\tmargin-bottom: 25px;\n}\n.no-image {\n\twidth: 200px;\n\theight: 150px;\n}\n.preview-image {\n\twidth: 70%;\n\theight: auto;\n\tborder-radius: 6px;\n}\n.preview-image__container {\n\tmargin-top: 15px;\n\tmargin-bottom: 15px;\n}\n.btn-delete-multi {\n\tfloat: right;\n}\n.active-plan {\n\tfont-weight: bold;\n}\n.multi-carousel-item {\n\tpadding: 10px;\n}\n.upload-info-img {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n}\n.upload-info-img * {\n\tbox-sizing: border-box;\n\ttransition: all 0.6s ease;\n}\n.upload-info-img img {\n\topacity: 1;\n\tdisplay: block;\n\theight: 250px;\n\tposition: relative;\n}\n.upload-info-img figcaption {\n\ttop: 25%;\n\tleft: 0;\n\tright: 0;\n\tbottom: 0;\n\tmargin: 10px 12px 5px;\n\tposition: absolute;\n}\n.upload-info-img h4, .upload-info-img i {\n\tcolor: rgba(0, 0, 0, 0.7);\n}\n.upload-info-img i {\n\tfont-size: 100px;\n}\n.upload-info-img a {\n\ttext-decoration: none;\n}\n.upload-info-img .bottom-middle, .upload-info-img .bottom-right {\n\tbottom: 40%;\n\topacity: 0;\n}\n.upload-info-img .bottom-middle {\n\ttransform: translate(0%, 50%);\n}\n.upload-info-img:hover img, .upload-info-img.hover img {\n\topacity: 0.6;\n\ttransform: scale(1.1);\n}\n.upload-info-img:hover figcaption .bottom-middle, .upload-info-img.hover figcaption .bottom-middle,\n.upload-info-img:hover figcaption .bottom-right, .upload-info-img.hover figcaption .bottom-right {\n\ttransform: translate(0, 0);\n\topacity: 1;\n}\n.upload-info-input > input {\n\tdisplay: none;\n}\n.upload-info-input > label {\n\tcursor: pointer;\n}\n.container-profile-img img {\n\twidth: 85%;\n\tmargin: auto;\n}\n.container-cover-img img {\n\twidth: 100%;\n}\n\n/* Form styles */\n.btn-save {\n\tbackground-image: linear-gradient(to right, #56ab2f 0%, #a8e063 51%, #56ab2f 100%);\n\ttransition: 0.5s;\n\tbackground-size: 200% auto;\n\tfont-family: 'Roboto',sans-serif;\n\tcolor:rgb(231, 255, 255);\n}\n.btn-save:hover {\n\tbackground-position: right center;\n\tcolor:rgb(231, 255, 255);\n}\n.info-icon {\n\tcolor: rgb(93, 151, 240);\n\tcursor: pointer;\n}\n.info-icon:hover {\n\tcolor: rgb(81, 126, 194);\n\ttransition: all ease 500ms;\n}\n.panel-info-section {\n\tborder: solid 1px #e6e6e6;\n\tborder-radius: 15px;\n\tpadding: 25px;\n\tmargin-bottom: 35px;\n}\n.panel-info-subtitle {\n\tmargin-bottom: 15px;\n}\n.panel-info-subtitle label {\n\tmargin: 0;\n}\n.multi-image-container {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n\tbackground-color: #000;\n\tcursor: pointer;\n\theight: 150px;\n}\n.multi-add-container {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n\theight: 150px;\n}\n.multi-image {\n\topacity: 1;\n\tdisplay: block;\n\theight: 100%;\n\tposition: relative;\n\twidth: 100%;\n\tbox-sizing: border-box;\n\ttransition: all 0.6s ease;\n}\n.multi-add-text {\n\tmargin-top: 20%;\n\tcursor: pointer;\n}\n.multi-add-text p {\n\tmargin-bottom: 0px;\n\tfont-size: 20px;\n\tcolor: #D87B4B;\n}\n.multi-image:hover{\n\topacity: 0.6;\n\ttransform: scale(1.1);\n}\n.multi-locked-upload {\n\theight: 150px;\n\tbackground-color: #E2E3E5;\n\tborder: 1px solid #d6d8db;\n\tcolor: #383d41;\n\tbackground-color: #e2e3e5;\n\tborder-radius: 0.25rem;\n\tmargin: 10px;\n\ttext-align: center;\n}\n@media screen and (max-width: 768px) {\n.container-profile-img img {\n\t\theight: 170px;\n}\n.container-cover-img img {\n\t\theight: 170px;\n}\n\n\t/*\n\t.multi-image-container {\n\t\theight: 100px;\n\t}*/\n}\n@media screen and (max-width: 600px) {\n.container-profile-img {\n\t\twidth: 80%;\n\t\tmargin: auto;\n}\n.container-profile-img img {\n\t\theight: 150px;\n}\n.container-cover-img img {\n\t\theight: 150px;\n}\n.title-image-cover {\n\t\tmargin-top: 25px;\n}\n.multi-image-container {\n\t\theight: 150px;\n}\n.multi-preview-info {\n\t\tfont-size: 13px;\n}\n}\n", ""]);
 
 // exports
 
@@ -9709,7 +10279,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.img-cell {\n\twidth: 200px;\n\theight: auto;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.1);\n}\n.img-cell > a > img {\n\twidth: 100%;\n\theight: 100%;\n\tborder-radius: 10px;\n\ttransition: all ease 500ms;\n}\n.img-cell > a > img:hover{\n\ttransform: scale(1.01);\n\ttransition: all ease 500ms;\n}\n.btn-category {\n\twidth: 100%;\n\tdisplay: block;\n}\n.btn-cert {\n\twidth: 100%;\n\ttext-align: left;\n\tmargin-bottom: 5px;\n}\n.table-product__title {\n\tfont-family: 'Roboto', sans-serif;\n}\n", ""]);
+exports.push([module.i, "\n.btn-add {\n\t\tcolor: #fff;\n    \tbackground-color: #88BE2E;\n    \tborder-color: #88BE2E;\n    \tfont-size: 1.1rem;\n}\n.btn-add:hover {\n\t\tbackground-color: #A1DF35;\n\t\tcolor: #fff;\n}\n.img-cell {\n\t\twidth: 200px;\n\t\theight: auto;\n\t\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.1);\n}\n.img-cell > a > img {\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tborder-radius: 10px;\n\t\ttransition: all ease 500ms;\n}\n.img-cell > a > img:hover{\n\t\ttransform: scale(1.01);\n\t\ttransition: all ease 500ms;\n}\n.btn-category {\n\t\twidth: 100%;\n\t\tdisplay: block;\n\t\tfont-size: 13px;\n}\n.btn-cert {\n\t\twidth: 100%;\n\t\ttext-align: left;\n\t\tmargin-bottom: 5px;\n\t\tfont-size: 13px;\n}\n.table-product__title {\n\t\tfont-family: 'Roboto', sans-serif;\n}\n", ""]);
 
 // exports
 
@@ -53734,19 +54304,19 @@ var staticRenderFns = [
                           href: "https://www.facebook.com/roundtableperu/"
                         }
                       },
-                      [_c("i", { staticClass: "fa fa-facebook" })]
+                      [_c("i", { staticClass: "fab fa-facebook-square" })]
                     )
                   ]),
                   _vm._v(" "),
                   _c("li", { staticClass: "list-inline-item" }, [
                     _c("a", { attrs: { href: "#" } }, [
-                      _c("i", { staticClass: "fa fa-twitter" })
+                      _c("i", { staticClass: "fab fa-twitter" })
                     ])
                   ]),
                   _vm._v(" "),
                   _c("li", { staticClass: "list-inline-item" }, [
                     _c("a", { attrs: { href: "#" } }, [
-                      _c("i", { staticClass: "fa fa-linkedin" })
+                      _c("i", { staticClass: "fab fa-linkedin" })
                     ])
                   ]),
                   _vm._v(" "),
@@ -54294,205 +54864,15 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.active,
-                  expression: "active"
-                }
-              ],
-              staticClass: "lateral-user-options mt-3"
-            },
-            [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "list-group" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "list-group-item item-siderbar",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        $event.stopPropagation()
-                        $event.preventDefault()
-                        return _vm.activePanel(1)
-                      }
-                    }
-                  },
-                  [_vm._v("Información Empresa")]
-                ),
+          _vm.active
+            ? _c("div", { staticClass: "lateral-user-options mt-3" }, [
+                _vm._m(1),
                 _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "list-group-item item-siderbar",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        $event.stopPropagation()
-                        $event.preventDefault()
-                        return _vm.activePanel(2)
-                      }
-                    }
-                  },
-                  [_vm._v("Ofertas")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "list-group-item item-siderbar",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        $event.stopPropagation()
-                        $event.preventDefault()
-                        return _vm.activePanel(3)
-                      }
-                    }
-                  },
-                  [_vm._v("Certificaciones")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "list-group-item item-siderbar",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        $event.stopPropagation()
-                        $event.preventDefault()
-                        return _vm.activePanel(4)
-                      }
-                    }
-                  },
-                  [_vm._v("Agendamientos")]
-                )
-              ])
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-9" }, [
-          _c("div", { staticClass: "top-user-options my-3" }, [
-            _c(
-              "div",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.active,
-                    expression: "active"
-                  }
-                ],
-                staticClass: "list-group list-group-horizontal row"
-              },
-              [
-                _c(
-                  "a",
-                  {
-                    staticClass: "list-group-item item-topbar col-md-3",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        $event.stopPropagation()
-                        $event.preventDefault()
-                        return _vm.activePanel(1)
-                      }
-                    }
-                  },
-                  [_c("div", [_vm._v("Información Empresa")])]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "list-group-item item-topbar col-md-3",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        $event.stopPropagation()
-                        $event.preventDefault()
-                        return _vm.activePanel(2)
-                      }
-                    }
-                  },
-                  [_c("div", [_vm._v("Ofertas")])]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "list-group-item item-topbar col-md-3",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        $event.stopPropagation()
-                        $event.preventDefault()
-                        return _vm.activePanel(3)
-                      }
-                    }
-                  },
-                  [_c("div", [_vm._v("Certificaciones")])]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "list-group-item item-topbar col-md-3",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        $event.stopPropagation()
-                        $event.preventDefault()
-                        return _vm.activePanel(4)
-                      }
-                    }
-                  },
-                  [_c("div", [_vm._v("Agendamientos")])]
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "ul",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: !_vm.active,
-                  expression: "!active"
-                }
-              ],
-              staticClass: "user-options",
-              attrs: { id: "userPanel" }
-            },
-            [
-              _c("li", [
-                _c("figure", { staticClass: "snip" }, [
-                  _c("img", {
-                    attrs: {
-                      src:
-                        "/img/accounting-businesswoman-communication-38556 (1).jpg",
-                      alt: ""
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("figcaption", [
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _c("a", {
+                _c("div", { staticClass: "list-group" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "list-group-item item-siderbar",
                       attrs: { href: "#" },
                       on: {
                         click: function($event) {
@@ -54501,27 +54881,14 @@ var render = function() {
                           return _vm.activePanel(1)
                         }
                       }
-                    })
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("figure", { staticClass: "snip" }, [
-                  _c("img", {
-                    attrs: {
-                      src:
-                        "/img/food-berries-wallpaper-44416-45541-hd-wallpapers_1400_820.jpg",
-                      alt: ""
-                    }
-                  }),
+                    },
+                    [_vm._v("Información Empresa")]
+                  ),
                   _vm._v(" "),
-                  _c("figcaption", [
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _vm._m(5),
-                    _vm._v(" "),
-                    _c("a", {
+                  _c(
+                    "a",
+                    {
+                      staticClass: "list-group-item item-siderbar",
                       attrs: { href: "#" },
                       on: {
                         click: function($event) {
@@ -54530,27 +54897,14 @@ var render = function() {
                           return _vm.activePanel(2)
                         }
                       }
-                    })
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("figure", { staticClass: "snip" }, [
-                  _c("img", {
-                    attrs: {
-                      src:
-                        "/img/certificados/stock-photo-office-paper-document-stamp-in-business-human-hand-73802812-680x365_c.jpg",
-                      alt: ""
-                    }
-                  }),
+                    },
+                    [_vm._v("Ofertas")]
+                  ),
                   _vm._v(" "),
-                  _c("figcaption", [
-                    _vm._m(6),
-                    _vm._v(" "),
-                    _vm._m(7),
-                    _vm._v(" "),
-                    _c("a", {
+                  _c(
+                    "a",
+                    {
+                      staticClass: "list-group-item item-siderbar",
                       attrs: { href: "#" },
                       on: {
                         click: function($event) {
@@ -54559,27 +54913,14 @@ var render = function() {
                           return _vm.activePanel(3)
                         }
                       }
-                    })
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("figure", { staticClass: "snip" }, [
-                  _c("img", {
-                    attrs: {
-                      src:
-                        "/img/body-language-business-etiquette-businesspeople-1179804.jpg",
-                      alt: ""
-                    }
-                  }),
+                    },
+                    [_vm._v("Certificaciones")]
+                  ),
                   _vm._v(" "),
-                  _c("figcaption", [
-                    _vm._m(8),
-                    _vm._v(" "),
-                    _vm._m(9),
-                    _vm._v(" "),
-                    _c("a", {
+                  _c(
+                    "a",
+                    {
+                      staticClass: "list-group-item item-siderbar",
                       attrs: { href: "#" },
                       on: {
                         click: function($event) {
@@ -54588,12 +54929,212 @@ var render = function() {
                           return _vm.activePanel(4)
                         }
                       }
-                    })
-                  ])
+                    },
+                    [_vm._v("Agendamientos")]
+                  )
                 ])
               ])
-            ]
-          ),
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-9" }, [
+          _c("div", { staticClass: "top-user-options my-3" }, [
+            _vm.active
+              ? _c(
+                  "div",
+                  { staticClass: "list-group list-group-horizontal row" },
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "list-group-item item-topbar col-md-3",
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.stopPropagation()
+                            $event.preventDefault()
+                            return _vm.activePanel(1)
+                          }
+                        }
+                      },
+                      [_c("div", [_vm._v("Información Empresa")])]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "list-group-item item-topbar col-md-3",
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.stopPropagation()
+                            $event.preventDefault()
+                            return _vm.activePanel(2)
+                          }
+                        }
+                      },
+                      [_c("div", [_vm._v("Ofertas")])]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "list-group-item item-topbar col-md-3",
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.stopPropagation()
+                            $event.preventDefault()
+                            return _vm.activePanel(3)
+                          }
+                        }
+                      },
+                      [_c("div", [_vm._v("Certificaciones")])]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "list-group-item item-topbar col-md-3",
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.stopPropagation()
+                            $event.preventDefault()
+                            return _vm.activePanel(4)
+                          }
+                        }
+                      },
+                      [_c("div", [_vm._v("Agendamientos")])]
+                    )
+                  ]
+                )
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          !_vm.active
+            ? _c(
+                "ul",
+                { staticClass: "user-options", attrs: { id: "userPanel" } },
+                [
+                  _c("li", [
+                    _c("figure", { staticClass: "snip" }, [
+                      _c("img", {
+                        attrs: {
+                          src:
+                            "/img/accounting-businesswoman-communication-38556 (1).jpg",
+                          alt: ""
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("figcaption", [
+                        _vm._m(2),
+                        _vm._v(" "),
+                        _vm._m(3),
+                        _vm._v(" "),
+                        _c("a", {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.stopPropagation()
+                              $event.preventDefault()
+                              return _vm.activePanel(1)
+                            }
+                          }
+                        })
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("figure", { staticClass: "snip" }, [
+                      _c("img", {
+                        attrs: {
+                          src:
+                            "/img/food-berries-wallpaper-44416-45541-hd-wallpapers_1400_820.jpg",
+                          alt: ""
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("figcaption", [
+                        _vm._m(4),
+                        _vm._v(" "),
+                        _vm._m(5),
+                        _vm._v(" "),
+                        _c("a", {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.stopPropagation()
+                              $event.preventDefault()
+                              return _vm.activePanel(2)
+                            }
+                          }
+                        })
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("figure", { staticClass: "snip" }, [
+                      _c("img", {
+                        attrs: {
+                          src:
+                            "/img/certificados/stock-photo-office-paper-document-stamp-in-business-human-hand-73802812-680x365_c.jpg",
+                          alt: ""
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("figcaption", [
+                        _vm._m(6),
+                        _vm._v(" "),
+                        _vm._m(7),
+                        _vm._v(" "),
+                        _c("a", {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.stopPropagation()
+                              $event.preventDefault()
+                              return _vm.activePanel(3)
+                            }
+                          }
+                        })
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("figure", { staticClass: "snip" }, [
+                      _c("img", {
+                        attrs: {
+                          src:
+                            "/img/body-language-business-etiquette-businesspeople-1179804.jpg",
+                          alt: ""
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("figcaption", [
+                        _vm._m(8),
+                        _vm._v(" "),
+                        _vm._m(9),
+                        _vm._v(" "),
+                        _c("a", {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.stopPropagation()
+                              $event.preventDefault()
+                              return _vm.activePanel(4)
+                            }
+                          }
+                        })
+                      ])
+                    ])
+                  ])
+                ]
+              )
+            : _vm._e(),
           _vm._v(" "),
           _c("section", { staticClass: "panels" }, [
             _c(
@@ -54613,86 +55154,53 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.panel === 1,
-                    expression: "panel === 1"
-                  }
-                ],
-                staticClass: "panel"
-              },
-              [
-                _c("panel-info", {
-                  attrs: {
-                    user: _vm.user,
-                    media_data: _vm.media_data,
-                    current_plan: _vm.current_plan,
-                    categories_data: _vm.categories_data
-                  }
-                })
-              ],
-              1
-            ),
+            _vm.panel === 1
+              ? _c(
+                  "div",
+                  { staticClass: "panel" },
+                  [
+                    _c("panel-info", {
+                      attrs: {
+                        user: _vm.user,
+                        media_data: _vm.media_data,
+                        current_plan: _vm.current_plan,
+                        categories_data: _vm.categories_data
+                      }
+                    })
+                  ],
+                  1
+                )
+              : _vm._e(),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.panel === 2,
-                    expression: "panel === 2"
-                  }
-                ],
-                staticClass: "panel"
-              },
-              [_c("panel-offer", { attrs: { data_offers: _vm.data_offers } })],
-              1
-            ),
+            _vm.panel === 2
+              ? _c(
+                  "div",
+                  { staticClass: "panel" },
+                  [
+                    _c("panel-offer", {
+                      attrs: { data_offers: _vm.data_offers }
+                    })
+                  ],
+                  1
+                )
+              : _vm._e(),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.panel === 3,
-                    expression: "panel === 3"
-                  }
-                ],
-                staticClass: "panel"
-              },
-              [
-                _c("panel-cert", {
-                  attrs: { certifications: _vm.certifications }
-                })
-              ],
-              1
-            ),
+            _vm.panel === 3
+              ? _c(
+                  "div",
+                  { staticClass: "panel" },
+                  [
+                    _c("panel-cert", {
+                      attrs: { certifications: _vm.certifications }
+                    })
+                  ],
+                  1
+                )
+              : _vm._e(),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.panel === 4,
-                    expression: "panel === 4"
-                  }
-                ],
-                staticClass: "panel"
-              },
-              [_c("panel-meet")],
-              1
-            )
+            _vm.panel === 4
+              ? _c("div", { staticClass: "panel" }, [_c("panel-meet")], 1)
+              : _vm._e()
           ])
         ])
       ])
@@ -54798,6 +55306,876 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileModalCertEdit.vue?vue&type=template&id=295db646&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProfileModalCertEdit.vue?vue&type=template&id=295db646& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: "certfasd" + _vm.certification.id,
+        tabindex: "-1",
+        role: "dialog",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c("div", { staticClass: "modal-dialog", attrs: { role: "document" } }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-body" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "" } }, [
+                _vm._v("Titulo del certificado")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.title,
+                    expression: "title"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: "Titulo del certificado" },
+                domProps: { value: _vm.title },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.title = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _vm._m(1)
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-footer" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    $event.stopPropagation()
+                    return _vm.editCert()
+                  }
+                }
+              },
+              [_vm._v("Guardar cambios")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary",
+                attrs: { type: "button", "data-dismiss": "modal" }
+              },
+              [_vm._v("Cerrar")]
+            )
+          ])
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [
+        _vm._v("Editar Certificación")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("label", { attrs: { for: "" } }, [_vm._v("Cambiar documento")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "custom-file" }, [
+        _c("input", {
+          staticClass: "custom-file-input",
+          attrs: { type: "file", id: "editCertFile", accept: "application/pdf" }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          { staticClass: "custom-file-label", attrs: { for: "editCertFile" } },
+          [
+            _c("i", { staticClass: "fas fa-file-pdf" }),
+            _vm._v(" Selecciona un archivo(.pdf)")
+          ]
+        ),
+        _vm._v(" "),
+        _c("small", [
+          _c("span", { staticClass: "text-muted" }, [
+            _vm._v("Solamente se aceptará archivos de formato pdf")
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileModalOffer.vue?vue&type=template&id=7f2feb5d&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProfileModalOffer.vue?vue&type=template&id=7f2feb5d& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: "lijtgh" + _vm.data_offer.offer.id,
+        tabindex: "-1",
+        role: "dialog",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c(
+        "div",
+        { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
+        [
+          _c("div", { staticClass: "modal-content" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("label", { attrs: { for: "" } }, [
+                    _c("img", {
+                      attrs: {
+                        src: _vm.data_offer.offer.image_url,
+                        width: "100%"
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "" } }, [
+                      _vm._v("Titulo de la oferta:")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.title,
+                          expression: "title"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", placeholder: "Titulo" },
+                      domProps: { value: _vm.title },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.title = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "" } }, [_vm._v("Categoría:")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      { staticClass: "custom-select" },
+                      _vm._l(_vm.categories, function(category) {
+                        return _c(
+                          "option",
+                          {
+                            key: category.id,
+                            domProps: {
+                              selected:
+                                _vm.category_id == category.id
+                                  ? "selected"
+                                  : false,
+                              value: category.id
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n\t\t\t\t\t\t\t\t\t" +
+                                _vm._s(category.name) +
+                                "\n\t\t\t\t\t\t\t\t"
+                            )
+                          ]
+                        )
+                      }),
+                      0
+                    )
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      $event.stopPropagation()
+                      return _vm.editProduct()
+                    }
+                  }
+                },
+                [_vm._v("Guardar cambios")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary",
+                  attrs: { type: "button", "data-dismiss": "modal" }
+                },
+                [_vm._v("Cerrar")]
+              )
+            ])
+          ])
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Editar Producto")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "" } }, [_vm._v("Cambiar Imagen")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "custom-file" }, [
+        _c("input", {
+          staticClass: "custom-file-input",
+          attrs: {
+            type: "file",
+            id: "editOfferImage",
+            lang: "es",
+            accept: "image/*"
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          {
+            staticClass: "custom-file-label",
+            attrs: { for: "editOfferImage" }
+          },
+          [
+            _c("i", { staticClass: "fas fa-camera" }),
+            _vm._v(" Seleccione una imagen")
+          ]
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileModalOfferCert.vue?vue&type=template&id=425b3d21&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProfileModalOfferCert.vue?vue&type=template&id=425b3d21& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: "eeadsas" + _vm.data_offer.offer.id,
+        tabindex: "-1",
+        role: "dialog",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c(
+        "div",
+        { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
+        [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header" }, [
+              _c("h5", { staticClass: "modal-title" }, [
+                _vm._v("Certificados de: " + _vm._s(_vm.data_offer.offer.title))
+              ]),
+              _vm._v(" "),
+              _vm._m(0)
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "modal-body" },
+              [
+                _vm.data_offer.certifications.length < 3
+                  ? _c("div", { staticClass: "container text-center" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _vm._m(2)
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("div", { staticClass: "table-responsive mt-3" }, [
+                  _c("table", { staticClass: "table" }, [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.data_offer.certifications, function(
+                        certification
+                      ) {
+                        return _c("tr", { key: certification.id }, [
+                          _c("td", [
+                            _c("p", [_vm._v(_vm._s(certification.title))])
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("span", [
+                              _c(
+                                "a",
+                                {
+                                  attrs: {
+                                    href: certification.url,
+                                    target: "_blank"
+                                  }
+                                },
+                                [
+                                  _c("i", { staticClass: "fas fa-search" }),
+                                  _vm._v(" Ver")
+                                ]
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("div", { staticClass: "container mb-1 px-1" }, [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary btn-block",
+                                  attrs: {
+                                    "data-toggle": "modal",
+                                    "data-target":
+                                      "#certxadsad" + certification.id
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n\t\t\t\t\t\t\t\t\t\t\tEditar\n\t\t\t\t\t\t\t\t\t\t"
+                                  )
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "container mb-1 px-1" }, [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger btn-block",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteOfferCert()
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n\t\t\t\t\t\t\t\t\t\t\tEliminar\n\t\t\t\t\t\t\t\t\t\t"
+                                  )
+                                ]
+                              )
+                            ])
+                          ])
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm.data_offer.certifications.length === 0
+                  ? _c("div", { staticClass: "mt-3 text-center" }, [
+                      _c(
+                        "p",
+                        {
+                          staticStyle: { color: "#6C757D", "font-size": "25px" }
+                        },
+                        [_vm._v("Este producto aún no tiene certificados.")]
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "modal fade",
+                    attrs: {
+                      id: "modalAddOfferCert",
+                      tabindex: "-1",
+                      role: "dialog",
+                      "aria-hidden": "true"
+                    }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "modal-dialog",
+                        attrs: { role: "document" }
+                      },
+                      [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _vm._m(4),
+                          _vm._v(" "),
+                          _vm._m(5),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "modal-footer" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-add",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    $event.stopPropagation()
+                                    return _vm.addOfferCert()
+                                  }
+                                }
+                              },
+                              [_vm._v("Agregar")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-secondary",
+                                attrs: {
+                                  type: "button",
+                                  "data-dismiss": "modal"
+                                }
+                              },
+                              [_vm._v("Cerrar")]
+                            )
+                          ])
+                        ])
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._l(_vm.data_offer.certifications, function(certification) {
+                  return _c("modal-offer-cert-edit", {
+                    key: certification.id,
+                    attrs: { certification: certification }
+                  })
+                })
+              ],
+              2
+            )
+          ])
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-add",
+        attrs: { "data-toggle": "modal", "data-target": "#modalAddOfferCert" }
+      },
+      [
+        _c("i", { staticClass: "fas fa-plus" }),
+        _vm._v(" Agregar Certificado\n\t\t\t\t\t")
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("small", { staticClass: "mt-1" }, [
+      _c("span", { staticClass: "text-muted" }, [
+        _vm._v("Solo puedes agregar 3 certificados por producto.")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Título")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Documento")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Acciones")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [
+        _vm._v("Agregar Certificación de Producto")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-body" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Titulo")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", placeholder: "Nombre del certificado" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Documento")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "custom-file" }, [
+          _c("input", {
+            staticClass: "custom-file-input",
+            attrs: {
+              type: "file",
+              id: "addOfferCertFile",
+              accept: "application/pdf"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "label",
+            {
+              staticClass: "custom-file-label",
+              attrs: { for: "addOfferCertFile" }
+            },
+            [
+              _c("i", { staticClass: "fas fa-file-pdf" }),
+              _vm._v(" Selecciona un archivo(.pdf)")
+            ]
+          ),
+          _vm._v(" "),
+          _c("small", [
+            _c("span", { staticClass: "text-muted" }, [
+              _vm._v("Solamente se aceptará archivos de formato pdf")
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileModalOfferCertEdit.vue?vue&type=template&id=f87ee46a&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProfileModalOfferCertEdit.vue?vue&type=template&id=f87ee46a& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: "certxadsad" + _vm.certification.id,
+        tabindex: "-1",
+        role: "dialog",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c("div", { staticClass: "modal-dialog", attrs: { role: "document" } }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-body" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "" } }, [
+                _vm._v("Titulo del certificado")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.title,
+                    expression: "title"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: "Titulo del certificado" },
+                domProps: { value: _vm.title },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.title = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _vm._m(1)
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-footer" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    $event.stopPropagation()
+                    return _vm.editOfferCert()
+                  }
+                }
+              },
+              [_vm._v("Guardar cambios")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary",
+                attrs: { type: "button", "data-dismiss": "modal" }
+              },
+              [_vm._v("Cerrar")]
+            )
+          ])
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [
+        _vm._v("Editar Certificación")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("label", { attrs: { for: "" } }, [_vm._v("Cambiar documento")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "custom-file" }, [
+        _c("input", {
+          staticClass: "custom-file-input",
+          attrs: { type: "file", id: "editCertFile", accept: "application/pdf" }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          { staticClass: "custom-file-label", attrs: { for: "editCertFile" } },
+          [
+            _c("i", { staticClass: "fas fa-file-pdf" }),
+            _vm._v(" Selecciona un archivo(.pdf)")
+          ]
+        ),
+        _vm._v(" "),
+        _c("small", [
+          _c("span", { staticClass: "text-muted" }, [
+            _vm._v("Solamente se aceptará archivos de formato pdf")
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfilePanelCert.vue?vue&type=template&id=49ccf58a&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProfilePanelCert.vue?vue&type=template&id=49ccf58a& ***!
@@ -54813,89 +56191,155 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container", attrs: { id: "cert-panel" } }, [
-    _c("h3", [_vm._v("Certificaciones")]),
-    _vm._v(" "),
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "table-responsive mt-5" }, [
-        _c("table", { staticClass: "table table-hover" }, [
-          _vm._m(1),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            _vm._l(_vm.certifications, function(cert) {
-              return _c("tr", { key: cert.id }, [
-                _c("td", [
-                  _c(
-                    "p",
-                    { staticStyle: { "font-family": "'Roboto', sans-serif" } },
-                    [_vm._v(_vm._s(cert.title))]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-light btn-cert text-center",
-                      staticStyle: { border: "1px solid #cecece" },
-                      attrs: { href: cert.url, target: "_blank" }
-                    },
-                    [_vm._m(2, true)]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("div", { staticClass: "container mb-1" }, [
+  return _c(
+    "div",
+    { staticClass: "container", attrs: { id: "cert-panel" } },
+    [
+      _c("h3", [_vm._v("Certificaciones")]),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "table-responsive mt-5" }, [
+          _c("table", { staticClass: "table table-hover" }, [
+            _vm._m(2),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.certifications, function(cert) {
+                return _c("tr", { key: cert.id }, [
+                  _c("td", [
                     _c(
-                      "button",
+                      "p",
                       {
-                        staticClass: "btn btn-secondary btn-block",
-                        on: {
-                          click: function($event) {
-                            return _vm.editCert(cert.id)
-                          }
-                        }
+                        staticStyle: { "font-family": "'Roboto', sans-serif" }
                       },
-                      [_vm._v("Editar")]
+                      [_vm._v(_vm._s(cert.title))]
                     )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "container" }, [
+                  _c("td", [
                     _c(
-                      "button",
+                      "a",
                       {
-                        staticClass: "btn btn-danger btn-block",
-                        on: {
-                          click: function($event) {
-                            return _vm.deleteCert(cert.id)
-                          }
-                        }
+                        staticClass: "btn btn-light btn-cert text-center",
+                        staticStyle: { border: "1px solid #cecece" },
+                        attrs: { href: cert.url, target: "_blank" }
                       },
-                      [_vm._v("Eliminar")]
+                      [_vm._m(3, true)]
                     )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("div", { staticClass: "container mb-1" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary btn-block",
+                          attrs: {
+                            "data-toggle": "modal",
+                            "data-target": "#certfasd" + cert.id
+                          }
+                        },
+                        [_vm._v("\n\t\t\t\t\t\t\t\t\tEditar\n\t\t\t\t\t\t\t\t")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "container" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-block",
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteCert(cert.id)
+                            }
+                          }
+                        },
+                        [_vm._v("Eliminar")]
+                      )
+                    ])
                   ])
                 ])
-              ])
-            }),
-            0
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _vm.certifications.length === 0
-        ? _c("div", { staticClass: "mt-5 text-center" }, [
-            _c(
-              "p",
-              { staticStyle: { color: "#6C757D", "font-size": "25px" } },
-              [_vm._v("Aún no tienes certificados subidos")]
+              }),
+              0
             )
           ])
-        : _vm._e()
-    ])
-  ])
+        ]),
+        _vm._v(" "),
+        _vm.certifications.length === 0
+          ? _c("div", { staticClass: "mt-5 text-center" }, [
+              _c(
+                "p",
+                { staticStyle: { color: "#6C757D", "font-size": "25px" } },
+                [_vm._v("Aún no tienes certificados subidos")]
+              )
+            ])
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "modalAddCert",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog", attrs: { role: "document" } },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(4),
+                _vm._v(" "),
+                _vm._m(5),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-add",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.addCert()
+                        }
+                      }
+                    },
+                    [_vm._v("Agregar")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", "data-dismiss": "modal" }
+                    },
+                    [_vm._v("Cerrar")]
+                  )
+                ])
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _vm._l(_vm.certifications, function(certification) {
+        return _c("modal-cert-edit", {
+          key: certification.id,
+          attrs: { certification: certification }
+        })
+      })
+    ],
+    2
+  )
 }
 var staticRenderFns = [
   function() {
@@ -54930,6 +56374,35 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container text-center" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-add",
+          attrs: { "data-toggle": "modal", "data-target": "#modalAddCert" }
+        },
+        [
+          _c("i", { staticClass: "fas fa-plus" }),
+          _vm._v(" Agregar Certificación\n\t\t")
+        ]
+      ),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("small", { staticClass: "mt-1" }, [
+        _c("span", { staticClass: "text-muted" }, [
+          _vm._v("Esta operación cuesta 20 coins. "),
+          _c("a", { attrs: { href: "/planes", target: "_blank" } }, [
+            _vm._v("Conseguir coins.")
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", { staticClass: "text-center" }, [
         _c("th", [_vm._v("Título")]),
@@ -54950,6 +56423,74 @@ var staticRenderFns = [
         staticStyle: { color: "rgb(213, 72, 65)" }
       }),
       _vm._v(" Ver certificado")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [
+        _vm._v("Agregar Certificación")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-body" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Titulo")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", placeholder: "Nombre del certificado" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Documento")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "custom-file" }, [
+          _c("input", {
+            staticClass: "custom-file-input",
+            attrs: {
+              type: "file",
+              id: "addCertFile",
+              accept: "application/pdf"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "label",
+            { staticClass: "custom-file-label", attrs: { for: "addCertFile" } },
+            [
+              _c("i", { staticClass: "fas fa-file-pdf" }),
+              _vm._v(" Selecciona un archivo(.pdf)")
+            ]
+          ),
+          _vm._v(" "),
+          _c("small", [
+            _c("span", { staticClass: "text-muted" }, [
+              _vm._v("Solamente se aceptará archivos de formato pdf")
+            ])
+          ])
+        ])
+      ])
     ])
   }
 ]
@@ -55418,8 +56959,11 @@ var render = function() {
         _vm._v(" "),
         _c("p", { staticClass: "multi-preview-info" }, [
           _vm._v(
-            "Puedes agregar: " + _vm._s(_vm.might_add_images) + " imagenes(s)"
-          )
+            "\n\t\t\tPuedes agregar: " +
+              _vm._s(_vm.might_add_images.number) +
+              " imagen(es)\n\t\t\t"
+          ),
+          _vm._m(15)
         ]),
         _vm._v(" "),
         _c(
@@ -55453,7 +56997,14 @@ var render = function() {
               )
             }),
             _vm._v(" "),
-            _vm._m(15)
+            _vm.might_add_images.can
+              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(16)])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.might_add_images.can == false &&
+            _vm.might_add_images.limit == false
+              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(17)])
+              : _vm._e()
           ],
           2
         ),
@@ -55511,7 +57062,7 @@ var render = function() {
       2
     ),
     _vm._v(" "),
-    _vm._m(16),
+    _vm._m(18),
     _vm._v(" "),
     _c(
       "div",
@@ -55569,8 +57120,11 @@ var render = function() {
         _vm._v(" "),
         _c("p", { staticClass: "multi-preview-info" }, [
           _vm._v(
-            "Puedes agregar: " + _vm._s(_vm.might_add_videos) + " video(s)"
-          )
+            "\n\t\t\tPuedes agregar: " +
+              _vm._s(_vm.might_add_videos.number) +
+              " video(s)\n\t\t\t"
+          ),
+          _vm._m(19)
         ]),
         _vm._v(" "),
         _c(
@@ -55604,7 +57158,14 @@ var render = function() {
               )
             }),
             _vm._v(" "),
-            _vm._m(17)
+            _vm.might_add_videos.can
+              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(20)])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.might_add_videos.can == false &&
+            _vm.might_add_videos.limit == false
+              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(21)])
+              : _vm._e()
           ],
           2
         ),
@@ -55871,31 +57432,73 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "multi-carousel-item" }, [
-      _c("div", { staticClass: "multi-add-container" }, [
-        _c("div", { staticClass: "multi-image" }, [
-          _c(
-            "label",
-            {
-              staticClass: "multi-add-text",
-              attrs: { for: "upload-multi-image" }
-            },
-            [
-              _c("p", [
-                _c("i", {
-                  staticClass: "fa fa-plus",
-                  attrs: { "aria-hidden": "true" }
-                })
-              ]),
-              _vm._v(" "),
-              _c("p", [_vm._v("Agregar Imagen")])
-            ]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            staticStyle: { display: "none" },
-            attrs: { type: "file", accept: "image/*", id: "upload-multi-image" }
+    return _c(
+      "a",
+      {
+        staticStyle: { "font-family": "arial, sans-serif" },
+        attrs: { href: "#" }
+      },
+      [_c("small", [_vm._v("Mejora tu plan")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "multi-add-container" }, [
+      _c("div", { staticClass: "multi-image" }, [
+        _c(
+          "label",
+          {
+            staticClass: "multi-add-text",
+            attrs: { for: "upload-multi-image" }
+          },
+          [
+            _c("p", [
+              _c("i", {
+                staticClass: "fa fa-plus",
+                attrs: { "aria-hidden": "true" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("p", [_vm._v("Agregar Imagen")])
+          ]
+        ),
+        _vm._v(" "),
+        _c("input", {
+          staticStyle: { display: "none" },
+          attrs: { type: "file", accept: "image/*", id: "upload-multi-image" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "multi-locked-upload" }, [
+      _c("div", { staticStyle: { "margin-top": "15%" } }, [
+        _c("span", { staticStyle: { "margin-bottom": "5px" } }, [
+          _c("i", {
+            staticClass: "fas fa-lock",
+            staticStyle: { "font-size": "50px" }
           })
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _c("span", { staticStyle: { "font-size": "20px" } }, [
+            _vm._v("No puedes agregar")
+          ]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("a", { attrs: { href: "#" } }, [
+            _c(
+              "small",
+              { staticStyle: { "font-family": "arial, sans-serif" } },
+              [_vm._v("Ver más")]
+            )
+          ])
         ])
       ])
     ])
@@ -55914,31 +57517,73 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "multi-carousel-item" }, [
-      _c("div", { staticClass: "multi-add-container" }, [
-        _c("div", { staticClass: "multi-image" }, [
-          _c(
-            "label",
-            {
-              staticClass: "multi-add-text",
-              attrs: { for: "upload-multi-video" }
-            },
-            [
-              _c("p", [
-                _c("i", {
-                  staticClass: "fa fa-plus",
-                  attrs: { "aria-hidden": "true" }
-                })
-              ]),
-              _vm._v(" "),
-              _c("p", [_vm._v("Agregar Video")])
-            ]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            staticStyle: { display: "none" },
-            attrs: { type: "file", accept: "video/*", id: "upload-multi-video" }
+    return _c(
+      "a",
+      {
+        staticStyle: { "font-family": "arial, sans-serif" },
+        attrs: { href: "#" }
+      },
+      [_c("small", [_vm._v("Mejora tu plan")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "multi-add-container" }, [
+      _c("div", { staticClass: "multi-image" }, [
+        _c(
+          "label",
+          {
+            staticClass: "multi-add-text",
+            attrs: { for: "upload-multi-video" }
+          },
+          [
+            _c("p", [
+              _c("i", {
+                staticClass: "fa fa-plus",
+                attrs: { "aria-hidden": "true" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("p", [_vm._v("Agregar Video")])
+          ]
+        ),
+        _vm._v(" "),
+        _c("input", {
+          staticStyle: { display: "none" },
+          attrs: { type: "file", accept: "video/*", id: "upload-multi-video" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "multi-locked-upload" }, [
+      _c("div", { staticStyle: { "margin-top": "15%" } }, [
+        _c("span", { staticStyle: { "margin-bottom": "5px" } }, [
+          _c("i", {
+            staticClass: "fas fa-lock",
+            staticStyle: { "font-size": "50px" }
           })
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _c("span", { staticStyle: { "font-size": "20px" } }, [
+            _vm._v("No puedes agregar")
+          ]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("a", { attrs: { href: "#" } }, [
+            _c(
+              "small",
+              { staticStyle: { "font-family": "arial, sans-serif" } },
+              [_vm._v("Ver más")]
+            )
+          ])
         ])
       ])
     ])
@@ -56116,171 +57761,295 @@ var render = function() {
     _vm._v(" "),
     _vm._m(0),
     _vm._v(" "),
-    _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "table-responsive mt-5" }, [
-        _c("table", { staticClass: "table table-hover" }, [
-          _vm._m(1),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            _vm._l(_vm.data_offers, function(data_offer) {
-              return _c("tr", { key: data_offer.offer.id }, [
-                _c("td", [
-                  _c("p", { staticClass: "table-product__title" }, [
-                    _vm._v(
-                      "\n\t\t\t\t\t\t\t\t" +
-                        _vm._s(data_offer.offer.title) +
-                        "\n\t\t\t\t\t\t\t"
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("div", { staticClass: "img-cell" }, [
+    _vm._m(1),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "container" },
+      [
+        _c("div", { staticClass: "table-responsive mt-5" }, [
+          _c("table", { staticClass: "table table-hover" }, [
+            _vm._m(2),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.data_offers, function(data_offer) {
+                return _c("tr", { key: data_offer.offer.id }, [
+                  _c("td", [
+                    _c("p", { staticClass: "table-product__title" }, [
+                      _vm._v(
+                        "\n\t\t\t\t\t\t\t\t" +
+                          _vm._s(data_offer.offer.title) +
+                          "\n\t\t\t\t\t\t\t"
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("div", { staticClass: "img-cell" }, [
+                      _c(
+                        "a",
+                        {
+                          attrs: {
+                            "data-target": "#xasdklj" + data_offer.offer.id,
+                            "data-toggle": "modal",
+                            href: "#"
+                          }
+                        },
+                        [
+                          _c("img", {
+                            attrs: { src: data_offer.offer.image_url }
+                          })
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
                     _c(
-                      "a",
+                      "div",
                       {
+                        staticClass: "modal fade",
                         attrs: {
-                          "data-target": "#xasdklj" + data_offer.offer.id,
-                          "data-toggle": "modal",
-                          href: "#"
+                          id: "xasdklj" + data_offer.offer.id,
+                          role: "dialog",
+                          tabindex: "-1",
+                          "aria-hidden": "true"
                         }
                       },
                       [
-                        _c("img", {
-                          attrs: { src: data_offer.offer.image_url }
-                        })
+                        _c(
+                          "div",
+                          {
+                            staticClass: "modal-dialog modal-lg",
+                            attrs: { role: "document" }
+                          },
+                          [
+                            _c("div", { staticClass: "modal-content" }, [
+                              _c(
+                                "div",
+                                { staticClass: "modal-body mb-0 p-0" },
+                                [
+                                  _c("img", {
+                                    staticStyle: { width: "100%" },
+                                    attrs: {
+                                      src: data_offer.offer.image_url,
+                                      alt: ""
+                                    }
+                                  })
+                                ]
+                              )
+                            ])
+                          ]
+                        )
                       ]
                     )
                   ]),
                   _vm._v(" "),
                   _c(
-                    "div",
-                    {
-                      staticClass: "modal fade",
-                      attrs: {
-                        id: "xasdklj" + data_offer.offer.id,
-                        role: "dialog",
-                        tabindex: "-1",
-                        "aria-hidden": "true"
-                      }
-                    },
-                    [
-                      _c(
-                        "div",
+                    "td",
+                    _vm._l(data_offer.certifications, function(certification) {
+                      return _c(
+                        "a",
                         {
-                          staticClass: "modal-dialog modal-lg",
-                          attrs: { role: "document" }
+                          key: certification.id,
+                          staticClass: "btn btn-light btn-cert",
+                          staticStyle: { border: "1px solid #cecece" },
+                          attrs: { href: certification.url, target: "_blank" }
                         },
                         [
-                          _c("div", { staticClass: "modal-content" }, [
-                            _c("div", { staticClass: "modal-body mb-0 p-0" }, [
-                              _c("img", {
-                                staticStyle: { width: "100%" },
-                                attrs: {
-                                  src: data_offer.offer.image_url,
-                                  alt: ""
-                                }
-                              })
-                            ])
+                          _c("span", { staticStyle: { margin: "auto" } }, [
+                            _vm._v(_vm._s(certification.title))
                           ])
                         ]
                       )
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "td",
-                  _vm._l(data_offer.certifications, function(certification) {
-                    return _c(
-                      "a",
+                    }),
+                    0
+                  ),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "button",
                       {
-                        staticClass: "btn btn-light btn-cert",
-                        staticStyle: { border: "1px solid #cecece" },
-                        attrs: { href: certification.url, target: "_blank" }
+                        staticClass: "btn btn-light btn-category",
+                        staticStyle: { border: "1px solid #cecece" }
                       },
                       [
+                        _c("img", {
+                          staticClass: "img-fluid",
+                          staticStyle: { height: "40px" },
+                          attrs: { src: data_offer.offer_category[0].picture }
+                        }),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
                         _c("span", { staticStyle: { margin: "auto" } }, [
-                          _vm._v(_vm._s(certification.title))
+                          _vm._v(_vm._s(data_offer.offer_category[0].name))
                         ])
                       ]
                     )
-                  }),
-                  0
-                ),
-                _vm._v(" "),
-                _c("td", [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-light btn-category",
-                      staticStyle: { border: "1px solid #cecece" }
-                    },
-                    [
-                      _c("img", {
-                        staticClass: "img-fluid",
-                        staticStyle: { height: "40px" },
-                        attrs: { src: data_offer.offer_category[0].picture }
-                      }),
-                      _vm._v(" "),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("span", { staticStyle: { margin: "auto" } }, [
-                        _vm._v(_vm._s(data_offer.offer_category[0].name))
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("div", { staticClass: "container mb-1" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-secondary btn-block",
-                        on: {
-                          click: function($event) {
-                            return _vm.editProduct(data_offer.offer.id)
-                          }
-                        }
-                      },
-                      [_vm._v("Editar")]
-                    )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "container" }, [
+                  _c("td", [
+                    _c("div", { staticClass: "container mb-1" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary btn-block",
+                          attrs: {
+                            "data-toggle": "modal",
+                            "data-target": "#lijtgh" + data_offer.offer.id
+                          }
+                        },
+                        [_vm._v("Editar")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "container mb-1" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary btn-block",
+                          attrs: {
+                            "data-toggle": "modal",
+                            "data-target": "#eeadsas" + data_offer.offer.id
+                          }
+                        },
+                        [_vm._v("Certificados")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "container mb-1" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-block",
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteProduct(data_offer.offer.id)
+                            }
+                          }
+                        },
+                        [_vm._v("Eliminar")]
+                      )
+                    ])
+                  ])
+                ])
+              }),
+              0
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _vm.data_offers.length === 0
+          ? _c("div", { staticClass: "mt-5 text-center" }, [
+              _c(
+                "p",
+                { staticStyle: { color: "#6C757D", "font-size": "25px" } },
+                [_vm._v("Aún no tienes productos ofertados")]
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "modal fade",
+            attrs: {
+              id: "modalAddProduct",
+              tabindex: "-1",
+              role: "dialog",
+              "aria-hidden": "true"
+            }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Categoría")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        { staticClass: "custom-select" },
+                        _vm._l(_vm.categories, function(category) {
+                          return _c(
+                            "option",
+                            {
+                              key: category.id,
+                              domProps: { value: category.id }
+                            },
+                            [
+                              _vm._v(
+                                "\n\t\t\t\t\t\t\t\t\t" +
+                                  _vm._s(category.name) +
+                                  "\n\t\t\t\t\t\t\t\t"
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(5)
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-danger btn-block",
+                        staticClass: "btn btn-add",
+                        attrs: { type: "button" },
                         on: {
                           click: function($event) {
-                            return _vm.deleteProduct(data_offer.offer.id)
+                            $event.preventDefault()
+                            $event.stopPropagation()
+                            return _vm.addProduct()
                           }
                         }
                       },
-                      [_vm._v("Eliminar")]
+                      [_vm._v("Agregar")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Cerrar")]
                     )
                   ])
                 ])
-              ])
-            }),
-            0
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _vm.data_offers.length === 0
-        ? _c("div", { staticClass: "mt-5 text-center" }, [
-            _c(
-              "p",
-              { staticStyle: { color: "#6C757D", "font-size": "25px" } },
-              [_vm._v("Aún no tienes productos ofertados")]
+              ]
             )
-          ])
-        : _vm._e()
-    ])
+          ]
+        ),
+        _vm._v(" "),
+        _vm._l(_vm.data_offers, function(data_offer) {
+          return _c("modal-offer", {
+            key: data_offer.offer.id,
+            attrs: { data_offer: data_offer, categories: _vm.categories }
+          })
+        }),
+        _vm._v(" "),
+        _vm._l(_vm.data_offers, function(data_offer) {
+          return _c("modal-offer-cert", {
+            key: 100 - data_offer.offer.id,
+            attrs: { data_offer: data_offer }
+          })
+        })
+      ],
+      2
+    )
   ])
 }
 var staticRenderFns = [
@@ -56316,6 +58085,35 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container text-center" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-add",
+          attrs: { "data-toggle": "modal", "data-target": "#modalAddProduct" }
+        },
+        [
+          _c("i", { staticClass: "fas fa-plus" }),
+          _vm._v(" Agregar Producto\n\t\t")
+        ]
+      ),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("small", { staticClass: "mt-1" }, [
+        _c("span", { staticClass: "text-muted" }, [
+          _vm._v("Esta operación cuesta 30 coins. "),
+          _c("a", { attrs: { href: "/planes", target: "_blank" } }, [
+            _vm._v("Conseguir coins.")
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", { staticClass: "text-center" }, [
         _c("th", [_vm._v("Título")]),
@@ -56327,6 +58125,72 @@ var staticRenderFns = [
         _c("th", [_vm._v("Categoría")]),
         _vm._v(" "),
         _c("th", [_vm._v("Acciones")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Agregar Producto")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "" } }, [_vm._v("Título")]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "text", placeholder: "Nombre del producto" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "" } }, [_vm._v("Subir Imagen")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "custom-file" }, [
+        _c("input", {
+          staticClass: "custom-file-input",
+          attrs: {
+            type: "file",
+            id: "addProductImage",
+            lang: "es",
+            accept: "image/*"
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          {
+            staticClass: "custom-file-label",
+            attrs: { for: "addProductImage" }
+          },
+          [
+            _c("i", { staticClass: "fas fa-camera" }),
+            _vm._v(" Seleccione una imagen")
+          ]
+        )
       ])
     ])
   }
@@ -72254,6 +74118,282 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Profile_vue_vue_type_template_id_3bd692e4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Profile_vue_vue_type_template_id_3bd692e4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/ProfileModalCertEdit.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/ProfileModalCertEdit.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ProfileModalCertEdit_vue_vue_type_template_id_295db646___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProfileModalCertEdit.vue?vue&type=template&id=295db646& */ "./resources/js/components/ProfileModalCertEdit.vue?vue&type=template&id=295db646&");
+/* harmony import */ var _ProfileModalCertEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProfileModalCertEdit.vue?vue&type=script&lang=js& */ "./resources/js/components/ProfileModalCertEdit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ProfileModalCertEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ProfileModalCertEdit_vue_vue_type_template_id_295db646___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ProfileModalCertEdit_vue_vue_type_template_id_295db646___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ProfileModalCertEdit.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ProfileModalCertEdit.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/ProfileModalCertEdit.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileModalCertEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ProfileModalCertEdit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileModalCertEdit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileModalCertEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ProfileModalCertEdit.vue?vue&type=template&id=295db646&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/ProfileModalCertEdit.vue?vue&type=template&id=295db646& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileModalCertEdit_vue_vue_type_template_id_295db646___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ProfileModalCertEdit.vue?vue&type=template&id=295db646& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileModalCertEdit.vue?vue&type=template&id=295db646&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileModalCertEdit_vue_vue_type_template_id_295db646___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileModalCertEdit_vue_vue_type_template_id_295db646___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/ProfileModalOffer.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/ProfileModalOffer.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ProfileModalOffer_vue_vue_type_template_id_7f2feb5d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProfileModalOffer.vue?vue&type=template&id=7f2feb5d& */ "./resources/js/components/ProfileModalOffer.vue?vue&type=template&id=7f2feb5d&");
+/* harmony import */ var _ProfileModalOffer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProfileModalOffer.vue?vue&type=script&lang=js& */ "./resources/js/components/ProfileModalOffer.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ProfileModalOffer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ProfileModalOffer_vue_vue_type_template_id_7f2feb5d___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ProfileModalOffer_vue_vue_type_template_id_7f2feb5d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ProfileModalOffer.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ProfileModalOffer.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/ProfileModalOffer.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileModalOffer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ProfileModalOffer.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileModalOffer.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileModalOffer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ProfileModalOffer.vue?vue&type=template&id=7f2feb5d&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/ProfileModalOffer.vue?vue&type=template&id=7f2feb5d& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileModalOffer_vue_vue_type_template_id_7f2feb5d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ProfileModalOffer.vue?vue&type=template&id=7f2feb5d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileModalOffer.vue?vue&type=template&id=7f2feb5d&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileModalOffer_vue_vue_type_template_id_7f2feb5d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileModalOffer_vue_vue_type_template_id_7f2feb5d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/ProfileModalOfferCert.vue":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/ProfileModalOfferCert.vue ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ProfileModalOfferCert_vue_vue_type_template_id_425b3d21___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProfileModalOfferCert.vue?vue&type=template&id=425b3d21& */ "./resources/js/components/ProfileModalOfferCert.vue?vue&type=template&id=425b3d21&");
+/* harmony import */ var _ProfileModalOfferCert_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProfileModalOfferCert.vue?vue&type=script&lang=js& */ "./resources/js/components/ProfileModalOfferCert.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ProfileModalOfferCert_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ProfileModalOfferCert_vue_vue_type_template_id_425b3d21___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ProfileModalOfferCert_vue_vue_type_template_id_425b3d21___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ProfileModalOfferCert.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ProfileModalOfferCert.vue?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/ProfileModalOfferCert.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileModalOfferCert_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ProfileModalOfferCert.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileModalOfferCert.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileModalOfferCert_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ProfileModalOfferCert.vue?vue&type=template&id=425b3d21&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/ProfileModalOfferCert.vue?vue&type=template&id=425b3d21& ***!
+  \******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileModalOfferCert_vue_vue_type_template_id_425b3d21___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ProfileModalOfferCert.vue?vue&type=template&id=425b3d21& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileModalOfferCert.vue?vue&type=template&id=425b3d21&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileModalOfferCert_vue_vue_type_template_id_425b3d21___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileModalOfferCert_vue_vue_type_template_id_425b3d21___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/ProfileModalOfferCertEdit.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/ProfileModalOfferCertEdit.vue ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ProfileModalOfferCertEdit_vue_vue_type_template_id_f87ee46a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProfileModalOfferCertEdit.vue?vue&type=template&id=f87ee46a& */ "./resources/js/components/ProfileModalOfferCertEdit.vue?vue&type=template&id=f87ee46a&");
+/* harmony import */ var _ProfileModalOfferCertEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProfileModalOfferCertEdit.vue?vue&type=script&lang=js& */ "./resources/js/components/ProfileModalOfferCertEdit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ProfileModalOfferCertEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ProfileModalOfferCertEdit_vue_vue_type_template_id_f87ee46a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ProfileModalOfferCertEdit_vue_vue_type_template_id_f87ee46a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ProfileModalOfferCertEdit.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ProfileModalOfferCertEdit.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/ProfileModalOfferCertEdit.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileModalOfferCertEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ProfileModalOfferCertEdit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileModalOfferCertEdit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileModalOfferCertEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ProfileModalOfferCertEdit.vue?vue&type=template&id=f87ee46a&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/ProfileModalOfferCertEdit.vue?vue&type=template&id=f87ee46a& ***!
+  \**********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileModalOfferCertEdit_vue_vue_type_template_id_f87ee46a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ProfileModalOfferCertEdit.vue?vue&type=template&id=f87ee46a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileModalOfferCertEdit.vue?vue&type=template&id=f87ee46a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileModalOfferCertEdit_vue_vue_type_template_id_f87ee46a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileModalOfferCertEdit_vue_vue_type_template_id_f87ee46a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
