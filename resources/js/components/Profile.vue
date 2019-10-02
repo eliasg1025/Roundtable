@@ -265,7 +265,7 @@
 
 						<div class="text-center">
 							<h5 class="modal-title h3">Plan Actual</h5>
-							<p class="h1 mt-2">
+							<p class="h1 text-uppercase mt-2">
 								{{ current_plan.name }} <span v-if="current_plan.is_best === 1" style="color: #194DBE;"><i class="fas fa-medal"></i></span>
 							</p>
 						</div>
@@ -279,9 +279,8 @@
 								<i class="fa fa-star rating-star"></i><!--
 								--><i class="fa fa-star rating-star"></i><!--
 								--><i class="fa fa-star rating-star"></i>
-
 							</p>
-							<p class="text-muted h6">Aparecerás como <i>Usuario Destacado</i> en la página de Inicio.</p>
+							<p class="text-muted h6">Aparecerás como <b>Usuario Destacado</b> en la página de Inicio.</p>
 						</div>
 
 						<div
@@ -289,9 +288,9 @@
 							class="text-center my-3" style="font-family: 'Nunito', sans-serif;"
 						>
 							<p class="text-muted h5">
-								<a href="/planes">Mejora tu plan.</a>
+								<a href="/planes" target="_blank">Mejora tu plan.</a>
 							</p>
-							<p class="text-muted h6">Con el plan Premium aparecerás como <i>Usuario Destacado</i> en la página de Inicio.</p>
+							<p class="text-muted h6">Con el plan Premium aparecerás como <b>Usuario Destacado</b> en la página de Inicio.</p>
 						</div>
 					</div>
 				</div>
@@ -310,23 +309,15 @@
 						</div>
 
 						<div class="text-center">
-							<h5 class="modal-title h3">Coins</h5>
-							<p class="display-4">{{ value_rating }} / 5</p>
+							<h5 class="modal-title h3">Tienes</h5>
+							<p class="display-4">{{ user.coins }} coins</p>
 						</div>
 
 						<div class="rating-stars-modal container text-center">
-							<rating-stars
-								:amount_rating="rating.amount"
-								:avg_rating="rating.value"
-								:show_number="false"
-								@value_rating="value_rating = $event"
-								@show_rating="show_rating  = $event"
-							>
-							</rating-stars>
+							<i class="fas fa-coins rating-star"></i>
 						</div>
 						<div class="text-center">
-							<p v-if="show_rating == true" class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Basados en la calificación de {{ rating.amount}} usuarios</p>
-							<p v-else class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Se necesitan mínimo 3 votos para promediar una calificación</p>
+							<p class="text-muted h6">Con los coins puedes realizar diversas operaciones como: Subir ofertas, agendar reuniones con empresas, etc.</p>
 						</div>
 					</div>
 				</div>
@@ -346,22 +337,14 @@
 
 						<div class="text-center">
 							<h5 class="modal-title h3">Vistas</h5>
-							<p class="display-4">{{ value_rating }} / 5</p>
+							<p class="display-4">{{ user.views }}</p>
 						</div>
 
 						<div class="rating-stars-modal container text-center">
-							<rating-stars
-								:amount_rating="rating.amount"
-								:avg_rating="rating.value"
-								:show_number="false"
-								@value_rating="value_rating = $event"
-								@show_rating="show_rating  = $event"
-							>
-							</rating-stars>
+							<i class="fas fa-eye"></i>
 						</div>
 						<div class="text-center">
-							<p v-if="show_rating == true" class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Basados en la calificación de {{ rating.amount}} usuarios</p>
-							<p v-else class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Se necesitan mínimo 3 votos para promediar una calificación</p>
+							<p class="text-muted h6">Con el <b>Plan Premium</b> puedes aumentar tu rango de visualización.</p>
 						</div>
 					</div>
 				</div>
@@ -381,22 +364,11 @@
 
 						<div class="text-center">
 							<h5 class="modal-title h3">Notificaciones</h5>
-							<p class="display-4">{{ value_rating }} / 5</p>
+							<p class="display-4">{{ 0 }}</p>
 						</div>
 
-						<div class="rating-stars-modal container text-center">
-							<rating-stars
-								:amount_rating="rating.amount"
-								:avg_rating="rating.value"
-								:show_number="false"
-								@value_rating="value_rating = $event"
-								@show_rating="show_rating  = $event"
-							>
-							</rating-stars>
-						</div>
 						<div class="text-center">
-							<p v-if="show_rating == true" class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Basados en la calificación de {{ rating.amount}} usuarios</p>
-							<p v-else class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Se necesitan mínimo 3 votos para promediar una calificación</p>
+							<p class="text-muted h5">Aún no tienes notificaciones.</p>
 						</div>
 					</div>
 				</div>
@@ -486,7 +458,7 @@
 	.btn-view-profile:hover {
 		background-color: rgba(136, 190, 46, 0.9);
 		border-color: rgba(136, 190, 46, 0.9);
-		margin-right: 20px;
+		margin-right: 5px;
 		transition: all 0.6s;
 		color: #fff;
 	}
@@ -658,7 +630,7 @@
 
 	.adv a:hover {
 		color: #fff;
-		transform: scale(1.2);
+		transform: scale(1.05);
 		transition: all 0.6s;
 	}
 

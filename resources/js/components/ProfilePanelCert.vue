@@ -110,7 +110,21 @@
 		],
 		methods: {
 			addCert() {
-				console.log('Agregado')
+				Swal.fire({
+					title: 'Estas consumiendo 20 coins en esta operación',
+					text: '¿Deseas continuar?',
+					type: 'info',
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Si',
+					cancelButtonText: 'Cancelar',
+					showCancelButton: true,
+				})
+					.then(res => {
+						if (res.value == true) {
+							console.log('Agregado')
+						}
+					})
 			},
 			deleteCert(cert_id) {
 				Swal.fire({

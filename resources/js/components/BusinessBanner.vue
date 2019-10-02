@@ -278,7 +278,7 @@
 			agendar() {
 				Swal.fire({
 					title: 'Estas consumiendo 30 coins en esta operación',
-					text: '¿Estas seguro de realizarla?',
+					text: '¿Deseas continuar?',
 					type: 'info',
 					confirmButtonColor: '#3085d6',
 					cancelButtonColor: '#d33',
