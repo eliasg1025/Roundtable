@@ -79,7 +79,7 @@
 								<span class="text-muted">Esta operación cuesta 30 coins. <a href="/planes" target="_blank">Conseguir coins.</a></span>
 							</small>
 						</div>
-						
+
 						<!--
 						<a
 							v-if="data_visit_user.data.id === data_user.id"
@@ -108,7 +108,7 @@
 							</div>
 
 							<div class="text-center">
-								<h5 class="modal-title h3" id="modalStats-rating">Valoración</h5>
+								<h5 class="modal-title h3">Valoración</h5>
 								<p class="display-4">{{ value_rating }} / 5</p>
 							</div>
 
@@ -141,7 +141,7 @@
 								</button>
 							</div>
 							<div class="text-center">
-								<h5 class="modal-title h3" id="modalStats-rating">Certificaciones</h5>
+								<h5 class="modal-title h3">Certificaciones</h5>
 							</div>
 							<div class="business-stat-modal container">
 								<div v-if="certifications.length > 0">
@@ -176,7 +176,7 @@
 								</button>
 							</div>
 							<div class="text-center">
-								<h5 class="modal-title h3" id="modalStats-rating">Categorías</h5>
+								<h5 class="modal-title h3">Categorías</h5>
 							</div>
 							<div class="business-stat-modal container">
 								<div v-if="categories.length > 0">
@@ -534,5 +534,5 @@
 			font-size: 12px;
 		}
 	}
-	
+
 </style>

@@ -141,7 +141,7 @@
 			</div>
 			<p class="multi-preview-info">
 				Puedes agregar: {{ might_add_images.number }} imagen(es)
-				<a href="#" style="font-family: arial, sans-serif;"><small>Mejora tu plan</small></a>
+				<a href="/planes" target="_blank" style="font-family: arial, sans-serif;"><small>Mejora tu plan</small></a>
 			</p>
 			<!-- Carousel imagenes -->
 			<div id="multi-carousel-images">
@@ -175,7 +175,7 @@
 							<p>
 								<span style="font-size: 20px;">No puedes agregar</span>
 								<br>
-								<a href="#"><small style="font-family: arial, sans-serif;">Ver más</small></a>
+								<a href="/planes" target="_blank"><small style="font-family: arial, sans-serif;">Ver más</small></a>
 							</p>
 						</div>
 					</div>
@@ -217,7 +217,7 @@
 			<!-- Carousel videos -->
 			<p class="multi-preview-info">
 				Puedes agregar: {{ might_add_videos.number }} video(s)
-				<a href="#" style="font-family: arial, sans-serif;"><small>Mejora tu plan</small></a>
+				<a href="/planes" target="_blank" style="font-family: arial, sans-serif;"><small>Mejora tu plan</small></a>
 			</p>
 			<div id="multi-carousel-videos">
 				<div class="multi-carousel-item" v-for="video in videos" :key="video.id">
@@ -380,7 +380,7 @@
 				}
 			},
 			might_add_videos() {
-				const number = this.current_plan.videos - this.videos.length 
+				const number = this.current_plan.videos - this.videos.length
 
 				return  {
 					'number': number,
@@ -441,7 +441,7 @@
 						timer: 1500
 					})
 				}
-				
+
 			},
 			quitCategory(category_id) {
 				Swal.fire({
