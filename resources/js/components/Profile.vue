@@ -1,20 +1,22 @@
 <template>
 	<section class="user_profile">
 		<div class="container">
-			<div class="row mt-3">
+			<div class="row">
 				<div class="adv jumbotron jumbotron-fluid">
 					<div class="row container">
 						<div class="col-md-5 text-center">
-							<img src="/img/group.png" alt="" height="200px">
+							<img class="welcome-img" src="/img/group.png" height="200px">
 						</div>
 						<div class="col-md-7">
-							<h2 class="display-4">Bienvenido!</h2>
-							<p class="lead">Descubre todos los beneficios incluidos en el plan Premium Business</p>
-							<a href="/planes" class="btn">
-								<span class="lead">
-									Ir a planes <i class="fa fa-angle-double-right"></i>
-								</span>
-							</a>
+							<div class="welcome-text">
+								<h2 class="display-4 welcome-text__title">Bienvenido!</h2>
+								<p class="lead welcome-text__message">Descubre todos los beneficios incluidos en el plan Premium Business</p>
+								<a href="/planes" class="btn">
+									<span class="lead welcome-text__message">
+										Ir a planes <i class="fa fa-angle-double-right"></i>
+									</span>
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -37,40 +39,43 @@
 						</div>
 						<!-- Info -->
 						<div class="body" style="font-weight: 600;">
-							<rating-stars
-								:amount_rating="rating.amount"
-								:avg_rating="rating.value"
-								:show_number="true"
-								class="text-center"
-							>
-							</rating-stars>
+							<a href="#" data-toggle="modal" data-target="#modalNotiStars">
+								<rating-stars
+									:amount_rating="rating.amount"
+									:avg_rating="rating.value"
+									:show_number="true"
+									class="text-center"
+								>
+								</rating-stars>
+							</a>
+
 							<h4 class="text-center">{{ user.commercial_name }}</h4>
 							<hr>
 							<ul class="notifications container">
 								<li class="align-top d-flex justify-content-between align-items-center">
 									<div class="p-1">
-										<a href="#">
+										<a href="#" data-toggle="modal" data-target="#modalNotiPlan">
 											Plan Actual <span class="badge badge-secondary">{{ current_plan.name }}</span>
 										</a>
 									</div>
 								</li>
 								<li class="align-top d-flex justify-content-between align-items-center">
 									<div class="p-1">
-										<a href="#">
+										<a href="#" data-toggle="modal" data-target="#modalNotiCoins">
 											Tienes <span class="badge badge-success">{{user.coins}} coins</span>
 										</a>
 									</div>
 								</li>
 								<li class="align-top d-flex justify-content-between align-items-center">
 									<div class="p-1">
-										<a href="#">
+										<a href="#" data-toggle="modal" data-target="#modalNotiViews">
 											Visitas <span class="badge badge-success">{{ user.views }}</span>
 										</a>
 									</div>
 								</li>
 								<li class="align-top d-flex justify-content-between align-items-center">
 									<div class="p-1">
-										<a href="#">
+										<a href="#" data-toggle="modal" data-target="#modalNotiMessages">
 											Notificaciones <span class="badge badge-success">{{ messages.length }}</span>
 										</a>
 									</div>
@@ -209,6 +214,195 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Modal Notifications -->
+
+		<!-- Modal Noti Stars -->
+		<div class="modal fade" id="modalNotiStars" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="container d-flex">
+							<button type="button" data-dismiss="modal" class="close" aria-label="Close" style="padding: 1rem 1rem; margin: -1rem -1rem -1rem auto;">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+
+						<div class="text-center">
+							<h5 class="modal-title h3" id="modalStats-rating">Valoración</h5>
+							<p class="display-4">{{ value_rating }} / 5</p>
+						</div>
+
+						<div class="rating-stars-modal container text-center">
+							<rating-stars
+								:amount_rating="rating.amount"
+								:avg_rating="rating.value"
+								:show_number="false"
+								@value_rating="value_rating = $event"
+								@show_rating="show_rating  = $event"
+							>
+							</rating-stars>
+						</div>
+						<div class="text-center">
+							<p v-if="show_rating == true" class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Basados en la calificación de {{ rating.amount}} usuarios</p>
+							<p v-else class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Se necesitan mínimo 3 votos para promediar una calificación</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal Noti Plan -->
+		<div class="modal fade" id="modalNotiPlan" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="container d-flex">
+							<button type="button" data-dismiss="modal" class="close" aria-label="Close" style="padding: 1rem 1rem; margin: -1rem -1rem -1rem auto;">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+
+						<div class="text-center">
+							<h5 class="modal-title h3">Plan Actual</h5>
+							<p class="h1 mt-2">
+								{{ current_plan.name }} <span v-if="current_plan.is_best === 1" style="color: #194DBE;"><i class="fas fa-medal"></i></span>
+							</p>
+						</div>
+
+						<div
+							v-if="current_plan.is_best === 1"
+							class="text-center my-3" style="font-family: 'Nunito', sans-serif;"
+						>
+							<p class="text-muted h5">
+								Tienes el mejor plan
+								<i class="fa fa-star rating-star"></i><!--
+								--><i class="fa fa-star rating-star"></i><!--
+								--><i class="fa fa-star rating-star"></i>
+
+							</p>
+							<p class="text-muted h6">Aparecerás como <i>Usuario Destacado</i> en la página de Inicio.</p>
+						</div>
+
+						<div
+							v-if="current_plan.is_best === 0"
+							class="text-center my-3" style="font-family: 'Nunito', sans-serif;"
+						>
+							<p class="text-muted h5">
+								<a href="/planes">Mejora tu plan.</a>
+							</p>
+							<p class="text-muted h6">Con el plan Premium aparecerás como <i>Usuario Destacado</i> en la página de Inicio.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal Noti Coins modalNotiCoins-->
+		<div class="modal fade" id="modalNotiCoins" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="container d-flex">
+							<button type="button" data-dismiss="modal" class="close" aria-label="Close" style="padding: 1rem 1rem; margin: -1rem -1rem -1rem auto;">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+
+						<div class="text-center">
+							<h5 class="modal-title h3">Coins</h5>
+							<p class="display-4">{{ value_rating }} / 5</p>
+						</div>
+
+						<div class="rating-stars-modal container text-center">
+							<rating-stars
+								:amount_rating="rating.amount"
+								:avg_rating="rating.value"
+								:show_number="false"
+								@value_rating="value_rating = $event"
+								@show_rating="show_rating  = $event"
+							>
+							</rating-stars>
+						</div>
+						<div class="text-center">
+							<p v-if="show_rating == true" class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Basados en la calificación de {{ rating.amount}} usuarios</p>
+							<p v-else class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Se necesitan mínimo 3 votos para promediar una calificación</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal Noti Views modalNotiViews-->
+		<div class="modal fade" id="modalNotiViews" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="container d-flex">
+							<button type="button" data-dismiss="modal" class="close" aria-label="Close" style="padding: 1rem 1rem; margin: -1rem -1rem -1rem auto;">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+
+						<div class="text-center">
+							<h5 class="modal-title h3">Vistas</h5>
+							<p class="display-4">{{ value_rating }} / 5</p>
+						</div>
+
+						<div class="rating-stars-modal container text-center">
+							<rating-stars
+								:amount_rating="rating.amount"
+								:avg_rating="rating.value"
+								:show_number="false"
+								@value_rating="value_rating = $event"
+								@show_rating="show_rating  = $event"
+							>
+							</rating-stars>
+						</div>
+						<div class="text-center">
+							<p v-if="show_rating == true" class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Basados en la calificación de {{ rating.amount}} usuarios</p>
+							<p v-else class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Se necesitan mínimo 3 votos para promediar una calificación</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal Noti Messages modalNotiMessages-->
+		<div class="modal fade" id="modalNotiMessages" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="container d-flex">
+							<button type="button" data-dismiss="modal" class="close" aria-label="Close" style="padding: 1rem 1rem; margin: -1rem -1rem -1rem auto;">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+
+						<div class="text-center">
+							<h5 class="modal-title h3">Notificaciones</h5>
+							<p class="display-4">{{ value_rating }} / 5</p>
+						</div>
+
+						<div class="rating-stars-modal container text-center">
+							<rating-stars
+								:amount_rating="rating.amount"
+								:avg_rating="rating.value"
+								:show_number="false"
+								@value_rating="value_rating = $event"
+								@show_rating="show_rating  = $event"
+							>
+							</rating-stars>
+						</div>
+						<div class="text-center">
+							<p v-if="show_rating == true" class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Basados en la calificación de {{ rating.amount}} usuarios</p>
+							<p v-else class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Se necesitan mínimo 3 votos para promediar una calificación</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</section>
 </template>
 
@@ -239,6 +433,9 @@
 				data_offers: this.data.account_data.offers_data,
 				certifications: this.data.account_data.user_certifications,
 				categories_data: this.data.account_data.categories_data,
+				//
+				value_rating: 0,
+				show_rating: false,
 				// Panel state
 				active: false,
 				panel: 0,
@@ -270,6 +467,10 @@
 </script>
 
 <style>
+	.welcome-img {
+		height: 200px;
+	}
+
 	.btn-view-profile {
 		font-family: 'Poppins', sans-serif;
 		text-transform: uppercase;
@@ -494,7 +695,7 @@
 		margin-top: 50px;
 	}
 
-	@media screen and (max-width: 768px) {
+	@media (max-width: 768px) {
 		figure.snip {
 			height: 180px;
 		}
@@ -506,9 +707,42 @@
 		.box-profile-img ul {
 			font-size: 12px;
 		}
+
+		.welcome-text {
+			padding: 0px 25px;
+		}
+
+		.adv .row{
+			margin: 0;
+		}
 	}
 
-	@media (max-width: 600px) {
+	@media (max-width: 768px) and (orientation: landscape){
+		.btn-view-profile {
+			width: 60%;
+			float: none;
+		}
+
+		.box-profile-img {
+			width: 60%;
+			margin: 0 auto;
+		}
+
+		.box-profile-img h4 {
+			font-size: 23px;
+		}
+
+		.box-profile-img ul {
+			font-size: 16px;
+		}
+
+		figure.snip {
+			margin: 0 auto 1rem;
+		}
+	}
+
+
+	@media (max-width: 568px) {
 		.box-profile-img {
 			margin-bottom: 35px;
 		}
@@ -540,6 +774,16 @@
 
 		.panel-alert {
 			font-size: 14px;
+		}
+	}
+
+	@media (max-width: 414px) and (orientation: portrait) {
+		.welcome-text__title {
+			font-size: 2.5rem;
+		}
+
+		.welcome-text__message {
+			font-size: 1.1rem;
 		}
 	}
 </style>

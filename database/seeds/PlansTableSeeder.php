@@ -23,7 +23,7 @@ class PlansTableSeeder extends Seeder
         $plan->save();
 
         $plan = new Plan();
-		$plan->name = "Standard Business";
+		$plan->name = "Standard";
 		$plan->is_best = false;
         $plan->cost = 29;
 		$plan->initial_coins = 40;
@@ -32,7 +32,7 @@ class PlansTableSeeder extends Seeder
         $plan->save();
 
         $plan = new Plan();
-		$plan->name = "Premium Business";
+		$plan->name = "Premium";
 		$plan->is_best = true;
         $plan->cost = 49;
 		$plan->initial_coins = 100;
