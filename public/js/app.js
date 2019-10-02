@@ -2023,7 +2023,7 @@ __webpack_require__.r(__webpack_exports__);
     agendar: function agendar() {
       Swal.fire({
         title: 'Estas consumiendo 30 coins en esta operación',
-        text: '¿Estas seguro de realizarla?',
+        text: '¿Deseas continuar?',
         type: 'info',
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
@@ -3709,34 +3709,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -4306,7 +4278,20 @@ __webpack_require__.r(__webpack_exports__);
   props: ['certifications'],
   methods: {
     addCert: function addCert() {
-      console.log('Agregado');
+      Swal.fire({
+        title: 'Estas consumiendo 20 coins en esta operación',
+        text: '¿Deseas continuar?',
+        type: 'info',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true
+      }).then(function (res) {
+        if (res.value == true) {
+          console.log('Agregado');
+        }
+      });
     },
     deleteCert: function deleteCert(cert_id) {
       var _this = this;
@@ -4362,6 +4347,62 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4816,6 +4857,18 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
+    editUser: function editUser() {
+      Swal.fire({
+        title: '¿Estas seguro que deseas modificar tus datos?',
+        type: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true
+      });
+    },
+    addImage: function addImage() {},
     deleteImage: function deleteImage() {
       Swal.fire({
         title: '¿Estas seguro que deseas eliminar esta imagen?',
@@ -4827,6 +4880,7 @@ __webpack_require__.r(__webpack_exports__);
         showCancelButton: true
       });
     },
+    addVideo: function addVideo() {},
     deleteVideo: function deleteVideo() {
       Swal.fire({
         title: '¿Estas seguro que deseas eliminar este video?',
@@ -5084,7 +5138,22 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    addProduct: function addProduct() {},
+    addProduct: function addProduct() {
+      Swal.fire({
+        title: 'Estas consumiendo 30 coins en esta operación',
+        text: '¿Deseas continuar?',
+        type: 'info',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true
+      }).then(function (res) {
+        if (res.value == true) {
+          console.log('Agregado');
+        }
+      });
+    },
     deleteProduct: function deleteProduct(product_id) {
       var _this2 = this;
 
@@ -10520,7 +10589,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.welcome-img {\n\t\theight: 200px;\n}\n.btn-view-profile {\n\t\tfont-family: 'Poppins', sans-serif;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 1.1rem;\n\t\twidth: 380px;\n\t\tfloat: right;\n\t\tbackground-color: rgb(136, 190, 46);\n\t\tborder-color: rgb(136, 190, 46);\n\t\ttransition: all 0.6s;\n\t\tcolor: #fff;\n}\n.btn-view-profile:hover {\n\t\tbackground-color: rgba(136, 190, 46, 0.9);\n\t\tborder-color: rgba(136, 190, 46, 0.9);\n\t\tmargin-right: 20px;\n\t\ttransition: all 0.6s;\n\t\tcolor: #fff;\n}\n.user_profile {\n\t\tpadding: 50px 0;\n    \tbackground: #f1f1f1;\n}\n.box-profile-img {\n\t    padding: 10px;\n    \tbackground: #fff;\n    \tbox-shadow: 0px 0px 5px 5px #ececec;\n    \tborder-radius: 10px;\n}\n.box-profile-img .head {\n\t\tpadding: 10px;\n}\n.box-profile-img .body {\n\t\tmargin: 25px 0 5px 0;\n}\n.notifications {\n\t\tlist-style: none;\n\t\tmargin-bottom: 5px;\n}\n.notifications li a {\n\t\tcolor: #212529;\n\t\ttransition: ease 0.5s;\n}\n.notifications li a:hover {\n\t\ttransition: all 0.3s;\n\t\tcolor: #88be2e;\n\t\tmargin-left: 10px;\n\t\tcursor: pointer;\n}\n\n\t/* User options */\n.user-options {\n\t\tdisplay: flex;\n\t\tflex-flow: row wrap;\n\t\tborder-bottom: 0;\n\t\tlist-style: none;\n\t\tpadding-left: 0;\n\t\tmargin-bottom: 0;\n}\n.user-options > li {\n\t\twidth: 45%;\n\t\tmargin: 0 auto;\n\t\tborder-radius: 15px;\n}\nfigure.snip {\n\t\tfont-family: 'Poppins', sans-serif;\n\t\tfont-weight: 600;\n\t\tcolor: #ececec;\n\t\tposition: relative;\n\t\toverflow: hidden;\n\t\tmin-width: 220px;\n\t\tmax-width: 400px;\n\t\theight: 205px;\n\t\twidth: 100%;\n\t\tbackground: #000000;\n\t\ttext-align: center;\n\t\tborder-radius: 15px;\n\t\tbox-shadow: 0px 0px 5px 5px #ececec;\n}\nfigure.snip * {\n\t\tbox-sizing: border-box;\n\t\ttransition: all 0.3s;\n}\nfigure.snip img {\n\t\topacity: 1;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\ttransition: all 0.6s;\n}\nfigure.snip figcaption {\n\t\tposition: absolute;\n\t\tbottom: 0;\n\t\tleft: 18%;\n\t\tright: 18%;\n\t\theight: 100%;\n}\nfigure.snip figcaption > div {\n\t\toverflow: hidden;\n\t\twidth: 100%;\n\t\tposition: relative;\n\t\theight: 50%;\n}\nfigure.snip h5, figure.snip span {\n\t\tmargin: 0;\n\t\tpadding: 10px 15px;\n\t\tdisplay: inline-block;\n\t\twidth: 100%;\n\t\tfont-weight: 700;\n}\nfigure.snip span {\n\t\tbackground: #88be2e;\n\t\tcolor: #fff; /*#4d4d4d*/\n\t\tposition: relative;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\tposition: absolute;\n\t\ttransform: translate3d(0%, 100%, 0);\n\t\tborder-radius: 5px;\n}\nfigure.snip h5 {\n\t\tbackground: rgba(51, 51, 51, 0.5);\n\t\ttransform: translate3d(0%, 0%, 0);\n\t\tborder-radius: 5px;\n\t\tfont-size: 17px;\n}\nfigure.snip a {\n\t\tleft: 0;\n\t\tright: 0;\n\t\ttop: 0;\n\t\tbottom: 0;\n\t\tposition: absolute;\n\t\tcolor: #ffffff;\n}\nfigure.snip:hover img, figure.snip.hover img {\n\t\topacity: 0.35;\n\t\t-webkit-filter: blur(5px);\n\t\tfilter: blur(5px);\n\t\ttransform: scale(1.1);\n}\nfigure.snip:hover figcaption span, figure.snip.hover figcaption span {\n\t\ttransform: translate3d(0%, 0%, 0);\n}\nfigure.snip:hover figcaption h5, figure.snip.hover figcaption h5 {\n\t\ttransform: translate3d(0%, -100%, 0);\n}\n.adv {\n\t\twidth: 100%;\n}\n.adv a {\n\t\tcolor: #fff;\n\t\tbackground-color: rgb(136, 190, 46);\n\t\ttransition: all 0.6s;\n}\n.adv a:hover {\n\t\tcolor: #fff;\n\t\ttransform: scale(1.2);\n\t\ttransition: all 0.6s;\n}\n\n\t/* Lateral User Options */\n.lateral-user-options {\n\t\tlist-style: none;\n\t\tdisplay: none;\n}\n.item-topbar {\n\t\tcolor: black;\n\t\ttransition: all ease 500ms;\n\t\ttext-align: center;\n\t\tvertical-align: middle;\n}\n.item-topbar:hover {\n\t\tbackground-color:#E9ECEF;\n\t\tcolor: #88BE2E;\n\t\tmargin-top: 1%;\n\t\tmargin-bottom: -1%;\n}\n.panels {\n\t\tmargin-top: 10px;\n}\n.panel {\n\t\tmargin-top: 25px;\n}\n.spinner-container {\n\t\tmargin-top: 50px;\n}\n@media (max-width: 768px) {\nfigure.snip {\n\t\t\theight: 180px;\n}\n.box-profile-img h4 {\n\t\t\tfont-size: 16px;\n}\n.box-profile-img ul {\n\t\t\tfont-size: 12px;\n}\n.welcome-text {\n\t\t\tpadding: 0px 25px;\n}\n.adv .row{\n\t\t\tmargin: 0;\n}\n}\n@media (max-width: 768px) and (orientation: landscape){\n.btn-view-profile {\n\t\t\twidth: 60%;\n\t\t\tfloat: none;\n}\n.box-profile-img {\n\t\t\twidth: 60%;\n\t\t\tmargin: 0 auto;\n}\n.box-profile-img h4 {\n\t\t\tfont-size: 23px;\n}\n.box-profile-img ul {\n\t\t\tfont-size: 16px;\n}\nfigure.snip {\n\t\t\tmargin: 0 auto 1rem;\n}\n}\n@media (max-width: 568px) {\n.box-profile-img {\n\t\t\tmargin-bottom: 35px;\n}\n.btn-view-profile {\n\t\t\twidth: 80%;\n\t\t\tfloat: none;\n}\n.user-options > li {\n\t\t\twidth: 100%;\n}\n.lateral-user-options {\n\t\t\tdisplay: block;\n}\n.top-user-options {\n\t\t\tdisplay: none;\n}\n.box-profile-img h4 {\n\t\t\tfont-size: 26px;\n}\n.box-profile-img ul {\n\t\t\tfont-size: 18px;\n}\n.panel-alert {\n\t\t\tfont-size: 14px;\n}\n}\n@media (max-width: 414px) and (orientation: portrait) {\n.welcome-text__title {\n\t\t\tfont-size: 2.5rem;\n}\n.welcome-text__message {\n\t\t\tfont-size: 1.1rem;\n}\n}\n", ""]);
+exports.push([module.i, "\n.welcome-img {\n\t\theight: 200px;\n}\n.btn-view-profile {\n\t\tfont-family: 'Poppins', sans-serif;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 1.1rem;\n\t\twidth: 380px;\n\t\tfloat: right;\n\t\tbackground-color: rgb(136, 190, 46);\n\t\tborder-color: rgb(136, 190, 46);\n\t\ttransition: all 0.6s;\n\t\tcolor: #fff;\n}\n.btn-view-profile:hover {\n\t\tbackground-color: rgba(136, 190, 46, 0.9);\n\t\tborder-color: rgba(136, 190, 46, 0.9);\n\t\tmargin-right: 5px;\n\t\ttransition: all 0.6s;\n\t\tcolor: #fff;\n}\n.user_profile {\n\t\tpadding: 50px 0;\n    \tbackground: #f1f1f1;\n}\n.box-profile-img {\n\t    padding: 10px;\n    \tbackground: #fff;\n    \tbox-shadow: 0px 0px 5px 5px #ececec;\n    \tborder-radius: 10px;\n}\n.box-profile-img .head {\n\t\tpadding: 10px;\n}\n.box-profile-img .body {\n\t\tmargin: 25px 0 5px 0;\n}\n.notifications {\n\t\tlist-style: none;\n\t\tmargin-bottom: 5px;\n}\n.notifications li a {\n\t\tcolor: #212529;\n\t\ttransition: ease 0.5s;\n}\n.notifications li a:hover {\n\t\ttransition: all 0.3s;\n\t\tcolor: #88be2e;\n\t\tmargin-left: 10px;\n\t\tcursor: pointer;\n}\n\n\t/* User options */\n.user-options {\n\t\tdisplay: flex;\n\t\tflex-flow: row wrap;\n\t\tborder-bottom: 0;\n\t\tlist-style: none;\n\t\tpadding-left: 0;\n\t\tmargin-bottom: 0;\n}\n.user-options > li {\n\t\twidth: 45%;\n\t\tmargin: 0 auto;\n\t\tborder-radius: 15px;\n}\nfigure.snip {\n\t\tfont-family: 'Poppins', sans-serif;\n\t\tfont-weight: 600;\n\t\tcolor: #ececec;\n\t\tposition: relative;\n\t\toverflow: hidden;\n\t\tmin-width: 220px;\n\t\tmax-width: 400px;\n\t\theight: 205px;\n\t\twidth: 100%;\n\t\tbackground: #000000;\n\t\ttext-align: center;\n\t\tborder-radius: 15px;\n\t\tbox-shadow: 0px 0px 5px 5px #ececec;\n}\nfigure.snip * {\n\t\tbox-sizing: border-box;\n\t\ttransition: all 0.3s;\n}\nfigure.snip img {\n\t\topacity: 1;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\ttransition: all 0.6s;\n}\nfigure.snip figcaption {\n\t\tposition: absolute;\n\t\tbottom: 0;\n\t\tleft: 18%;\n\t\tright: 18%;\n\t\theight: 100%;\n}\nfigure.snip figcaption > div {\n\t\toverflow: hidden;\n\t\twidth: 100%;\n\t\tposition: relative;\n\t\theight: 50%;\n}\nfigure.snip h5, figure.snip span {\n\t\tmargin: 0;\n\t\tpadding: 10px 15px;\n\t\tdisplay: inline-block;\n\t\twidth: 100%;\n\t\tfont-weight: 700;\n}\nfigure.snip span {\n\t\tbackground: #88be2e;\n\t\tcolor: #fff; /*#4d4d4d*/\n\t\tposition: relative;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\tposition: absolute;\n\t\ttransform: translate3d(0%, 100%, 0);\n\t\tborder-radius: 5px;\n}\nfigure.snip h5 {\n\t\tbackground: rgba(51, 51, 51, 0.5);\n\t\ttransform: translate3d(0%, 0%, 0);\n\t\tborder-radius: 5px;\n\t\tfont-size: 17px;\n}\nfigure.snip a {\n\t\tleft: 0;\n\t\tright: 0;\n\t\ttop: 0;\n\t\tbottom: 0;\n\t\tposition: absolute;\n\t\tcolor: #ffffff;\n}\nfigure.snip:hover img, figure.snip.hover img {\n\t\topacity: 0.35;\n\t\t-webkit-filter: blur(5px);\n\t\tfilter: blur(5px);\n\t\ttransform: scale(1.1);\n}\nfigure.snip:hover figcaption span, figure.snip.hover figcaption span {\n\t\ttransform: translate3d(0%, 0%, 0);\n}\nfigure.snip:hover figcaption h5, figure.snip.hover figcaption h5 {\n\t\ttransform: translate3d(0%, -100%, 0);\n}\n.adv {\n\t\twidth: 100%;\n}\n.adv a {\n\t\tcolor: #fff;\n\t\tbackground-color: rgb(136, 190, 46);\n\t\ttransition: all 0.6s;\n}\n.adv a:hover {\n\t\tcolor: #fff;\n\t\ttransform: scale(1.05);\n\t\ttransition: all 0.6s;\n}\n\n\t/* Lateral User Options */\n.lateral-user-options {\n\t\tlist-style: none;\n\t\tdisplay: none;\n}\n.item-topbar {\n\t\tcolor: black;\n\t\ttransition: all ease 500ms;\n\t\ttext-align: center;\n\t\tvertical-align: middle;\n}\n.item-topbar:hover {\n\t\tbackground-color:#E9ECEF;\n\t\tcolor: #88BE2E;\n\t\tmargin-top: 1%;\n\t\tmargin-bottom: -1%;\n}\n.panels {\n\t\tmargin-top: 10px;\n}\n.panel {\n\t\tmargin-top: 25px;\n}\n.spinner-container {\n\t\tmargin-top: 50px;\n}\n@media (max-width: 768px) {\nfigure.snip {\n\t\t\theight: 180px;\n}\n.box-profile-img h4 {\n\t\t\tfont-size: 16px;\n}\n.box-profile-img ul {\n\t\t\tfont-size: 12px;\n}\n.welcome-text {\n\t\t\tpadding: 0px 25px;\n}\n.adv .row{\n\t\t\tmargin: 0;\n}\n}\n@media (max-width: 768px) and (orientation: landscape){\n.btn-view-profile {\n\t\t\twidth: 60%;\n\t\t\tfloat: none;\n}\n.box-profile-img {\n\t\t\twidth: 60%;\n\t\t\tmargin: 0 auto;\n}\n.box-profile-img h4 {\n\t\t\tfont-size: 23px;\n}\n.box-profile-img ul {\n\t\t\tfont-size: 16px;\n}\nfigure.snip {\n\t\t\tmargin: 0 auto 1rem;\n}\n}\n@media (max-width: 568px) {\n.box-profile-img {\n\t\t\tmargin-bottom: 35px;\n}\n.btn-view-profile {\n\t\t\twidth: 80%;\n\t\t\tfloat: none;\n}\n.user-options > li {\n\t\t\twidth: 100%;\n}\n.lateral-user-options {\n\t\t\tdisplay: block;\n}\n.top-user-options {\n\t\t\tdisplay: none;\n}\n.box-profile-img h4 {\n\t\t\tfont-size: 26px;\n}\n.box-profile-img ul {\n\t\t\tfont-size: 18px;\n}\n.panel-alert {\n\t\t\tfont-size: 14px;\n}\n}\n@media (max-width: 414px) and (orientation: portrait) {\n.welcome-text__title {\n\t\t\tfont-size: 2.5rem;\n}\n.welcome-text__message {\n\t\t\tfont-size: 1.1rem;\n}\n}\n", ""]);
 
 // exports
 
@@ -10539,7 +10608,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.select-category {\n\twidth: 100%;\n}\n.select-category .btn {\n\tbackground-color: #FFFFFF;\n\tborder: 1px solid #ced4da;\n\ttext-align: left;\n}\n.select-category .dropdown-menu {\n\twidth: 100%;\n}\n.selected-categories {\n\tpadding: 10px;\n\tbackground-color: #E9ECEF;\n\tborder: 1px solid #E9ECEF;\n\tborder-radius: 6px;\n}\n.scrollable-menu {\n\theight: auto;\n\tmax-height: 200px;\n\toverflow-x: hidden;\n}\n.multi-preview-info {\n\tfont-family: 'Poppins', sans-serif;\n\tfont-size: 20px;\n}\n.no-image__container {\n\tmargin-top: 20px;\n\tmargin-bottom: 25px;\n}\n.no-image {\n\twidth: 200px;\n\theight: 150px;\n}\n.preview-image {\n\twidth: 70%;\n\theight: auto;\n\tborder-radius: 6px;\n}\n.preview-image__container {\n\tmargin-top: 15px;\n\tmargin-bottom: 15px;\n}\n.btn-delete-multi {\n\tfloat: right;\n}\n.active-plan {\n\tfont-weight: bold;\n}\n.multi-carousel-item {\n\tpadding: 10px;\n}\n.upload-info-img {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n}\n.upload-info-img * {\n\tbox-sizing: border-box;\n\ttransition: all 0.6s ease;\n}\n.upload-info-img img {\n\topacity: 1;\n\tdisplay: block;\n\theight: 250px;\n\tposition: relative;\n}\n.upload-info-img figcaption {\n\ttop: 25%;\n\tleft: 0;\n\tright: 0;\n\tbottom: 0;\n\tmargin: 10px 12px 5px;\n\tposition: absolute;\n}\n.upload-info-img h4, .upload-info-img i {\n\tcolor: rgba(0, 0, 0, 0.7);\n}\n.upload-info-img i {\n\tfont-size: 100px;\n}\n.upload-info-img a {\n\ttext-decoration: none;\n}\n.upload-info-img .bottom-middle, .upload-info-img .bottom-right {\n\tbottom: 40%;\n\topacity: 0;\n}\n.upload-info-img .bottom-middle {\n\ttransform: translate(0%, 50%);\n}\n.upload-info-img:hover img, .upload-info-img.hover img {\n\topacity: 0.6;\n\ttransform: scale(1.1);\n}\n.upload-info-img:hover figcaption .bottom-middle, .upload-info-img.hover figcaption .bottom-middle,\n.upload-info-img:hover figcaption .bottom-right, .upload-info-img.hover figcaption .bottom-right {\n\ttransform: translate(0, 0);\n\topacity: 1;\n}\n.upload-info-input > input {\n\tdisplay: none;\n}\n.upload-info-input > label {\n\tcursor: pointer;\n}\n.container-profile-img img {\n\twidth: 85%;\n\tmargin: auto;\n}\n.container-cover-img img {\n\twidth: 100%;\n}\n\n/* Form styles */\n.btn-save {\n\tbackground-image: linear-gradient(to right, #56ab2f 0%, #a8e063 51%, #56ab2f 100%);\n\ttransition: 0.5s;\n\tbackground-size: 200% auto;\n\tfont-family: 'Roboto',sans-serif;\n\tcolor:rgb(231, 255, 255);\n}\n.btn-save:hover {\n\tbackground-position: right center;\n\tcolor:rgb(231, 255, 255);\n}\n.info-icon {\n\tcolor: rgb(93, 151, 240);\n\tcursor: pointer;\n}\n.info-icon:hover {\n\tcolor: rgb(81, 126, 194);\n\ttransition: all ease 500ms;\n}\n.panel-info-section {\n\tborder: solid 1px #e6e6e6;\n\tborder-radius: 15px;\n\tpadding: 25px;\n\tmargin-bottom: 35px;\n}\n.panel-info-subtitle {\n\tmargin-bottom: 15px;\n}\n.panel-info-subtitle label {\n\tmargin: 0;\n}\n.multi-image-container {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n\tbackground-color: #000;\n\tcursor: pointer;\n\theight: 150px;\n}\n.multi-add-container {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n\theight: 150px;\n}\n.multi-image {\n\topacity: 1;\n\tdisplay: block;\n\theight: 100%;\n\tposition: relative;\n\twidth: 100%;\n\tbox-sizing: border-box;\n\ttransition: all 0.6s ease;\n}\n.multi-add-text {\n\tmargin-top: 20%;\n\tcursor: pointer;\n}\n.multi-add-text p {\n\tmargin-bottom: 0px;\n\tfont-size: 20px;\n\tcolor: #D87B4B;\n}\n.multi-image:hover{\n\topacity: 0.6;\n\ttransform: scale(1.1);\n}\n.multi-locked-upload {\n\theight: 150px;\n\tbackground-color: #E2E3E5;\n\tborder: 1px solid #d6d8db;\n\tcolor: #383d41;\n\tbackground-color: #e2e3e5;\n\tborder-radius: 0.25rem;\n\tmargin: 10px;\n\ttext-align: center;\n}\n@media screen and (max-width: 768px) {\n.container-profile-img img {\n\t\theight: 170px;\n}\n.container-cover-img img {\n\t\theight: 170px;\n}\n\n\t/*\n\t.multi-image-container {\n\t\theight: 100px;\n\t}*/\n}\n@media screen and (max-width: 600px) {\n.container-profile-img {\n\t\twidth: 80%;\n\t\tmargin: auto;\n}\n.container-profile-img img {\n\t\theight: 150px;\n}\n.container-cover-img img {\n\t\theight: 150px;\n}\n.title-image-cover {\n\t\tmargin-top: 25px;\n}\n.multi-image-container {\n\t\theight: 150px;\n}\n.multi-preview-info {\n\t\tfont-size: 13px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.select-category {\n\twidth: 100%;\n}\n.select-category .btn {\n\tbackground-color: #FFFFFF;\n\tborder: 1px solid #ced4da;\n\ttext-align: left;\n}\n.select-category .dropdown-menu {\n\twidth: 100%;\n}\n.selected-categories {\n\tpadding: 10px;\n\tbackground-color: #E9ECEF;\n\tborder: 1px solid #E9ECEF;\n\tborder-radius: 6px;\n}\n.scrollable-menu {\n\theight: auto;\n\tmax-height: 200px;\n\toverflow-x: hidden;\n}\n.multi-preview-info {\n\tfont-family: 'Poppins', sans-serif;\n\tfont-size: 20px;\n}\n.no-image__container {\n\tmargin-top: 20px;\n\tmargin-bottom: 25px;\n}\n.no-image {\n\twidth: 200px;\n\theight: 150px;\n}\n.preview-image {\n\twidth: 70%;\n\theight: auto;\n\tborder-radius: 6px;\n}\n.preview-image__container {\n\tmargin-top: 15px;\n\tmargin-bottom: 15px;\n}\n.btn-delete-multi {\n\tfloat: right;\n}\n.active-plan {\n\tfont-weight: bold;\n}\n.multi-carousel-item {\n\tpadding: 10px;\n}\n.upload-info-img {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n}\n.upload-info-img * {\n\tbox-sizing: border-box;\n\ttransition: all 0.6s ease;\n}\n.upload-info-img img {\n\topacity: 1;\n\tdisplay: block;\n\theight: 250px;\n\tposition: relative;\n}\n.upload-info-img figcaption {\n\ttop: 25%;\n\tleft: 0;\n\tright: 0;\n\tbottom: 0;\n\tmargin: 10px 12px 5px;\n\tposition: absolute;\n}\n.upload-info-img h4, .upload-info-img i {\n\tcolor: rgba(0, 0, 0, 0.7);\n}\n.upload-info-img i {\n\tfont-size: 100px;\n}\n.upload-info-img a {\n\ttext-decoration: none;\n}\n.upload-info-img .bottom-middle, .upload-info-img .bottom-right {\n\tbottom: 40%;\n\topacity: 0;\n}\n.upload-info-img .bottom-middle {\n\ttransform: translate(0%, 50%);\n}\n.upload-info-img:hover img, .upload-info-img.hover img {\n\topacity: 0.6;\n\ttransform: scale(1.1);\n}\n.upload-info-img:hover figcaption .bottom-middle, .upload-info-img.hover figcaption .bottom-middle,\n.upload-info-img:hover figcaption .bottom-right, .upload-info-img.hover figcaption .bottom-right {\n\ttransform: translate(0, 0);\n\topacity: 1;\n}\n.upload-info-input > input {\n\tdisplay: none;\n}\n.upload-info-input > label {\n\tcursor: pointer;\n}\n.container-profile-img img {\n\twidth: 85%;\n\tmargin: auto;\n}\n.container-cover-img img {\n\twidth: 100%;\n}\n\n/* Form styles */\n.btn-save {\n\tbackground-image: linear-gradient(to right, #56ab2f 0%, #a8e063 51%, #56ab2f 100%);\n\ttransition: 0.5s;\n\tbackground-size: 200% auto;\n\tfont-family: 'Roboto',sans-serif;\n\tcolor:rgb(231, 255, 255);\n}\n.btn-save:hover {\n\tbackground-position: right center;\n\tcolor:rgb(231, 255, 255);\n}\n.info-icon {\n\tcolor: rgb(93, 151, 240);\n\tcursor: pointer;\n}\n.info-icon:hover {\n\tcolor: rgb(81, 126, 194);\n\ttransition: all ease 500ms;\n}\n.panel-info-section {\n\tborder: solid 1px #e6e6e6;\n\tborder-radius: 15px;\n\tpadding: 25px;\n\tmargin-bottom: 35px;\n}\n.panel-info-subtitle {\n\tmargin-bottom: 15px;\n}\n.panel-info-subtitle label {\n\tmargin: 0;\n}\n.multi-image-container {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n\tbackground-color: #000;\n\tcursor: pointer;\n\theight: 150px;\n}\n.multi-add-container {\n\tposition: relative;\n\toverflow: hidden;\n\tmargin: 10px 0;\n\ttext-align: center;\n\tborder-radius: 8px;\n\tbox-shadow: 0 0 5px rgba(0, 0, 0, 0.15);\n\theight: 150px;\n}\n.multi-image {\n\topacity: 1;\n\tdisplay: block;\n\theight: 100%;\n\tposition: relative;\n\twidth: 100%;\n\tbox-sizing: border-box;\n\ttransition: all 0.6s ease;\n}\n.multi-add-text {\n\tmargin-top: 20%;\n\tcursor: pointer;\n}\n.multi-add-text p {\n\tmargin-bottom: 0px;\n\tfont-size: 20px;\n\tcolor: #D87B4B;\n}\n.multi-image:hover{\n\topacity: 0.6;\n\ttransform: scale(1.1);\n}\n.multi-locked-upload {\n\theight: 150px;\n\tbackground-color: #E2E3E5;\n\tborder: 1px solid #d6d8db;\n\tcolor: #383d41;\n\tbackground-color: #e2e3e5;\n\tborder-radius: 0.25rem;\n\tmargin: 10px;\n\ttext-align: center;\n}\n@media screen and (max-width: 768px) {\n.container-profile-img img, .container-cover-img img  {\n\t\theight: 170px;\n}\n\n\t/*\n\t.multi-image-container {\n\t\theight: 100px;\n\t}*/\n}\n@media screen and (max-width: 600px) {\n.container-profile-img {\n\t\twidth: 80%;\n\t\tmargin: auto;\n}\n.container-profile-img img {\n\t\theight: 150px;\n}\n.container-cover-img img {\n\t\theight: 150px;\n}\n.title-image-cover {\n\t\tmargin-top: 25px;\n}\n.multi-image-container {\n\t\theight: 150px;\n}\n.multi-preview-info {\n\t\tfont-size: 13px;\n}\n}\n@media screen and (max-width: 600px) and (orientation: landscape) {\n.container-profile-img {\n\t\twidth: 50%;\n\t\theight: 170px;\n\t\tmargin: auto;\n}\n.container-cover-img {\n\t\twidth: 70%;\n\t\tmargin: auto;\n}\n.multi-image-container, .multi-add-container, .multi-locked-upload {\n\t\twidth: 50%;\n\t\tmargin: auto;\n}\n}\n", ""]);
 
 // exports
 
@@ -55824,7 +55893,7 @@ var render = function() {
                     _vm._v("Plan Actual")
                   ]),
                   _vm._v(" "),
-                  _c("p", { staticClass: "h1 mt-2" }, [
+                  _c("p", { staticClass: "h1 text-uppercase mt-2" }, [
                     _vm._v(
                       "\n\t\t\t\t\t\t\t" + _vm._s(_vm.current_plan.name) + " "
                     ),
@@ -55886,66 +55955,17 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "text-center" }, [
                   _c("h5", { staticClass: "modal-title h3" }, [
-                    _vm._v("Coins")
+                    _vm._v("Tienes")
                   ]),
                   _vm._v(" "),
                   _c("p", { staticClass: "display-4" }, [
-                    _vm._v(_vm._s(_vm.value_rating) + " / 5")
+                    _vm._v(_vm._s(_vm.user.coins) + " coins")
                   ])
                 ]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "rating-stars-modal container text-center" },
-                  [
-                    _c("rating-stars", {
-                      attrs: {
-                        amount_rating: _vm.rating.amount,
-                        avg_rating: _vm.rating.value,
-                        show_number: false
-                      },
-                      on: {
-                        value_rating: function($event) {
-                          _vm.value_rating = $event
-                        },
-                        show_rating: function($event) {
-                          _vm.show_rating = $event
-                        }
-                      }
-                    })
-                  ],
-                  1
-                ),
+                _vm._m(17),
                 _vm._v(" "),
-                _c("div", { staticClass: "text-center" }, [
-                  _vm.show_rating == true
-                    ? _c(
-                        "p",
-                        {
-                          staticClass: "text-muted h5",
-                          staticStyle: { "font-family": "'Nunito', sans-serif" }
-                        },
-                        [
-                          _vm._v(
-                            "Basados en la calificación de " +
-                              _vm._s(_vm.rating.amount) +
-                              " usuarios"
-                          )
-                        ]
-                      )
-                    : _c(
-                        "p",
-                        {
-                          staticClass: "text-muted h5",
-                          staticStyle: { "font-family": "'Nunito', sans-serif" }
-                        },
-                        [
-                          _vm._v(
-                            "Se necesitan mínimo 3 votos para promediar una calificación"
-                          )
-                        ]
-                      )
-                ])
+                _vm._m(18)
               ])
             ])
           ]
@@ -55971,7 +55991,7 @@ var render = function() {
           [
             _c("div", { staticClass: "modal-content" }, [
               _c("div", { staticClass: "modal-body" }, [
-                _vm._m(17),
+                _vm._m(19),
                 _vm._v(" "),
                 _c("div", { staticClass: "text-center" }, [
                   _c("h5", { staticClass: "modal-title h3" }, [
@@ -55979,62 +55999,13 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("p", { staticClass: "display-4" }, [
-                    _vm._v(_vm._s(_vm.value_rating) + " / 5")
+                    _vm._v(_vm._s(_vm.user.views))
                   ])
                 ]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "rating-stars-modal container text-center" },
-                  [
-                    _c("rating-stars", {
-                      attrs: {
-                        amount_rating: _vm.rating.amount,
-                        avg_rating: _vm.rating.value,
-                        show_number: false
-                      },
-                      on: {
-                        value_rating: function($event) {
-                          _vm.value_rating = $event
-                        },
-                        show_rating: function($event) {
-                          _vm.show_rating = $event
-                        }
-                      }
-                    })
-                  ],
-                  1
-                ),
+                _vm._m(20),
                 _vm._v(" "),
-                _c("div", { staticClass: "text-center" }, [
-                  _vm.show_rating == true
-                    ? _c(
-                        "p",
-                        {
-                          staticClass: "text-muted h5",
-                          staticStyle: { "font-family": "'Nunito', sans-serif" }
-                        },
-                        [
-                          _vm._v(
-                            "Basados en la calificación de " +
-                              _vm._s(_vm.rating.amount) +
-                              " usuarios"
-                          )
-                        ]
-                      )
-                    : _c(
-                        "p",
-                        {
-                          staticClass: "text-muted h5",
-                          staticStyle: { "font-family": "'Nunito', sans-serif" }
-                        },
-                        [
-                          _vm._v(
-                            "Se necesitan mínimo 3 votos para promediar una calificación"
-                          )
-                        ]
-                      )
-                ])
+                _vm._m(21)
               ])
             ])
           ]
@@ -56060,70 +56031,17 @@ var render = function() {
           [
             _c("div", { staticClass: "modal-content" }, [
               _c("div", { staticClass: "modal-body" }, [
-                _vm._m(18),
+                _vm._m(22),
                 _vm._v(" "),
                 _c("div", { staticClass: "text-center" }, [
                   _c("h5", { staticClass: "modal-title h3" }, [
                     _vm._v("Notificaciones")
                   ]),
                   _vm._v(" "),
-                  _c("p", { staticClass: "display-4" }, [
-                    _vm._v(_vm._s(_vm.value_rating) + " / 5")
-                  ])
+                  _c("p", { staticClass: "display-4" }, [_vm._v(_vm._s(0))])
                 ]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "rating-stars-modal container text-center" },
-                  [
-                    _c("rating-stars", {
-                      attrs: {
-                        amount_rating: _vm.rating.amount,
-                        avg_rating: _vm.rating.value,
-                        show_number: false
-                      },
-                      on: {
-                        value_rating: function($event) {
-                          _vm.value_rating = $event
-                        },
-                        show_rating: function($event) {
-                          _vm.show_rating = $event
-                        }
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "text-center" }, [
-                  _vm.show_rating == true
-                    ? _c(
-                        "p",
-                        {
-                          staticClass: "text-muted h5",
-                          staticStyle: { "font-family": "'Nunito', sans-serif" }
-                        },
-                        [
-                          _vm._v(
-                            "Basados en la calificación de " +
-                              _vm._s(_vm.rating.amount) +
-                              " usuarios"
-                          )
-                        ]
-                      )
-                    : _c(
-                        "p",
-                        {
-                          staticClass: "text-muted h5",
-                          staticStyle: { "font-family": "'Nunito', sans-serif" }
-                        },
-                        [
-                          _vm._v(
-                            "Se necesitan mínimo 3 votos para promediar una calificación"
-                          )
-                        ]
-                      )
-                ])
+                _vm._m(23)
               ])
             ])
           ]
@@ -56292,7 +56210,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "text-muted h6" }, [
       _vm._v("Aparecerás como "),
-      _c("i", [_vm._v("Usuario Destacado")]),
+      _c("b", [_vm._v("Usuario Destacado")]),
       _vm._v(" en la página de Inicio.")
     ])
   },
@@ -56301,7 +56219,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "text-muted h5" }, [
-      _c("a", { attrs: { href: "/planes" } }, [_vm._v("Mejora tu plan.")])
+      _c("a", { attrs: { href: "/planes", target: "_blank" } }, [
+        _vm._v("Mejora tu plan.")
+      ])
     ])
   },
   function() {
@@ -56310,7 +56230,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "text-muted h6" }, [
       _vm._v("Con el plan Premium aparecerás como "),
-      _c("i", [_vm._v("Usuario Destacado")]),
+      _c("b", [_vm._v("Usuario Destacado")]),
       _vm._v(" en la página de Inicio.")
     ])
   },
@@ -56341,23 +56261,22 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container d-flex" }, [
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          staticStyle: {
-            padding: "1rem 1rem",
-            margin: "-1rem -1rem -1rem auto"
-          },
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
+    return _c(
+      "div",
+      { staticClass: "rating-stars-modal container text-center" },
+      [_c("i", { staticClass: "fas fa-coins rating-star" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-center" }, [
+      _c("p", { staticClass: "text-muted h6" }, [
+        _vm._v(
+          "Con los coins puedes realizar diversas operaciones como: Subir ofertas, agendar reuniones con empresas, etc."
+        )
+      ])
     ])
   },
   function() {
@@ -56381,6 +56300,61 @@ var staticRenderFns = [
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "rating-stars-modal container text-center" },
+      [_c("i", { staticClass: "fas fa-eye" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-center" }, [
+      _c("p", { staticClass: "text-muted h6" }, [
+        _vm._v("Con el "),
+        _c("b", [_vm._v("Plan Premium")]),
+        _vm._v(" puedes aumentar tu rango de visualización.")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container d-flex" }, [
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          staticStyle: {
+            padding: "1rem 1rem",
+            margin: "-1rem -1rem -1rem auto"
+          },
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-center" }, [
+      _c("p", { staticClass: "text-muted h5" }, [
+        _vm._v("Aún no tienes notificaciones.")
+      ])
     ])
   }
 ]
@@ -56797,17 +56771,31 @@ var render = function() {
               [
                 _vm.data_offer.certifications.length < 3
                   ? _c("div", { staticClass: "container text-center" }, [
-                      _vm._m(1),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-add",
+                          attrs: {
+                            "data-toggle": "modal",
+                            "data-target":
+                              "#modalAddOfferCert" + _vm.data_offer.offer.id
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-plus" }),
+                          _vm._v(" Agregar Certificado\n\t\t\t\t\t")
+                        ]
+                      ),
                       _vm._v(" "),
                       _c("br"),
                       _vm._v(" "),
-                      _vm._m(2)
+                      _vm._m(1)
                     ])
                   : _vm._e(),
                 _vm._v(" "),
                 _c("div", { staticClass: "table-responsive mt-3" }, [
                   _c("table", { staticClass: "table" }, [
-                    _vm._m(3),
+                    _vm._m(2),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -56900,7 +56888,7 @@ var render = function() {
                   {
                     staticClass: "modal fade",
                     attrs: {
-                      id: "modalAddOfferCert",
+                      id: "modalAddOfferCert" + _vm.data_offer.offer.id,
                       tabindex: "-1",
                       role: "dialog",
                       "aria-hidden": "true"
@@ -56915,9 +56903,9 @@ var render = function() {
                       },
                       [
                         _c("div", { staticClass: "modal-content" }, [
-                          _vm._m(4),
+                          _vm._m(3),
                           _vm._v(" "),
-                          _vm._m(5),
+                          _vm._m(4),
                           _vm._v(" "),
                           _c("div", { staticClass: "modal-footer" }, [
                             _c(
@@ -56985,22 +56973,6 @@ var staticRenderFns = [
         }
       },
       [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "btn btn-add",
-        attrs: { "data-toggle": "modal", "data-target": "#modalAddOfferCert" }
-      },
-      [
-        _c("i", { staticClass: "fas fa-plus" }),
-        _vm._v(" Agregar Certificado\n\t\t\t\t\t")
-      ]
     )
   },
   function() {
@@ -57979,9 +57951,14 @@ var render = function() {
         "button",
         {
           staticClass: "btn btn-lg btn-block btn-save",
-          staticStyle: { "margin-top": "25px" }
+          staticStyle: { "margin-top": "25px" },
+          on: {
+            click: function($event) {
+              return _vm.editUser()
+            }
+          }
         },
-        [_vm._v("Guardar Cambios")]
+        [_vm._v("\n\t\t\tGuardar Cambios\n\t\t")]
       )
     ]),
     _vm._v(" "),
@@ -58141,12 +58118,79 @@ var render = function() {
               )
             ]
           )
-        })
+        }),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "modal fade",
+            attrs: {
+              id: "upload-multi-image",
+              role: "dialog",
+              tabindex: "-1",
+              "aria-hidden": "true"
+            }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _vm._m(18),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Puedes agregar: "),
+                        _c("b", { staticStyle: { color: "#88BE2E" } }, [
+                          _vm._v(
+                            _vm._s(_vm.might_add_images.number) + " imagen(es)"
+                          )
+                        ]),
+                        _vm._v(":")
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(19)
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-add",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            $event.stopPropagation()
+                            return _vm.addImage()
+                          }
+                        }
+                      },
+                      [_vm._v("Agregar")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Cerrar")]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
       ],
       2
     ),
     _vm._v(" "),
-    _vm._m(18),
+    _vm._m(20),
     _vm._v(" "),
     _c(
       "div",
@@ -58208,7 +58252,7 @@ var render = function() {
               _vm._s(_vm.might_add_videos.number) +
               " video(s)\n\t\t\t"
           ),
-          _vm._m(19)
+          _vm._m(21)
         ]),
         _vm._v(" "),
         _c(
@@ -58243,12 +58287,12 @@ var render = function() {
             }),
             _vm._v(" "),
             _vm.might_add_videos.can
-              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(20)])
+              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(22)])
               : _vm._e(),
             _vm._v(" "),
             _vm.might_add_videos.can == false &&
             _vm.might_add_videos.limit == false
-              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(21)])
+              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(23)])
               : _vm._e()
           ],
           2
@@ -58306,7 +58350,74 @@ var render = function() {
               )
             ]
           )
-        })
+        }),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "modal fade",
+            attrs: {
+              id: "upload-multi-video",
+              role: "dialog",
+              tabindex: "-1",
+              "aria-hidden": "true"
+            }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _vm._m(24),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Puedes agregar: "),
+                        _c("b", { staticStyle: { color: "#88BE2E" } }, [
+                          _vm._v(
+                            _vm._s(_vm.might_add_videos.number) + " videos(s)"
+                          )
+                        ]),
+                        _vm._v(":")
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(25)
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-add",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            $event.stopPropagation()
+                            return _vm.addVideo()
+                          }
+                        }
+                      },
+                      [_vm._v("Agregar")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Cerrar")]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
       ],
       2
     )
@@ -58532,27 +58643,27 @@ var staticRenderFns = [
     return _c("div", { staticClass: "multi-add-container" }, [
       _c("div", { staticClass: "multi-image" }, [
         _c(
-          "label",
+          "a",
           {
-            staticClass: "multi-add-text",
-            attrs: { for: "upload-multi-image" }
+            attrs: {
+              href: "#",
+              "data-target": "#upload-multi-image",
+              "data-toggle": "modal"
+            }
           },
           [
-            _c("p", [
-              _c("i", {
-                staticClass: "fa fa-plus",
-                attrs: { "aria-hidden": "true" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("p", [_vm._v("Agregar Imagen")])
+            _c("label", { staticClass: "multi-add-text" }, [
+              _c("p", [
+                _c("i", {
+                  staticClass: "fa fa-plus",
+                  attrs: { "aria-hidden": "true" }
+                })
+              ]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Agregar Imagen")])
+            ])
           ]
-        ),
-        _vm._v(" "),
-        _c("input", {
-          staticStyle: { display: "none" },
-          attrs: { type: "file", accept: "image/*", id: "upload-multi-image" }
-        })
+        )
       ])
     ])
   },
@@ -58561,7 +58672,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "multi-locked-upload" }, [
-      _c("div", { staticStyle: { "margin-top": "15%" } }, [
+      _c("div", { staticStyle: { "margin-top": "10%" } }, [
         _c("span", { staticStyle: { "margin-bottom": "5px" } }, [
           _c("i", {
             staticClass: "fas fa-lock",
@@ -58580,11 +58691,57 @@ var staticRenderFns = [
             _c(
               "small",
               { staticStyle: { "font-family": "arial, sans-serif" } },
-              [_vm._v("Ver más")]
+              [_vm._v("Mejorar plan")]
             )
           ])
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Agregar Imagen")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "custom-file" }, [
+      _c("input", {
+        staticClass: "custom-file-input",
+        attrs: {
+          type: "file",
+          id: "editOfferImage",
+          lang: "es",
+          accept: "image/*"
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "label",
+        { staticClass: "custom-file-label", attrs: { for: "editOfferImage" } },
+        [
+          _c("i", { staticClass: "fas fa-camera" }),
+          _vm._v(" Seleccione una imagen")
+        ]
+      )
     ])
   },
   function() {
@@ -58617,27 +58774,27 @@ var staticRenderFns = [
     return _c("div", { staticClass: "multi-add-container" }, [
       _c("div", { staticClass: "multi-image" }, [
         _c(
-          "label",
+          "a",
           {
-            staticClass: "multi-add-text",
-            attrs: { for: "upload-multi-video" }
+            attrs: {
+              href: "#",
+              "data-toggle": "modal",
+              "data-target": "#upload-multi-video"
+            }
           },
           [
-            _c("p", [
-              _c("i", {
-                staticClass: "fa fa-plus",
-                attrs: { "aria-hidden": "true" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("p", [_vm._v("Agregar Video")])
+            _c("label", { staticClass: "multi-add-text" }, [
+              _c("p", [
+                _c("i", {
+                  staticClass: "fa fa-plus",
+                  attrs: { "aria-hidden": "true" }
+                })
+              ]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Agregar Video")])
+            ])
           ]
-        ),
-        _vm._v(" "),
-        _c("input", {
-          staticStyle: { display: "none" },
-          attrs: { type: "file", accept: "video/*", id: "upload-multi-video" }
-        })
+        )
       ])
     ])
   },
@@ -58646,7 +58803,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "multi-locked-upload" }, [
-      _c("div", { staticStyle: { "margin-top": "15%" } }, [
+      _c("div", { staticStyle: { "margin-top": "10%" } }, [
         _c("span", { staticStyle: { "margin-bottom": "5px" } }, [
           _c("i", {
             staticClass: "fas fa-lock",
@@ -58661,15 +58818,61 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("br"),
           _vm._v(" "),
-          _c("a", { attrs: { href: "#" } }, [
+          _c("a", { attrs: { href: "/plans", target: "_blank" } }, [
             _c(
               "small",
               { staticStyle: { "font-family": "arial, sans-serif" } },
-              [_vm._v("Ver más")]
+              [_vm._v("Mejorar plan")]
             )
           ])
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Agregar Video")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "custom-file" }, [
+      _c("input", {
+        staticClass: "custom-file-input",
+        attrs: {
+          type: "file",
+          id: "editOfferImage",
+          lang: "es",
+          accept: "image/*"
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "label",
+        { staticClass: "custom-file-label", attrs: { for: "editOfferImage" } },
+        [
+          _c("i", { staticClass: "fas fa-video" }),
+          _vm._v("Seleccione una Video")
+        ]
+      )
     ])
   }
 ]

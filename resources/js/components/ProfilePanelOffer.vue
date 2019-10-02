@@ -173,7 +173,21 @@
 		},
 		methods: {
 			addProduct() {
-
+				Swal.fire({
+					title: 'Estas consumiendo 30 coins en esta operación',
+					text: '¿Deseas continuar?',
+					type: 'info',
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Si',
+					cancelButtonText: 'Cancelar',
+					showCancelButton: true,
+				})
+					.then(res => {
+						if (res.value == true) {
+							console.log('Agregado')
+						}
+					})
 			},
 			deleteProduct(product_id) {
 				Swal.fire({

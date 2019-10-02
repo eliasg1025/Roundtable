@@ -11,7 +11,7 @@
 				<div class="modal-body">
 					<!--  Btn agregar offer-cert -->
 					<div class="container text-center" v-if="data_offer.certifications.length < 3">
-						<button class="btn btn-add" data-toggle="modal" data-target="#modalAddOfferCert">
+						<button class="btn btn-add" data-toggle="modal" :data-target="'#modalAddOfferCert'+data_offer.offer.id">
 							<i class="fas fa-plus"></i> Agregar Certificado
 						</button>
 						<br>
@@ -58,7 +58,7 @@
 					</div>
 
 					<!-- Modal Add OfferCert -->
-					<div id="modalAddOfferCert" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+					<div :id="'modalAddOfferCert'+data_offer.offer.id" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
 								<div class="modal-header">

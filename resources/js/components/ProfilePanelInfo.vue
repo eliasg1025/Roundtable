@@ -121,7 +121,9 @@
 					<input type="text" class="form-control" placeholder="Partida registral" v-model="legal_registration" disabled="true">
 				</div>
 			</div>
-			<button class="btn btn-lg btn-block btn-save" style="margin-top: 25px;">Guardar Cambios</button>
+			<button @click="editUser()" class="btn btn-lg btn-block btn-save" style="margin-top: 25px;">
+				Guardar Cambios
+			</button>
 		</div>
 
 		<!-- Imagenes -->
@@ -157,25 +159,26 @@
 				<div class="multi-carousel-item" v-if="might_add_images.can">
 					<div class="multi-add-container">
 						<div class="multi-image">
-							<label class="multi-add-text" for="upload-multi-image">
-								<p><i class="fa fa-plus" aria-hidden="true"></i></p>
-								<p>Agregar Imagen</p>
-							</label>
-							<input type="file" accept="image/*" id="upload-multi-image" style="display: none;">
+							<a href="#" data-target="#upload-multi-image" data-toggle="modal">
+								<label class="multi-add-text">
+									<p><i class="fa fa-plus" aria-hidden="true"></i></p>
+									<p>Agregar Imagen</p>
+								</label>
+							</a>
 						</div>
 					</div>
 				</div>
 				<!-- Si es que NO puede agregar -->
 				<div class="multi-carousel-item" v-if="might_add_images.can == false && might_add_images.limit == false">
 					<div class="multi-locked-upload">
-						<div style="margin-top: 15%;">
+						<div style="margin-top: 10%;">
 							<span style="margin-bottom: 5px;">
 								<i style="font-size: 50px;" class="fas fa-lock"></i>
 							</span>
 							<p>
 								<span style="font-size: 20px;">No puedes agregar</span>
 								<br>
-								<a href="/planes" target="_blank"><small style="font-family: arial, sans-serif;">Ver más</small></a>
+								<a href="/planes" target="_blank"><small style="font-family: arial, sans-serif;">Mejorar plan</small></a>
 							</p>
 						</div>
 					</div>
@@ -196,7 +199,32 @@
 					</div>
 				</div>
 			</div>
-			<!-- End -->
+			<!-- Modal add image -->
+			<div class="modal fade" id="upload-multi-image" role="dialog" tabindex="-1" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Agregar Imagen</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="">Puedes agregar: <b style="color: #88BE2E;">{{ might_add_images.number }} imagen(es)</b>:</label>
+								<div class="custom-file">
+									<input type="file" class="custom-file-input" id="editOfferImage" lang="es" accept="image/*">
+									<label class="custom-file-label" for="editOfferImage"><i class="fas fa-camera"></i> Seleccione una imagen</label>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-add" @click.prevent.stop="addImage()">Agregar</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<!-- Videos -->
@@ -231,25 +259,26 @@
 				<div class="multi-carousel-item" v-if="might_add_videos.can">
 					<div class="multi-add-container">
 						<div class="multi-image">
-							<label class="multi-add-text" for="upload-multi-video">
-								<p><i class="fa fa-plus" aria-hidden="true"></i></p>
-								<p>Agregar Video</p>
-							</label>
-							<input type="file" accept="video/*" id="upload-multi-video" style="display: none;">
+							<a href="#" data-toggle="modal" data-target="#upload-multi-video">
+								<label class="multi-add-text">
+									<p><i class="fa fa-plus" aria-hidden="true"></i></p>
+									<p>Agregar Video</p>
+								</label>
+							</a>
 						</div>
 					</div>
 				</div>
 				<!-- Si es que NO puede agregar -->
 				<div class="multi-carousel-item" v-if="might_add_videos.can == false && might_add_videos.limit == false">
 					<div class="multi-locked-upload">
-						<div style="margin-top: 15%;">
+						<div style="margin-top: 10%;">
 							<span style="margin-bottom: 5px;">
 								<i style="font-size: 50px;" class="fas fa-lock"></i>
 							</span>
 							<p>
 								<span style="font-size: 20px;">No puedes agregar</span>
 								<br>
-								<a href="#"><small style="font-family: arial, sans-serif;">Ver más</small></a>
+								<a href="/plans" target="_blank"><small style="font-family: arial, sans-serif;">Mejorar plan</small></a>
 							</p>
 						</div>
 					</div>
@@ -269,6 +298,33 @@
 							<button class="btn btn-danger btn-block" @click="deleteVideo()">
 								Eliminar
 							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Modal add video -->
+			<div class="modal fade" id="upload-multi-video" role="dialog" tabindex="-1" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Agregar Video</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="">Puedes agregar: <b style="color: #88BE2E;">{{ might_add_videos.number }} videos(s)</b>:</label>
+								<div class="custom-file">
+									<input type="file" class="custom-file-input" id="editOfferImage" lang="es" accept="image/*">
+									<label class="custom-file-label" for="editOfferImage"><i class="fas fa-video"></i>Seleccione una Video</label>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-add" @click.prevent.stop="addVideo()">Agregar</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 						</div>
 					</div>
 				</div>
@@ -463,6 +519,20 @@
 						}
 					})
 			},
+			editUser() {
+				Swal.fire({
+					title: '¿Estas seguro que deseas modificar tus datos?',
+					type: 'warning',
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Si',
+					cancelButtonText: 'Cancelar',
+					showCancelButton: true,
+				})
+			},
+			addImage() {
+
+			},
 			deleteImage() {
 				Swal.fire({
 					title: '¿Estas seguro que deseas eliminar esta imagen?',
@@ -473,6 +543,9 @@
 					cancelButtonText: 'Cancelar',
 					showCancelButton: true,
 				})
+			},
+			addVideo() {
+
 			},
 			deleteVideo() {
 				Swal.fire({
@@ -740,11 +813,7 @@
 	}
 
 	@media screen and (max-width: 768px) {
-		.container-profile-img img {
-			height: 170px;
-		}
-
-		.container-cover-img img {
+		.container-profile-img img, .container-cover-img img  {
 			height: 170px;
 		}
 
@@ -774,6 +843,24 @@
 
 		.multi-preview-info {
 			font-size: 13px;
+		}
+	}
+
+	@media screen and (max-width: 600px) and (orientation: landscape) {
+		.container-profile-img {
+			width: 50%;
+			height: 170px;
+			margin: auto;
+		}
+
+		.container-cover-img {
+			width: 70%;
+			margin: auto;
+		}
+
+		.multi-image-container, .multi-add-container, .multi-locked-upload {
+			width: 50%;
+			margin: auto;
 		}
 	}
 </style>
