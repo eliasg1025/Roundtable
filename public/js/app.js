@@ -4858,6 +4858,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     editUser: function editUser() {
+      var _this3 = this;
+
       Swal.fire({
         title: '¿Estas seguro que deseas modificar tus datos?',
         type: 'warning',
@@ -4866,6 +4868,28 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Si',
         cancelButtonText: 'Cancelar',
         showCancelButton: true
+      }).then(function (res) {
+        if (res.value == true) {
+          axios.put("/profile/user", {
+            name: _this3.name,
+            commercial_name: _this3.commercial_name,
+            description: _this3.description,
+            email: _this3.email,
+            phone: _this3.phone,
+            user_categories: _this3.user_categories
+          }).then(function (res) {
+            //console.log(res)
+            if (res.data.code === 200) {
+              Swal.fire({
+                title: res.data.message,
+                type: 'success',
+                timer: 1500
+              });
+            }
+          })["catch"](function (err) {
+            console.log('Error: ', err.data);
+          });
+        }
       });
     },
     addImage: function addImage() {},
@@ -57849,7 +57873,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "email", placeholder: "Email" },
+            attrs: { type: "email", placeholder: "Email", disabled: "true" },
             domProps: { value: _vm.email },
             on: {
               input: function($event) {

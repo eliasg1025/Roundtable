@@ -20,6 +20,7 @@ Route::get('/planes','PlanesController@index')->name('planes');
 Route::get('/contact','contactController@contacto')->name('contacto');
 
 Route::get('/profile', 'ProfileController@index')->name('profile');
+Route::put('/profile/user', 'ProfileController@update');
 
 Route::get('/business', 'BusinessController@index')->name('business');
 

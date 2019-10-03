@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
@@ -43,6 +45,44 @@ class ProfileController extends Controller
 		];
 
         return view('profile', compact('data'));
+	}
+	
+	 public function update(Request $request)
+    {
+		$updatedUser = Auth::user();
+		$updatedUser->name = $request->name;
+		$updatedUser->commercial_name = $request->commercial_name;
+		$updatedUser->description = $request->description;
+		$updatedUser->phone = $request->phone;
+		$updatedUser->save();
+
+		if (sizeof($request->user_categories) < 6)
+		{
+			$categories_id = array();
+			foreach ($request->user_categories as $user_category)
+			{
+				array_push($categories_id, $user_category['id']);
+			}
+			
+			$updatedUser->categories()->detach();
+			$updatedUser->categories()->attach($categories_id);
+
+			$data = array(
+				'status' => 'success',
+				'code' => 200,
+				'message' => 'Los datos se han actualizado correctamente',
+			);
+		}
+		else
+		{
+			$data = array(
+				'status' => 'error',
+				'code' => 400,
+				'message' => 'Esta ingresando más de 5 categorias',
+			);
+		}
+		
+		return response()->json($data, $data['code']);
     }
 
     // Get data functions
