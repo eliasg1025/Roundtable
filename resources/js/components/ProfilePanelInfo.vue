@@ -104,7 +104,7 @@
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="">Email <span class="info-icon"><i class="fa fa-info-circle"></i></span></label>
-					<input type="email" class="form-control" placeholder="Email" v-model="email">
+					<input type="email" class="form-control" placeholder="Email" v-model="email" disabled="true">
 				</div>
 				<div class="form-group col-md-6">
 					<label for="">Teléfono <span class="info-icon"><i class="fa fa-info-circle"></i></span></label>
@@ -529,6 +529,31 @@
 					cancelButtonText: 'Cancelar',
 					showCancelButton: true,
 				})
+					.then(res => {
+						if (res.value == true) {
+							axios.put(`/profile/user`, {
+								name: this.name,
+								commercial_name: this.commercial_name,
+								description: this.description,
+								email: this.email,
+								phone: this.phone,
+								user_categories: this.user_categories,
+							})
+								.then(res => {
+									//console.log(res)
+									if (res.data.code === 200) {
+										Swal.fire({
+											title: res.data.message,
+											type: 'success',
+											timer: 1500,
+										})
+									}
+								})
+								.catch(err => {
+									console.log('Error: ', err.data)
+								})
+						}
+					})
 			},
 			addImage() {
 
