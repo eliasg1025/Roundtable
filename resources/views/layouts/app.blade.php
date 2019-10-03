@@ -19,7 +19,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.1/tiny-slider.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.1/tiny-slider.css">
+	<link rel="stylesheet" href="https://jaysalvat.github.io/vegas/releases/latest/vegas.min.css">
 </head>
 <body>
     <div id="app">
@@ -89,6 +90,6 @@
 
 		@yield('content')
 	</div>
-
+	<script src="http://zeptojs.com/zepto.min.js"></script>
 </body>
 </html>
