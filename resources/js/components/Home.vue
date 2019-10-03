@@ -82,6 +82,8 @@
 </template>
 
 <script>
+	import {vegas} from 'vegas/dist/vegas'
+
     export default {
         props: [
     		'data',
@@ -101,7 +103,24 @@
                 autoWidth: true,
                 gutter: 20,
                 rewind: true,
-            });
+			});
+			
+			
+			const el = document.querySelector('#homeBanner');
+			$('#homeBanner').vegas({
+				overlay: true,
+				transition: 'fade', 
+				transitionDuration: 4000,
+				delay: 10000,
+				animation: 'random',
+				animationDuration: 20000,
+				slides: [
+					{src: '/img/banner/banner1.jpg' },
+					{src: '/img/banner/banner2.jpg' },
+					{src: '/img/banner/banner3.jpg' },
+					{src: '/img/banner/banner4.jpg' },
+				]
+			})
         }
     }
 </script>
