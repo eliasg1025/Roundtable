@@ -2532,28 +2532,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  created: function created() {
-    window.onscroll = function () {
-      var nav = document.querySelector('#navbar');
-      var logo = document.querySelector('#logo');
-      var img_logo = document.querySelector('#img-logo');
-      var img_small_logo = document.querySelector('#img-small-logo');
-
-      if (window.scrollY <= 20) {
-        nav.style = 'transition: all ease 1500ms;';
-        img_logo.style = 'display: block; transition: all ease-in-out 4000ms';
-        img_small_logo.style = 'display: none; transition: all ease-in-out 400ms;';
-        logo.classList.add('logo-main');
-        logo.classList.remove('small-logo-main');
-      } else {
-        nav.style = "background-color: #09122e; transition: all ease 1000ms;";
-        img_logo.style = 'display: none; transition: all ease-in-out 4000ms;';
-        img_small_logo.style = 'display: block; margin-top: -5px; transition: all ease-in-out 4000ms;';
-        logo.classList.add('small-logo-main');
-        logo.classList.remove('logo-main');
-      }
-    };
-  }
+  created: function created() {}
 });
 
 /***/ }),
@@ -4708,6 +4687,70 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user', 'media_data', 'current_plan', 'categories_data'],
   data: function data() {
@@ -4725,7 +4768,9 @@ __webpack_require__.r(__webpack_exports__);
       videos: [],
       plans: [],
       categories: [],
-      user_categories: []
+      user_categories: [],
+      //
+      upload_profile_img: []
     };
   },
   created: function created() {
@@ -4914,6 +4959,61 @@ __webpack_require__.r(__webpack_exports__);
             }
           })["catch"](function (err) {
             console.log('Error: ', err.data);
+          });
+        }
+      });
+    },
+    handleProfileImage: function handleProfileImage() {
+      this.upload_profile_img = this.$refs.profileImage.files[0];
+    },
+    editProfileImage: function editProfileImage() {
+      var _this4 = this;
+
+      Swal.fire({
+        title: '¿Estas seguro que deseas modificar tu imagen de perfil?',
+        type: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true
+      }).then(function (res) {
+        if (res.value == true) {
+          var formData = new FormData();
+          formData.append('image', _this4.upload_profile_img);
+          var _iteratorNormalCompletion = true;
+          var _didIteratorError = false;
+          var _iteratorError = undefined;
+
+          try {
+            for (var _iterator = formData.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+              var key = _step.value;
+              console.log(key[0] + ', ' + key[1]);
+            }
+          } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
+          } finally {
+            try {
+              if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+                _iterator["return"]();
+              }
+            } finally {
+              if (_didIteratorError) {
+                throw _iteratorError;
+              }
+            }
+          }
+
+          var config = {
+            headers: {
+              'content-type': 'multipart/form-data'
+            }
+          };
+          axios.post('/profile/upload-profile-image', formData, config).then(function (res) {
+            console.log(res);
+          })["catch"](function (err) {
+            console.log(err.data);
           });
         }
       });
@@ -10449,7 +10549,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\t/*\n\t#homeBanner {\n\t\tbackground-repeat: no-repeat;\n\t\tbackground-size: cover;\n\t\tbackground-position: center center;\n\t}\n\t*/\n.banner {\n    \theight: 100vh;\n        color: #f8fafc !important;\n\t\tbackground-attachment: fixed;\n\t\tposition: relative;\n}\n@media (max-width: 1100px) {\n.banner {\n\t\t\tbackground-attachment: inherit;\n}\n}\n@media (max-width: 578px) {\n.banner {\n\t\t\twidth: 100vmin;\n}\n.title {\n\t\t\tfont-size: 30px;\n}\n.subtitle {\n\t\t\tfont-size: 15px;\n}\n}\n\n\t/*\n\t.banner:before {\n\t\tcontent: \"\";\n\t\tposition: absolute;\n\t\ttop: 0;\n\t\tleft: 0;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tbackground: #000;\n\t\topacity: .2;\n\t}\n\t*/\n.top-nav-collapse {\n        background-color: #09122E !important;\n}\n.navbar:not(.top-nav-collapse) {\n        background: transparent;\n}\n@media (max-width: 991px) {\n.navbar:not(.top-nav-collapse) {\n            background: #09122E !important;\n}\n}\n.title {\n\t\tletter-spacing: 6px;\n\t\tfont-family: 'Roboto', sans-serif;\n\t\t/* font-family: 'Amatic SC', cursive; */\n}\n.subtitle {\n\t\tletter-spacing: 2px;\n\t\tfont-family: 'Nunito', sans-serif;\n}\n.hr-light {\n        border-top: 3px solid #fff;\n        width: 80px;\n}\n.contenido {\n        margin-top: 40vh;\n}\nnav.scroll {\n        background-color: #09122E;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\t/*\n\t#homeBanner {\n\t\tbackground-repeat: no-repeat;\n\t\tbackground-size: cover;\n\t\tbackground-position: center center;\n\t}\n\t*/\n.banner {\n    \theight: 100vh;\n        color: #f8fafc !important;\n\t\tbackground-attachment: fixed;\n\t\tposition: relative;\n}\n@media (max-width: 1100px) {\n.banner {\n\t\t\tbackground-attachment: inherit;\n}\n}\n@media (max-width: 578px) {\n.banner {\n\t\t\twidth: 100vmin;\n}\n.title {\n\t\t\tfont-size: 30px;\n}\n.subtitle {\n\t\t\tfont-size: 15px;\n}\n}\n\n\t/*\n\t.banner:before {\n\t\tcontent: \"\";\n\t\tposition: absolute;\n\t\ttop: 0;\n\t\tleft: 0;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tbackground: #000;\n\t\topacity: .2;\n\t}\n\t*/\n.top-nav-collapse {\n        background-color: #09122E !important;\n}\n.navbar:not(.top-nav-collapse) {\n        background: transparent;\n}\n@media (max-width: 991px) {\n.navbar:not(.top-nav-collapse) {\n            background: #09122E !important;\n}\n}\n.title {\n\t\tletter-spacing: 6px;\n\t\tfont-family: 'Roboto', sans-serif;\n\t\t/* font-family: 'Amatic SC', cursive; */\n}\n.subtitle {\n\t\tletter-spacing: 2px;\n\t\tfont-family: 'Nunito', sans-serif;\n}\n.hr-light {\n        border-top: 3px solid #fff;\n        width: 80px;\n}\n.contenido {\n        margin-top: 40vh;\n}\nnav.scroll {\n        background-color: #09122E;\n}\n", ""]);
 
 // exports
 
@@ -58407,7 +58507,135 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(5),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "upload-profile-img",
+            role: "dialog",
+            tabindex: "-1",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog", attrs: { role: "document" } },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(5),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "" } }, [
+                      _vm._v("Cambia tu imagen de perfil:")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "custom-file" }, [
+                      _c("input", {
+                        ref: "profileImage",
+                        staticClass: "custom-file-input",
+                        attrs: {
+                          type: "file",
+                          id: "editProfileImage",
+                          lang: "es",
+                          accept: "image/*"
+                        },
+                        on: {
+                          change: function($event) {
+                            return _vm.handleProfileImage()
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm._m(6)
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-add",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.editProfileImage()
+                        }
+                      }
+                    },
+                    [_vm._v("Agregar")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", "data-dismiss": "modal" }
+                    },
+                    [_vm._v("Cerrar")]
+                  )
+                ])
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "upload-cover-img",
+            role: "dialog",
+            tabindex: "-1",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog", attrs: { role: "document" } },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(7),
+                _vm._v(" "),
+                _vm._m(8),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-add",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.editCoverImage()
+                        }
+                      }
+                    },
+                    [_vm._v("Agregar")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", "data-dismiss": "modal" }
+                    },
+                    [_vm._v("Cerrar")]
+                  )
+                ])
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _vm._m(9),
       _vm._v(" "),
       _c(
         "div",
@@ -58441,11 +58669,11 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _vm._m(6),
+    _vm._m(10),
     _vm._v(" "),
     _c("div", { staticClass: "panel-info-section container" }, [
       _c("div", { staticClass: "form-group" }, [
-        _vm._m(7),
+        _vm._m(11),
         _vm._v(" "),
         _c("input", {
           directives: [
@@ -58471,7 +58699,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
-        _vm._m(8),
+        _vm._m(12),
         _vm._v(" "),
         _c("input", {
           directives: [
@@ -58614,7 +58842,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
-        _vm._m(9),
+        _vm._m(13),
         _vm._v(" "),
         _c("textarea", {
           directives: [
@@ -58641,7 +58869,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "form-row" }, [
         _c("div", { staticClass: "form-group col-md-6" }, [
-          _vm._m(10),
+          _vm._m(14),
           _vm._v(" "),
           _c("input", {
             directives: [
@@ -58667,7 +58895,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group col-md-6" }, [
-          _vm._m(11),
+          _vm._m(15),
           _vm._v(" "),
           _c("input", {
             directives: [
@@ -58695,7 +58923,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "form-row" }, [
         _c("div", { staticClass: "form-group col-md-6" }, [
-          _vm._m(12),
+          _vm._m(16),
           _vm._v(" "),
           _c("input", {
             directives: [
@@ -58721,7 +58949,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group col-md-6" }, [
-          _vm._m(13),
+          _vm._m(17),
           _vm._v(" "),
           _c("input", {
             directives: [
@@ -58766,7 +58994,7 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _vm._m(14),
+    _vm._m(18),
     _vm._v(" "),
     _c(
       "div",
@@ -58828,7 +59056,7 @@ var render = function() {
               _vm._s(_vm.might_add_images.number) +
               " imagen(es)\n\t\t\t"
           ),
-          _vm._m(15)
+          _vm._m(19)
         ]),
         _vm._v(" "),
         _c(
@@ -58863,12 +59091,12 @@ var render = function() {
             }),
             _vm._v(" "),
             _vm.might_add_images.can
-              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(16)])
+              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(20)])
               : _vm._e(),
             _vm._v(" "),
             _vm.might_add_images.can == false &&
             _vm.might_add_images.limit == false
-              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(17)])
+              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(21)])
               : _vm._e()
           ],
           2
@@ -58941,7 +59169,7 @@ var render = function() {
               { staticClass: "modal-dialog", attrs: { role: "document" } },
               [
                 _c("div", { staticClass: "modal-content" }, [
-                  _vm._m(18),
+                  _vm._m(22),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-body" }, [
                     _c("div", { staticClass: "form-group" }, [
@@ -58955,7 +59183,7 @@ var render = function() {
                         _vm._v(":")
                       ]),
                       _vm._v(" "),
-                      _vm._m(19)
+                      _vm._m(23)
                     ])
                   ]),
                   _vm._v(" "),
@@ -58994,7 +59222,7 @@ var render = function() {
       2
     ),
     _vm._v(" "),
-    _vm._m(20),
+    _vm._m(24),
     _vm._v(" "),
     _c(
       "div",
@@ -59056,7 +59284,7 @@ var render = function() {
               _vm._s(_vm.might_add_videos.number) +
               " video(s)\n\t\t\t"
           ),
-          _vm._m(21)
+          _vm._m(25)
         ]),
         _vm._v(" "),
         _c(
@@ -59091,12 +59319,12 @@ var render = function() {
             }),
             _vm._v(" "),
             _vm.might_add_videos.can
-              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(22)])
+              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(26)])
               : _vm._e(),
             _vm._v(" "),
             _vm.might_add_videos.can == false &&
             _vm.might_add_videos.limit == false
-              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(23)])
+              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(27)])
               : _vm._e()
           ],
           2
@@ -59173,7 +59401,7 @@ var render = function() {
               { staticClass: "modal-dialog", attrs: { role: "document" } },
               [
                 _c("div", { staticClass: "modal-content" }, [
-                  _vm._m(24),
+                  _vm._m(28),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-body" }, [
                     _c("div", { staticClass: "form-group" }, [
@@ -59187,7 +59415,7 @@ var render = function() {
                         _vm._v(":")
                       ]),
                       _vm._v(" "),
-                      _vm._m(25)
+                      _vm._m(29)
                     ])
                   ]),
                   _vm._v(" "),
@@ -59268,20 +59496,23 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("figcaption", [
-      _c("div", { staticClass: "upload-info-input" }, [
-        _c(
-          "label",
-          {
-            staticClass: "bottom-middle",
-            attrs: { for: "upload-profile-img" }
-          },
-          [_c("i", { staticClass: "fa fa-upload" })]
-        ),
-        _vm._v(" "),
-        _c("input", {
-          attrs: { id: "upload-profile-img", type: "file", accept: "image/*" }
-        })
-      ])
+      _c(
+        "a",
+        {
+          attrs: {
+            href: "#",
+            "data-toggle": "modal",
+            "data-target": "#upload-profile-img"
+          }
+        },
+        [
+          _c("div", { staticClass: "upload-info-input" }, [
+            _c("label", { staticClass: "bottom-middle" }, [
+              _c("i", { staticClass: "fa fa-upload" })
+            ])
+          ])
+        ]
+      )
     ])
   },
   function() {
@@ -59304,19 +59535,117 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("figcaption", [
-      _c("div", { staticClass: "upload-info-input" }, [
-        _c(
-          "label",
-          {
-            staticClass: "bottom-middle",
-            attrs: { for: "upload-profile-img" }
-          },
-          [_c("i", { staticClass: "fa fa-upload" })]
-        ),
+      _c(
+        "a",
+        {
+          attrs: {
+            href: "#",
+            "data-toggle": "modal",
+            "data-target": "#upload-cover-img"
+          }
+        },
+        [
+          _c("div", { staticClass: "upload-info-input" }, [
+            _c("label", { staticClass: "bottom-middle" }, [
+              _c("i", { staticClass: "fa fa-upload" })
+            ])
+          ])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [
+        _vm._v("Imagen de perfil (Logo)")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "custom-file-label", attrs: { for: "editProfileImage" } },
+      [
+        _c("i", { staticClass: "fas fa-camera" }),
+        _vm._v(" Seleccione una imagen")
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [
+        _vm._v("Imagen de portada (Banner)")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-body" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "" } }, [
+          _vm._v("Cambia tu imagen de portada:")
+        ]),
         _vm._v(" "),
-        _c("input", {
-          attrs: { id: "upload-profile-img", type: "file", accept: "image/*" }
-        })
+        _c("div", { staticClass: "custom-file" }, [
+          _c("input", {
+            staticClass: "custom-file-input",
+            attrs: {
+              type: "file",
+              id: "editCoverImage",
+              lang: "es",
+              accept: "image/*"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "label",
+            {
+              staticClass: "custom-file-label",
+              attrs: { for: "editCoverImage" }
+            },
+            [
+              _c("i", { staticClass: "fas fa-camera" }),
+              _vm._v(" Seleccione una imagen")
+            ]
+          )
+        ])
       ])
     ])
   },
@@ -74495,6 +74824,8 @@ __webpack_require__(/*! ./carousel */ "./resources/js/carousel.js");
 
 __webpack_require__(/*! ./helpers */ "./resources/js/helpers.js");
 
+__webpack_require__(/*! ./navbar */ "./resources/js/navbar.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -77521,6 +77852,36 @@ $("#formLogin > div.content > div.form-check > #pass-check").click(function () {
     $("#pass-id").attr("type", "password");
   }
 });
+
+/***/ }),
+
+/***/ "./resources/js/navbar.js":
+/*!********************************!*\
+  !*** ./resources/js/navbar.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+window.onscroll = function () {
+  var nav = document.querySelector('#navbar');
+  var logo = document.querySelector('#logo');
+  var img_logo = document.querySelector('#img-logo');
+  var img_small_logo = document.querySelector('#img-small-logo');
+
+  if (window.scrollY <= 20) {
+    nav.style = 'transition: all ease 1500ms;';
+    img_logo.style = 'display: block; transition: all ease-in-out 4000ms';
+    img_small_logo.style = 'display: none; transition: all ease-in-out 400ms;';
+    logo.classList.add('logo-main');
+    logo.classList.remove('small-logo-main');
+  } else {
+    nav.style = "background-color: #09122e; transition: all ease 1000ms;";
+    img_logo.style = 'display: none; transition: all ease-in-out 4000ms;';
+    img_small_logo.style = 'display: block; margin-top: -5px; transition: all ease-in-out 4000ms;';
+    logo.classList.add('small-logo-main');
+    logo.classList.remove('logo-main');
+  }
+};
 
 /***/ }),
 

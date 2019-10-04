@@ -19,8 +19,10 @@ Route::get('/planes','PlanesController@index')->name('planes');
 
 Route::get('/contact','contactController@contacto')->name('contacto');
 
+// Edit profile routes
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::put('/profile/user', 'ProfileController@update');
+Route::post('/profile/upload-profile-image', 'ProfileController@uploadProfileImage');
 
 Route::get('/business', 'BusinessController@index')->name('business');
 

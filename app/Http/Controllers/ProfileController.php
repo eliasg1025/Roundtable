@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use League\Flysystem\File;
 
 class ProfileController extends Controller
 {
@@ -83,7 +85,34 @@ class ProfileController extends Controller
 		}
 		
 		return response()->json($data, $data['code']);
-    }
+	}
+	
+	public function uploadProfileImage(Request $request)
+	{
+		$image = $request->file('image');
+
+		/* if ($image) {
+			$image_name = time().$image->getClientOriginalName();
+			\Storage::disk('users')->put($image_name, File::get($image));
+
+			$data = array(
+				'image' => $image_name,
+				'code' => 200,
+				'status' => 'success',
+
+			);
+		} else {
+			$data = array(
+				'code' => 400,
+				'status' => 'error',
+				'message' => 'Error al subir imagen',
+			);
+		}
+
+		return response()->json($data, $data['code']); */
+
+		return $image;
+	}
 
     // Get data functions
 

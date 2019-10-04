@@ -54,3 +54,4 @@ const app = new Vue({
 
 require('./carousel');
 require('./helpers');
+require('./navbar');
