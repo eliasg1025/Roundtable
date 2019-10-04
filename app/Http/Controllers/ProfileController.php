@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use League\Flysystem\File;
@@ -89,17 +90,22 @@ class ProfileController extends Controller
 	
 	public function uploadProfileImage(Request $request)
 	{
+		$user = Auth::user();
 		$image = $request->file('image');
 
-		/* if ($image) {
-			$image_name = time().$image->getClientOriginalName();
-			\Storage::disk('users')->put($image_name, File::get($image));
+		if ($image) {
+			$image_name = time().'-'.$user->slug.'.'.$image->getClientOriginalExtension();
+			$request->image->move(storage_path('app/public'), $image_name);
+			
+			$image_path = 'storage/'.$image_name;
+
+			$user->profile_img = $image_path;
+			$user->save();
 
 			$data = array(
-				'image' => $image_name,
 				'code' => 200,
 				'status' => 'success',
-
+				'message' => 'Imagen actualizada correctamente',
 			);
 		} else {
 			$data = array(
@@ -108,10 +114,38 @@ class ProfileController extends Controller
 				'message' => 'Error al subir imagen',
 			);
 		}
+		
+		return response()->json($data, $data['code']);
+	}
 
-		return response()->json($data, $data['code']); */
+	public function uploadCoverImage(Request $request)
+	{
+		$user = Auth::user();
+		$image = $request->file('image');
 
-		return $image;
+		if ($image) {
+			$image_name = time().'-'.$user->slug.'.'.$image->getClientOriginalExtension();
+			$request->image->move(storage_path('app/public'), $image_name);
+			
+			$image_path = 'storage/'.$image_name;
+
+			$user->cover_img = $image_path;
+			$user->save();
+
+			$data = array(
+				'code' => 200,
+				'status' => 'success',
+				'message' => 'Imagen actualizada correctamente',
+			);
+		} else {
+			$data = array(
+				'code' => 400,
+				'status' => 'error',
+				'message' => 'Error al subir imagen',
+			);
+		}
+		
+		return response()->json($data, $data['code']);
 	}
 
     // Get data functions
