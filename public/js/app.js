@@ -5011,7 +5011,13 @@ __webpack_require__.r(__webpack_exports__);
             }
           };
           axios.post('/profile/upload-profile-image', formData, config).then(function (res) {
-            console.log(res);
+            Swal.fire({
+              title: res.data.message,
+              type: 'success',
+              timer: 1500
+            }).then(function (res) {
+              location.reload();
+            });
           })["catch"](function (err) {
             console.log(err.data);
           });
