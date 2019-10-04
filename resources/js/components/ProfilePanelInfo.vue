@@ -6,16 +6,19 @@
 		</div>
 		<div class="container">
 
+			<!-- Imagen de perfil y portada -->
 			<div class="row my-5">
 				<div class="col-md-5">
 					<p class="h5 text-center text-uppercase">Logotipo <span class="info-icon"><i class="fa fa-info-circle"></i></span></p>
 					<figure class="upload-info-img container-profile-img">
 						<img :src="profile_img"/>
 						<figcaption>
-							<div class="upload-info-input">
-								<label class="bottom-middle" for="upload-profile-img"><i class="fa fa-upload"></i></label>
-								<input id="upload-profile-img" type="file" accept="image/*">
-							</div>
+							<a href="#" data-toggle="modal" data-target="#upload-profile-img">
+								<div class="upload-info-input">
+									<label class="bottom-middle"><i class="fa fa-upload"></i></label>
+									<!-- <input id="upload-profile-img" type="file" accept="image/*"> -->
+								</div>
+							</a>
 						</figcaption>
 					</figure>
 				</div>
@@ -24,14 +27,75 @@
 					<figure class="upload-info-img container-cover-img">
 						<img :src="cover_img"/>
 						<figcaption>
-							<div class="upload-info-input">
-								<label class="bottom-middle" for="upload-profile-img"><i class="fa fa-upload"></i></label>
-								<input id="upload-profile-img" type="file" accept="image/*">
-							</div>
+							<a href="#" data-toggle="modal" data-target="#upload-cover-img">
+								<div class="upload-info-input">
+									<label class="bottom-middle"><i class="fa fa-upload"></i></label>
+									<!-- <input id="upload-cover-img" type="file" accept="image/*"> -->
+								</div>
+							</a>
 						</figcaption>
 					</figure>
 				</div>
 			</div>
+
+			<!-- Modals para cambiar foto de perfil y portada -->
+			<div class="modal fade" id="upload-profile-img" role="dialog" tabindex="-1" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Imagen de perfil (Logo)</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="">Cambia tu imagen de perfil:</label>
+								<div class="custom-file">
+									<input
+										type="file" class="custom-file-input"
+										id="editProfileImage" lang="es" accept="image/*"
+										ref="profileImage"
+										@change="handleProfileImage()"
+									>
+									<label class="custom-file-label" for="editProfileImage"><i class="fas fa-camera"></i> Seleccione una imagen</label>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-add" @click="editProfileImage()">Agregar</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal fade" id="upload-cover-img" role="dialog" tabindex="-1" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Imagen de portada (Banner)</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="">Cambia tu imagen de portada:</label>
+								<div class="custom-file">
+									<input type="file" class="custom-file-input" id="editCoverImage" lang="es" accept="image/*">
+									<label class="custom-file-label" for="editCoverImage"><i class="fas fa-camera"></i> Seleccione una imagen</label>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-add" @click="editCoverImage()">Agregar</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End modals -->
 
 			<!-- Btn copiar link -->
 			<div class="text-center">
@@ -357,6 +421,8 @@
 				plans: [],
 				categories: [],
 				user_categories: [],
+				//
+				upload_profile_img: []
 			}
 		},
 		created() {
@@ -551,6 +617,44 @@
 								})
 								.catch(err => {
 									console.log('Error: ', err.data)
+								})
+						}
+					})
+			},
+			handleProfileImage() {
+				this.upload_profile_img = this.$refs.profileImage.files[0]
+			},
+			editProfileImage() {
+
+				Swal.fire({
+					title: '¿Estas seguro que deseas modificar tu imagen de perfil?',
+					type: 'warning',
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Si',
+					cancelButtonText: 'Cancelar',
+					showCancelButton: true,
+				})
+					.then(res => {
+						if (res.value == true) {
+							let formData = new FormData()
+							formData.append('image', this.upload_profile_img);
+
+
+							for (var key of formData.entries()) {
+								console.log(key[0] + ', ' + key[1]);
+							}
+
+							const config = {
+								headers: {'content-type': 'multipart/form-data'}
+							}
+
+							axios.post('/profile/upload-profile-image', formData, config)
+								.then(res => {
+									console.log(res)
+								})
+								.catch(err => {
+									console.log(err.data)
 								})
 						}
 					})
