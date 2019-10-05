@@ -4751,6 +4751,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user', 'media_data', 'current_plan', 'categories_data'],
   data: function data() {
@@ -4770,7 +4778,8 @@ __webpack_require__.r(__webpack_exports__);
       categories: [],
       user_categories: [],
       //
-      upload_profile_img: []
+      upload_profile_img: [],
+      upload_cover_img: []
     };
   },
   created: function created() {
@@ -4963,14 +4972,26 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    handleProfileImage: function handleProfileImage() {
-      this.upload_profile_img = this.$refs.profileImage.files[0];
+    handleUserImage: function handleUserImage(type) {
+      switch (type) {
+        case 1:
+          this.upload_profile_img = this.$refs.profileImage.files[0];
+          break;
+
+        case 2:
+          this.upload_cover_img = this.$refs.coverImage.files[0];
+          break;
+
+        default:
+          console.log('Error. No exists that type: ', type);
+          break;
+      }
     },
-    editProfileImage: function editProfileImage() {
+    editUserImage: function editUserImage(type) {
       var _this4 = this;
 
       Swal.fire({
-        title: '¿Estas seguro que deseas modificar tu imagen de perfil?',
+        title: '¿Estas seguro que deseas modificar esta imagen?',
         type: 'warning',
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
@@ -4980,7 +5001,14 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         if (res.value == true) {
           var formData = new FormData();
-          formData.append('image', _this4.upload_profile_img);
+
+          if (type == 1) {
+            formData.append('image', _this4.upload_profile_img);
+          } else if (type == 2) {
+            formData.append('image', _this4.upload_cover_img);
+          } // Comprobar el contenido del formData
+
+
           var _iteratorNormalCompletion = true;
           var _didIteratorError = false;
           var _iteratorError = undefined;
@@ -5010,7 +5038,7 @@ __webpack_require__.r(__webpack_exports__);
               'content-type': 'multipart/form-data'
             }
           };
-          axios.post('/profile/upload-profile-image', formData, config).then(function (res) {
+          axios.post("/profile/upload-user-image/".concat(type), formData, config).then(function (res) {
             Swal.fire({
               title: res.data.message,
               type: 'success',
@@ -5019,7 +5047,11 @@ __webpack_require__.r(__webpack_exports__);
               location.reload();
             });
           })["catch"](function (err) {
-            console.log(err.data);
+            Swal.fire({
+              title: 'Error al subir la imagen, pruebe con otra',
+              type: 'error',
+              timer: 1500
+            });
           });
         }
       });
@@ -52650,7 +52682,7 @@ var render = function() {
             _c("div", { staticClass: "profile-img" }, [
               _c("img", {
                 staticClass: "img-fluid",
-                attrs: { src: this.data_user.profile_img, alt: "" }
+                attrs: { src: this.data_user.profile_img }
               })
             ])
           ]),
@@ -58550,12 +58582,16 @@ var render = function() {
                         },
                         on: {
                           change: function($event) {
-                            return _vm.handleProfileImage()
+                            return _vm.handleUserImage(1)
                           }
                         }
                       }),
                       _vm._v(" "),
                       _vm._m(6)
+                    ]),
+                    _vm._v(" "),
+                    _c("small", { staticClass: "text-muted" }, [
+                      _vm._v("La imagen tiene que pesar menos de 2 MB")
                     ])
                   ])
                 ]),
@@ -58568,7 +58604,7 @@ var render = function() {
                       attrs: { type: "button" },
                       on: {
                         click: function($event) {
-                          return _vm.editProfileImage()
+                          return _vm.editUserImage(1)
                         }
                       }
                     },
@@ -58609,7 +58645,37 @@ var render = function() {
               _c("div", { staticClass: "modal-content" }, [
                 _vm._m(7),
                 _vm._v(" "),
-                _vm._m(8),
+                _c("div", { staticClass: "modal-body" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "" } }, [
+                      _vm._v("Cambia tu imagen de portada:")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "custom-file" }, [
+                      _c("input", {
+                        ref: "coverImage",
+                        staticClass: "custom-file-input",
+                        attrs: {
+                          type: "file",
+                          id: "editCoverImage",
+                          lang: "es",
+                          accept: "image/*"
+                        },
+                        on: {
+                          change: function($event) {
+                            return _vm.handleUserImage(2)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm._m(8)
+                    ]),
+                    _vm._v(" "),
+                    _c("small", { staticClass: "text-muted" }, [
+                      _vm._v("La imagen tiene que pesar menos de 2 MB")
+                    ])
+                  ])
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-footer" }, [
                   _c(
@@ -58619,7 +58685,7 @@ var render = function() {
                       attrs: { type: "button" },
                       on: {
                         click: function($event) {
-                          return _vm.editCoverImage()
+                          return _vm.editUserImage(2)
                         }
                       }
                     },
@@ -59144,7 +59210,7 @@ var render = function() {
                           staticClass: "btn btn-danger btn-block",
                           on: {
                             click: function($event) {
-                              return _vm.deleteImage()
+                              return _vm.deleteImage(image.id)
                             }
                           }
                         },
@@ -59190,6 +59256,10 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _vm._m(23)
+                    ]),
+                    _vm._v(" "),
+                    _c("small", { staticClass: "text-muted" }, [
+                      _vm._v("La imagen tiene que pesar menos de 2 MB")
                     ])
                   ]),
                   _vm._v(" "),
@@ -59623,37 +59693,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-body" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "" } }, [
-          _vm._v("Cambia tu imagen de portada:")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "custom-file" }, [
-          _c("input", {
-            staticClass: "custom-file-input",
-            attrs: {
-              type: "file",
-              id: "editCoverImage",
-              lang: "es",
-              accept: "image/*"
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            {
-              staticClass: "custom-file-label",
-              attrs: { for: "editCoverImage" }
-            },
-            [
-              _c("i", { staticClass: "fas fa-camera" }),
-              _vm._v(" Seleccione una imagen")
-            ]
-          )
-        ])
-      ])
-    ])
+    return _c(
+      "label",
+      { staticClass: "custom-file-label", attrs: { for: "editCoverImage" } },
+      [
+        _c("i", { staticClass: "fas fa-camera" }),
+        _vm._v(" Seleccione una imagen")
+      ]
+    )
   },
   function() {
     var _vm = this

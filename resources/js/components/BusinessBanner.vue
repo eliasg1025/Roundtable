@@ -5,7 +5,7 @@
 				<div class="row row_heigth">
 					<div class="col-md-12 text-center">
 						<div class="profile-img">
-							<img :src="this.data_user.profile_img" alt="" class="img-fluid">
+							<img :src="this.data_user.profile_img" class="img-fluid">
 						</div>
 					</div>
 
