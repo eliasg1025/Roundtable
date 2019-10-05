@@ -56,14 +56,15 @@
 										type="file" class="custom-file-input"
 										id="editProfileImage" lang="es" accept="image/*"
 										ref="profileImage"
-										@change="handleProfileImage()"
+										@change="handleUserImage(1)"
 									>
 									<label class="custom-file-label" for="editProfileImage"><i class="fas fa-camera"></i> Seleccione una imagen</label>
 								</div>
+								<small class="text-muted">La imagen tiene que pesar menos de 2 MB</small>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-add" @click="editProfileImage()">Agregar</button>
+							<button type="button" class="btn btn-add" @click="editUserImage(1)">Agregar</button>
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 						</div>
 					</div>
@@ -83,13 +84,19 @@
 							<div class="form-group">
 								<label for="">Cambia tu imagen de portada:</label>
 								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="editCoverImage" lang="es" accept="image/*">
+									<input
+										type="file" class="custom-file-input"
+										id="editCoverImage" lang="es" accept="image/*"
+										ref="coverImage"
+										@change="handleUserImage(2)"
+									>
 									<label class="custom-file-label" for="editCoverImage"><i class="fas fa-camera"></i> Seleccione una imagen</label>
 								</div>
+								<small class="text-muted">La imagen tiene que pesar menos de 2 MB</small>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-add" @click="editCoverImage()">Agregar</button>
+							<button type="button" class="btn btn-add" @click="editUserImage(2)">Agregar</button>
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 						</div>
 					</div>
@@ -256,7 +263,7 @@
 							<img :src="image.url" style="width: 100%;">
 						</div>
 						<div class="modal-footer p-0">
-							<button class="btn btn-danger btn-block" @click="deleteImage()">
+							<button class="btn btn-danger btn-block" @click="deleteImage(image.id)">
 								Eliminar
 							</button>
 						</div>
@@ -281,6 +288,7 @@
 									<label class="custom-file-label" for="editOfferImage"><i class="fas fa-camera"></i> Seleccione una imagen</label>
 								</div>
 							</div>
+							<small class="text-muted">La imagen tiene que pesar menos de 2 MB</small>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-add" @click.prevent.stop="addImage()">Agregar</button>
@@ -422,7 +430,8 @@
 				categories: [],
 				user_categories: [],
 				//
-				upload_profile_img: []
+				upload_profile_img: [],
+				upload_cover_img: [],
 			}
 		},
 		created() {
@@ -621,13 +630,22 @@
 						}
 					})
 			},
-			handleProfileImage() {
-				this.upload_profile_img = this.$refs.profileImage.files[0]
+			handleUserImage(type) {
+				switch (type) {
+					case 1:
+						this.upload_profile_img = this.$refs.profileImage.files[0]
+						break;
+					case 2:
+						this.upload_cover_img = this.$refs.coverImage.files[0]
+						break;
+					default:
+						console.log('Error. No exists that type: ',type);
+						break;
+				}
 			},
-			editProfileImage() {
-
+			editUserImage(type) {
 				Swal.fire({
-					title: '¿Estas seguro que deseas modificar tu imagen de perfil?',
+					title: '¿Estas seguro que deseas modificar esta imagen?',
 					type: 'warning',
 					confirmButtonColor: '#3085d6',
 					cancelButtonColor: '#d33',
@@ -638,9 +656,14 @@
 					.then(res => {
 						if (res.value == true) {
 							let formData = new FormData()
-							formData.append('image', this.upload_profile_img);
 
+							if  (type == 1) {
+								formData.append('image', this.upload_profile_img);
+							} else if (type == 2) {
+								formData.append('image', this.upload_cover_img);
+							}
 
+							// Comprobar el contenido del formData
 							for (var key of formData.entries()) {
 								console.log(key[0] + ', ' + key[1]);
 							}
@@ -649,7 +672,7 @@
 								headers: {'content-type': 'multipart/form-data'}
 							}
 
-							axios.post('/profile/upload-profile-image', formData, config)
+							axios.post(`/profile/upload-user-image/${type}`, formData, config)
 								.then(res => {
 									Swal.fire({
 										title: res.data.message,
@@ -661,7 +684,11 @@
 										})
 								})
 								.catch(err => {
-									console.log(err.data)
+									Swal.fire({
+										title: 'Error al subir la imagen, pruebe con otra',
+										type: 'error',
+										timer: 1500,
+									})
 								})
 						}
 					})

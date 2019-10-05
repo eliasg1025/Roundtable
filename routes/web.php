@@ -22,7 +22,7 @@ Route::get('/contact','contactController@contacto')->name('contacto');
 // Edit profile routes
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::put('/profile/user', 'ProfileController@update');
-Route::post('/profile/upload-profile-image', 'ProfileController@uploadProfileImage');
+Route::post('/profile/upload-user-image/{type}', 'ProfileController@uploadUserImage');
 
 Route::get('/business', 'BusinessController@index')->name('business');
 
