@@ -19,10 +19,10 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriesTableSeeder::class);
         $this->call(OperationsTableSeeder::class);
         $this->call(StatesTableSeeder::class);
-        
+
         // Seeders para datos de prueba
         $this->call(UsersTableSeeder::class);
-        $this->call(ImagesTableSeeder::class);
+        //$this->call(ImagesTableSeeder::class);
 		$this->call(VideosTableSeeder::class);
 		$this->call(OffersTableSeeder::class);
 		$this->call(OfferCertificationsTableSeeder::class);

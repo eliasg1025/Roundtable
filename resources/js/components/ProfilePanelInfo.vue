@@ -284,7 +284,12 @@
 							<div class="form-group">
 								<label for="">Puedes agregar: <b style="color: #88BE2E;">{{ might_add_images.number }} imagen(es)</b>:</label>
 								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="editOfferImage" lang="es" accept="image/*">
+									<input
+										type="file" class="custom-file-input"
+										id="editOfferImage" lang="es" accept="image/*"
+										ref="accountImage"
+										@change="handleAccountImage()"
+									>
 									<label class="custom-file-label" for="editOfferImage"><i class="fas fa-camera"></i> Seleccione una imagen</label>
 								</div>
 							</div>
@@ -389,7 +394,12 @@
 							<div class="form-group">
 								<label for="">Puedes agregar: <b style="color: #88BE2E;">{{ might_add_videos.number }} videos(s)</b>:</label>
 								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="editOfferImage" lang="es" accept="image/*">
+									<input
+										type="file" class="custom-file-input"
+										id="editOfferImage" lang="es" accept="image/*"
+										ref="accountVideo"
+										@change="handleAccountVideo()"
+									>
 									<label class="custom-file-label" for="editOfferImage"><i class="fas fa-video"></i>Seleccione una Video</label>
 								</div>
 							</div>
@@ -432,6 +442,8 @@
 				//
 				upload_profile_img: [],
 				upload_cover_img: [],
+				account_img: [],
+				account_video: [],
 			}
 		},
 		created() {
@@ -693,10 +705,49 @@
 						}
 					})
 			},
-			addImage() {
-
+			handleAccountImage() {
+				this.account_image = this.$refs.accountImage.files[0]
 			},
-			deleteImage() {
+			addImage() {
+				Swal.fire({
+					title: `¿Deseas agregar esta imagen?: `,
+					type: 'warning',
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Si',
+					cancelButtonText: 'Cancelar',
+					showCancelButton: true,
+				})
+					.then(res => {
+						if (res.value == true) {
+
+							let formData = new FormData();
+							formData.append('image', this.account_image)
+
+							const config = {
+								headers: {'content-type': 'multipart/form-data'}
+							}
+
+							axios.post('/profile/add-account-image', formData, config)
+								.then(res => {
+									Swal.fire({
+										title: res.data.message,
+										type: 'success',
+										timer: 1500,
+									})
+								})
+								.catch(err => {
+									console.log(err.data)
+									Swal.fire({
+										title: 'Error al subir la imagen, pruebe con otra',
+										type: 'error',
+										timer: 1500,
+									})
+								})
+						}
+					})
+			},
+			deleteImage(image_id) {
 				Swal.fire({
 					title: '¿Estas seguro que deseas eliminar esta imagen?',
 					type: 'warning',
@@ -706,6 +757,14 @@
 					cancelButtonText: 'Cancelar',
 					showCancelButton: true,
 				})
+					.then(res => {
+						if (res.value == true) {
+							axios.delete(`/profile/delete-account-image/${image_id}`)
+								.then(res => {
+									console.log(res)
+								})
+						}
+					})
 			},
 			addVideo() {
 
