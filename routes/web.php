@@ -23,6 +23,8 @@ Route::get('/contact','contactController@contacto')->name('contacto');
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::put('/profile/user', 'ProfileController@update');
 Route::post('/profile/upload-user-image/{type}', 'ProfileController@uploadUserImage');
+Route::post('/profile/add-account-image', 'ProfileController@addAccountImage');
+Route::delete('/profile/delete-account-image/{id}', 'ProfileController@deleteAccountImage');
 
 Route::get('/business', 'BusinessController@index')->name('business');
 

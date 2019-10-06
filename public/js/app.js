@@ -4759,6 +4759,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user', 'media_data', 'current_plan', 'categories_data'],
   data: function data() {
@@ -4779,7 +4789,9 @@ __webpack_require__.r(__webpack_exports__);
       user_categories: [],
       //
       upload_profile_img: [],
-      upload_cover_img: []
+      upload_cover_img: [],
+      account_img: [],
+      account_video: []
     };
   },
   created: function created() {
@@ -5056,8 +5068,47 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    addImage: function addImage() {},
-    deleteImage: function deleteImage() {
+    handleAccountImage: function handleAccountImage() {
+      this.account_image = this.$refs.accountImage.files[0];
+    },
+    addImage: function addImage() {
+      var _this5 = this;
+
+      Swal.fire({
+        title: "\xBFDeseas agregar esta imagen?: ",
+        type: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true
+      }).then(function (res) {
+        if (res.value == true) {
+          var formData = new FormData();
+          formData.append('image', _this5.account_image);
+          var config = {
+            headers: {
+              'content-type': 'multipart/form-data'
+            }
+          };
+          axios.post('/profile/add-account-image', formData, config).then(function (res) {
+            Swal.fire({
+              title: res.data.message,
+              type: 'success',
+              timer: 1500
+            });
+          })["catch"](function (err) {
+            console.log(err.data);
+            Swal.fire({
+              title: 'Error al subir la imagen, pruebe con otra',
+              type: 'error',
+              timer: 1500
+            });
+          });
+        }
+      });
+    },
+    deleteImage: function deleteImage(image_id) {
       Swal.fire({
         title: '¿Estas seguro que deseas eliminar esta imagen?',
         type: 'warning',
@@ -5066,6 +5117,12 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Si',
         cancelButtonText: 'Cancelar',
         showCancelButton: true
+      }).then(function (res) {
+        if (res.value == true) {
+          axios["delete"]("/profile/delete-account-image/".concat(image_id)).then(function (res) {
+            console.log(res);
+          });
+        }
       });
     },
     addVideo: function addVideo() {},
@@ -59255,7 +59312,25 @@ var render = function() {
                         _vm._v(":")
                       ]),
                       _vm._v(" "),
-                      _vm._m(23)
+                      _c("div", { staticClass: "custom-file" }, [
+                        _c("input", {
+                          ref: "accountImage",
+                          staticClass: "custom-file-input",
+                          attrs: {
+                            type: "file",
+                            id: "editOfferImage",
+                            lang: "es",
+                            accept: "image/*"
+                          },
+                          on: {
+                            change: function($event) {
+                              return _vm.handleAccountImage()
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm._m(23)
+                      ])
                     ]),
                     _vm._v(" "),
                     _c("small", { staticClass: "text-muted" }, [
@@ -59491,7 +59566,25 @@ var render = function() {
                         _vm._v(":")
                       ]),
                       _vm._v(" "),
-                      _vm._m(29)
+                      _c("div", { staticClass: "custom-file" }, [
+                        _c("input", {
+                          ref: "accountVideo",
+                          staticClass: "custom-file-input",
+                          attrs: {
+                            type: "file",
+                            id: "editOfferImage",
+                            lang: "es",
+                            accept: "image/*"
+                          },
+                          on: {
+                            change: function($event) {
+                              return _vm.handleAccountVideo()
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm._m(29)
+                      ])
                     ])
                   ]),
                   _vm._v(" "),
@@ -59909,26 +60002,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "custom-file" }, [
-      _c("input", {
-        staticClass: "custom-file-input",
-        attrs: {
-          type: "file",
-          id: "editOfferImage",
-          lang: "es",
-          accept: "image/*"
-        }
-      }),
-      _vm._v(" "),
-      _c(
-        "label",
-        { staticClass: "custom-file-label", attrs: { for: "editOfferImage" } },
-        [
-          _c("i", { staticClass: "fas fa-camera" }),
-          _vm._v(" Seleccione una imagen")
-        ]
-      )
-    ])
+    return _c(
+      "label",
+      { staticClass: "custom-file-label", attrs: { for: "editOfferImage" } },
+      [
+        _c("i", { staticClass: "fas fa-camera" }),
+        _vm._v(" Seleccione una imagen")
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -60040,26 +60121,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "custom-file" }, [
-      _c("input", {
-        staticClass: "custom-file-input",
-        attrs: {
-          type: "file",
-          id: "editOfferImage",
-          lang: "es",
-          accept: "image/*"
-        }
-      }),
-      _vm._v(" "),
-      _c(
-        "label",
-        { staticClass: "custom-file-label", attrs: { for: "editOfferImage" } },
-        [
-          _c("i", { staticClass: "fas fa-video" }),
-          _vm._v("Seleccione una Video")
-        ]
-      )
-    ])
+    return _c(
+      "label",
+      { staticClass: "custom-file-label", attrs: { for: "editOfferImage" } },
+      [_c("i", { staticClass: "fas fa-video" }), _vm._v("Seleccione una Video")]
+    )
   }
 ]
 render._withStripped = true

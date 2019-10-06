@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Image;
 use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -45,7 +46,7 @@ class ProfileController extends Controller
 
         return view('profile', compact('data'));
 	}
-	
+
 	 public function update(Request $request)
     {
 		$updatedUser = Auth::user();
@@ -62,7 +63,7 @@ class ProfileController extends Controller
 			{
 				array_push($categories_id, $user_category['id']);
 			}
-			
+
 			$updatedUser->categories()->detach();
 			$updatedUser->categories()->attach($categories_id);
 
@@ -80,25 +81,27 @@ class ProfileController extends Controller
 				'message' => 'Esta ingresando más de 5 categorias',
 			);
 		}
-		
+
 		return response()->json($data, $data['code']);
 	}
-	
+
 	public function uploadUserImage(Request $request, $type)
 	{
 		$user = Auth::user();
 		$image = $request->file('image');
 
 		if ($image) {
-			$image_name = time().'-'.$user->slug.'.'.$image->getClientOriginalExtension();
-			$request->image->move(storage_path('app/public'), $image_name);
-			
-			$image_path = '/'.'storage/'.$image_name;
-			\FB::log($image);
-
 			if ($type == 1) {
+				$image_name = time().'-'.$user->slug.'.'.$image->getClientOriginalExtension();
+				$request->image->move(storage_path('app/public/profile-img/'), $image_name);
+
+				$image_path = '/'.'storage/profile-img/'.$image_name;
 				$user->profile_img = $image_path;
 			} else if ($type == 2) {
+				$image_name = time().'-'.$user->slug.'.'.$image->getClientOriginalExtension();
+				$request->image->move(storage_path('app/public/cover-img/'), $image_name);
+
+				$image_path = '/'.'storage/cover-img/'.$image_name;
 				$user->cover_img = $image_path;
 			}
 			$user->save();
@@ -115,10 +118,53 @@ class ProfileController extends Controller
 				'message' => 'Error al subir imagen',
 			);
 		}
-		
+
 		return response()->json($data, $data['code']);
 	}
-	
+
+	public function addAccountImage(Request $request) {
+
+		$user = Auth::user();
+		$image = $request->file('image');
+
+		if ($image) {
+
+			//$list_images = $user->images()->get();
+
+			// Definir el nuevo nomber de la imagen
+			$image_name = time().'-'.$user->slug.'.'.$image->getClientOriginalExtension();
+			$request->image->move(storage_path('app/public/account-img/'), $image_name);
+
+			$image_path = '/'.'storage/account-img/'.$image_name;
+
+			$account_img = new Image();
+			$account_img->url = $image_path;
+			$account_img->user_id = $user->id;
+
+			$account_img->save();
+
+			$data = array(
+				'code' => 200,
+				'status' => 'success',
+				'message' => 'Imagen agregada correctamente',
+			);
+		} else {
+			$data = array(
+				'code' => 400,
+				'status' => 'error',
+				'message' => 'Error al subir imagen',
+			);
+		}
+
+		return response()->json($data, $data['code']);
+	}
+
+	public function deleteAccountImage(Request $request, $id)
+	{
+		$image = Image::findOrFail($id);
+		return $image->url;
+	}
+
     // Get data functions
 
     private function getRating($user)
