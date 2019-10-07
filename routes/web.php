@@ -25,6 +25,8 @@ Route::put('/profile/user', 'ProfileController@update');
 Route::post('/profile/upload-user-image/{type}', 'ProfileController@uploadUserImage');
 Route::post('/profile/add-account-image', 'ProfileController@addAccountImage');
 Route::delete('/profile/delete-account-image/{id}', 'ProfileController@deleteAccountImage');
+Route::post('/profile/add-account-video', 'ProfileController@addAccountVideo');
+Route::delete('/profile/delete-account-video/{id}', 'ProfileController@deleteAccountVideo');
 
 Route::get('/business', 'BusinessController@index')->name('business');
 

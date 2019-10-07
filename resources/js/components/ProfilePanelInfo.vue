@@ -372,7 +372,7 @@
 							</video>
 						</div>
 						<div class="modal-footer p-0">
-							<button class="btn btn-danger btn-block" @click="deleteVideo()">
+							<button class="btn btn-danger btn-block" @click="deleteVideo(video.id)">
 								Eliminar
 							</button>
 						</div>
@@ -396,13 +396,14 @@
 								<div class="custom-file">
 									<input
 										type="file" class="custom-file-input"
-										id="editOfferImage" lang="es" accept="image/*"
+										id="editOfferImage" lang="es" accept="video/mp4"
 										ref="accountVideo"
 										@change="handleAccountVideo()"
 									>
-									<label class="custom-file-label" for="editOfferImage"><i class="fas fa-video"></i>Seleccione una Video</label>
+									<label class="custom-file-label" for="editOfferImage"><i class="fas fa-video"></i> Seleccione un video (.mp4)</label>
 								</div>
 							</div>
+							<small class="text-muted">La video debe pesar menos de 30 MB</small>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-add" @click.prevent.stop="addVideo()">Agregar</button>
@@ -627,17 +628,12 @@
 								user_categories: this.user_categories,
 							})
 								.then(res => {
-									//console.log(res)
-									if (res.data.code === 200) {
-										Swal.fire({
-											title: res.data.message,
-											type: 'success',
-											timer: 1500,
-										})
-									}
+									Swal.fire({title: res.data.message, type: res.data.status, timer: 1500})
+
 								})
 								.catch(err => {
-									console.log('Error: ', err.data)
+									console.log(err);
+									Swal.fire({title: err.data.message, type: err.data.status, timer: 1500})
 								})
 						}
 					})
@@ -686,21 +682,12 @@
 
 							axios.post(`/profile/upload-user-image/${type}`, formData, config)
 								.then(res => {
-									Swal.fire({
-										title: res.data.message,
-										type: 'success',
-										timer: 1500,
-									})
-										.then(res => {
-											location.reload()
-										})
+									console.log(res.data)
+									Swal.fire({title: res.data.message, type: res.data.status, timer: 1500})
+										//.then(res => location.reload())
 								})
 								.catch(err => {
-									Swal.fire({
-										title: 'Error al subir la imagen, pruebe con otra',
-										type: 'error',
-										timer: 1500,
-									})
+									Swal.fire({title: err.response.data.message, type: err.response.data.status, timer: 1500})
 								})
 						}
 					})
@@ -711,6 +698,7 @@
 			addImage() {
 				Swal.fire({
 					title: `¿Deseas agregar esta imagen?: `,
+					text: `${this.account_image.name}`,
 					type: 'warning',
 					confirmButtonColor: '#3085d6',
 					cancelButtonColor: '#d33',
@@ -730,19 +718,12 @@
 
 							axios.post('/profile/add-account-image', formData, config)
 								.then(res => {
-									Swal.fire({
-										title: res.data.message,
-										type: 'success',
-										timer: 1500,
-									})
+									Swal.fire({title: res.data.message, type: res.data.status, timer: 1500})
+									//this.$parent.activePanel(1);
 								})
 								.catch(err => {
-									console.log(err.data)
-									Swal.fire({
-										title: 'Error al subir la imagen, pruebe con otra',
-										type: 'error',
-										timer: 1500,
-									})
+									console.log(err.response)
+									Swal.fire({title: 'Error al subir la imagen', type: 'error', timer: 1500})
 								})
 						}
 					})
@@ -761,15 +742,49 @@
 						if (res.value == true) {
 							axios.delete(`/profile/delete-account-image/${image_id}`)
 								.then(res => {
-									console.log(res)
+									Swal.fire({title: res.data.message, type: res.data.status, timer:1500})
+								})
+								.catch(err => {
+									Swal.fire({title: 'Error al borrar imagen', type: err.response.data.status, timer: 1500})
 								})
 						}
 					})
 			},
-			addVideo() {
-
+			handleAccountVideo() {
+				this.account_video = this.$refs.accountVideo.files[0]
 			},
-			deleteVideo() {
+			addVideo() {
+				Swal.fire({
+					title: `¿Deseas agregar este video?: `,
+					text: `${this.account_video.name}`,
+					type: 'warning',
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Si',
+					cancelButtonText: 'Cancelar',
+					showCancelButton: true,
+				})
+					.then(res => {
+						if (res.value === true) {
+
+							let formData = new FormData();
+							formData.append('video', this.account_video)
+
+							const config = {
+								headers: {'content-type': 'multipart/form-data'}
+							}
+
+							axios.post('/profile/add-account-video', formData, config)
+								.then(res => {
+									Swal.fire({title: res.data.message, type: res.data.status, timer: 1500})
+								})
+								.catch(err => {
+									Swal.fire({title: 'Error al subir el video', type: 'error', timer: 1500})
+								})
+						}
+					})
+			},
+			deleteVideo(video_id) {
 				Swal.fire({
 					title: '¿Estas seguro que deseas eliminar este video?',
 					type: 'warning',
@@ -779,6 +794,17 @@
 					cancelButtonText: 'Cancelar',
 					showCancelButton: true,
 				})
+					.then(res => {
+						if (res.value == true) {
+							axios.delete(`/profile/delete-account-video/${video_id}`)
+								.then(res => {
+									Swal.fire({title: res.data.message, type: res.data.status, timer:1500})
+								})
+								.catch(err => {
+									Swal.fire({title: 'Error al borrar video', type: 'error', timer:1500})
+								})
+						}
+					})
 			}
 		}
 	}

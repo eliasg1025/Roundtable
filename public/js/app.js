@@ -3763,11 +3763,6 @@ __webpack_require__.r(__webpack_exports__);
         _this.loading = false;
       }, 500);
     }
-  },
-  mounted: function mounted() {
-    $(function () {
-      $('[data-toggle="popover"]').popover();
-    });
   }
 });
 
@@ -4769,6 +4764,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user', 'media_data', 'current_plan', 'categories_data'],
   data: function data() {
@@ -4970,16 +4966,18 @@ __webpack_require__.r(__webpack_exports__);
             phone: _this3.phone,
             user_categories: _this3.user_categories
           }).then(function (res) {
-            //console.log(res)
-            if (res.data.code === 200) {
-              Swal.fire({
-                title: res.data.message,
-                type: 'success',
-                timer: 1500
-              });
-            }
+            Swal.fire({
+              title: res.data.message,
+              type: res.data.status,
+              timer: 1500
+            });
           })["catch"](function (err) {
-            console.log('Error: ', err.data);
+            console.log(err);
+            Swal.fire({
+              title: err.data.message,
+              type: err.data.status,
+              timer: 1500
+            });
           });
         }
       });
@@ -5051,17 +5049,16 @@ __webpack_require__.r(__webpack_exports__);
             }
           };
           axios.post("/profile/upload-user-image/".concat(type), formData, config).then(function (res) {
+            console.log(res.data);
             Swal.fire({
               title: res.data.message,
-              type: 'success',
+              type: res.data.status,
               timer: 1500
-            }).then(function (res) {
-              location.reload();
-            });
+            }); //.then(res => location.reload())
           })["catch"](function (err) {
             Swal.fire({
-              title: 'Error al subir la imagen, pruebe con otra',
-              type: 'error',
+              title: err.response.data.message,
+              type: err.response.data.status,
               timer: 1500
             });
           });
@@ -5076,6 +5073,7 @@ __webpack_require__.r(__webpack_exports__);
 
       Swal.fire({
         title: "\xBFDeseas agregar esta imagen?: ",
+        text: "".concat(this.account_image.name),
         type: 'warning',
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
@@ -5094,13 +5092,13 @@ __webpack_require__.r(__webpack_exports__);
           axios.post('/profile/add-account-image', formData, config).then(function (res) {
             Swal.fire({
               title: res.data.message,
-              type: 'success',
+              type: res.data.status,
               timer: 1500
-            });
+            }); //this.$parent.activePanel(1);
           })["catch"](function (err) {
-            console.log(err.data);
+            console.log(err.response);
             Swal.fire({
-              title: 'Error al subir la imagen, pruebe con otra',
+              title: 'Error al subir la imagen',
               type: 'error',
               timer: 1500
             });
@@ -5120,13 +5118,62 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         if (res.value == true) {
           axios["delete"]("/profile/delete-account-image/".concat(image_id)).then(function (res) {
-            console.log(res);
+            Swal.fire({
+              title: res.data.message,
+              type: res.data.status,
+              timer: 1500
+            });
+          })["catch"](function (err) {
+            Swal.fire({
+              title: 'Error al borrar imagen',
+              type: err.response.data.status,
+              timer: 1500
+            });
           });
         }
       });
     },
-    addVideo: function addVideo() {},
-    deleteVideo: function deleteVideo() {
+    handleAccountVideo: function handleAccountVideo() {
+      this.account_video = this.$refs.accountVideo.files[0];
+    },
+    addVideo: function addVideo() {
+      var _this6 = this;
+
+      Swal.fire({
+        title: "\xBFDeseas agregar este video?: ",
+        text: "".concat(this.account_video.name),
+        type: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true
+      }).then(function (res) {
+        if (res.value === true) {
+          var formData = new FormData();
+          formData.append('video', _this6.account_video);
+          var config = {
+            headers: {
+              'content-type': 'multipart/form-data'
+            }
+          };
+          axios.post('/profile/add-account-video', formData, config).then(function (res) {
+            Swal.fire({
+              title: res.data.message,
+              type: res.data.status,
+              timer: 1500
+            });
+          })["catch"](function (err) {
+            Swal.fire({
+              title: 'Error al subir el video',
+              type: 'error',
+              timer: 1500
+            });
+          });
+        }
+      });
+    },
+    deleteVideo: function deleteVideo(video_id) {
       Swal.fire({
         title: '¿Estas seguro que deseas eliminar este video?',
         type: 'warning',
@@ -5135,6 +5182,22 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Si',
         cancelButtonText: 'Cancelar',
         showCancelButton: true
+      }).then(function (res) {
+        if (res.value == true) {
+          axios["delete"]("/profile/delete-account-video/".concat(video_id)).then(function (res) {
+            Swal.fire({
+              title: res.data.message,
+              type: res.data.status,
+              timer: 1500
+            });
+          })["catch"](function (err) {
+            Swal.fire({
+              title: 'Error al borrar video',
+              type: 'error',
+              timer: 1500
+            });
+          });
+        }
       });
     }
   }
@@ -59521,7 +59584,7 @@ var render = function() {
                           staticClass: "btn btn-danger btn-block",
                           on: {
                             click: function($event) {
-                              return _vm.deleteVideo()
+                              return _vm.deleteVideo(video.id)
                             }
                           }
                         },
@@ -59574,7 +59637,7 @@ var render = function() {
                             type: "file",
                             id: "editOfferImage",
                             lang: "es",
-                            accept: "image/*"
+                            accept: "video/mp4"
                           },
                           on: {
                             change: function($event) {
@@ -59585,6 +59648,10 @@ var render = function() {
                         _vm._v(" "),
                         _vm._m(29)
                       ])
+                    ]),
+                    _vm._v(" "),
+                    _c("small", { staticClass: "text-muted" }, [
+                      _vm._v("La video debe pesar menos de 30 MB")
                     ])
                   ]),
                   _vm._v(" "),
@@ -60124,7 +60191,10 @@ var staticRenderFns = [
     return _c(
       "label",
       { staticClass: "custom-file-label", attrs: { for: "editOfferImage" } },
-      [_c("i", { staticClass: "fas fa-video" }), _vm._v("Seleccione una Video")]
+      [
+        _c("i", { staticClass: "fas fa-video" }),
+        _vm._v(" Seleccione un video (.mp4)")
+      ]
     )
   }
 ]
