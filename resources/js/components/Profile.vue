@@ -429,11 +429,6 @@
 					this.loading = false
 				}, 500)
 			}
-		},
-		mounted() {
-			$(function () {
-				$('[data-toggle="popover"]').popover()
-			});
 		}
 	}
 </script>
