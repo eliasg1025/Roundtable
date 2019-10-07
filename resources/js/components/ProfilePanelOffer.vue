@@ -103,11 +103,11 @@
 						<div class="modal-body">
 							<div class="form-group">
 								<label for="">Título</label>
-								<input type="text" class="form-control" placeholder="Nombre del producto">
+								<input type="text" class="form-control" placeholder="Nombre del producto" v-model="title">
 							</div>
 							<div class="form-group">
 								<label for="">Categoría</label>
-								<select class="custom-select">
+								<select class="custom-select" v-model="category_id">
 									<option
 										v-for="category in categories" :key="category.id"
 										:value="category.id"
@@ -119,13 +119,18 @@
 							<div class="form-group">
 								<label for="">Subir Imagen</label>
 								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="addProductImage" lang="es" accept="image/*">
+									<input
+										type="file" class="custom-file-input"
+										id="addProductImage" lang="es" accept="image/*"
+										ref="offerImage"
+										@change="handleOfferImage()"
+									>
 									<label class="custom-file-label" for="addProductImage"><i class="fas fa-camera"></i> Seleccione una imagen</label>
 								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-add" @click.prevent.stop="addProduct()">Agregar</button>
+							<button type="button" class="btn btn-add" @click="addProduct()">Agregar</button>
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 						</div>
 					</div>
@@ -163,6 +168,10 @@
 		data() {
 			return {
 				categories: [],
+				title: '',
+				image: {},
+				category_id: '',
+				upload_offer_image: [],
 			}
 		},
 		created() {
@@ -172,6 +181,9 @@
 				})
 		},
 		methods: {
+			handleOfferImage() {
+				this.upload_offer_image = this.$refs.offerImage.files[0]
+			},
 			addProduct() {
 				Swal.fire({
 					title: 'Estas consumiendo 30 coins en esta operación',
@@ -184,8 +196,37 @@
 					showCancelButton: true,
 				})
 					.then(res => {
+						let formData = new FormData()
+						formData.append('image', this.upload_offer_image)
+						formData.append('title', this.title)
+						formData.append('category_id', this.category_id)
+
+						// Comprobar el contenido del formData
+						for (var key of formData.entries()) {
+							console.log(key[0] + ', ' + key[1]);
+						}
+
+						const config = {
+							headers: {'content-type': 'multipart/form-data'}
+						}
 						if (res.value == true) {
-							console.log('Agregado')
+							axios.post('/profile/add-product', formData, config)
+								.then(res => {
+									console.log(res)
+									Swal.fire({
+										title: res.data.message,
+										type: res.data.status,
+										timer: 1500,
+									})
+								})
+								.catch(err => {
+									console.log(err.response)
+									Swal.fire({
+										title: err.response.data.message,
+										type: 'error',
+										timer: 2000,
+									})
+								})
 						}
 					})
 			},
@@ -202,31 +243,26 @@
 				})
 					.then(res => {
 						if (res.value == true) {
-							console.log('Borrado')
-						}
-						axios.delete('api/products', {
-							'product_id': product_id,
-							'user_id': this.user.id
-						})
-							.then(res => {
-								if (res.data == 'OK') { //
+							axios.delete('/profile/delete-product', {
+								'product_id': product_id,
+							})
+								.then(res => {
+									console.log(res)
 									Swal.fire({
 										title: 'Producto borrado con exito',
 										type: 'success',
 										timer: 1500,
-									}).
-										then(res => {
-											// Recargar componente
-										})
-								}
-							})
-							.catch(err => {
-								Swal.fire({
-									title: 'Hubo un error al borrar el producto',
-									type: 'error',
-									timer: 2000,
+									})
 								})
-							})
+								.catch(err => {
+									console.log(err.reponse)
+									Swal.fire({
+										title: 'Hubo un error al borrar el producto',
+										type: 'error',
+										timer: 2000,
+									})
+								})
+						}
 					})
 			},
 		}

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Image;
+use App\Offer;
+use App\Operation;
 use App\User;
 use App\Video;
 use Illuminate\Http\Request;
@@ -49,6 +51,8 @@ class ProfileController extends Controller
         return view('profile', compact('data'));
 	}
 
+	// Panel info section
+
 	 public function update(Request $request)
     {
 		$updatedUser = Auth::user();
@@ -93,24 +97,24 @@ class ProfileController extends Controller
 		$image = $request->file('image');
 		\FB::log(filesize($image));
 
-		
+
 		if ($image) {
 			if (filesize($image) <= 2097152) {
 				if ($type == 1) {
 					$image_name = time().'-'.$user->slug.'.'.$image->getClientOriginalExtension();
 					$request->image->move(storage_path('app/public/profile-img/'), $image_name);
-	
+
 					$image_path = '/'.'storage/profile-img/'.$image_name;
 					$user->profile_img = $image_path;
 				} else if ($type == 2) {
 					$image_name = time().'-'.$user->slug.'.'.$image->getClientOriginalExtension();
 					$request->image->move(storage_path('app/public/cover-img/'), $image_name);
-	
+
 					$image_path = '/'.'storage/cover-img/'.$image_name;
 					$user->cover_img = $image_path;
 				}
 				$user->save();
-	
+
 				$data = array(
 					'code' => 200,
 					'status' => 'success',
@@ -243,7 +247,7 @@ class ProfileController extends Controller
 		if ($video) {
 
 			Storage::disk('public')->delete('account-video/'.$video->name_file);
-			
+
 			DB::table('video')->where('id', $id)->delete();
 
 			$data = array(
@@ -260,6 +264,56 @@ class ProfileController extends Controller
 		}
 
 		return response()->json($data, $data['code']);
+	}
+
+	// Offer Section
+
+	public function addProduct(Request $request)
+	{
+		$user = Auth::user();
+		$operation = Operation::find(2);
+
+		if ($operation->coins_cost <= $user->coins) {
+			$image = $request->file('image');
+
+			if ($image) {
+				$image_name = time() . '-' . $user->slug . $image->getClientOriginalExtension();
+				$request->image->move(storage_path('app/public/offer-img/'), $image_name);
+				$image_path = '/'.'storage/offer-img/'.$image_name;
+
+				$offer = new Offer();
+				$offer->title = $request->title;
+				$offer->category_id = $request->category_id;
+				$offer->image_url = $image_path;
+				$offer->user_id = $user->id;
+				$offer->save();
+
+				$data = array(
+					'code' => 200,
+					'status' => 'success',
+					'message' => 'Producto ingresado correctamente'
+				);
+			} else {
+				$data = array(
+					'code' => 401,
+					'status' => 'error',
+					'message' => 'Ingrese una imagen para esta oferta'
+				);
+			}
+		} else {
+			$data = array(
+				'code' => 403,
+				'status' => 'error',
+				'message' => 'No cuenta con los coins necesarios'
+			);
+		}
+
+		return response()->json($data, $data['code']);
+	}
+
+	public function deleteProduct(Request $request)
+	{
+		return 'ok';
 	}
 
     // Get data functions

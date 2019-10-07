@@ -28,6 +28,13 @@ Route::delete('/profile/delete-account-image/{id}', 'ProfileController@deleteAcc
 Route::post('/profile/add-account-video', 'ProfileController@addAccountVideo');
 Route::delete('/profile/delete-account-video/{id}', 'ProfileController@deleteAccountVideo');
 
+Route::post('/profile/add-product', 'ProfileController@addProduct');
+Route::post('/profile/edit-product', 'ProfileController@editProduct');
+Route::delete('/profile/delete-product', 'ProfileController@deleteProduct');
+Route::post('/profile/add-product-cert', 'ProfileController@addProductCert');
+Route::post('/profile/edit-product-cert', 'ProfileController@editProductCert');
+Route::delete('/profiñe/delete-product-cert', 'ProfileController@deleteProductCert');
+
 Route::get('/business', 'BusinessController@index')->name('business');
 
 Route::get('/business/category/{slug}', 'BusinessController@category')->name('business.category');
