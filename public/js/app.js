@@ -5425,6 +5425,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5435,7 +5440,11 @@ __webpack_require__.r(__webpack_exports__);
   props: ['data_offers'],
   data: function data() {
     return {
-      categories: []
+      categories: [],
+      title: '',
+      image: {},
+      category_id: '',
+      upload_offer_image: []
     };
   },
   created: function created() {
@@ -5446,7 +5455,12 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    handleOfferImage: function handleOfferImage() {
+      this.upload_offer_image = this.$refs.offerImage.files[0];
+    },
     addProduct: function addProduct() {
+      var _this2 = this;
+
       Swal.fire({
         title: 'Estas consumiendo 30 coins en esta operación',
         text: '¿Deseas continuar?',
@@ -5457,14 +5471,61 @@ __webpack_require__.r(__webpack_exports__);
         cancelButtonText: 'Cancelar',
         showCancelButton: true
       }).then(function (res) {
+        var formData = new FormData();
+        formData.append('image', _this2.upload_offer_image);
+        formData.append('title', _this2.title);
+        formData.append('category_id', _this2.category_id); // Comprobar el contenido del formData
+
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = formData.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var key = _step.value;
+            console.log(key[0] + ', ' + key[1]);
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+              _iterator["return"]();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+
+        var config = {
+          headers: {
+            'content-type': 'multipart/form-data'
+          }
+        };
+
         if (res.value == true) {
-          console.log('Agregado');
+          axios.post('/profile/add-product', formData, config).then(function (res) {
+            console.log(res);
+            Swal.fire({
+              title: res.data.message,
+              type: res.data.status,
+              timer: 1500
+            });
+          })["catch"](function (err) {
+            console.log(err.response);
+            Swal.fire({
+              title: err.response.data.message,
+              type: 'error',
+              timer: 2000
+            });
+          });
         }
       });
     },
     deleteProduct: function deleteProduct(product_id) {
-      var _this2 = this;
-
       Swal.fire({
         title: '¿Estas seguro que deseas eliminar este producto?',
         text: 'Esta acción es irreversible',
@@ -5476,29 +5537,24 @@ __webpack_require__.r(__webpack_exports__);
         showCancelButton: true
       }).then(function (res) {
         if (res.value == true) {
-          console.log('Borrado');
-        }
-
-        axios["delete"]('api/products', {
-          'product_id': product_id,
-          'user_id': _this2.user.id
-        }).then(function (res) {
-          if (res.data == 'OK') {
-            //
+          axios["delete"]('/profile/delete-product', {
+            'product_id': product_id
+          }).then(function (res) {
+            console.log(res);
             Swal.fire({
               title: 'Producto borrado con exito',
               type: 'success',
               timer: 1500
-            }).then(function (res) {// Recargar componente
             });
-          }
-        })["catch"](function (err) {
-          Swal.fire({
-            title: 'Hubo un error al borrar el producto',
-            type: 'error',
-            timer: 2000
+          })["catch"](function (err) {
+            console.log(err.reponse);
+            Swal.fire({
+              title: 'Hubo un error al borrar el producto',
+              type: 'error',
+              timer: 2000
+            });
           });
-        });
+        }
       });
     }
   }
@@ -60578,7 +60634,34 @@ var render = function() {
                   _vm._m(3),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-body" }, [
-                    _vm._m(4),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [_vm._v("Título")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.title,
+                            expression: "title"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Nombre del producto"
+                        },
+                        domProps: { value: _vm.title },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.title = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
                       _c("label", { attrs: { for: "" } }, [
@@ -60587,7 +60670,32 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "select",
-                        { staticClass: "custom-select" },
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.category_id,
+                              expression: "category_id"
+                            }
+                          ],
+                          staticClass: "custom-select",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.category_id = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
                         _vm._l(_vm.categories, function(category) {
                           return _c(
                             "option",
@@ -60608,7 +60716,31 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _vm._m(5)
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Subir Imagen")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "custom-file" }, [
+                        _c("input", {
+                          ref: "offerImage",
+                          staticClass: "custom-file-input",
+                          attrs: {
+                            type: "file",
+                            id: "addProductImage",
+                            lang: "es",
+                            accept: "image/*"
+                          },
+                          on: {
+                            change: function($event) {
+                              return _vm.handleOfferImage()
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm._m(4)
+                      ])
+                    ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-footer" }, [
@@ -60619,8 +60751,6 @@ var render = function() {
                         attrs: { type: "button" },
                         on: {
                           click: function($event) {
-                            $event.preventDefault()
-                            $event.stopPropagation()
                             return _vm.addProduct()
                           }
                         }
@@ -60762,46 +60892,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "" } }, [_vm._v("Título")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "text", placeholder: "Nombre del producto" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "" } }, [_vm._v("Subir Imagen")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "custom-file" }, [
-        _c("input", {
-          staticClass: "custom-file-input",
-          attrs: {
-            type: "file",
-            id: "addProductImage",
-            lang: "es",
-            accept: "image/*"
-          }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          {
-            staticClass: "custom-file-label",
-            attrs: { for: "addProductImage" }
-          },
-          [
-            _c("i", { staticClass: "fas fa-camera" }),
-            _vm._v(" Seleccione una imagen")
-          ]
-        )
-      ])
-    ])
+    return _c(
+      "label",
+      { staticClass: "custom-file-label", attrs: { for: "addProductImage" } },
+      [
+        _c("i", { staticClass: "fas fa-camera" }),
+        _vm._v(" Seleccione una imagen")
+      ]
+    )
   }
 ]
 render._withStripped = true
