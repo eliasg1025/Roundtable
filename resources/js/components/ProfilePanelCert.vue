@@ -71,12 +71,17 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="">Titulo</label>
-							<input type="text" class="form-control" placeholder="Nombre del certificado">
+							<input type="text" class="form-control" placeholder="Nombre del certificado" v-model="title">
 						</div>
 						<div class="form-group">
 							<label for="">Documento</label>
 							<div class="custom-file">
-								<input type="file" class="custom-file-input" id="addCertFile" accept="application/pdf">
+								<input
+									type="file" class="custom-file-input"
+									id="addCertFile" accept="application/pdf"
+									ref="uploadCert"
+									@change="handleCert()"
+								>
 								<label class="custom-file-label" for="addCertFile"><i class="fas fa-file-pdf"></i> Selecciona un archivo(.pdf)</label>
 								<small><span class="text-muted">Solamente se aceptará archivos de formato pdf</span></small>
 							</div>
@@ -108,7 +113,16 @@
 		props: [
 			'certifications',
 		],
+		data() {
+			return {
+				title: '',
+				upload_cert: ''
+			}
+		},
 		methods: {
+			handleCert() {
+				this.upload_cert = this.$refs.uploadCert.files[0]
+			},
 			addCert() {
 				Swal.fire({
 					title: 'Estas consumiendo 20 coins en esta operación',
@@ -122,7 +136,23 @@
 				})
 					.then(res => {
 						if (res.value == true) {
-							console.log('Agregado')
+							let formData = new FormData()
+							formData.append('file', this.upload_cert)
+							formData.append('title', this.title)
+
+							const config = {
+								headers: {'content-type': 'multipart/form-data'}
+							}
+
+							axios.post('/profile/add-cert', formData, config)
+								.then(res => {
+									console.log(res)
+									Swal.fire({title: res.data.message, type: 'success', timer: 1500})
+								})
+								.catch(err => {
+									console.log(err.response)
+									Swal.fire({title: err.response.data.message, type: 'error', timer: 200})
+								})
 						}
 					})
 			},
@@ -139,31 +169,24 @@
 				})
 				.then(res => {
 					if (res.value == true) {
-						console.log('true')
-					}
-					axios.delete('api/user_certifications', {
-						'user_certification_id': cert_id,
-						'user_id': this.user.id
-					})
-						.then(res => {
-							if (res.data == 'OK') {
+						axios.delete(`/profile/delete-cert/${cert_id}`)
+							.then(res => {
+								console.log(res.data)
 								Swal.fire({
-									title: 'Certificado borrado con exito',
+									title: res.data.message,
 									type: 'success',
 									timer: '1500',
 								})
-									.then(res => {
-
-									})
-							}
-						})
-						.catch(err => {
-							Swal.fire({
-								title: 'Hubo un error al borrar el certificado',
-								type: 'error',
-								timer: 2000,
 							})
-						})
+							.catch(err => {
+								console.log(err.response)
+								Swal.fire({
+									title: err.response.message,
+									type: 'error',
+									timer: 2000,
+								})
+							})
+					}
 				})
 			},
 			editCert(cert_id) {

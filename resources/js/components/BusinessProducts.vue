@@ -136,7 +136,7 @@
 
 <style>
 	.businessProduct {
-		padding: 80px 0px 0px 0px;
+		padding: 80px 0px 20px 0px;
 		position: relative;
 		background-color: rgb(230, 230, 230);
 	}

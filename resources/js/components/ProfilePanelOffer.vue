@@ -202,9 +202,9 @@
 						formData.append('category_id', this.category_id)
 
 						// Comprobar el contenido del formData
-						for (var key of formData.entries()) {
+						/*for (var key of formData.entries()) {
 							console.log(key[0] + ', ' + key[1]);
-						}
+						}*/
 
 						const config = {
 							headers: {'content-type': 'multipart/form-data'}
@@ -213,19 +213,11 @@
 							axios.post('/profile/add-product', formData, config)
 								.then(res => {
 									console.log(res)
-									Swal.fire({
-										title: res.data.message,
-										type: res.data.status,
-										timer: 1500,
-									})
+									Swal.fire({title: res.data.message, type: res.data.status, timer: 1500})
 								})
 								.catch(err => {
 									console.log(err.response)
-									Swal.fire({
-										title: err.response.data.message,
-										type: 'error',
-										timer: 2000,
-									})
+									Swal.fire({title: err.response.data.message, type: 'error', timer: 2000})
 								})
 						}
 					})
@@ -243,9 +235,7 @@
 				})
 					.then(res => {
 						if (res.value == true) {
-							axios.delete('/profile/delete-product', {
-								'product_id': product_id,
-							})
+							axios.delete(`/profile/delete-product/${product_id}`)
 								.then(res => {
 									console.log(res)
 									Swal.fire({

@@ -3810,12 +3810,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['certification'],
   data: function data() {
     return {
       title: '',
-      url: ''
+      upload_cert: ''
     };
   },
   created: function created() {
@@ -3823,7 +3828,12 @@ __webpack_require__.r(__webpack_exports__);
     this.url = this.certification.url;
   },
   methods: {
+    handleCert: function handleCert() {
+      this.upload_cert = this.$refs.uploadCert.files[0];
+    },
     editCert: function editCert() {
+      var _this = this;
+
       Swal.fire({
         title: '¿Realmente deseas editar los datos de este certificado?',
         type: 'warning',
@@ -3834,7 +3844,29 @@ __webpack_require__.r(__webpack_exports__);
         showCancelButton: true
       }).then(function (res) {
         if (res.value == true) {
-          console.log('Datos guardados');
+          var formData = new FormData();
+          formData.append('file', _this.upload_cert);
+          formData.append('title', _this.title);
+          var config = {
+            headers: {
+              'content-type': 'multipart/form-data'
+            }
+          };
+          axios.post("/profile/edit-cert/".concat(_this.certification.id), formData, config).then(function (res) {
+            console.log(res.data);
+            Swal.fire({
+              title: res.data.message,
+              type: 'success',
+              timer: 1500
+            });
+          })["catch"](function (err) {
+            console.log(err);
+            Swal.fire({
+              title: 'Error al editar imagen',
+              type: 'error',
+              timer: 1500
+            });
+          });
         }
       });
     }
@@ -3905,13 +3937,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['data_offer', 'categories'],
   data: function data() {
     return {
       title: '',
       image_url: '',
-      category_id: ''
+      category_id: '',
+      upload_offer_image: []
     };
   },
   created: function created() {
@@ -3920,7 +3958,12 @@ __webpack_require__.r(__webpack_exports__);
     this.category_id = this.data_offer.offer.category_id;
   },
   methods: {
+    handleEditOfferImage: function handleEditOfferImage() {
+      this.upload_offer_image = this.$refs.editOfferImage.files[0];
+    },
     editProduct: function editProduct() {
+      var _this = this;
+
       Swal.fire({
         title: '¿Realmente deseas editar los datos de este producto?',
         type: 'warning',
@@ -3931,7 +3974,55 @@ __webpack_require__.r(__webpack_exports__);
         showCancelButton: true
       }).then(function (res) {
         if (res.value == true) {
-          console.log('Datos guardados');
+          var formData = new FormData();
+          formData.append('image', _this.upload_offer_image);
+          formData.append('title', _this.title);
+          formData.append('category_id', _this.category_id); // Comprobar el contenido del formData
+
+          var _iteratorNormalCompletion = true;
+          var _didIteratorError = false;
+          var _iteratorError = undefined;
+
+          try {
+            for (var _iterator = formData.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+              var key = _step.value;
+              console.log(key[0] + ', ' + key[1]);
+            }
+          } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
+          } finally {
+            try {
+              if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+                _iterator["return"]();
+              }
+            } finally {
+              if (_didIteratorError) {
+                throw _iteratorError;
+              }
+            }
+          }
+
+          var config = {
+            headers: {
+              'content-type': 'multipart/form-data'
+            }
+          };
+          axios.post("/profile/edit-product/".concat(_this.data_offer.offer.id), formData, config).then(function (res) {
+            console.log(res.data);
+            Swal.fire({
+              title: res.data.message,
+              type: 'success',
+              timer: 1500
+            });
+          })["catch"](function (err) {
+            console.log(err.response);
+            Swal.fire({
+              title: err.response.message,
+              type: 'error',
+              timer: 2000
+            });
+          });
         }
       });
     }
@@ -4052,17 +4143,80 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     ModalOfferCertEdit: _ProfileModalOfferCertEdit_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: ['data_offer'],
+  data: function data() {
+    return {
+      title: '',
+      file: '',
+      upload_file: ''
+    };
+  },
   methods: {
-    addOfferCert: function addOfferCert() {
-      console.log('Added');
+    handleFile: function handleFile() {
+      this.upload_file = this.$refs.uploadFile.files[0];
     },
-    deleteOfferCert: function deleteOfferCert() {
+    addOfferCert: function addOfferCert() {
+      var formData = new FormData();
+      formData.append('offer_id', this.data_offer.offer.id);
+      formData.append('title', this.title);
+      formData.append('file', this.upload_file); // Comprobar el contenido del formData
+
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = formData.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var key = _step.value;
+          console.log(key[0] + ', ' + key[1]);
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      };
+      axios.post('/profile/add-product-cert', formData, config).then(function (res) {
+        console.log(res.data);
+        Swal.fire({
+          title: res.data.message,
+          type: 'success',
+          timer: 1500
+        });
+      })["catch"](function (err) {
+        console.log(err.response);
+        Swal.fire({
+          title: err.response.data.message,
+          type: 'error',
+          timer: 2000
+        });
+      });
+    },
+    deleteOfferCert: function deleteOfferCert(certification_id) {
       Swal.fire({
         title: '¿Estas seguro que deseas eliminar el certificado de este producto?',
         text: 'Esta acción es irreversible',
@@ -4074,10 +4228,21 @@ __webpack_require__.r(__webpack_exports__);
         showCancelButton: true
       }).then(function (res) {
         if (res.value == true) {
-          console.log('Deleted');
+          axios["delete"]("/profile/delete-product-cert/".concat(certification_id)).then(function (res) {
+            console.log(res.data);
+            Swal.fire({
+              title: res.data.message,
+              type: 'success',
+              timer: 1500
+            });
+          })["catch"](function (err) {
+            Swal.fire({
+              title: err.response.data.message,
+              type: 'error',
+              timer: 2000
+            });
+          });
         }
-      })["catch"](function (err) {
-        console.log("Error:".concat(err.data, ". Comunicate con support@roundtableperu.com"));
       });
     }
   }
@@ -4127,12 +4292,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['certification'],
   data: function data() {
     return {
       title: '',
-      url: ''
+      url: '',
+      upload_offer_cert: []
     };
   },
   created: function created() {
@@ -4140,7 +4311,12 @@ __webpack_require__.r(__webpack_exports__);
     this.url = this.certification.url;
   },
   methods: {
+    handleOfferCert: function handleOfferCert() {
+      this.upload_offer_cert = this.$refs.offerCert.files[0];
+    },
     editOfferCert: function editOfferCert() {
+      var _this = this;
+
       Swal.fire({
         title: '¿Realmente deseas editar los datos de este certificado?',
         type: 'warning',
@@ -4151,7 +4327,29 @@ __webpack_require__.r(__webpack_exports__);
         showCancelButton: true
       }).then(function (res) {
         if (res.value == true) {
-          console.log('Datos guardados');
+          var formData = new FormData();
+          formData.append('file', _this.upload_offer_cert);
+          formData.append('title', _this.title);
+          var config = {
+            headers: {
+              'content-type': 'multipart/form-data'
+            }
+          };
+          axios.post("/profile/edit-product-cert/".concat(_this.certification.id), formData, config).then(function (res) {
+            console.log(res.data);
+            Swal.fire({
+              title: res.data.message,
+              type: 'success',
+              timer: 1500
+            });
+          })["catch"](function (err) {
+            console.log(err.response);
+            Swal.fire({
+              title: err.response.data.message,
+              type: 'error',
+              timer: 2000
+            });
+          });
         }
       });
     }
@@ -4270,14 +4468,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     ModalCertEdit: _ProfileModalCertEdit_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: ['certifications'],
+  data: function data() {
+    return {
+      title: '',
+      upload_cert: ''
+    };
+  },
   methods: {
+    handleCert: function handleCert() {
+      this.upload_cert = this.$refs.uploadCert.files[0];
+    },
     addCert: function addCert() {
+      var _this = this;
+
       Swal.fire({
         title: 'Estas consumiendo 20 coins en esta operación',
         text: '¿Deseas continuar?',
@@ -4289,13 +4503,33 @@ __webpack_require__.r(__webpack_exports__);
         showCancelButton: true
       }).then(function (res) {
         if (res.value == true) {
-          console.log('Agregado');
+          var formData = new FormData();
+          formData.append('file', _this.upload_cert);
+          formData.append('title', _this.title);
+          var config = {
+            headers: {
+              'content-type': 'multipart/form-data'
+            }
+          };
+          axios.post('/profile/add-cert', formData, config).then(function (res) {
+            console.log(res);
+            Swal.fire({
+              title: res.data.message,
+              type: 'success',
+              timer: 1500
+            });
+          })["catch"](function (err) {
+            console.log(err.response);
+            Swal.fire({
+              title: err.response.data.message,
+              type: 'error',
+              timer: 200
+            });
+          });
         }
       });
     },
     deleteCert: function deleteCert(cert_id) {
-      var _this = this;
-
       Swal.fire({
         title: '¿Estas seguro que deseas eliminar este certificado?',
         text: 'Esta acción es irreversible',
@@ -4307,27 +4541,22 @@ __webpack_require__.r(__webpack_exports__);
         showCancelButton: true
       }).then(function (res) {
         if (res.value == true) {
-          console.log('true');
-        }
-
-        axios["delete"]('api/user_certifications', {
-          'user_certification_id': cert_id,
-          'user_id': _this.user.id
-        }).then(function (res) {
-          if (res.data == 'OK') {
+          axios["delete"]("/profile/delete-cert/".concat(cert_id)).then(function (res) {
+            console.log(res.data);
             Swal.fire({
-              title: 'Certificado borrado con exito',
+              title: res.data.message,
               type: 'success',
               timer: '1500'
-            }).then(function (res) {});
-          }
-        })["catch"](function (err) {
-          Swal.fire({
-            title: 'Hubo un error al borrar el certificado',
-            type: 'error',
-            timer: 2000
+            });
+          })["catch"](function (err) {
+            console.log(err.response);
+            Swal.fire({
+              title: err.response.message,
+              type: 'error',
+              timer: 2000
+            });
           });
-        });
+        }
       });
     },
     editCert: function editCert(cert_id) {
@@ -5476,29 +5705,9 @@ __webpack_require__.r(__webpack_exports__);
         formData.append('title', _this2.title);
         formData.append('category_id', _this2.category_id); // Comprobar el contenido del formData
 
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
-
-        try {
-          for (var _iterator = formData.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var key = _step.value;
-            console.log(key[0] + ', ' + key[1]);
-          }
-        } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-              _iterator["return"]();
-            }
-          } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
-            }
-          }
-        }
+        /*for (var key of formData.entries()) {
+        	console.log(key[0] + ', ' + key[1]);
+        }*/
 
         var config = {
           headers: {
@@ -5537,9 +5746,7 @@ __webpack_require__.r(__webpack_exports__);
         showCancelButton: true
       }).then(function (res) {
         if (res.value == true) {
-          axios["delete"]('/profile/delete-product', {
-            'product_id': product_id
-          }).then(function (res) {
+          axios["delete"]("/profile/delete-product/".concat(product_id)).then(function (res) {
             console.log(res);
             Swal.fire({
               title: 'Producto borrado con exito',
@@ -10706,7 +10913,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.businessProduct {\n\t\tpadding: 80px 0px 0px 0px;\n\t\tposition: relative;\n\t\tbackground-color: rgb(230, 230, 230);\n}\n#carousel-business-products-controls {\n\t\tmargin-top: 25px;\n}\n.title-businessProducts {\n\t\tfont-family: 'Roboto', sans-serif;\n\t\tmargin-left: 17px;\n\t\tmargin-bottom: 25px;\n}\n.product-image {\n\t\theight: 140px;\n}\n.product-title {\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.product-category .badge{\n\t\tbackground-color: #88BE2E;\n}\n.btn-detalle {\n\t\tbackground-color: #88BE2E;\n}\n.product-detail-title {\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.product-detail-image {\n\t\tborder: 1px solid #ddd;\n  \t\tborder-radius: 4px;\n  \t\tpadding: 5px;\n\t\theight: 250px;\n\t\t-o-object-fit: cover;\n\t\t   object-fit: cover;\n}\n.product-detail-image:hover {\n\t\tbox-shadow: 0 0 2px 1px rgb(136, 190, 46);\n}\n.content-product-detail {\n\t\tfont-family: 'Robot', sans-serif;\n}\n.product-detail-certifications-list .nav {\n\t\tmargin-top: 25px;\n}\n.product-detail-certifications-list .nav-item {\n\t\twidth: 33%;\n\t\ttext-align: center;\n}\n.product-certification-title {\n\t\tfont-size: 14px;\n\t\tmargin-top: 10px;\n\t\tdisplay: block;\n}\n@media (max-width: 640px) {\n.product-image {\n\t\t\theight: 200px;\n\t\t\t-o-object-fit: cover;\n\t\t\t   object-fit: cover;\n}\n.product-detail-image {\n\t\t\theight: 180px;\n}\n.product-certification-title {\n\t\t\tfont-size: 12px;\n}\n}\n.card-container {\n\t\theight: 325px;\n}\n@media (max-width: 640px) {\n.card-container {\n\t\t\theight: 360px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.businessProduct {\n\t\tpadding: 80px 0px 20px 0px;\n\t\tposition: relative;\n\t\tbackground-color: rgb(230, 230, 230);\n}\n#carousel-business-products-controls {\n\t\tmargin-top: 25px;\n}\n.title-businessProducts {\n\t\tfont-family: 'Roboto', sans-serif;\n\t\tmargin-left: 17px;\n\t\tmargin-bottom: 25px;\n}\n.product-image {\n\t\theight: 140px;\n}\n.product-title {\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.product-category .badge{\n\t\tbackground-color: #88BE2E;\n}\n.btn-detalle {\n\t\tbackground-color: #88BE2E;\n}\n.product-detail-title {\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.product-detail-image {\n\t\tborder: 1px solid #ddd;\n  \t\tborder-radius: 4px;\n  \t\tpadding: 5px;\n\t\theight: 250px;\n\t\t-o-object-fit: cover;\n\t\t   object-fit: cover;\n}\n.product-detail-image:hover {\n\t\tbox-shadow: 0 0 2px 1px rgb(136, 190, 46);\n}\n.content-product-detail {\n\t\tfont-family: 'Robot', sans-serif;\n}\n.product-detail-certifications-list .nav {\n\t\tmargin-top: 25px;\n}\n.product-detail-certifications-list .nav-item {\n\t\twidth: 33%;\n\t\ttext-align: center;\n}\n.product-certification-title {\n\t\tfont-size: 14px;\n\t\tmargin-top: 10px;\n\t\tdisplay: block;\n}\n@media (max-width: 640px) {\n.product-image {\n\t\t\theight: 200px;\n\t\t\t-o-object-fit: cover;\n\t\t\t   object-fit: cover;\n}\n.product-detail-image {\n\t\t\theight: 180px;\n}\n.product-certification-title {\n\t\t\tfont-size: 12px;\n}\n}\n.card-container {\n\t\theight: 325px;\n}\n@media (max-width: 640px) {\n.card-container {\n\t\t\theight: 360px;\n}\n}\n", ""]);
 
 // exports
 
@@ -57542,7 +57749,32 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _vm._m(1)
+            _c("div", [
+              _c("label", { attrs: { for: "" } }, [
+                _vm._v("Cambiar documento")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "custom-file" }, [
+                _c("input", {
+                  ref: "uploadCert",
+                  staticClass: "custom-file-input",
+                  attrs: {
+                    type: "file",
+                    id: "editCertFile",
+                    accept: "application/pdf"
+                  },
+                  on: {
+                    change: function($event) {
+                      return _vm.handleCert()
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm._m(1),
+                _vm._v(" "),
+                _vm._m(2)
+              ])
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "modal-footer" }, [
@@ -57604,29 +57836,22 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("label", { attrs: { for: "" } }, [_vm._v("Cambiar documento")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "custom-file" }, [
-        _c("input", {
-          staticClass: "custom-file-input",
-          attrs: { type: "file", id: "editCertFile", accept: "application/pdf" }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          { staticClass: "custom-file-label", attrs: { for: "editCertFile" } },
-          [
-            _c("i", { staticClass: "fas fa-file-pdf" }),
-            _vm._v(" Selecciona un archivo(.pdf)")
-          ]
-        ),
-        _vm._v(" "),
-        _c("small", [
-          _c("span", { staticClass: "text-muted" }, [
-            _vm._v("Solamente se aceptará archivos de formato pdf")
-          ])
-        ])
+    return _c(
+      "label",
+      { staticClass: "custom-file-label", attrs: { for: "editCertFile" } },
+      [
+        _c("i", { staticClass: "fas fa-file-pdf" }),
+        _vm._v(" Selecciona un archivo(.pdf)")
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("small", [
+      _c("span", { staticClass: "text-muted" }, [
+        _vm._v("Solamente se aceptará archivos de formato pdf")
       ])
     ])
   }
@@ -57713,14 +57938,63 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _vm._m(1),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "" } }, [
+                      _vm._v("Cambiar Imagen")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "custom-file" }, [
+                      _c("input", {
+                        ref: "editOfferImage",
+                        staticClass: "custom-file-input",
+                        attrs: {
+                          type: "file",
+                          id: "editOfferImage",
+                          lang: "es",
+                          accept: "image/*"
+                        },
+                        on: {
+                          change: function($event) {
+                            return _vm.handleEditOfferImage()
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm._m(1)
+                    ])
+                  ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
                     _c("label", { attrs: { for: "" } }, [_vm._v("Categoría:")]),
                     _vm._v(" "),
                     _c(
                       "select",
-                      { staticClass: "custom-select" },
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.category_id,
+                            expression: "category_id"
+                          }
+                        ],
+                        staticClass: "custom-select",
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.category_id = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
                       _vm._l(_vm.categories, function(category) {
                         return _c(
                           "option",
@@ -57758,8 +58032,6 @@ var render = function() {
                   attrs: { type: "button" },
                   on: {
                     click: function($event) {
-                      $event.preventDefault()
-                      $event.stopPropagation()
                       return _vm.editProduct()
                     }
                   }
@@ -57808,33 +58080,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "" } }, [_vm._v("Cambiar Imagen")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "custom-file" }, [
-        _c("input", {
-          staticClass: "custom-file-input",
-          attrs: {
-            type: "file",
-            id: "editOfferImage",
-            lang: "es",
-            accept: "image/*"
-          }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          {
-            staticClass: "custom-file-label",
-            attrs: { for: "editOfferImage" }
-          },
-          [
-            _c("i", { staticClass: "fas fa-camera" }),
-            _vm._v(" Seleccione una imagen")
-          ]
-        )
-      ])
-    ])
+    return _c(
+      "label",
+      { staticClass: "custom-file-label", attrs: { for: "editOfferImage" } },
+      [
+        _c("i", { staticClass: "fas fa-camera" }),
+        _vm._v(" Seleccione una imagen")
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -57970,7 +58223,9 @@ var render = function() {
                                   staticClass: "btn btn-danger btn-block",
                                   on: {
                                     click: function($event) {
-                                      return _vm.deleteOfferCert()
+                                      return _vm.deleteOfferCert(
+                                        certification.id
+                                      )
                                     }
                                   }
                                 },
@@ -58023,7 +58278,65 @@ var render = function() {
                         _c("div", { staticClass: "modal-content" }, [
                           _vm._m(3),
                           _vm._v(" "),
-                          _vm._m(4),
+                          _c("div", { staticClass: "modal-body" }, [
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("label", { attrs: { for: "" } }, [
+                                _vm._v("Titulo")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.title,
+                                    expression: "title"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "text",
+                                  placeholder: "Nombre del certificado"
+                                },
+                                domProps: { value: _vm.title },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.title = $event.target.value
+                                  }
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("label", { attrs: { for: "" } }, [
+                                _vm._v("Documento")
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "custom-file" }, [
+                                _c("input", {
+                                  ref: "uploadFile",
+                                  staticClass: "custom-file-input",
+                                  attrs: {
+                                    type: "file",
+                                    id: "addOfferCertFile",
+                                    accept: "application/pdf"
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.handleFile()
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _vm._m(4),
+                                _vm._v(" "),
+                                _vm._m(5)
+                              ])
+                            ])
+                          ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "modal-footer" }, [
                             _c(
@@ -58144,47 +58457,22 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-body" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Titulo")]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "text", placeholder: "Nombre del certificado" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Documento")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "custom-file" }, [
-          _c("input", {
-            staticClass: "custom-file-input",
-            attrs: {
-              type: "file",
-              id: "addOfferCertFile",
-              accept: "application/pdf"
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            {
-              staticClass: "custom-file-label",
-              attrs: { for: "addOfferCertFile" }
-            },
-            [
-              _c("i", { staticClass: "fas fa-file-pdf" }),
-              _vm._v(" Selecciona un archivo(.pdf)")
-            ]
-          ),
-          _vm._v(" "),
-          _c("small", [
-            _c("span", { staticClass: "text-muted" }, [
-              _vm._v("Solamente se aceptará archivos de formato pdf")
-            ])
-          ])
-        ])
+    return _c(
+      "label",
+      { staticClass: "custom-file-label", attrs: { for: "addOfferCertFile" } },
+      [
+        _c("i", { staticClass: "fas fa-file-pdf" }),
+        _vm._v(" Selecciona un archivo(.pdf)")
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("small", [
+      _c("span", { staticClass: "text-muted" }, [
+        _vm._v("Solamente se aceptará archivos de formato pdf")
       ])
     ])
   }
@@ -58255,7 +58543,32 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _vm._m(1)
+            _c("div", [
+              _c("label", { attrs: { for: "" } }, [
+                _vm._v("Cambiar documento")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "custom-file" }, [
+                _c("input", {
+                  ref: "offerCert",
+                  staticClass: "custom-file-input",
+                  attrs: {
+                    type: "file",
+                    id: "editCertFile",
+                    accept: "application/pdf"
+                  },
+                  on: {
+                    change: function($event) {
+                      return _vm.handleOfferCert()
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm._m(1),
+                _vm._v(" "),
+                _vm._m(2)
+              ])
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "modal-footer" }, [
@@ -58317,29 +58630,22 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("label", { attrs: { for: "" } }, [_vm._v("Cambiar documento")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "custom-file" }, [
-        _c("input", {
-          staticClass: "custom-file-input",
-          attrs: { type: "file", id: "editCertFile", accept: "application/pdf" }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          { staticClass: "custom-file-label", attrs: { for: "editCertFile" } },
-          [
-            _c("i", { staticClass: "fas fa-file-pdf" }),
-            _vm._v(" Selecciona un archivo(.pdf)")
-          ]
-        ),
-        _vm._v(" "),
-        _c("small", [
-          _c("span", { staticClass: "text-muted" }, [
-            _vm._v("Solamente se aceptará archivos de formato pdf")
-          ])
-        ])
+    return _c(
+      "label",
+      { staticClass: "custom-file-label", attrs: { for: "editCertFile" } },
+      [
+        _c("i", { staticClass: "fas fa-file-pdf" }),
+        _vm._v(" Selecciona un archivo(.pdf)")
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("small", [
+      _c("span", { staticClass: "text-muted" }, [
+        _vm._v("Solamente se aceptará archivos de formato pdf")
       ])
     ])
   }
@@ -58473,7 +58779,61 @@ var render = function() {
               _c("div", { staticClass: "modal-content" }, [
                 _vm._m(4),
                 _vm._v(" "),
-                _vm._m(5),
+                _c("div", { staticClass: "modal-body" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "" } }, [_vm._v("Titulo")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.title,
+                          expression: "title"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Nombre del certificado"
+                      },
+                      domProps: { value: _vm.title },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.title = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "" } }, [_vm._v("Documento")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "custom-file" }, [
+                      _c("input", {
+                        ref: "uploadCert",
+                        staticClass: "custom-file-input",
+                        attrs: {
+                          type: "file",
+                          id: "addCertFile",
+                          accept: "application/pdf"
+                        },
+                        on: {
+                          change: function($event) {
+                            return _vm.handleCert()
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm._m(5),
+                      _vm._v(" "),
+                      _vm._m(6)
+                    ])
+                  ])
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-footer" }, [
                   _c(
@@ -58626,44 +58986,22 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-body" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Titulo")]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "text", placeholder: "Nombre del certificado" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Documento")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "custom-file" }, [
-          _c("input", {
-            staticClass: "custom-file-input",
-            attrs: {
-              type: "file",
-              id: "addCertFile",
-              accept: "application/pdf"
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            { staticClass: "custom-file-label", attrs: { for: "addCertFile" } },
-            [
-              _c("i", { staticClass: "fas fa-file-pdf" }),
-              _vm._v(" Selecciona un archivo(.pdf)")
-            ]
-          ),
-          _vm._v(" "),
-          _c("small", [
-            _c("span", { staticClass: "text-muted" }, [
-              _vm._v("Solamente se aceptará archivos de formato pdf")
-            ])
-          ])
-        ])
+    return _c(
+      "label",
+      { staticClass: "custom-file-label", attrs: { for: "addCertFile" } },
+      [
+        _c("i", { staticClass: "fas fa-file-pdf" }),
+        _vm._v(" Selecciona un archivo(.pdf)")
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("small", [
+      _c("span", { staticClass: "text-muted" }, [
+        _vm._v("Solamente se aceptará archivos de formato pdf")
       ])
     ])
   }

@@ -44,7 +44,7 @@
 											</button>
 										</div>
 										<div class="container mb-1 px-1">
-											<button class="btn btn-danger btn-block" @click="deleteOfferCert()">
+											<button class="btn btn-danger btn-block" @click="deleteOfferCert(certification.id)">
 												Eliminar
 											</button>
 										</div>
@@ -70,12 +70,17 @@
 								<div class="modal-body">
 									<div class="form-group">
 										<label for="">Titulo</label>
-										<input type="text" class="form-control" placeholder="Nombre del certificado">
+										<input type="text" class="form-control" placeholder="Nombre del certificado" v-model="title">
 									</div>
 									<div class="form-group">
 										<label for="">Documento</label>
 										<div class="custom-file">
-											<input type="file" class="custom-file-input" id="addOfferCertFile" accept="application/pdf">
+											<input
+												type="file" class="custom-file-input"
+												id="addOfferCertFile" accept="application/pdf"
+												ref="uploadFile"
+												@change="handleFile()"
+											>
 											<label class="custom-file-label" for="addOfferCertFile"><i class="fas fa-file-pdf"></i> Selecciona un archivo(.pdf)</label>
 											<small><span class="text-muted">Solamente se aceptará archivos de formato pdf</span></small>
 										</div>
@@ -110,11 +115,43 @@
 		props: [
 			'data_offer',
 		],
+		data() {
+			return {
+				title: '',
+				file: '',
+				upload_file: '',
+			}
+		},
 		methods: {
-			addOfferCert() {
-				console.log('Added')
+			handleFile() {
+				this.upload_file = this.$refs.uploadFile.files[0]
 			},
-			deleteOfferCert() {
+			addOfferCert() {
+				let formData = new FormData()
+				formData.append('offer_id', this.data_offer.offer.id)
+				formData.append('title', this.title)
+				formData.append('file', this.upload_file)
+
+				// Comprobar el contenido del formData
+				for (var key of formData.entries()) {
+					console.log(key[0] + ', ' + key[1]);
+				}
+
+				const config = {
+					headers: {'content-type': 'multipart/form-data'}
+				}
+
+				axios.post('/profile/add-product-cert', formData, config)
+					.then(res => {
+						console.log(res.data)
+						Swal.fire({title: res.data.message, type: 'success', timer: 1500})
+					})
+					.catch(err => {
+						console.log(err.response)
+						Swal.fire({title: err.response.data.message, type: 'error', timer: 2000})
+					})
+			},
+			deleteOfferCert(certification_id) {
 				Swal.fire({
 					title: '¿Estas seguro que deseas eliminar el certificado de este producto?',
 					text: 'Esta acción es irreversible',
@@ -127,11 +164,15 @@
 				})
 					.then(res => {
 						if (res.value == true) {
-							console.log('Deleted')
+							axios.delete(`/profile/delete-product-cert/${certification_id}`)
+								.then(res => {
+									console.log(res.data)
+									Swal.fire({title: res.data.message, type: 'success', timer: 1500})
+								})
+								.catch(err => {
+									Swal.fire({title: err.response.data.message, type: 'error', timer: 2000})
+								})
 						}
-					})
-					.catch(err => {
-						console.log(`Error:${err.data}. Comunicate con support@roundtableperu.com`)
 					})
 			}
 		}

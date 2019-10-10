@@ -23,13 +23,18 @@
 							<div class="form-group">
 								<label for="">Cambiar Imagen</label>
 								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="editOfferImage" lang="es" accept="image/*">
+									<input
+										type="file" class="custom-file-input"
+										id="editOfferImage" lang="es" accept="image/*"
+										ref="editOfferImage"
+										@change="handleEditOfferImage()"
+									>
 									<label class="custom-file-label" for="editOfferImage"><i class="fas fa-camera"></i> Seleccione una imagen</label>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="">Categoría:</label>
-								<select class="custom-select">
+								<select class="custom-select" v-model="category_id">
 									<option
 										v-for="category in categories" :key="category.id"
 										:selected="category_id == category.id ? 'selected' : false"
@@ -43,7 +48,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" @click.prevent.stop="editProduct()">Guardar cambios</button>
+					<button type="button" class="btn btn-primary" @click="editProduct()">Guardar cambios</button>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 				</div>
 			</div>
@@ -62,6 +67,7 @@
 				title: '',
 				image_url: '',
 				category_id: '',
+				upload_offer_image: [],
 			}
 		},
 		created() {
@@ -70,6 +76,9 @@
 			this.category_id = this.data_offer.offer.category_id
 		},
 		methods: {
+			handleEditOfferImage() {
+				this.upload_offer_image = this.$refs.editOfferImage.files[0]
+			},
 			editProduct()  {
 				Swal.fire({
 					title: '¿Realmente deseas editar los datos de este producto?',
@@ -82,7 +91,29 @@
 				})
 					.then(res => {
 						if (res.value == true) {
-							console.log('Datos guardados')
+							let formData = new FormData()
+							formData.append('image', this.upload_offer_image)
+							formData.append('title', this.title)
+							formData.append('category_id', this.category_id)
+
+							// Comprobar el contenido del formData
+							for (var key of formData.entries()) {
+								console.log(key[0] + ', ' + key[1]);
+							}
+
+							const config = {
+								headers: {'content-type': 'multipart/form-data'}
+							}
+
+							axios.post(`/profile/edit-product/${this.data_offer.offer.id}`, formData, config)
+								.then(res => {
+									console.log(res.data)
+									Swal.fire({title: res.data.message, type:'success', timer: 1500})
+								})
+								.catch(err => {
+									console.log(err.response)
+									Swal.fire({title:err.response.message, type:'error', timer: 2000})
+								})
 						}
 					})
 			}

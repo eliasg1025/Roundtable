@@ -29,11 +29,15 @@ Route::post('/profile/add-account-video', 'ProfileController@addAccountVideo');
 Route::delete('/profile/delete-account-video/{id}', 'ProfileController@deleteAccountVideo');
 
 Route::post('/profile/add-product', 'ProfileController@addProduct');
-Route::post('/profile/edit-product', 'ProfileController@editProduct');
-Route::delete('/profile/delete-product', 'ProfileController@deleteProduct');
+Route::post('/profile/edit-product/{id}', 'ProfileController@editProduct');
+Route::delete('/profile/delete-product/{id}', 'ProfileController@deleteProduct');
 Route::post('/profile/add-product-cert', 'ProfileController@addProductCert');
-Route::post('/profile/edit-product-cert', 'ProfileController@editProductCert');
-Route::delete('/profiñe/delete-product-cert', 'ProfileController@deleteProductCert');
+Route::post('/profile/edit-product-cert/{id}', 'ProfileController@editProductCert');
+Route::delete('/profile/delete-product-cert/{id}', 'ProfileController@deleteProductCert');
+
+Route::post('/profile/add-cert', 'ProfileController@addCert');
+Route::post('/profile/edit-cert/{id}', 'ProfileController@editCert');
+Route::delete('/profile/delete-cert/{id}', 'ProfileController@deleteCert');
 
 Route::get('/business', 'BusinessController@index')->name('business');
 

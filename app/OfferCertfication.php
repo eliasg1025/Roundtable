@@ -6,7 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class OfferCertfication extends Model
 {
-    public function offer()
+	protected $fillable = [
+		'title',
+		'offer_id',
+		'name_file',
+		'url'
+	];
+	
+	public function offer()
     {
         $this->belongsTo(Offer::class);
     }
