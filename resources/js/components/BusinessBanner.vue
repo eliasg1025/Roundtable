@@ -71,7 +71,7 @@
 						</ul>
 					</div>
 					<div class="col-md-4" style="margin: auto;">
-						<div v-if="data_visit_user.data.id === data_user.id" class="text-center">
+						<div v-if="data_visit_user.data.id !== data_user.id" class="text-center">
 							<button type="button" class="btn btn-block btn-agendar" data-toggle="modal" data-target="#modalAgendar">
 								Agendar
 							</button>
@@ -80,7 +80,6 @@
 							</small>
 						</div>
 
-						<!--
 						<a
 							v-if="data_visit_user.data.id === data_user.id"
 							class="btn btn-block btn-agendar"
@@ -88,7 +87,6 @@
 						>
 							Editar Perfil
 						</a>
-						-->
 					</div>
 				</div>
 			</div>

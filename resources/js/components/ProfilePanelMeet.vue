@@ -13,12 +13,15 @@
 			<div class="container">
 				<div class="form-group">
 					<label for=""><img src="/img/iconos/hangout_logo.png" height="17"> Hangouts</label>
-					<input type="text" class="form-control" placeholder="Perfil de Hangouts">
+					<input type="text" class="form-control" placeholder="Perfil de Hangouts" v-model="hangouts_url">
 				</div>
 				<div class="form-group">
 					<label for=""><img src="/img/iconos/skype_logo.png" height="17"> Skype</label>
-					<input type="text" class="form-control" placeholder="Perfil de Skype">
+					<input type="text" class="form-control" placeholder="Perfil de Skype" v-model="skype_url">
 				</div>
+				<button @click="editMeetInfo()" class="btn btn-lg btn-block btn-save" style="margin-top: 25px;">
+					Guardar Cambios
+				</button>
 			</div>
 
 
@@ -46,7 +49,47 @@
 
 <script>
 	export default {
-
+		props: ['user'],
+		data() {
+			return {
+				hangouts_url: '',
+				skype_url: '',
+			}
+		},
+		created() {
+			this.hangouts_url = this.user.hangouts_url
+			this.skype_url = this.user.skype_url
+		},
+		methods: {
+			editMeetInfo() {
+				Swal.fire({
+					title: '¿Deseas modificar datos de contacto?',
+					type: 'warning',
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Si',
+					cancelButtonText: 'Cancelar',
+					showCancelButton: true,
+				})
+					.then(res => {
+						if (res.value == true) {
+							axios.post('profile/update-contact-info', {
+								user_id: this.user.id,
+								hangouts_url: this.hangouts_url,
+								skype_url: this.skype_url
+							})
+								.then(res => {
+									console.log(res)
+									Swal.fire({title: res.data.message, type: 'success', timer:1500})
+								})
+								.catch(err => {
+									console.log(err.response)
+									Swal.fire({title: err.response.data.message, type: 'error', timer:1500})
+								})
+						}
+					})
+			}
+		}
 	}
 </script>
 

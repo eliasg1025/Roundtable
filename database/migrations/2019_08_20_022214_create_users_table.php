@@ -35,6 +35,9 @@ class CreateUsersTable extends Migration
             $table->integer('coins')->default(0); //
 			$table->integer('views')->default(0);
 			$table->boolean('verified')->default(false);
+            // Contact
+            $table->string('hangouts_url')->nullable();
+            $table->string('skype_url')->nullable();
             // Fks
             $table->bigInteger('type_id')->unsigned();
             $table->foreign('type_id')->references('id')->on('types');

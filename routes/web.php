@@ -39,6 +39,8 @@ Route::post('/profile/add-cert', 'ProfileController@addCert');
 Route::post('/profile/edit-cert/{id}', 'ProfileController@editCert');
 Route::delete('/profile/delete-cert/{id}', 'ProfileController@deleteCert');
 
+Route::post('profile/update-contact-info', 'ProfileController@updateContactInfo');
+
 Route::get('/business', 'BusinessController@index')->name('business');
 
 Route::get('/business/category/{slug}', 'BusinessController@category')->name('business.category');

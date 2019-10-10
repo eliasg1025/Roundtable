@@ -99,7 +99,6 @@ class ProfileController extends Controller
 		$image = $request->file('image');
 		\FB::log(filesize($image));
 
-
 		if ($image) {
 			if (filesize($image) <= 2097152) {
 				if ($type == 1) {
@@ -350,9 +349,9 @@ class ProfileController extends Controller
 
 			$offer->title = $request->title;
 			$offer->category_id = $request->category_id;
-			
+
 			$image = $request->file('image');
-			
+
 			if ($image) {
 				Storage::disk('public')->delete('offer-img/'.$offer->name_file);
 				$image_name = time() . '-' . $user->slug . '.' . $image->getClientOriginalExtension();
@@ -392,18 +391,18 @@ class ProfileController extends Controller
 		$file = $request->file('file');
 
 		if ($file) {
-			
+
 			$file_name = time() . '-' . $user->slug . '.' . $file->getClientOriginalExtension();
 			$request->file->move(storage_path('app/public/offer-cert/'), $file_name);
 			$file_path = '/'.'storage/offer-cert/'.$file_name;
-			
+
 			$offer_cert = new OfferCertfication();
 			$offer_cert->title = $request->title;
 			$offer_cert->offer_id = $request->offer_id;
 			$offer_cert->name_file = $file_name;
 			$offer_cert->url = $file_path;
 			$offer_cert->save();
-			
+
 			$data = array(
 				'code' => 200,
 				'status' => 'success',
@@ -416,7 +415,7 @@ class ProfileController extends Controller
 				'message' => 'No se ha seleccionado un archivo'
 			);
 		}
-		
+
 		return response()->json($data, $data['code']);
 	}
 
@@ -490,9 +489,11 @@ class ProfileController extends Controller
 				'message' => 'No esta autorizado para realizar esta acción'
 			);
 		}
-		
+
 		return response()->json($data, $data['code']);
 	}
+
+	// Cert section
 
 	public function addCert(Request $request)
 	{
@@ -505,7 +506,7 @@ class ProfileController extends Controller
 				$file_name = time() . '-' . $user->slug . '.' . $file->getClientOriginalExtension();
 				$request->file->move(storage_path('app/public/user-cert/'), $file_name);
 				$file_path = '/'.'storage/user-cert/'.$file_name;
-				
+
 				$user_cert = new UserCertfication();
 				$user_cert->title = $request->title;
 				$user_cert->url = $file_path;
@@ -515,7 +516,7 @@ class ProfileController extends Controller
 
 				$user->coins = $user->coins - $operation->coins_cost;
 				$user->save();
-	
+
 				$data = array(
 					'code' => 200,
 					'status' => 'success',
@@ -534,7 +535,7 @@ class ProfileController extends Controller
 				'status' => 'error',
 				'message' => 'No cuentas con coins suficientes'
 			);
-		}	
+		}
 		return response()->json($data, $data['code']);
 	}
 
@@ -542,7 +543,7 @@ class ProfileController extends Controller
 	{
 		$user = Auth::user();
 		$user_cert = UserCertfication::find($id);
-		
+
 		if ($user->id == $user_cert->user_id) {
 
 			$user_cert->title = $request->title;
@@ -605,6 +606,32 @@ class ProfileController extends Controller
 				'message' => 'Error al borrar el certificado'
 			);
 		}
+		return response()->json($data, $data['code']);
+	}
+
+	// Meet section
+
+	public function updateContactInfo(Request $request) {
+		$user = Auth::user();
+
+		if ($user->id == $request->user_id) {
+			$user->hangouts_url = $request->hangouts_url;
+			$user->skype_url = $request->skype_url;
+			$user->save();
+
+			$data = array(
+				'code' => 200,
+				'status' => 'success',
+				'message' => 'Datos actualizado correctamente'
+			);
+		} else{
+			$data = array(
+				'code' => 403,
+				'status' => 'success',
+				'message' => 'Error al actualizar datos'
+			);
+		}
+
 		return response()->json($data, $data['code']);
 	}
 
