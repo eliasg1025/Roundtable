@@ -2000,8 +2000,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['data_user', 'data_account', 'data_visit_user'],
   data: function data() {
@@ -3334,6 +3332,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProfilePanelCert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProfilePanelCert */ "./resources/js/components/ProfilePanelCert.vue");
 /* harmony import */ var _ProfilePanelMeet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ProfilePanelMeet */ "./resources/js/components/ProfilePanelMeet.vue");
 /* harmony import */ var _Spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Spinner */ "./resources/js/components/Spinner.vue");
+//
+//
 //
 //
 //
@@ -5489,7 +5489,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['user'],
+  data: function data() {
+    return {
+      hangouts_url: '',
+      skype_url: ''
+    };
+  },
+  created: function created() {
+    this.hangouts_url = this.user.hangouts_url;
+    this.skype_url = this.user.skype_url;
+  },
+  methods: {
+    editMeetInfo: function editMeetInfo() {
+      var _this = this;
+
+      Swal.fire({
+        title: '¿Deseas modificar datos de contacto?',
+        type: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true
+      }).then(function (res) {
+        if (res.value == true) {
+          axios.post('profile/update-contact-info', {
+            user_id: _this.user.id,
+            hangouts_url: _this.hangouts_url,
+            skype_url: _this.skype_url
+          }).then(function (res) {
+            console.log(res);
+            Swal.fire({
+              title: res.data.message,
+              type: 'success',
+              timer: 1500
+            });
+          })["catch"](function (err) {
+            console.log(err.response);
+            Swal.fire({
+              title: err.response.data.message,
+              type: 'error',
+              timer: 1500
+            });
+          });
+        }
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -53186,7 +53238,7 @@ var render = function() {
             "div",
             { staticClass: "col-md-4", staticStyle: { margin: "auto" } },
             [
-              _vm.data_visit_user.data.id === _vm.data_user.id
+              _vm.data_visit_user.data.id !== _vm.data_user.id
                 ? _c("div", { staticClass: "text-center" }, [
                     _c(
                       "button",
@@ -53203,6 +53255,17 @@ var render = function() {
                     _vm._v(" "),
                     _vm._m(0)
                   ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.data_visit_user.data.id === _vm.data_user.id
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-block btn-agendar",
+                      attrs: { href: "/profile" }
+                    },
+                    [_vm._v("\n\t\t\t\t\t\tEditar Perfil\n\t\t\t\t\t")]
+                  )
                 : _vm._e()
             ]
           )
@@ -57092,7 +57155,12 @@ var render = function() {
               : _vm._e(),
             _vm._v(" "),
             _vm.panel === 4
-              ? _c("div", { staticClass: "panel" }, [_c("panel-meet")], 1)
+              ? _c(
+                  "div",
+                  { staticClass: "panel" },
+                  [_c("panel-meet", { attrs: { user: _vm.user } })],
+                  1
+                )
               : _vm._e()
           ])
         ])
@@ -60621,9 +60689,75 @@ var render = function() {
     _c("div", { staticClass: "container" }, [
       _vm._m(1),
       _vm._v(" "),
-      _vm._m(2),
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.hangouts_url,
+                expression: "hangouts_url"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", placeholder: "Perfil de Hangouts" },
+            domProps: { value: _vm.hangouts_url },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.hangouts_url = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _vm._m(3),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.skype_url,
+                expression: "skype_url"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", placeholder: "Perfil de Skype" },
+            domProps: { value: _vm.skype_url },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.skype_url = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-lg btn-block btn-save",
+            staticStyle: { "margin-top": "25px" },
+            on: {
+              click: function($event) {
+                return _vm.editMeetInfo()
+              }
+            }
+          },
+          [_vm._v("\n\t\t\t\tGuardar Cambios\n\t\t\t")]
+        )
+      ]),
       _vm._v(" "),
-      _vm._m(3),
+      _vm._m(4),
       _vm._v(" "),
        true
         ? _c("div", { staticClass: "mt-5 text-center" }, [
@@ -60685,34 +60819,20 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "" } }, [
-          _c("img", {
-            attrs: { src: "/img/iconos/hangout_logo.png", height: "17" }
-          }),
-          _vm._v(" Hangouts")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "text", placeholder: "Perfil de Hangouts" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "" } }, [
-          _c("img", {
-            attrs: { src: "/img/iconos/skype_logo.png", height: "17" }
-          }),
-          _vm._v(" Skype")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "text", placeholder: "Perfil de Skype" }
-        })
-      ])
+    return _c("label", { attrs: { for: "" } }, [
+      _c("img", {
+        attrs: { src: "/img/iconos/hangout_logo.png", height: "17" }
+      }),
+      _vm._v(" Hangouts")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "" } }, [
+      _c("img", { attrs: { src: "/img/iconos/skype_logo.png", height: "17" } }),
+      _vm._v(" Skype")
     ])
   },
   function() {

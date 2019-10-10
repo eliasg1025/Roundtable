@@ -207,7 +207,9 @@
 
 						<!-- Agendamientos Panel -->
 						<div class="panel" v-if="panel === 4">
-							<panel-meet></panel-meet>
+							<panel-meet
+								:user="user"
+							></panel-meet>
 						</div>
 					</section>
 
