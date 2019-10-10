@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Image;
 use App\Offer;
+use App\OfferCertfication;
 use App\Operation;
 use App\User;
+use App\UserCertfication;
 use App\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -277,16 +279,20 @@ class ProfileController extends Controller
 			$image = $request->file('image');
 
 			if ($image) {
-				$image_name = time() . '-' . $user->slug . $image->getClientOriginalExtension();
+				$image_name = time() . '-' . $user->slug . '.' . $image->getClientOriginalExtension();
 				$request->image->move(storage_path('app/public/offer-img/'), $image_name);
 				$image_path = '/'.'storage/offer-img/'.$image_name;
 
 				$offer = new Offer();
 				$offer->title = $request->title;
 				$offer->category_id = $request->category_id;
+				$offer->name_file = $image_name;
 				$offer->image_url = $image_path;
 				$offer->user_id = $user->id;
 				$offer->save();
+
+				$user->coins = $user->coins - $operation->coins_cost;
+				$user->save();
 
 				$data = array(
 					'code' => 200,
@@ -311,9 +317,295 @@ class ProfileController extends Controller
 		return response()->json($data, $data['code']);
 	}
 
-	public function deleteProduct(Request $request)
+	public function deleteProduct(Request $request, $id)
 	{
-		return 'ok';
+		$user = Auth::user();
+		$offer = Offer::find($id);
+
+		if ($offer->user_id == $user->id) {
+			Storage::disk('public')->delete('offer-img/'.$offer->name_file);
+			DB::table('offers')->where('id', $id)->delete();
+
+			$data = array(
+				'code' => 200,
+				'status' => 'success',
+				'message' => 'Producto borrado correctamente',
+			);
+		} else {
+			$data = array(
+				'code' => 401,
+				'status' => 'error',
+				'message' => 'Error al borrar producto',
+			);
+		}
+
+		return response()->json($data, $data['code']);
+	}
+
+	public function editProduct(Request $request, $id) {
+		$user = Auth::user();
+		$offer = Offer::find($id);
+
+		if ($offer->user_id == $user->id) {
+
+			$offer->title = $request->title;
+			$offer->category_id = $request->category_id;
+			
+			$image = $request->file('image');
+			
+			if ($image) {
+				Storage::disk('public')->delete('offer-img/'.$offer->name_file);
+				$image_name = time() . '-' . $user->slug . '.' . $image->getClientOriginalExtension();
+				$request->image->move(storage_path('app/public/offer-img/'), $image_name);
+				$image_path = '/'.'storage/offer-img/'.$image_name;
+
+				$offer->image_url = $image_path;
+				$offer->save();
+
+				$data = array(
+					'code' => 200,
+					'status' => 'success',
+					'message' => 'Producto editado correctamente (con imagen)'
+				);
+			} else {
+				$offer->save();
+				$data = array(
+					'code' => 200,
+					'status' => 'success',
+					'message' => 'Producto editado correctamente (sin imagen)'
+				);
+			}
+
+		} else {
+			$data = array(
+				'code' => 401,
+				'status' => 'error',
+				'message' => 'Error al editar producto'
+			);
+		}
+		return response()->json($data, $data['code']);
+	}
+
+	public function addProductCert(Request $request)
+	{
+		$user = Auth::user();
+		$file = $request->file('file');
+
+		if ($file) {
+			
+			$file_name = time() . '-' . $user->slug . '.' . $file->getClientOriginalExtension();
+			$request->file->move(storage_path('app/public/offer-cert/'), $file_name);
+			$file_path = '/'.'storage/offer-cert/'.$file_name;
+			
+			$offer_cert = new OfferCertfication();
+			$offer_cert->title = $request->title;
+			$offer_cert->offer_id = $request->offer_id;
+			$offer_cert->name_file = $file_name;
+			$offer_cert->url = $file_path;
+			$offer_cert->save();
+			
+			$data = array(
+				'code' => 200,
+				'status' => 'success',
+				'message' => 'Certificado agregado correctamente',
+			);
+		} else {
+			$data = array(
+				'code' => 401,
+				'status' => 'error',
+				'message' => 'No se ha seleccionado un archivo'
+			);
+		}
+		
+		return response()->json($data, $data['code']);
+	}
+
+	public function editProductCert(Request $request, $id)
+	{
+		$user = Auth::user();
+		$offer_cert = OfferCertfication::find($id);
+		$offer = Offer::find($offer_cert->offer_id);
+		$file = $request->file('file');
+
+		if ($offer->user_id == $user->id) {
+
+			$offer_cert->title = $request->title;
+
+			if ($file) {
+				Storage::disk('public')->delete('offer-cert/'.$offer_cert->name_file);
+				$file_name = time() . '-' . $user->slug . '.' . $file->getClientOriginalExtension();
+				$request->file->move(storage_path('app/public/offer-cert/'), $file_name);
+				$file_path = '/'.'storage/offer-cert/'.$file_name;
+
+				$offer_cert->name_file = $file_name;
+				$offer_cert->url = $file_path;
+				$offer_cert->save();
+
+				$data = array(
+					'code' => 200,
+					'status' => 'success',
+					'message' => 'Certificado editado correctamente (con pdf)',
+				);
+			} else {
+				$offer_cert->save();
+
+				$data = array(
+					'code' => 200,
+					'status' => 'success',
+					'message' => 'Certificado editado correctamente (sin pdf)',
+				);
+			}
+
+		} else {
+			$data = array(
+				'code' => 401,
+				'status' => 'error',
+				'message' => 'Error al editar certificado',
+			);
+		}
+
+		return response()->json($data, $data['code']);
+	}
+
+	public function deleteProductCert($id)
+	{
+		$user = Auth::user();
+		$offer_cert = OfferCertfication::find($id);
+		$offer = Offer::find($offer_cert->offer_id);
+
+		if ($offer->user_id == $user->id) {
+
+			Storage::disk('public')->delete('offer-cert/'.$offer_cert->name_file);
+			DB::table('offer_certfications')->where('id', $id)->delete();
+
+			$data = array(
+				'code' => 200,
+				'status' => 'success',
+				'message' => 'Certificado borrado correctamente'
+			);
+		} else {
+			$data = array(
+				'code' => 403,
+				'status' => 'error',
+				'message' => 'No esta autorizado para realizar esta acción'
+			);
+		}
+		
+		return response()->json($data, $data['code']);
+	}
+
+	public function addCert(Request $request)
+	{
+		$user = Auth::user();
+		$file = $request->file('file');
+		$operation = Operation::find(3);
+
+		if ($operation->coins_cost <= $user->coins) {
+			if ($file) {
+				$file_name = time() . '-' . $user->slug . '.' . $file->getClientOriginalExtension();
+				$request->file->move(storage_path('app/public/user-cert/'), $file_name);
+				$file_path = '/'.'storage/user-cert/'.$file_name;
+				
+				$user_cert = new UserCertfication();
+				$user_cert->title = $request->title;
+				$user_cert->url = $file_path;
+				$user_cert->name_file = $file_name;
+				$user_cert->user_id = $user->id;
+				$user_cert->save();
+
+				$user->coins = $user->coins - $operation->coins_cost;
+				$user->save();
+	
+				$data = array(
+					'code' => 200,
+					'status' => 'success',
+					'message' => 'Se ha agregado el certificado',
+				);
+			} else {
+				$data = array(
+					'code' => 400,
+					'status' => 'error',
+					'message' => 'Error al agregar certificado. No has seleccionado un archivo'
+				);
+			}
+		} else {
+			$data = array(
+				'code' => 401,
+				'status' => 'error',
+				'message' => 'No cuentas con coins suficientes'
+			);
+		}	
+		return response()->json($data, $data['code']);
+	}
+
+	public function editCert(Request $request, $id)
+	{
+		$user = Auth::user();
+		$user_cert = UserCertfication::find($id);
+		
+		if ($user->id == $user_cert->user_id) {
+
+			$user_cert->title = $request->title;
+			$file = $request->file('file');
+			if ($file) {
+
+				Storage::disk('public')->delete('user-cert/'.$user_cert->name_file);
+				$file_name = time() . '-' . $user->slug . '.' . $file->getClientOriginalExtension();
+				$request->file->move(storage_path('app/public/user-cert/'), $file_name);
+				$file_path = '/'.'storage/user-cert/'.$file_name;
+
+				$user_cert->name_file = $file_name;
+				$user_cert->url = $file_path;
+				$user_cert->save();
+
+				$data = array(
+					'code' => 200,
+					'status' => 'success',
+					'message' => 'Certificado actualizado correctamente (con pdf)'
+				);
+			} else {
+				$user_cert->save();
+
+				$data = array(
+					'code' => 200,
+					'status' => 'success',
+					'message' => 'Certificado actualizado correctamente (sin pdf)'
+				);
+			}
+		} else {
+			$data = array(
+				'code' => 403,
+				'status' => 'error',
+				'message' => 'Error al editar imagen'
+			);
+		}
+
+		return response()->json($data, $data['code']);
+	}
+
+	public function deleteCert($id)
+	{
+		$user = Auth::user();
+		$user_cert = UserCertfication::find($id);
+
+		if ($user->id == $user_cert->user_id) {
+
+			Storage::disk('public')->delete('user-cert/'.$user_cert->name_file);
+			DB::table('user_certfications')->where('id', $id)->delete();
+
+			$data = array(
+				'code' => 200,
+				'status' => 'success',
+				'message' => 'Se ha borrado el certificado',
+			);
+		} else {
+			$data = array(
+				'code' => 400,
+				'status' => 'error',
+				'message' => 'Error al borrar el certificado'
+			);
+		}
+		return response()->json($data, $data['code']);
 	}
 
     // Get data functions

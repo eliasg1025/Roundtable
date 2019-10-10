@@ -10,6 +10,7 @@ class Offer extends Model
     	'title',
     	'user_id',
     	'image_url',
+        'name_file',
     	'category_id',
     ];
 

@@ -16,7 +16,12 @@
 					<div>
 						<label for="">Cambiar documento</label>
 						<div class="custom-file">
-							<input type="file" class="custom-file-input" id="editCertFile" accept="application/pdf">
+							<input
+								type="file" class="custom-file-input"
+								id="editCertFile" accept="application/pdf"
+								ref="offerCert"
+								@change="handleOfferCert()"
+							>
 							<label class="custom-file-label" for="editCertFile"><i class="fas fa-file-pdf"></i> Selecciona un archivo(.pdf)</label>
 							<small><span class="text-muted">Solamente se aceptará archivos de formato pdf</span></small>
 						</div>
@@ -38,6 +43,7 @@
 			return {
 				title: '',
 				url: '',
+				upload_offer_cert: [],
 			}
 		},
 		created() {
@@ -45,6 +51,9 @@
 			this.url = this.certification.url
 		},
 		methods: {
+			handleOfferCert() {
+				this.upload_offer_cert = this.$refs.offerCert.files[0]
+			},
 			editOfferCert() {
 				Swal.fire({
 					title: '¿Realmente deseas editar los datos de este certificado?',
@@ -56,8 +65,24 @@
 					showCancelButton: true,
 				})
 					.then(res => {
+						
 						if (res.value == true) {
-							console.log('Datos guardados')
+							let formData = new FormData()
+							formData.append('file', this.upload_offer_cert)
+							formData.append('title', this.title)
+							
+							const config = {
+								headers: {'content-type': 'multipart/form-data'}
+							}
+							axios.post(`/profile/edit-product-cert/${this.certification.id}`, formData, config)
+								.then(res => {
+									console.log(res.data)
+									Swal.fire({title: res.data.message, type: 'success', timer: 1500})
+								})
+								.catch(err => {
+									console.log(err.response)
+									Swal.fire({title: err.response.data.message, type: 'error', timer: 2000})
+								})
 						}
 					})
 			}

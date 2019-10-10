@@ -17,7 +17,8 @@ class CreateUserCertficationsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title', 30);
             $table->mediumText('description')->nullable();
-            $table->string('url');
+			$table->string('url');
+			$table->string('name_file');
             $table->timestamps();
             // Fks
             $table->bigInteger('user_id')->unsigned();

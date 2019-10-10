@@ -17,6 +17,7 @@ class CreateOffersTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->string('image_url');
+            $table->string('name_file');
             $table->timestamps();
             // Fks
             $table->bigInteger('user_id')->unsigned();
