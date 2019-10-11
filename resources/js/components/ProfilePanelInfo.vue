@@ -534,6 +534,9 @@
 			}
 		},
 		methods: {
+			reloadSection() {
+				this.$parent.activePanel(1);
+			},
 			copyLink() {
 				const copiedLink = document.querySelector('#profileLink');
 				copiedLink.select();
@@ -682,9 +685,8 @@
 
 							axios.post(`/profile/upload-user-image/${type}`, formData, config)
 								.then(res => {
-									console.log(res.data)
 									Swal.fire({title: res.data.message, type: res.data.status, timer: 1500})
-										//.then(res => location.reload())
+										.then(res => location.reload())
 								})
 								.catch(err => {
 									Swal.fire({title: err.response.data.message, type: err.response.data.status, timer: 1500})
@@ -719,7 +721,7 @@
 							axios.post('/profile/add-account-image', formData, config)
 								.then(res => {
 									Swal.fire({title: res.data.message, type: res.data.status, timer: 1500})
-									//this.$parent.activePanel(1);
+										.then(res => location.reload())
 								})
 								.catch(err => {
 									console.log(err.response)
@@ -742,10 +744,20 @@
 						if (res.value == true) {
 							axios.delete(`/profile/delete-account-image/${image_id}`)
 								.then(res => {
-									Swal.fire({title: res.data.message, type: res.data.status, timer:1500})
+									Swal.fire({title: res.data.message, type: res.data.status, showConfirmButton: false, timer:1500})
+										.then(res => {
+											// Cierra el modal
+											$('#xdasdas'+image_id).modal('hide')
+											// Quita el elemento del array de imagenes
+											this.images.forEach((element, index) => {
+												if (element.id === image_id) {
+													this.images.splice(index, 1)
+												}
+											});
+										})
 								})
 								.catch(err => {
-									Swal.fire({title: 'Error al borrar imagen', type: err.response.data.status, timer: 1500})
+									Swal.fire({title: 'Error al borrar imagen', type: err.response.data.status})
 								})
 						}
 					})
@@ -777,6 +789,7 @@
 							axios.post('/profile/add-account-video', formData, config)
 								.then(res => {
 									Swal.fire({title: res.data.message, type: res.data.status, timer: 1500})
+										.then(res => location.reload())
 								})
 								.catch(err => {
 									Swal.fire({title: 'Error al subir el video', type: 'error', timer: 1500})
@@ -798,10 +811,21 @@
 						if (res.value == true) {
 							axios.delete(`/profile/delete-account-video/${video_id}`)
 								.then(res => {
-									Swal.fire({title: res.data.message, type: res.data.status, timer:1500})
+									Swal.fire({title: res.data.message, type: res.data.status, timer:1500, showConfirmButton: false})
+										.then(res => {
+											// Cierra el modal
+											$('#sdasdas'+video_id).modal('hide')
+											// Quita el elemento del array de imagenes
+											this.videos.forEach((element, index) => {
+												if (element.id === video_id) {
+													this.videos.splice(index, 1)
+												}
+											});
+										})
 								})
 								.catch(err => {
-									Swal.fire({title: 'Error al borrar video', type: 'error', timer:1500})
+									console.log(err.response)
+									Swal.fire({title: 'Error al borrar video', type: 'error'})
 								})
 						}
 					})

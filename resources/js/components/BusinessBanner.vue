@@ -259,7 +259,7 @@
 		],
 		data() {
 			return {
-				id: this.data_user.name.replace(/ |:|,|'/gi, '-'),
+				id: this.data_user.name.replace(/ |:|,|'|.|°/gi, '-'),
 				amount_offers: this.data_account.offers_data.length,
 				categories: this.data_account.categories_data,
 				certifications: this.data_account.user_certifications,
@@ -330,7 +330,6 @@
 	}
 	.profile-img img {
 		max-width: 100%;
-		padding: 30px;
 	}
 
 	.business-text {

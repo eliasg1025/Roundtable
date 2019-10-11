@@ -18,7 +18,7 @@
 		],
 		data() {
 			return {
-				id: this.title.replace(/ |:/gi, '-'),
+				id: this.title.replace(/ |:|,|'|.|°/gi, '-'),
 			}
 		},
 		mounted() {
