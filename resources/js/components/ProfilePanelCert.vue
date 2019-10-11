@@ -177,6 +177,7 @@
 									type: 'success',
 									timer: '1500',
 								})
+									.then(res => location.reload())
 							})
 							.catch(err => {
 								console.log(err.response)
@@ -188,9 +189,6 @@
 							})
 					}
 				})
-			},
-			editCert(cert_id) {
-				console.log('Works')
 			}
 		}
 	}

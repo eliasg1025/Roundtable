@@ -165,6 +165,7 @@ class ProfileController extends Controller
 				'code' => 200,
 				'status' => 'success',
 				'message' => 'Imagen agregada correctamente',
+				'data' => $account_img,
 			);
 		} else {
 			$data = array(
@@ -249,7 +250,7 @@ class ProfileController extends Controller
 
 			Storage::disk('public')->delete('account-video/'.$video->name_file);
 
-			DB::table('video')->where('id', $id)->delete();
+			DB::table('videos')->where('id', $id)->delete();
 
 			$data = array(
 				'code' => 200,

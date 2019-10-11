@@ -2004,7 +2004,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['data_user', 'data_account', 'data_visit_user'],
   data: function data() {
     return {
-      id: this.data_user.name.replace(/ |:|,|'/gi, '-'),
+      id: this.data_user.name.replace(/ |:|,|'|.|°/gi, '-'),
       amount_offers: this.data_account.offers_data.length,
       categories: this.data_account.categories_data,
       certifications: this.data_account.user_certifications,
@@ -3167,7 +3167,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['title', 'img'],
   data: function data() {
     return {
-      id: this.title.replace(/ |:/gi, '-')
+      id: this.title.replace(/ |:|,|'|.|°/gi, '-')
     };
   },
   mounted: function mounted() {
@@ -3859,6 +3859,7 @@ __webpack_require__.r(__webpack_exports__);
               type: 'success',
               timer: 1500
             });
+            location.reload();
           })["catch"](function (err) {
             console.log(err);
             Swal.fire({
@@ -4014,6 +4015,8 @@ __webpack_require__.r(__webpack_exports__);
               title: res.data.message,
               type: 'success',
               timer: 1500
+            }).then(function (res) {
+              return location.reload();
             });
           })["catch"](function (err) {
             console.log(err.response);
@@ -4206,6 +4209,8 @@ __webpack_require__.r(__webpack_exports__);
           title: res.data.message,
           type: 'success',
           timer: 1500
+        }).then(function (res) {
+          return location.reload();
         });
       })["catch"](function (err) {
         console.log(err.response);
@@ -4234,6 +4239,8 @@ __webpack_require__.r(__webpack_exports__);
               title: res.data.message,
               type: 'success',
               timer: 1500
+            }).then(function (res) {
+              return location.reload();
             });
           })["catch"](function (err) {
             Swal.fire({
@@ -4341,6 +4348,8 @@ __webpack_require__.r(__webpack_exports__);
               title: res.data.message,
               type: 'success',
               timer: 1500
+            }).then(function (res) {
+              return location.reload();
             });
           })["catch"](function (err) {
             console.log(err.response);
@@ -4547,6 +4556,8 @@ __webpack_require__.r(__webpack_exports__);
               title: res.data.message,
               type: 'success',
               timer: '1500'
+            }).then(function (res) {
+              return location.reload();
             });
           })["catch"](function (err) {
             console.log(err.response);
@@ -4558,9 +4569,6 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       });
-    },
-    editCert: function editCert(cert_id) {
-      console.log('Works');
     }
   }
 });
@@ -5101,6 +5109,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    reloadSection: function reloadSection() {
+      this.$parent.activePanel(1);
+    },
     copyLink: function copyLink() {
       var copiedLink = document.querySelector('#profileLink');
       copiedLink.select();
@@ -5278,12 +5289,13 @@ __webpack_require__.r(__webpack_exports__);
             }
           };
           axios.post("/profile/upload-user-image/".concat(type), formData, config).then(function (res) {
-            console.log(res.data);
             Swal.fire({
               title: res.data.message,
               type: res.data.status,
               timer: 1500
-            }); //.then(res => location.reload())
+            }).then(function (res) {
+              return location.reload();
+            });
           })["catch"](function (err) {
             Swal.fire({
               title: err.response.data.message,
@@ -5323,7 +5335,9 @@ __webpack_require__.r(__webpack_exports__);
               title: res.data.message,
               type: res.data.status,
               timer: 1500
-            }); //this.$parent.activePanel(1);
+            }).then(function (res) {
+              return location.reload();
+            });
           })["catch"](function (err) {
             console.log(err.response);
             Swal.fire({
@@ -5336,6 +5350,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteImage: function deleteImage(image_id) {
+      var _this6 = this;
+
       Swal.fire({
         title: '¿Estas seguro que deseas eliminar esta imagen?',
         type: 'warning',
@@ -5350,13 +5366,22 @@ __webpack_require__.r(__webpack_exports__);
             Swal.fire({
               title: res.data.message,
               type: res.data.status,
+              showConfirmButton: false,
               timer: 1500
+            }).then(function (res) {
+              // Cierra el modal
+              $('#xdasdas' + image_id).modal('hide'); // Quita el elemento del array de imagenes
+
+              _this6.images.forEach(function (element, index) {
+                if (element.id === image_id) {
+                  _this6.images.splice(index, 1);
+                }
+              });
             });
           })["catch"](function (err) {
             Swal.fire({
               title: 'Error al borrar imagen',
-              type: err.response.data.status,
-              timer: 1500
+              type: err.response.data.status
             });
           });
         }
@@ -5366,7 +5391,7 @@ __webpack_require__.r(__webpack_exports__);
       this.account_video = this.$refs.accountVideo.files[0];
     },
     addVideo: function addVideo() {
-      var _this6 = this;
+      var _this7 = this;
 
       Swal.fire({
         title: "\xBFDeseas agregar este video?: ",
@@ -5380,7 +5405,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         if (res.value === true) {
           var formData = new FormData();
-          formData.append('video', _this6.account_video);
+          formData.append('video', _this7.account_video);
           var config = {
             headers: {
               'content-type': 'multipart/form-data'
@@ -5391,6 +5416,8 @@ __webpack_require__.r(__webpack_exports__);
               title: res.data.message,
               type: res.data.status,
               timer: 1500
+            }).then(function (res) {
+              return location.reload();
             });
           })["catch"](function (err) {
             Swal.fire({
@@ -5403,6 +5430,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteVideo: function deleteVideo(video_id) {
+      var _this8 = this;
+
       Swal.fire({
         title: '¿Estas seguro que deseas eliminar este video?',
         type: 'warning',
@@ -5417,13 +5446,23 @@ __webpack_require__.r(__webpack_exports__);
             Swal.fire({
               title: res.data.message,
               type: res.data.status,
-              timer: 1500
+              timer: 1500,
+              showConfirmButton: false
+            }).then(function (res) {
+              // Cierra el modal
+              $('#sdasdas' + video_id).modal('hide'); // Quita el elemento del array de imagenes
+
+              _this8.videos.forEach(function (element, index) {
+                if (element.id === video_id) {
+                  _this8.videos.splice(index, 1);
+                }
+              });
             });
           })["catch"](function (err) {
+            console.log(err.response);
             Swal.fire({
               title: 'Error al borrar video',
-              type: 'error',
-              timer: 1500
+              type: 'error'
             });
           });
         }
@@ -5774,6 +5813,8 @@ __webpack_require__.r(__webpack_exports__);
               title: res.data.message,
               type: res.data.status,
               timer: 1500
+            }).then(function (res) {
+              return location.reload();
             });
           })["catch"](function (err) {
             console.log(err.response);
@@ -5804,6 +5845,8 @@ __webpack_require__.r(__webpack_exports__);
               title: 'Producto borrado con exito',
               type: 'success',
               timer: 1500
+            }).then(function (res) {
+              return location.reload();
             });
           })["catch"](function (err) {
             console.log(err.reponse);
@@ -10927,7 +10970,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.businessBanner {\n\tpadding: 200px 0 100px 0;\n\tbackground-size: cover;\n\tbackground-position: center;\n\tposition: relative;\n\tbackground-color: #FDFDFD;\n\tbox-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);\n}\n.businessBanner:before {\n\tcontent: \"\";\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 100%;\n\tbackground: #000;\n\topacity: .3;\n}\n.wave {\n\tmargin-top: -100px;\n\tz-index: 100;\n\tposition: relative;\n}\n.profile-img {\n\tbackground-color: #fff;\n\tdisplay: inline-block;\n\tmax-width: 270px;\n\tborder-radius: 50%;\n\tbox-shadow: 0px 0px 1px 1px #B7B7B76B;\n\tmargin-top: 150px;\n\tposition: relative;\n\tz-index: 1000;\n}\n.profile-img img {\n\tmax-width: 100%;\n\tpadding: 30px;\n}\n.business-text {\n\tz-index: 1000;\n\tmargin-bottom: 100px;\n}\n.business-name {\n\tmargin-top: 20px;\n}\n.business-name h2 {\n\tfont-family: 'Roboto', sans-serif;\n\ttext-transform: uppercase;\n\tfont-weight: 700;\n\tdisplay: inline-block;\n\tposition: relative;\n\tmargin-top: 10px;\n\tborder-left: 5px solid #88be2e;\n\tborder-right: 5px solid #88be2e;\n\tpadding-left: 8px;\n\tpadding-right: 8px;\n}\n.business-name h2:before {\n\tcontent: \"\";\n    height: 5px;\n    width: 40px;\n\tbackground-color: #88be2e;\n\tposition: absolute;\n\tleft: 0;\n\ttop: 0;\n\tmargin-top: -5px;\n\tmargin-left: -5px;\n}\n.business-name h2:after {\n\tcontent: \"\";\n    height: 5px;\n    width: 40px;\n\tbackground-color: #88be2e;\n\tposition: absolute;\n\tbottom: 0;\n\tright: 0;\n\tmargin-bottom: -5px;\n\tmargin-right: -5px;\n}\n.business-address {\n\tmargin-top: 10px;\n\tfont-weight: 600;\n}\n.business-description {\n\tmargin-top: 15px;\n}\n\n/* Stat names */\n.business-stats {\n\tpadding-top: 350px;\n\tpadding-bottom: 20px;\n}\n.business-stats .btn-agendar {\n\tbackground-color: #88be2e;\n\tcolor: #fff;\n\tfont-family: 'Roboto', sans-serif;\n\ttext-transform: uppercase;\n\ttransition: ease 0.3s;\n\tbox-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);\n\tletter-spacing: 2px;\n\tfont-weight: 700;\n}\n.business-stats .btn-agendar:hover {\n\tmargin-top: -2px;\n\tmargin-left: -2px;\n\ttransition: ease 0.3s;\n\tbox-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);\n}\n.nav__business-stat {\n\tcolor: #212529;\n\tfont-family: 'Roboto', sans-serif;\n}\n.business-stats .nav-item {\n\twidth: 25%;\n\ttext-align: center;\n}\n.nav__business-stat:hover {\n\tcolor: #88be2e;\n\tmargin-top: -1px;\n\tmargin-left: -1px;\n}\n.stat-value {\n\tfont-size: 30px;\n}\n.stat-name {\n\tfont-size: 20px;\n}\n\n/* Modals */\n.stats-modals {\n\tfont-family: 'Roboto', sans-serif;\n}\n.rating-stars-modal {\n\tfont-size: 40px;\n}\n.rating-stars-modal li {\n\tmargin-right: 10px;\n}\n.business-stat-modal .nav {\n\tmargin-top: 25px;\n}\n.business-stat-modal .nav-item {\n\twidth: 33%;\n\ttext-align: center;\n\tpadding: 10px;\n}\n.business-stat-modal__item {\n\tdisplay: block;\n\tpadding: 5px;\n\tbackground: #f1f1f1;\n\tborder-radius: 5px;\n\tbox-shadow: 0px 0px 1px 1px #cecece;\n\ttext-decoration: none;\n\tcolor: #212529;\n}\n#modalAgendar {\n\tfont-family: 'Nunito', sans-serif;\n}\n.business-meet-card {\n\tcolor: #383d41;\n\tbackground-color: #e2e3e5;\n\tborder: 1px solid #d6d8db;\n\tborder-radius: 6px;\n}\n.form-destinity {\n\tmargin-bottom: 5px;\n}\n@media (max-width: 600px) {\n.profile-img {\n\t\tmargin-top: 170px;\n\t\tmax-width: 200px;\n}\n.business-name h2 {\n\t\tfont-size: 25px;\n}\n.business-address {\n\t\tfont-size: 14px;\n}\n.business-description {\n\t\tfont-size: 15px;\n}\n.stat-value {\n\t\tfont-size: 20px;\n}\n.stat-name {\n\t\tfont-size: 15px;\n}\n.form-destinity.second {\n\t\tmargin-top: 15px;\n}\n}\n@media (max-width: 360px) {\n.business-description {\n\t\tfont-size: 14px;\n}\n.stat-value {\n\t\tfont-size: 17px;\n}\n.stat-name {\n\t\tfont-size: 12px;\n}\n}\n\n", ""]);
+exports.push([module.i, "\n.businessBanner {\n\tpadding: 200px 0 100px 0;\n\tbackground-size: cover;\n\tbackground-position: center;\n\tposition: relative;\n\tbackground-color: #FDFDFD;\n\tbox-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);\n}\n.businessBanner:before {\n\tcontent: \"\";\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 100%;\n\tbackground: #000;\n\topacity: .3;\n}\n.wave {\n\tmargin-top: -100px;\n\tz-index: 100;\n\tposition: relative;\n}\n.profile-img {\n\tbackground-color: #fff;\n\tdisplay: inline-block;\n\tmax-width: 270px;\n\tborder-radius: 50%;\n\tbox-shadow: 0px 0px 1px 1px #B7B7B76B;\n\tmargin-top: 150px;\n\tposition: relative;\n\tz-index: 1000;\n}\n.profile-img img {\n\tmax-width: 100%;\n}\n.business-text {\n\tz-index: 1000;\n\tmargin-bottom: 100px;\n}\n.business-name {\n\tmargin-top: 20px;\n}\n.business-name h2 {\n\tfont-family: 'Roboto', sans-serif;\n\ttext-transform: uppercase;\n\tfont-weight: 700;\n\tdisplay: inline-block;\n\tposition: relative;\n\tmargin-top: 10px;\n\tborder-left: 5px solid #88be2e;\n\tborder-right: 5px solid #88be2e;\n\tpadding-left: 8px;\n\tpadding-right: 8px;\n}\n.business-name h2:before {\n\tcontent: \"\";\n    height: 5px;\n    width: 40px;\n\tbackground-color: #88be2e;\n\tposition: absolute;\n\tleft: 0;\n\ttop: 0;\n\tmargin-top: -5px;\n\tmargin-left: -5px;\n}\n.business-name h2:after {\n\tcontent: \"\";\n    height: 5px;\n    width: 40px;\n\tbackground-color: #88be2e;\n\tposition: absolute;\n\tbottom: 0;\n\tright: 0;\n\tmargin-bottom: -5px;\n\tmargin-right: -5px;\n}\n.business-address {\n\tmargin-top: 10px;\n\tfont-weight: 600;\n}\n.business-description {\n\tmargin-top: 15px;\n}\n\n/* Stat names */\n.business-stats {\n\tpadding-top: 350px;\n\tpadding-bottom: 20px;\n}\n.business-stats .btn-agendar {\n\tbackground-color: #88be2e;\n\tcolor: #fff;\n\tfont-family: 'Roboto', sans-serif;\n\ttext-transform: uppercase;\n\ttransition: ease 0.3s;\n\tbox-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);\n\tletter-spacing: 2px;\n\tfont-weight: 700;\n}\n.business-stats .btn-agendar:hover {\n\tmargin-top: -2px;\n\tmargin-left: -2px;\n\ttransition: ease 0.3s;\n\tbox-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);\n}\n.nav__business-stat {\n\tcolor: #212529;\n\tfont-family: 'Roboto', sans-serif;\n}\n.business-stats .nav-item {\n\twidth: 25%;\n\ttext-align: center;\n}\n.nav__business-stat:hover {\n\tcolor: #88be2e;\n\tmargin-top: -1px;\n\tmargin-left: -1px;\n}\n.stat-value {\n\tfont-size: 30px;\n}\n.stat-name {\n\tfont-size: 20px;\n}\n\n/* Modals */\n.stats-modals {\n\tfont-family: 'Roboto', sans-serif;\n}\n.rating-stars-modal {\n\tfont-size: 40px;\n}\n.rating-stars-modal li {\n\tmargin-right: 10px;\n}\n.business-stat-modal .nav {\n\tmargin-top: 25px;\n}\n.business-stat-modal .nav-item {\n\twidth: 33%;\n\ttext-align: center;\n\tpadding: 10px;\n}\n.business-stat-modal__item {\n\tdisplay: block;\n\tpadding: 5px;\n\tbackground: #f1f1f1;\n\tborder-radius: 5px;\n\tbox-shadow: 0px 0px 1px 1px #cecece;\n\ttext-decoration: none;\n\tcolor: #212529;\n}\n#modalAgendar {\n\tfont-family: 'Nunito', sans-serif;\n}\n.business-meet-card {\n\tcolor: #383d41;\n\tbackground-color: #e2e3e5;\n\tborder: 1px solid #d6d8db;\n\tborder-radius: 6px;\n}\n.form-destinity {\n\tmargin-bottom: 5px;\n}\n@media (max-width: 600px) {\n.profile-img {\n\t\tmargin-top: 170px;\n\t\tmax-width: 200px;\n}\n.business-name h2 {\n\t\tfont-size: 25px;\n}\n.business-address {\n\t\tfont-size: 14px;\n}\n.business-description {\n\t\tfont-size: 15px;\n}\n.stat-value {\n\t\tfont-size: 20px;\n}\n.stat-name {\n\t\tfont-size: 15px;\n}\n.form-destinity.second {\n\t\tmargin-top: 15px;\n}\n}\n@media (max-width: 360px) {\n.business-description {\n\t\tfont-size: 14px;\n}\n.stat-value {\n\t\tfont-size: 17px;\n}\n.stat-name {\n\t\tfont-size: 12px;\n}\n}\n\n", ""]);
 
 // exports
 

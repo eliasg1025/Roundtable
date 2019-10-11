@@ -145,6 +145,7 @@
 					.then(res => {
 						console.log(res.data)
 						Swal.fire({title: res.data.message, type: 'success', timer: 1500})
+							.then(res => location.reload())
 					})
 					.catch(err => {
 						console.log(err.response)
@@ -168,6 +169,7 @@
 								.then(res => {
 									console.log(res.data)
 									Swal.fire({title: res.data.message, type: 'success', timer: 1500})
+										.then(res => location.reload())
 								})
 								.catch(err => {
 									Swal.fire({title: err.response.data.message, type: 'error', timer: 2000})
