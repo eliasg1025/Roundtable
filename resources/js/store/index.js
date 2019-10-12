@@ -7,6 +7,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
 	state: {
 		apiUrl: 'api/business',
+		cart:[],
 	},
 	mutations: {
 		setApiUrl: function(state, category) {
@@ -14,8 +15,12 @@ const store = new Vuex.Store({
 		},
 		resetApiUrl: function(state) {
 			state.apiUrl = 'api/business'
+		},
+		addBag(state,items){
+			state.cart.push(items);
 		}
 	},
+
 	actions: {
 		setApiUrl (context) {
 			context.commit('setApiUrl')

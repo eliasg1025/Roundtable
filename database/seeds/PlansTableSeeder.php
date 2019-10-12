@@ -15,6 +15,7 @@ class PlansTableSeeder extends Seeder
     {
         $plan = new Plan();
 		$plan->name = "Free";
+		$plan->slug = Str::slug($plan->name);
 		$plan->is_best = false;
         $plan->cost = 0;
 		$plan->initial_coins = 0;
@@ -24,6 +25,7 @@ class PlansTableSeeder extends Seeder
 
         $plan = new Plan();
 		$plan->name = "Standard";
+		$plan->slug = Str::slug($plan->name);
 		$plan->is_best = false;
         $plan->cost = 29;
 		$plan->initial_coins = 40;
@@ -33,6 +35,7 @@ class PlansTableSeeder extends Seeder
 
         $plan = new Plan();
 		$plan->name = "Premium";
+		$plan->slug = Str::slug($plan->name);
 		$plan->is_best = true;
         $plan->cost = 49;
 		$plan->initial_coins = 100;

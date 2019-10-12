@@ -16,7 +16,8 @@ class CreateCoinPacksTable extends Migration
         Schema::create('coin_packs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 20);
-            $table->float('cost');
+			$table->string('slug');
+			$table->float('cost');
             $table->integer('amount_coins');
             $table->timestamps();
         });

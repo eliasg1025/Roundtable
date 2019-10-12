@@ -16,6 +16,7 @@ Auth::routes(['verify' => true]);
 Route::get('/', 'InicioController@index')->name('home');
 
 Route::get('/planes','PlanesController@index')->name('planes');
+Route::get('/pagos/{product}/{slug}','PagosController@index')->name('pagos');
 
 Route::get('/contact','contactController@contacto')->name('contacto');
 
