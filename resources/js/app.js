@@ -38,10 +38,13 @@ Vue.component('BusinessImages', require('./components/BusinessImages.vue').defau
 Vue.component('BusinessProducts', require('./components/BusinessProducts.vue').default);
 
 //planes
+// estos son nombres de tus componentes
 Vue.component('planes', require('./components/Planes.vue').default);
 Vue.component('puntos',require('./components/puntos.vue').default);
+Vue.component('Add-Bag',require('./components/AddBag.vue').default);
+Vue.component('pago',require('./components/Pagos.vue').default);
 //contacto
-Vue.component('contacto', require('./components/contacto.vue').default);
+Vue.component('contacto', require('./components/Contact.vue').default);
 
 // Search business page
 Vue.component('Search', require('./components/Search.vue').default);

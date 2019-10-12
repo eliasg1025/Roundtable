@@ -57,3 +57,4 @@ if (token) {
 window.Tiny = require('tiny-slider/src/tiny-slider');
 window.Swal = require('sweetalert2');
 window.Tippy = require('tippy.js');
+window.Payform =require('payform/dist/jquery.payform');

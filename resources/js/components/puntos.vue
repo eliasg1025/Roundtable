@@ -6,7 +6,8 @@
                         <h5>Elige el paquete que mas te convenga</h5>
                     </div>
                 </div>
-        <div id="demo" class="carousel slide" data-ride="carousel">
+      
+        <div id="demo" class="ca20 carousel slide" data-ride="carousel">
 
      <!-- Indicators -->
         <ul class="carousel-indicators">
@@ -19,62 +20,8 @@
        <!-- The slideshow -->
        
 
-          <div class="carousel-inner"  v-for="(pack_data,index) in pack_data" :key="index">
+          <div class="carousel-inner">
             <div class="carousel-item active">
-               <div class="card" >
-            <!-- https://www.microsoft.com/es-ar/p/paquete-bronce-de-puntos-de-equipo/bnlj01wc3pg6?activetab=pivot:overviewtab -->
-            <!--paquete de puntos 10, 25, 40 y 90-->
-            <div class="row ">
-              
-                <div class="col-md-4">
-                <img src="/img/tabla-precio/monedi.jpg" class="w-100">
-            </div>
-          <div class="e15 col-md-5 px-3">
-            <div class="card-block px-3">
-              <div><h4 class="card-title">{{pack_data.packs.name}}</h4></div>
-              <div><p class="card-text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></div>           
-            </div>
-          </div>
-          <div class="e15 col-md-3 px-3">
-            <div class="c1 card-block">
-               <div><h4 class="card-title">$ 20.00</h4></div>
-               <div>
-                 <a href="#" class="b1 btn btn-primary card-text">Comprar</a>
-               </div>
-               
-            </div> 
-           </div>
-        </div>
-      </div>
-             </div>
-            <!--<div class="carousel-item">
-                 <div class="card">
-             https://www.microsoft.com/es-ar/p/paquete-bronce-de-puntos-de-equipo/bnlj01wc3pg6?activetab=pivot:overviewtab 
-            paquete de puntos 10, 25, 40 y 90
-            <div class="row ">
-              
-                <div class="col-md-4">
-                <img src="/img/tabla-precio/monedi.jpg" class="w-100">
-            </div>
-          <div class="e15 col-md-5 px-3">
-            <div class="card-block px-3">
-              <div><h4 class="card-title">Paquete de 10 puntos</h4></div>
-              <div><p class="card-text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></div>           
-            </div>
-          </div>
-          <div class="e15 col-md-3 px-3">
-            <div class="c1 card-block">
-               <div><h4 class="card-title">$ 20.00</h4></div>
-               <div>
-                 <a href="#" class="b1 btn btn-primary card-text">Comprar</a>
-               </div>
-               
-            </div> 
-           </div>
-        </div>
-      </div>
-               </div>-->
-            <!-- <div class="carousel-item">
                <div class="card">
             <div class="row ">
               
@@ -83,24 +30,30 @@
             </div>
           <div class="e15 col-md-5 px-3">
             <div class="card-block px-3">
-              <div><h4 class="card-title">Paquete de 10 puntos</h4></div>
+              <div><h4 class="e16 card-title">Paquete de {{pack_data[0].amount_coins}} puntos</h4></div>
               <div><p class="card-text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></div>           
             </div>
           </div>
           <div class="e15 col-md-3 px-3">
             <div class="c1 card-block">
-               <div><h4 class="card-title">$ 20.00</h4></div>
+               <div><h4 class="e16 card-title">$ {{pack_data[0].cost}}</h4></div>
                <div>
-                 <a href="#" class="b1 btn btn-primary card-text">Comprar</a>
+                    <Add-Bag
+                        :cantidad="pack_data[0].amount_coins"
+                        :cost="pack_data[0].cost"
+                        :slug="pack_data[0].slug"
+                    ></Add-Bag>
                </div>
                
             </div> 
            </div>
         </div>
       </div>
-                </div>-->
-                <!--<div class="carousel-item">
-                <div class="card">
+             </div>
+            <!-- v-for="(pack_data, index) in pack_data" :key="index" -->
+           <div class="carousel-item">
+              
+                 <div class="card">
             
             <div class="row ">
               
@@ -109,22 +62,94 @@
             </div>
           <div class="e15 col-md-5 px-3">
             <div class="card-block px-3">
-              <div><h4 class="card-title">Paquete de 10 puntos</h4></div>
+              <div><h4 class="e16 card-title">Paquete de {{pack_data[1].amount_coins}} puntos</h4></div>
               <div><p class="card-text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></div>           
             </div>
           </div>
           <div class="e15 col-md-3 px-3">
             <div class="c1 card-block">
-               <div><h4 class="card-title">$ 20.00</h4></div>
+               <div><h4 class="e16 card-title">$ {{pack_data[1].cost}}</h4></div>
                <div>
-                 <a href="#" class="b1 btn btn-primary card-text">Comprar</a>
+                 <Add-Bag
+                  :cantidad="pack_data[1].amount_coins"
+                  :cost="pack_data[1].cost"
+                  :slug="pack_data[1].slug"
+                 ></Add-Bag>
                </div>
                
             </div> 
            </div>
         </div>
       </div>
-                </div>-->
+               
+           
+             </div> 
+             <div class="carousel-item">
+              
+                 <div class="card">
+            
+            <div class="row ">
+              
+                <div class="col-md-4">
+                <img src="/img/tabla-precio/monedi.jpg" class="w-100">
+            </div>
+          <div class="e15 col-md-5 px-3">
+            <div class="card-block px-3">
+              <div><h4 class="e16 card-title">Paquete de {{pack_data[2].amount_coins}} puntos</h4></div>
+              <div><p class="card-text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></div>           
+            </div>
+          </div>
+          <div class="e15 col-md-3 px-3">
+            <div class="c1 card-block">
+               <div><h4 class="e16 card-title">$ {{pack_data[2].cost}}</h4></div>
+               <div>
+                 <Add-Bag
+                    :cantidad="pack_data[2].amount_coins"
+                    :cost="pack_data[2].cost"
+                    :slug="pack_data[2].slug"
+                 ></Add-Bag>
+               </div>
+               
+            </div> 
+           </div>
+        </div>
+      </div>
+               
+           
+             </div> 
+             <div class="carousel-item">
+              
+                 <div class="card">
+            
+            <div class="row ">
+              
+                <div class="col-md-4">
+                <img src="/img/tabla-precio/monedi.jpg" class="w-100">
+            </div>
+          <div class="e15 col-md-5 px-3">
+            <div class="card-block px-3">
+              <div><h4 class="e16 card-title">Paquete de {{pack_data[3].amount_coins}} puntos</h4></div>
+              <div><p class="card-text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></div>           
+            </div>
+          </div>
+          <div class="e15 col-md-3 px-3">
+            <div class="c1 card-block">
+               <div><h4 class="e16 card-title">$ {{pack_data[3].cost}}</h4></div>
+               <div>
+                 <Add-Bag
+                    :cantidad="pack_data[3].amount_coins"
+                    :cost="pack_data[3].cost"
+                 ></Add-Bag>
+               </div>
+               
+            </div> 
+           </div>
+        </div>
+      </div>
+               
+           
+             </div> 
+             
             </div>
   
           <!-- Left and right controls 
@@ -138,6 +163,7 @@
             
         
       </div>
+    
     </section>
 </template>
 
@@ -147,7 +173,13 @@ export default {
   props:['pack_data'],
   mounted(){
     
+  },
+  methods:{
+    metodo(){
+      window.location="/planes/pagos"
+    }
   }
+  
 }
 </script>
 
@@ -161,7 +193,7 @@ export default {
 .carousel-indicators .active{
   background-color: black;
 }
-.carousel{
+.ca20{
   box-shadow: 0 8px 12px 0 rgba(15, 15, 15, 0.2)
 }
 
@@ -173,12 +205,20 @@ export default {
    float:right;
 
  }
- div>.b1{
-   background-color: #0067b8;
-   border-radius: 0px;
-   width: 50%;
+ 
+ .e16{
+   font-weight:500;
+   color:#88be2e;
+   font-family: 'nunito', sans-serif;
+   font-size: 26px;
+ }
+ .card-text{
+   font-family: 'Nunito',sans-serif;
  }
  .c1{
    text-align: center;
+ }
+ Add-Bag>{
+   color: white;
  }
 </style>

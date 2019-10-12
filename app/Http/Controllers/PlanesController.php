@@ -55,6 +55,6 @@ class planesController extends Controller
 
 	private function getCoinPacks(){
 		$pack = DB::table('coin_packs')->get();
-		return view('planes',compact('pack'));
+		return $pack;
 	}
 }

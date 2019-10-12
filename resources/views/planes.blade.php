@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 @section('content')
-	<page-banner title="Planes" img="/img/fondo/fondo_historial.jpg">
+	<page-banner title="Planes" img="/img/fondo/fondo-pago.jpg">
     </page-banner>
     <modal-login-register
         csrf="{{ csrf_token() }}"
