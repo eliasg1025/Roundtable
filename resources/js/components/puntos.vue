@@ -139,6 +139,7 @@
                  <Add-Bag
                     :cantidad="pack_data[3].amount_coins"
                     :cost="pack_data[3].cost"
+                    :slug="pack_data[3].slug"
                  ></Add-Bag>
                </div>
                
