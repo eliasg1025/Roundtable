@@ -2042,6 +2042,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['data_user', 'data_account', 'data_visit_user'],
   data: function data() {
@@ -2052,7 +2069,8 @@ __webpack_require__.r(__webpack_exports__);
       certifications: this.data_account.user_certifications,
       rating: this.data_account.rating_data,
       value_rating: 0,
-      show_rating: false
+      show_rating: false,
+      message: ''
     };
   },
   mounted: function mounted() {
@@ -2061,6 +2079,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     agendar: function agendar() {
+      var _this = this;
+
       Swal.fire({
         title: 'Estas consumiendo 30 coins en esta operación',
         text: '¿Deseas continuar?',
@@ -2072,7 +2092,15 @@ __webpack_require__.r(__webpack_exports__);
         showCancelButton: true
       }).then(function (res) {
         if (res.value == true) {
-          console.log('Agendado');
+          axios.post('/business/create-meet', {
+            receiver_id: _this.data_user.id,
+            sender_id: _this.data_visit_user.data.id,
+            message: _this.message
+          }).then(function (res) {
+            console.log(res.data);
+          })["catch"](function (err) {
+            console.log(err.response.data);
+          });
         }
       });
     }
@@ -55229,35 +55257,47 @@ var render = function() {
             "div",
             { staticClass: "col-md-4", staticStyle: { margin: "auto" } },
             [
-              _vm.data_visit_user.data.id !== _vm.data_user.id
-                ? _c("div", { staticClass: "text-center" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-block btn-agendar",
-                        attrs: {
-                          type: "button",
-                          "data-toggle": "modal",
-                          "data-target": "#modalAgendar"
-                        }
-                      },
-                      [_vm._v("\n\t\t\t\t\t\t\tAgendar\n\t\t\t\t\t\t")]
-                    ),
+              _vm.data_visit_user.data == false
+                ? _c("div", [_vm._m(0)])
+                : _c("div", [
+                    _vm.data_visit_user.data.id !== _vm.data_user.id
+                      ? _c("div", { staticClass: "text-center" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-block btn-agendar",
+                              attrs: {
+                                type: "button",
+                                "data-toggle": "modal",
+                                "data-target": "#modalAgendar"
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n\t\t\t\t\t\t\t\tAgendar\n\t\t\t\t\t\t\t"
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm._m(1)
+                        ])
+                      : _vm._e(),
                     _vm._v(" "),
-                    _vm._m(0)
+                    _vm.data_visit_user.data.id === _vm.data_user.id
+                      ? _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-block btn-agendar",
+                            attrs: { href: "/profile" }
+                          },
+                          [
+                            _vm._v(
+                              "\n\t\t\t\t\t\t\tEditar Perfil\n\t\t\t\t\t\t"
+                            )
+                          ]
+                        )
+                      : _vm._e()
                   ])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.data_visit_user.data.id === _vm.data_user.id
-                ? _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-block btn-agendar",
-                      attrs: { href: "/profile" }
-                    },
-                    [_vm._v("\n\t\t\t\t\t\tEditar Perfil\n\t\t\t\t\t")]
-                  )
-                : _vm._e()
             ]
           )
         ])
@@ -55283,7 +55323,7 @@ var render = function() {
             [
               _c("div", { staticClass: "modal-content" }, [
                 _c("div", { staticClass: "modal-body" }, [
-                  _vm._m(1),
+                  _vm._m(2),
                   _vm._v(" "),
                   _c("div", { staticClass: "text-center" }, [
                     _c("h5", { staticClass: "modal-title h3" }, [
@@ -55376,9 +55416,9 @@ var render = function() {
             [
               _c("div", { staticClass: "modal-content" }, [
                 _c("div", { staticClass: "modal-body" }, [
-                  _vm._m(2),
-                  _vm._v(" "),
                   _vm._m(3),
+                  _vm._v(" "),
+                  _vm._m(4),
                   _vm._v(" "),
                   _c("div", { staticClass: "business-stat-modal container" }, [
                     _vm.certifications.length > 0
@@ -55471,9 +55511,9 @@ var render = function() {
             [
               _c("div", { staticClass: "modal-content" }, [
                 _c("div", { staticClass: "modal-body" }, [
-                  _vm._m(4),
-                  _vm._v(" "),
                   _vm._m(5),
+                  _vm._v(" "),
+                  _vm._m(6),
                   _vm._v(" "),
                   _c("div", { staticClass: "business-stat-modal container" }, [
                     _vm.categories.length > 0
@@ -55556,38 +55596,13 @@ var render = function() {
             { staticClass: "modal-dialog", attrs: { role: "document" } },
             [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(6),
+                _vm._m(7),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
                   _c("div", { staticClass: "row" }, [
                     _c("div", { staticClass: "col-md-6" }, [
                       _c("p", { staticClass: "form-destinity" }, [
                         _vm._v("De:")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "business-meet-card text-center" },
-                        [
-                          _c("div", { staticClass: "container" }, [
-                            _c("img", {
-                              attrs: {
-                                src: _vm.data_user.profile_img,
-                                width: "100%"
-                              }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("p", { staticClass: "my-2" }, [
-                            _vm._v(_vm._s(_vm.data_user.commercial_name))
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("p", { staticClass: "form-destinity second" }, [
-                        _vm._v("Para:")
                       ]),
                       _vm._v(" "),
                       _c(
@@ -55610,10 +55625,70 @@ var render = function() {
                           ])
                         ]
                       )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("p", { staticClass: "form-destinity second" }, [
+                        _vm._v("Para:")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "business-meet-card text-center" },
+                        [
+                          _c("div", { staticClass: "container" }, [
+                            _c("img", {
+                              attrs: {
+                                src: _vm.data_user.profile_img,
+                                width: "100%"
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "my-2" }, [
+                            _vm._v(_vm._s(_vm.data_user.commercial_name))
+                          ])
+                        ]
+                      )
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(7)
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col" }, [
+                      _c("div", { staticClass: "form-group mt-3" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Mensaje:")
+                        ]),
+                        _vm._v(" "),
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.message,
+                              expression: "message"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            id: "",
+                            rows: "4",
+                            placeholder:
+                              "Deja tu mensaje para esta empresa. (Opcional)"
+                          },
+                          domProps: { value: _vm.message },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.message = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ])
+                  ])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-footer" }, [
@@ -55649,6 +55724,19 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "btn btn-block btn-agendar have-to-login",
+        attrs: { "data-toggle": "modal", "data-target": "#login" }
+      },
+      [_c("span", { staticStyle: { color: "white" } }, [_vm._v("Agendar")])]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -55770,27 +55858,6 @@ var staticRenderFns = [
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col" }, [
-        _c("div", { staticClass: "form-group mt-3" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Mensaje:")]),
-          _vm._v(" "),
-          _c("textarea", {
-            staticClass: "form-control",
-            attrs: {
-              id: "",
-              rows: "4",
-              placeholder: "Deja tu mensaje para esta empresa. (Opcional)"
-            }
-          })
-        ])
-      ])
     ])
   }
 ]

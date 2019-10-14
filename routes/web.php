@@ -43,6 +43,7 @@ Route::delete('/profile/delete-cert/{id}', 'ProfileController@deleteCert');
 Route::post('profile/update-contact-info', 'ProfileController@updateContactInfo');
 
 Route::get('/business', 'BusinessController@index')->name('business');
+Route::post('/business/create-meet', 'MeetController@createMeet');
 
 Route::get('/business/category/{slug}', 'BusinessController@category')->name('business.category');
 
