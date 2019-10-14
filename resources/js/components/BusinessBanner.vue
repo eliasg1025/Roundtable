@@ -71,22 +71,35 @@
 						</ul>
 					</div>
 					<div class="col-md-4" style="margin: auto;">
-						<div v-if="data_visit_user.data.id !== data_user.id" class="text-center">
-							<button type="button" class="btn btn-block btn-agendar" data-toggle="modal" data-target="#modalAgendar">
-								Agendar
-							</button>
-							<small class="mt-1">
-								<span class="text-muted">Esta operación cuesta 30 coins. <a href="/planes" target="_blank">Conseguir coins.</a></span>
-							</small>
+
+						<div v-if="data_visit_user.data == false">
+							<a
+								class="btn btn-block btn-agendar have-to-login"
+								data-toggle="modal" data-target="#login"
+							>
+								<span style="color: white;">Agendar</span>
+							</a>
 						</div>
 
-						<a
-							v-if="data_visit_user.data.id === data_user.id"
-							class="btn btn-block btn-agendar"
-							href="/profile"
-						>
-							Editar Perfil
-						</a>
+						<div v-else>
+							<div v-if="data_visit_user.data.id !== data_user.id" class="text-center">
+								<button type="button" class="btn btn-block btn-agendar" data-toggle="modal" data-target="#modalAgendar">
+									Agendar
+								</button>
+								<small class="mt-1">
+									<span class="text-muted">Esta operación cuesta 30 coins. <a href="/planes" target="_blank">Conseguir coins.</a></span>
+								</small>
+							</div>
+
+							<a
+								v-if="data_visit_user.data.id === data_user.id"
+								class="btn btn-block btn-agendar"
+								href="/profile"
+							>
+								Editar Perfil
+							</a>
+						</div>
+
 					</div>
 				</div>
 			</div>
@@ -215,18 +228,18 @@
 									<p class="form-destinity">De:</p>
 									<div class="business-meet-card text-center">
 										<div class="container">
-											<img :src="data_user.profile_img" width="100%">
+											<img :src="data_visit_user.data.profile_img" width="100%">
 										</div>
-										<p class="my-2">{{ data_user.commercial_name }}</p>
+										<p class="my-2">{{ data_visit_user.data.commercial_name }}</p>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<p class="form-destinity second">Para:</p>
 									<div class="business-meet-card text-center">
 										<div class="container">
-											<img :src="data_visit_user.data.profile_img" width="100%">
+											<img :src="data_user.profile_img" width="100%">
 										</div>
-										<p class="my-2">{{ data_visit_user.data.commercial_name }}</p>
+										<p class="my-2">{{ data_user.commercial_name }}</p>
 									</div>
 								</div>
 							</div>
@@ -234,7 +247,11 @@
 								<div class="col">
 									<div class="form-group mt-3">
 										<label for="">Mensaje:</label>
-										<textarea class="form-control" id="" rows="4" placeholder="Deja tu mensaje para esta empresa. (Opcional)"></textarea>
+										<textarea
+											class="form-control" id="" rows="4"
+											placeholder="Deja tu mensaje para esta empresa. (Opcional)"
+											v-model="message"
+										></textarea>
 									</div>
 								</div>
 							</div>
@@ -266,6 +283,7 @@
 				rating: this.data_account.rating_data,
 				value_rating: 0,
 				show_rating: false,
+				message: '',
 			}
 		},
 		mounted() {
@@ -286,7 +304,17 @@
 				})
 					.then(res => {
 						if (res.value == true) {
-							console.log('Agendado')
+							axios.post('/business/create-meet', {
+								receiver_id: this.data_user.id,
+								sender_id: this.data_visit_user.data.id,
+								message: this.message,
+							})
+								.then(res => {
+									console.log(res.data)
+								})
+								.catch(err => {
+									console.log(err.response.data)
+								})
 						}
 					})
 			}
