@@ -35,7 +35,7 @@
 					<li><span class="izq fa fa-check"></span>1GB Bandwidth</li>
 					<li class="grey">
 						<a href="#" class="button have-to-login" data-toggle="modal" data-target="#login" v-if="data.loged == false">¡LO QUIERO!</a>
-						<a href="#" class="button" v-else-if="current_plan.plan_id <= 2">¡LO QUIERO!</a>
+						<a :href="'/pagos/plans/'+data.plans[2].slug" class="button" v-else-if="current_plan.plan_id <= 2">¡LO QUIERO!</a>
 						<a href="" class="button btn disabled" v-else>ADQUIRIDO</a>
 					</li>
 				</ul>
@@ -54,7 +54,7 @@
 					<li><span class="izq fa fa-check"></span>1GB Bandwidth</li>
 					<li class="grey">
 						<a href="#" class="button have-to-login" data-toggle="modal" data-target="#login" v-if="data.loged == false">¡LO QUIERO!</a>
-						<a href="#" class="button" v-else-if="current_plan.plan_id <= 1">¡LO QUIERO!</a>
+						<a :href="'/pagos/plans/'+data.plans[1].slug" class="button" v-else-if="current_plan.plan_id <= 1">¡LO QUIERO!</a>
 						<a href="" class="button btn disabled" v-else>ADQUIRIDO</a>
 					</li>
 				</ul>

@@ -6,7 +6,7 @@
     </page-banner>
 
     <pago
-        :data="{{json_encode($sample)}}"
+        :data="{{json_encode($data)}}"
     ></pago>
     <page-footer></page-footer>
 @endsection

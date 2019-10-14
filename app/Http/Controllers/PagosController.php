@@ -13,7 +13,7 @@ class PagosController extends Controller
     }
 
     public function index($product, $slug){
-		$sample = DB::table($product)->where('slug', $slug);
-		return view('pagos', compact('sample'));
+		$data = DB::table($product)->where('slug', $slug)->first();
+		return view('pagos', compact('data'));
 	}
 }
