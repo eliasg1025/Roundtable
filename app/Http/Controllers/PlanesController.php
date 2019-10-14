@@ -39,14 +39,16 @@ class planesController extends Controller
 				'user_plans' => $plans,
 				'loged' => true,
 				'type_plans' => $type_plans,
-				'packs' => $this->getCoinPacks()
+				'packs' => $this->getCoinPacks(),
+				'plans' => $this->getPlans(),
 			];
 
 		} else {
 			$data = [
 				'loged' => false,
 				'type_plans' => $type_plans,
-				'packs' => $this->getCoinPacks()
+				'packs' => $this->getCoinPacks(),
+				'plans' => $this->getPlans(),
 			];
 		}
 
@@ -56,5 +58,11 @@ class planesController extends Controller
 	private function getCoinPacks(){
 		$pack = DB::table('coin_packs')->get();
 		return $pack;
+	}
+
+	private function getPlans()
+	{
+		$plans = DB::table('plans')->get();
+		return $plans;
 	}
 }
