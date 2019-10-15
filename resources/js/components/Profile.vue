@@ -53,32 +53,24 @@
 							<hr>
 							<ul class="notifications container">
 								<li class="align-top d-flex justify-content-between align-items-center">
-									<div class="p-1">
-										<a href="#" data-toggle="modal" data-target="#modalNotiPlan">
-											Plan Actual <span class="badge badge-secondary">{{ current_plan.name }}</span>
-										</a>
-									</div>
+									<a href="#" class="p-1" data-toggle="modal" data-target="#modalNotiPlan">
+										Plan Actual <span class="badge badge-secondary">{{ current_plan.name }}</span>
+									</a>
 								</li>
 								<li class="align-top d-flex justify-content-between align-items-center">
-									<div class="p-1">
-										<a href="#" data-toggle="modal" data-target="#modalNotiCoins">
-											Tienes <span class="badge badge-success">{{user.coins}} coins</span>
-										</a>
-									</div>
+									<a href="#" class="p-1" data-toggle="modal" data-target="#modalNotiCoins">
+										Tienes <span class="badge badge-success">{{user.coins}} coins</span>
+									</a>
 								</li>
 								<li class="align-top d-flex justify-content-between align-items-center">
-									<div class="p-1">
-										<a href="#" data-toggle="modal" data-target="#modalNotiViews">
-											Visitas <span class="badge badge-success">{{ user.views }}</span>
-										</a>
-									</div>
+									<a href="#" class="p-1" data-toggle="modal" data-target="#modalNotiViews">
+										Visitas <span class="badge badge-success">{{ user.views }}</span>
+									</a>
 								</li>
 								<li class="align-top d-flex justify-content-between align-items-center">
-									<div class="p-1">
-										<a href="#" data-toggle="modal" data-target="#modalNotiMessages">
-											Notificaciones <span class="badge badge-success">{{ messages.length }}</span>
-										</a>
-									</div>
+									<a href="#" class="p-1" data-toggle="modal" data-target="#modalNotiMessages">
+										Notificaciones <span class="badge badge-success">{{ messages.length }}</span>
+									</a>
 								</li>
 							</ul>
 						</div>
@@ -355,7 +347,7 @@
 
 		<!-- Modal Noti Messages modalNotiMessages-->
 		<div class="modal fade" id="modalNotiMessages" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog" role="document">
+			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content">
 					<div class="modal-body">
 						<div class="container d-flex">
@@ -363,14 +355,40 @@
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
+						
+						<div v-if="messages.length === 0">
+							<div class="text-center">
+								<h5 class="modal-title h3">Notificaciones</h5>
+								<p class="display-4">{{ messages.length }}</p>
+							</div>
 
-						<div class="text-center">
-							<h5 class="modal-title h3">Notificaciones</h5>
-							<p class="display-4">{{ 0 }}</p>
+							<div class="text-center">
+								<p class="text-muted h5">Aún no tienes notificaciones.</p>
+							</div>
 						</div>
 
-						<div class="text-center">
-							<p class="text-muted h5">Aún no tienes notificaciones.</p>
+						<div v-else>
+							<div class="text-center">
+								<h5 class="modal-title h4">Notificaciones</h5>
+							</div>
+							<hr><br>
+							
+							<div v-for="message in messages" :key="message.id" class="message card mt-2">
+								<div class="row no-gutters">
+									<div class="col-md-2">
+										<div class="icon-message">
+											<i class="far fa-check-circle"></i>
+										</div>
+									</div>
+									<div class="col-md-10">
+										<div class="card-body">
+											<h5 class="card-title">{{ message.title }} <span class="message-date"><i class="far fa-clock"></i> {{ message_date(message.date) }}</span></h5>
+											<p class="card-text">{{ message.message }}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -421,6 +439,9 @@
 				return this.user_plans[0]
 			}
 		},
+		mounted() {
+			console.log(Moment)
+		},
 		methods: {
 			activePanel(option) {
 				this.active = true
@@ -430,12 +451,31 @@
 					this.panel = option
 					this.loading = false
 				}, 500)
+			},
+			message_date(date) {
+				return Moment(date, "YYYY-MM-DD hh:mm:ss").fromNow()
 			}
 		}
 	}
 </script>
 
 <style>
+	.message {
+		font-size: 15px;
+		font-weight: 300;
+	}
+	
+	.message .icon-message {
+		display: block;
+		font-size: 60px;
+		color:#88BE2E;
+		text-align: center;
+	}
+
+	.message-date {
+		font-size: 12px;
+	}
+
 	.welcome-img {
 		height: 200px;
 	}
@@ -743,6 +783,14 @@
 
 		.panel-alert {
 			font-size: 14px;
+		}
+
+		.message {
+			font-size: 12px;
+		}
+
+		.message-date {
+			font-size: 10px;
 		}
 	}
 

@@ -10,6 +10,7 @@ use App\Operation;
 use App\User;
 use App\UserCertfication;
 use App\Video;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -297,7 +298,9 @@ class ProfileController extends Controller
 
 				$message = new Message();
 				$message->title = 'Producto agregado';
-				$message->message = 'El producto fue agregado satisfactoriamente. Se han consumido' + $operation->coins_cost + 'de tus coins.';
+				$message->message = 'El producto fue agregado satisfactoriamente. Se han consumido ' . $operation->coins_cost . ' de tus coins.';
+				$message->date = Carbon::now();
+				$message->user_id = $user->id;
 				$message->save();
 
 				$data = array(
@@ -396,32 +399,51 @@ class ProfileController extends Controller
 	{
 		$user = Auth::user();
 		$file = $request->file('file');
+		$operation = Operation::find(3);
 
-		if ($file) {
+		if ($user->coins >= $operation->coins_cost) {
+			if ($file) {
+	
+				$file_name = time() . '-' . $user->slug . '.' . $file->getClientOriginalExtension();
+				$request->file->move(storage_path('app/public/offer-cert/'), $file_name);
+				$file_path = '/'.'storage/offer-cert/'.$file_name;
+	
+				$offer_cert = new OfferCertfication();
+				$offer_cert->title = $request->title;
+				$offer_cert->offer_id = $request->offer_id;
+				$offer_cert->name_file = $file_name;
+				$offer_cert->url = $file_path;
+				$offer_cert->save();
 
-			$file_name = time() . '-' . $user->slug . '.' . $file->getClientOriginalExtension();
-			$request->file->move(storage_path('app/public/offer-cert/'), $file_name);
-			$file_path = '/'.'storage/offer-cert/'.$file_name;
+				$user->coins = $user->coins - $operation->coins_cost;
 
-			$offer_cert = new OfferCertfication();
-			$offer_cert->title = $request->title;
-			$offer_cert->offer_id = $request->offer_id;
-			$offer_cert->name_file = $file_name;
-			$offer_cert->url = $file_path;
-			$offer_cert->save();
-
-			$data = array(
-				'code' => 200,
-				'status' => 'success',
-				'message' => 'Certificado agregado correctamente',
-			);
+				$message = new Message();
+				$message->title = 'Certificado de producto agregado';
+				$message->message = 'El certificado fue agregado satisfactoriamente. Se han consumido ' . $operation->coins_cost . ' de tus coins.';
+				$message->date = Carbon::now();
+				$message->user_id = $user->id;
+				$message->save();
+	
+				$data = array(
+					'code' => 200,
+					'status' => 'success',
+					'message' => 'Certificado agregado correctamente',
+				);
+			} else {
+				$data = array(
+					'code' => 401,
+					'status' => 'error',
+					'message' => 'No se ha seleccionado un archivo'
+				);
+			}
 		} else {
 			$data = array(
-				'code' => 401,
+				'code' => 403,
 				'status' => 'error',
-				'message' => 'No se ha seleccionado un archivo'
+				'message' => 'No cuenta con los coins suficiente'
 			);
 		}
+
 
 		return response()->json($data, $data['code']);
 	}
@@ -520,6 +542,13 @@ class ProfileController extends Controller
 				$user_cert->name_file = $file_name;
 				$user_cert->user_id = $user->id;
 				$user_cert->save();
+
+				$message = new Message();
+				$message->title = 'Certificado agregado';
+				$message->message = 'El certificado fue agregado satisfactoriamente. Se han consumido ' . $operation->coins_cost . ' de tus coins.';
+				$message->date = Carbon::now();
+				$message->user_id = $user->id;
+				$message->save();
 
 				$user->coins = $user->coins - $operation->coins_cost;
 				$user->save();

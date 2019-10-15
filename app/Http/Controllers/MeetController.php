@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Meeting;
+use App\Message;
 use App\Operation;
+use Carbon\Carbon;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -20,8 +23,10 @@ class MeetController extends Controller
 		$operation = Operation::find(4);
 		
 		if ($sender->id == $request->sender_id) {
-
+			
 			if ($sender->coins >= $operation->coins_cost) {
+				$recevier = User::find($request->receiver_id);
+
 				$meet = new Meeting();
 				$meet->sender_id = $request->sender_id;
 				$meet->receiver_id = $request->receiver_id;
@@ -31,6 +36,13 @@ class MeetController extends Controller
 
 				$sender->coins = $sender->coins - $operation->coins_cost;
 				$sender->save();
+
+				$message = new Message();
+				$message->title = 'Reunion agendada';
+				$message->message = 'Se ha enviado la invitacion a '. $recevier->commercial_name .' con éxito. Se han consumido ' . $operation->coins_cost . ' de tus coins.';
+				$message->date = Carbon::now();
+				$message->user_id = $sender->id;
+				$message->save();
 	
 				$data = [
 					'code' => 200,
