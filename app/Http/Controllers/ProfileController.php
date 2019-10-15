@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Image;
+use App\Message;
 use App\Offer;
 use App\OfferCertfication;
 use App\Operation;
@@ -293,6 +294,11 @@ class ProfileController extends Controller
 
 				$user->coins = $user->coins - $operation->coins_cost;
 				$user->save();
+
+				$message = new Message();
+				$message->title = 'Producto agregado';
+				$message->message = 'El producto fue agregado satisfactoriamente. Se han consumido' + $operation->coins_cost + 'de tus coins.';
+				$message->save();
 
 				$data = array(
 					'code' => 200,
