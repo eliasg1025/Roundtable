@@ -77,7 +77,7 @@
 
 <style>
 	.plan {
-		background-image: url('/img/fondo/latest-product-bg.png');
+		
 		padding:0px 0px 50px 0px;
 	}
 

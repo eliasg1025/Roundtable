@@ -6,8 +6,8 @@
 					<form >
 						<div class="r16 row">
 							<div class="col-50">
-								<h3 style="font-family: 'Nunito',sans-serif;">Proceso de pago</h3>
-								<label for="fname">Tarjetas aceptadas</label>
+								<h3 style="font-family: 'Nunito',sans-serif; font-weight:400; color: #56ab2f;">Proceso de pago</h3>
+								<label class="lab" for="fname">Tarjetas aceptadas</label>
 								
 								<div class="icon-container">
 									<img src="/img/tarjetas/visa.jpg"  id="visa">
@@ -16,13 +16,13 @@
 									<img src="/img/tarjetas/dc.jpg" id="diner">
 								</div>
 								
-								<label for="cname">Nombre en la tarjeta</label>
+								<label class="lab" for="cname">Nombre en la tarjeta</label>
 								<input class="in16" type="text" maxlength="30" id="cname" name="cardname" placeholder="Pedro A. Pérez">                     
 
-								<label for="ccnum" >Número de tarjeta</label>
+								<label class="lab" for="ccnum" >Número de tarjeta</label>
 								<input class="in16" maxlength="19" type="text" v-model="cardnumber" id="ccnum" name="cardnumber" placeholder="1111 2222 3333 4444">
 								
-								<label for="expmonth">Mes de expiración</label>
+								<label class="lab" for="expmonth">Mes de expiración</label>
 								<select class="in16" v-bind="{'disabled':mos}" v-model="expmes">
 									<option value="01">Enero</option>
 									<option value="02">Febrero </option>
@@ -40,17 +40,17 @@
 								<!--<input class="in16" maxlength="9" type="text" v-model="expmes" id="expmonth" name="expmonth" placeholder="September">-->
 								<div class="r16 row">
 									<div class="col-50">
-										<label for="expyear">Año de expiración</label>
+										<label class="lab" for="expyear">Año de expiración</label>
 										<input class="in16" type="text" id="expyear" v-model="expaño" maxlength="4" name="expyear" placeholder="2018" v-bind="{'disabled':mos}">
 									</div>
 									<div class="col-50">
-										<label for="cvv">CVC</label>
+										<label class="lab" for="cvv">CVC</label>
 										<input class="in16"  v-model="cvc" :maxlength="cvv_size" type="text" id="cvv" name="cvv" placeholder="352" v-bind="{'disabled':mos}">
 									</div>
 								</div>
 							</div>
 						</div>
-						<input class="in16 b16"  type="submit" value="Realizar pago">
+						<button class="b16"  type="submit" >Realizar pago</button>
 					</form>
 				</div>
 			</div>
@@ -58,15 +58,17 @@
 				
 				<div class="c18 container">
 				<h4 class="producto">Producto
-				<span class="price" style="color:#10b725">
+				<span class="precio" style="color:#56ab2f">
 				<i class="fa fa-shopping-bag"></i>
 				</span>
 				</h4>
-				<p v-if="data.type == 'coin_packs'"><a href="#" class="parr1">Paquete de {{data.product.amount_coins}} puntos</a> <span class="price">$ {{data.product.cost}}</span></p>
-				<p v-else ><a href="#" class="parr1">Plan {{data.product.name}}</a> <span class="price">$ {{data.product.cost}}</span></p>
+				<p v-if="data.type == 'coin_packs'"><span href="#" class="parr1">Paquete de {{data.product.amount_coins}} puntos</span> 
+				<span class="precio">$ {{data.product.cost}}</span><br/> <i class="parr2">{{data.product.description}}</i> </p>
+				<p v-else ><span href="#" class="parr1">Plan {{data.product.name}}</span> 
+				<span class="precio">$ {{data.product.cost}}</span><br/><i class="parr2">{{data.product.description}}</i></p>
 
 				<hr>
-				<p ><b class="total1">Total</b> <span class="price" style="color:black"><b class="total1">$ {{data.product.cost}}</b></span></p>
+				<p ><b class="total1">Total</b> <span class="precio" style="color:black"><b class="total1">$ {{data.product.cost}}</b></span></p>
 				</div>
 			</div>
 		</div>
@@ -231,8 +233,14 @@
 		border: 1px solid #ccc;
 		border-radius: 3px;
 	}
+	input[class="in16"]:focus{
+	  outline: 1px solid #70f36b;  
+	  border-radius: 3px;
+}
 
-	label {
+	.lab {
+		font-size: 17px;
+		color: black;
 		margin-bottom: 10px;
 		display: block;
 		font-family: 'Nunito',sans-serif;
@@ -251,22 +259,26 @@
 	}
 
 	.b16 {
-		background-color: #29b330;
-		color: white;
-		padding: 12px;
-		margin: 10px 0;
+		background-image: linear-gradient(to right, #56ab2f 0%, #a8e063 51%, #56ab2f 100%);
+		transition: 0.5s;
+		background-size: 200% auto;
 		border: none;
-		width: 100%;
+		color: white;
+		padding: 8px 15px;
+		text-align: center;
+		text-decoration: none;
+		font-size: 15px;
+		font-family: 'Nunito',sans-serif;
 		border-radius: 3px;
-		cursor: pointer;
-		font-size: 17px;
+        width: 100%;
 	}
 
 	.b16:hover {
-		background-color: #10b725;
+		background-position: right center;
+		color:rgb(231, 255, 255);
 	}
 
-	span.price {
+	span.precio {
 		float: right;
 		color:black;
 		font-family: 'Nunito',sans-serif;
@@ -276,7 +288,7 @@
 
 	/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
 	@media (max-width: 800px) {
-		.row {
+		.r16 {
 			flex-direction: column-reverse;
 		}
 		.col-25 {
@@ -289,8 +301,14 @@
 		color: black;
 		font-size: 20px;
 	}
+	.parr2{
+		font-size: 17px;
+		color:darkgray;
+		margin: 2%;
+		
+	}
 	.producto{
-		color: #10b725;
+		color: #56ab2f;
 		font-family: 'Nunito',sans-serif;
 
 	}

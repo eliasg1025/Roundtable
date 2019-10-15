@@ -19,6 +19,7 @@ class CreateCoinPacksTable extends Migration
 			$table->string('slug');
 			$table->float('cost');
             $table->integer('amount_coins');
+            $table->text('description');
             $table->timestamps();
         });
     }

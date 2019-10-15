@@ -185,6 +185,7 @@ export default {
 </script>
 
 <style>
+
   .e14{
     margin-bottom: 50px;
   }
