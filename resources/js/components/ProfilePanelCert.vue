@@ -4,7 +4,7 @@
 		<div class="panel-alert alert alert-secondary" role="alert">
 			Añade las certificaciones o acreditaciones de tu empresa. Dependiendo de tu plan puedes añadir cierta cantidad de certificaciones en formato pdf.
 			<br>
-			<i>Subir <b>una certificación</b> te cuesta <a href="/planes" target="_blank"><b>20 coins</b></a></i>.
+			<i>Subir <b>una certificación</b> te cuesta <a href="/planes" target="_blank"><b>10 coins</b></a></i>.
 		</div>
 		<!-- Btn para agregar productos -->
 		<div class="container text-center">
@@ -13,7 +13,7 @@
 			</button>
 			<br>
 			<small class="mt-1">
-				<span class="text-muted">Esta operación cuesta 20 coins. <a href="/planes" target="_blank">Conseguir coins.</a></span>
+				<span class="text-muted">Esta operación cuesta 10 coins. <a href="/planes" target="_blank">Conseguir coins.</a></span>
 			</small>
 		</div>
 		<div class="container">
@@ -125,7 +125,7 @@
 			},
 			addCert() {
 				Swal.fire({
-					title: 'Estas consumiendo 20 coins en esta operación',
+					title: 'Estas consumiendo 10 coins en esta operación',
 					text: '¿Deseas continuar?',
 					type: 'info',
 					confirmButtonColor: '#3085d6',
