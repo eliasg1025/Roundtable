@@ -1,7 +1,7 @@
 <template>
 	<section class="c18 container" id="pagar">
 		<div class="r16 row">
-			<div class="col-75">
+			<div class="col-50">
 				<div class="c18 container">
 					<form >
 						<div class="r16 row">
@@ -55,17 +55,19 @@
 				</div>
 			</div>
 			<div class="col-25" >
-				<!--@submit="sendForm"<div class="c18 container">
-				<h4>Compra
-				<span class="price" style="color:black">
+				
+				<div class="c18 container">
+				<h4 class="producto">Producto
+				<span class="price" style="color:#10b725">
 				<i class="fa fa-shopping-bag"></i>
 				</span>
 				</h4>
-				<p><a href="#">{{items.cantidad}}</a> <span class="price">$1</span></p>
+				<p v-if="data.type == 'coin_packs'"><a href="#" class="parr1">Paquete de {{data.product.amount_coins}} puntos</a> <span class="price">$ {{data.product.cost}}</span></p>
+				<p v-else ><a href="#" class="parr1">Plan {{data.product.name}}</a> <span class="price">$ {{data.product.cost}}</span></p>
 
 				<hr>
-				<p>Total <span class="price" style="color:black"><b>$4</b></span></p>
-				</div>-->
+				<p ><b class="total1">Total</b> <span class="price" style="color:black"><b class="total1">$ {{data.product.cost}}</b></span></p>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -76,7 +78,7 @@
 	import store from '../store/index.js'
 	export default {
 		name:'pago',
-		props:['pago', 'data'],
+		props:['pago', 'data'], 
 		data() {
 			return  {
 				cardname:'',
@@ -130,7 +132,6 @@
 			cardnumber : function( newValue) {
 				this.cardnumber=Payform.formatCardNumber(newValue);
 				//this.cardnumber = Payform(newValue);
-				console.log(Payform);
 				this.tarjetas.imax.removeClass('transparent');
 				this.tarjetas.visa.removeClass('transparent');
 				this.tarjetas.mastercard.removeClass('transparent');
@@ -185,13 +186,13 @@
 	.disabled{
 		color:darkgray;
 	}
-	.r16 {
-		display: -ms-flexbox; /* IE10 */
+	/* .r16 {
+		display: -ms-flexbox; 
 		display: flex;
-		-ms-flex-wrap: wrap; /* IE10 */
+		-ms-flex-wrap: wrap; 
 		flex-wrap: wrap;
 		margin: 0 -16px;
-	}
+	}*/
 
 	.col-25 {
 		-ms-flex: 25%; /* IE10 */
@@ -215,7 +216,7 @@
 	}
 
 	.c18 {
-		background-color: #f2f2f2;
+		
 		padding: 25px 20px 15px 20px;
 		border: 1px solid lightgrey;
 		border-radius: 3px;
@@ -267,7 +268,10 @@
 
 	span.price {
 		float: right;
-		color: grey;
+		color:black;
+		font-family: 'Nunito',sans-serif;
+		font-size: 20px;
+
 	}
 
 	/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
@@ -278,6 +282,23 @@
 		.col-25 {
 			margin-bottom: 20px;
 		}
+	}
+
+	.parr1{
+		font-family: 'Nunito',sans-serif;
+		color: black;
+		font-size: 20px;
+	}
+	.producto{
+		color: #10b725;
+		font-family: 'Nunito',sans-serif;
+
+	}
+	.total1{
+		font-family: 'Nunito',sans-serif;
+		color: black;
+		font-size: 23px;
+	
 	}
 
 	.transparent {

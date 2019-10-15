@@ -13,7 +13,11 @@ class PagosController extends Controller
     }
 
     public function index($product, $slug){
-		$data = DB::table($product)->where('slug', $slug)->first();
+        $r = DB::table($product)->where('slug', $slug)->first();
+        $data=[
+            'product'=> $r,
+            'type' => $product,
+        ];
 		return view('pagos', compact('data'));
 	}
 }
