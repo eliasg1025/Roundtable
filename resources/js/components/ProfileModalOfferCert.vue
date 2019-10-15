@@ -127,29 +127,43 @@
 				this.upload_file = this.$refs.uploadFile.files[0]
 			},
 			addOfferCert() {
-				let formData = new FormData()
-				formData.append('offer_id', this.data_offer.offer.id)
-				formData.append('title', this.title)
-				formData.append('file', this.upload_file)
-
-				// Comprobar el contenido del formData
-				for (var key of formData.entries()) {
-					console.log(key[0] + ', ' + key[1]);
-				}
-
-				const config = {
-					headers: {'content-type': 'multipart/form-data'}
-				}
-
-				axios.post('/profile/add-product-cert', formData, config)
+				Swal.fire({
+					title: 'Estas consumiendo 10 coins en esta operación',
+					text: '¿Deseas continuar?',
+					type: 'info',
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Si',
+					cancelButtonText: 'Cancelar',
+					showCancelButton: true,
+				})
 					.then(res => {
-						console.log(res.data)
-						Swal.fire({title: res.data.message, type: 'success', timer: 1500})
-							.then(res => location.reload())
-					})
-					.catch(err => {
-						console.log(err.response)
-						Swal.fire({title: err.response.data.message, type: 'error', timer: 2000})
+						if (res.value == true) {
+							let formData = new FormData()
+							formData.append('offer_id', this.data_offer.offer.id)
+							formData.append('title', this.title)
+							formData.append('file', this.upload_file)
+			
+							// Comprobar el contenido del formData
+							for (var key of formData.entries()) {
+								console.log(key[0] + ', ' + key[1]);
+							}
+			
+							const config = {
+								headers: {'content-type': 'multipart/form-data'}
+							}
+			
+							axios.post('/profile/add-product-cert', formData, config)
+								.then(res => {
+									console.log(res.data)
+									Swal.fire({title: res.data.message, type: 'success', timer: 1500})
+										.then(res => location.reload())
+								})
+								.catch(err => {
+									console.log(err.response)
+									Swal.fire({title: err.response.data.message, type: 'error', timer: 2000})
+								})
+						}
 					})
 			},
 			deleteOfferCert(certification_id) {
