@@ -21,6 +21,7 @@ class PlansTableSeeder extends Seeder
 		$plan->initial_coins = 0;
 		$plan->images = 3;
 		$plan->videos = 0;
+		$plan->description = "Esto de plan gratis";
         $plan->save();
 
         $plan = new Plan();
@@ -31,6 +32,7 @@ class PlansTableSeeder extends Seeder
 		$plan->initial_coins = 40;
 		$plan->images = 6;
 		$plan->videos = 1;
+		$plan->description = "Esto de plan estandar";
         $plan->save();
 
         $plan = new Plan();
@@ -41,6 +43,7 @@ class PlansTableSeeder extends Seeder
 		$plan->initial_coins = 100;
 		$plan->images = 10;
 		$plan->videos = 3;
+		$plan->description = "Esto de plan Premium";
         $plan->save();
     }
 }

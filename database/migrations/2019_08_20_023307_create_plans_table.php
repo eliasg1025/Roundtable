@@ -21,7 +21,8 @@ class CreatePlansTable extends Migration
             $table->float('cost');
 			$table->integer('initial_coins');
 			$table->integer('images');
-			$table->integer('videos');
+            $table->integer('videos');
+            $table->text('description');            
             $table->timestamps();
         });
     }
