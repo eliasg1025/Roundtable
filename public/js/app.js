@@ -3493,6 +3493,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -76212,266 +76248,250 @@ var render = function() {
       _c("div", { staticClass: "r16 row" }, [
         _c("div", { staticClass: "col-50" }, [
           _c("div", { staticClass: "c18 container" }, [
-            _c("form", [
-              _c("div", { staticClass: "r16 row" }, [
-                _c("div", { staticClass: "col-50" }, [
-                  _c(
-                    "h3",
+            _c("div", { staticClass: "r16 row" }, [
+              _c("div", { staticClass: "col-50" }, [
+                _c(
+                  "h3",
+                  {
+                    staticStyle: {
+                      "font-family": "'Nunito',sans-serif",
+                      "font-weight": "400",
+                      color: "#56ab2f"
+                    }
+                  },
+                  [_vm._v("Proceso de pago")]
+                ),
+                _vm._v(" "),
+                _c("label", { staticClass: "lab", attrs: { for: "fname" } }, [
+                  _vm._v("Tarjetas aceptadas")
+                ]),
+                _vm._v(" "),
+                _vm._m(0),
+                _vm._v(" "),
+                _c("label", { staticClass: "lab", attrs: { for: "cname" } }, [
+                  _vm._v("Nombre en la tarjeta")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "in16",
+                  attrs: {
+                    type: "text",
+                    maxlength: "30",
+                    id: "cname",
+                    name: "cardname",
+                    placeholder: "Pedro A. Pérez"
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { staticClass: "lab", attrs: { for: "ccnum" } }, [
+                  _vm._v("Número de tarjeta")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
                     {
-                      staticStyle: {
-                        "font-family": "'Nunito',sans-serif",
-                        "font-weight": "400",
-                        color: "#56ab2f"
-                      }
-                    },
-                    [_vm._v("Proceso de pago")]
-                  ),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "lab", attrs: { for: "fname" } }, [
-                    _vm._v("Tarjetas aceptadas")
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "lab", attrs: { for: "cname" } }, [
-                    _vm._v("Nombre en la tarjeta")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass: "in16",
-                    attrs: {
-                      type: "text",
-                      maxlength: "30",
-                      id: "cname",
-                      name: "cardname",
-                      placeholder: "Pedro A. Pérez"
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.cardnumber,
+                      expression: "cardnumber"
                     }
-                  }),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "lab", attrs: { for: "ccnum" } }, [
-                    _vm._v("Número de tarjeta")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.cardnumber,
-                        expression: "cardnumber"
+                  ],
+                  staticClass: "in16",
+                  attrs: {
+                    maxlength: "19",
+                    type: "text",
+                    id: "ccnum",
+                    name: "cardnumber",
+                    placeholder: "1111 2222 3333 4444"
+                  },
+                  domProps: { value: _vm.cardnumber },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
                       }
-                    ],
-                    staticClass: "in16",
-                    attrs: {
-                      maxlength: "19",
-                      type: "text",
-                      id: "ccnum",
-                      name: "cardnumber",
-                      placeholder: "1111 2222 3333 4444"
-                    },
-                    domProps: { value: _vm.cardnumber },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                      _vm.cardnumber = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "lab", attrs: { for: "expmonth" } },
+                  [_vm._v("Mes de expiración")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  _vm._b(
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.expmes,
+                          expression: "expmes"
                         }
-                        _vm.cardnumber = $event.target.value
+                      ],
+                      staticClass: "in16",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.expmes = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
                       }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    { staticClass: "lab", attrs: { for: "expmonth" } },
-                    [_vm._v("Mes de expiración")]
-                  ),
-                  _vm._v(" "),
-                  _c(
+                    },
                     "select",
-                    _vm._b(
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.expmes,
-                            expression: "expmes"
-                          }
-                        ],
-                        staticClass: "in16",
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.expmes = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          }
-                        }
-                      },
-                      "select",
-                      { disabled: _vm.mos },
-                      false
-                    ),
-                    [
-                      _c("option", { attrs: { value: "01" } }, [
-                        _vm._v("Enero")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "02" } }, [
-                        _vm._v("Febrero ")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "03" } }, [
-                        _vm._v("Marzo")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "04" } }, [
-                        _vm._v("Abril")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "05" } }, [
-                        _vm._v("Mayo")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "06" } }, [
-                        _vm._v("Junio")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "07" } }, [
-                        _vm._v("Julio")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "08" } }, [
-                        _vm._v("Agosto")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "09" } }, [
-                        _vm._v("Setiembre")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "10" } }, [
-                        _vm._v("Octubre")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "11" } }, [
-                        _vm._v("Noviembre")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "12" } }, [
-                        _vm._v("Diciembre")
-                      ])
-                    ]
+                    { disabled: _vm.mos },
+                    false
                   ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "r16 row" }, [
-                    _c("div", { staticClass: "col-50" }, [
-                      _c(
-                        "label",
-                        { staticClass: "lab", attrs: { for: "expyear" } },
-                        [_vm._v("Año de expiración")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "input",
-                        _vm._b(
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.expaño,
-                                expression: "expaño"
-                              }
-                            ],
-                            staticClass: "in16",
-                            attrs: {
-                              type: "text",
-                              id: "expyear",
-                              maxlength: "4",
-                              name: "expyear",
-                              placeholder: "2018"
-                            },
-                            domProps: { value: _vm.expaño },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.expaño = $event.target.value
-                              }
-                            }
-                          },
-                          "input",
-                          { disabled: _vm.mos },
-                          false
-                        )
-                      )
+                  [
+                    _c("option", { attrs: { value: "01" } }, [_vm._v("Enero")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "02" } }, [
+                      _vm._v("Febrero ")
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-50" }, [
-                      _c(
-                        "label",
-                        { staticClass: "lab", attrs: { for: "cvv" } },
-                        [_vm._v("CVC")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "input",
-                        _vm._b(
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.cvc,
-                                expression: "cvc"
-                              }
-                            ],
-                            staticClass: "in16",
-                            attrs: {
-                              maxlength: _vm.cvv_size,
-                              type: "text",
-                              id: "cvv",
-                              name: "cvv",
-                              placeholder: "352"
-                            },
-                            domProps: { value: _vm.cvc },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.cvc = $event.target.value
-                              }
-                            }
-                          },
-                          "input",
-                          { disabled: _vm.mos },
-                          false
-                        )
-                      )
+                    _c("option", { attrs: { value: "03" } }, [_vm._v("Marzo")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "04" } }, [_vm._v("Abril")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "05" } }, [_vm._v("Mayo")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "06" } }, [_vm._v("Junio")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "07" } }, [_vm._v("Julio")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "08" } }, [
+                      _vm._v("Agosto")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "09" } }, [
+                      _vm._v("Setiembre")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "10" } }, [
+                      _vm._v("Octubre")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "11" } }, [
+                      _vm._v("Noviembre")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "12" } }, [
+                      _vm._v("Diciembre")
                     ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "r16 row" }, [
+                  _c("div", { staticClass: "col-50" }, [
+                    _c(
+                      "label",
+                      { staticClass: "lab", attrs: { for: "expyear" } },
+                      [_vm._v("Año de expiración")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "input",
+                      _vm._b(
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.expaño,
+                              expression: "expaño"
+                            }
+                          ],
+                          staticClass: "in16",
+                          attrs: {
+                            type: "text",
+                            id: "expyear",
+                            maxlength: "4",
+                            name: "expyear",
+                            placeholder: "2018"
+                          },
+                          domProps: { value: _vm.expaño },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.expaño = $event.target.value
+                            }
+                          }
+                        },
+                        "input",
+                        { disabled: _vm.mos },
+                        false
+                      )
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-50" }, [
+                    _c("label", { staticClass: "lab", attrs: { for: "cvv" } }, [
+                      _vm._v("CVC")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "input",
+                      _vm._b(
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.cvc,
+                              expression: "cvc"
+                            }
+                          ],
+                          staticClass: "in16",
+                          attrs: {
+                            maxlength: _vm.cvv_size,
+                            type: "text",
+                            id: "cvv",
+                            name: "cvv",
+                            placeholder: "352"
+                          },
+                          domProps: { value: _vm.cvc },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.cvc = $event.target.value
+                            }
+                          }
+                        },
+                        "input",
+                        { disabled: _vm.mos },
+                        false
+                      )
+                    )
                   ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("button", { staticClass: "b16", attrs: { type: "submit" } }, [
-                _vm._v("Realizar pago")
               ])
-            ])
+            ]),
+            _vm._v(" "),
+            _c("button", { staticClass: "b16" }, [_vm._v("Realizar pago")]),
+            _vm._v(" "),
+            _vm._m(1)
           ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-25" }, [
           _c("div", { staticClass: "c18 container" }, [
-            _vm._m(1),
+            _vm._m(2),
             _vm._v(" "),
             _vm.data.type == "coin_packs"
               ? _c("p", [
@@ -76542,6 +76562,99 @@ var staticRenderFns = [
       _c("img", { attrs: { src: "/img/tarjetas/amex.jpg", id: "amex" } }),
       _vm._v(" "),
       _c("img", { attrs: { src: "/img/tarjetas/dc.jpg", id: "diner" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("form", [
+      _c("div", { staticClass: "form-grup" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Titular")]),
+        _vm._v(" "),
+        _c("input", { staticClass: "form-control", attrs: { type: "text" } })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", [_c("span", [_vm._v("Correo Electrónico")])]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            size: "50",
+            "data-culqi": "card[email]",
+            id: "card[email]"
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", [_c("span", [_vm._v("Número de tarjeta")])]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            size: "20",
+            "data-culqi": "card[number]",
+            id: "card[number]"
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", [_c("span", [_vm._v("CVV")])]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            size: "4",
+            "data-culqi": "card[cvv]",
+            id: "card[cvv]"
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("label", { staticClass: "col-md-3" }, [
+          _c("span", [_vm._v("Fecha expiración (MM/YYYY)")])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3" }, [
+          _c("input", {
+            staticClass: "form-control",
+            attrs: {
+              size: "2",
+              "data-culqi": "card[exp_month]",
+              id: "card[exp_month]"
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3" }, [
+          _c("input", {
+            staticClass: "form-control",
+            attrs: {
+              size: "4",
+              "data-culqi": "card[exp_year]",
+              id: "card[exp_year]"
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group mt-3" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-success btn-block btn-lg",
+            attrs: { id: "btn_pagar" }
+          },
+          [_vm._v("Pagar")]
+        )
+      ])
     ])
   },
   function() {
@@ -95974,6 +96087,8 @@ __webpack_require__(/*! ./helpers */ "./resources/js/helpers.js");
 
 __webpack_require__(/*! ./navbar */ "./resources/js/navbar.js");
 
+__webpack_require__(/*! ./culqi */ "./resources/js/culqi.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -99064,6 +99179,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_puntos_vue_vue_type_template_id_0610a83a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/culqi.js":
+/*!*******************************!*\
+  !*** ./resources/js/culqi.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Llave publica
+Culqi.publicKey = 'pk_test_yBO69zr5GMGC99uH';
+Culqi.init();
+
+function culqi() {
+  if (Culqi.token) {
+    // ¡Objeto Token creado exitosamente!
+    var token = Culqi.token.id;
+    alert('Se ha creado un token:' + token); //En esta linea de codigo debemos enviar el "Culqi.token.id"
+    //hacia tu servidor con Ajax
+  } else {
+    // Mostramos JSON de objeto error en consola
+    console.log(Culqi.error);
+    alert(Culqi.error.user_message);
+  }
+} // Generar token
+
+
+$('#btn_pagar').on('click', function (e) {
+  // Crea el objeto Token con Culqi JS
+  Culqi.createToken();
+  e.preventDefault();
+});
 
 /***/ }),
 
