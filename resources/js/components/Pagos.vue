@@ -3,55 +3,91 @@
 		<div class="r16 row">
 			<div class="col-50">
 				<div class="c18 container">
-					<form >
-						<div class="r16 row">
-							<div class="col-50">
-								<h3 style="font-family: 'Nunito',sans-serif; font-weight:400; color: #56ab2f;">Proceso de pago</h3>
-								<label class="lab" for="fname">Tarjetas aceptadas</label>
-								
-								<div class="icon-container">
-									<img src="/img/tarjetas/visa.jpg"  id="visa">
-									<img src="/img/tarjetas/mastercard.jpg" id="master">
-									<img src="/img/tarjetas/amex.jpg" id="amex">
-									<img src="/img/tarjetas/dc.jpg" id="diner">
-								</div>
-								
-								<label class="lab" for="cname">Nombre en la tarjeta</label>
-								<input class="in16" type="text" maxlength="30" id="cname" name="cardname" placeholder="Pedro A. Pérez">                     
+					<div class="r16 row">
+						<div class="col-50">
+							<h3 style="font-family: 'Nunito',sans-serif; font-weight:400; color: #56ab2f;">Proceso de pago</h3>
+							<label class="lab" for="fname">Tarjetas aceptadas</label>
+							
+							<div class="icon-container">
+								<img src="/img/tarjetas/visa.jpg"  id="visa">
+								<img src="/img/tarjetas/mastercard.jpg" id="master">
+								<img src="/img/tarjetas/amex.jpg" id="amex">
+								<img src="/img/tarjetas/dc.jpg" id="diner">
+							</div>
+							
+							<label class="lab" for="cname">Nombre en la tarjeta</label>
+							<input class="in16" type="text" maxlength="30" id="cname" name="cardname" placeholder="Pedro A. Pérez">                     
 
-								<label class="lab" for="ccnum" >Número de tarjeta</label>
-								<input class="in16" maxlength="19" type="text" v-model="cardnumber" id="ccnum" name="cardnumber" placeholder="1111 2222 3333 4444">
-								
-								<label class="lab" for="expmonth">Mes de expiración</label>
-								<select class="in16" v-bind="{'disabled':mos}" v-model="expmes">
-									<option value="01">Enero</option>
-									<option value="02">Febrero </option>
-									<option value="03">Marzo</option>
-									<option value="04">Abril</option>
-									<option value="05">Mayo</option>
-									<option value="06">Junio</option>
-									<option value="07">Julio</option>
-									<option value="08">Agosto</option>
-									<option value="09">Setiembre</option>
-									<option value="10">Octubre</option>
-									<option value="11">Noviembre</option>
-									<option value="12">Diciembre</option>
-								</select>
-								<!--<input class="in16" maxlength="9" type="text" v-model="expmes" id="expmonth" name="expmonth" placeholder="September">-->
-								<div class="r16 row">
-									<div class="col-50">
-										<label class="lab" for="expyear">Año de expiración</label>
-										<input class="in16" type="text" id="expyear" v-model="expaño" maxlength="4" name="expyear" placeholder="2018" v-bind="{'disabled':mos}">
-									</div>
-									<div class="col-50">
-										<label class="lab" for="cvv">CVC</label>
-										<input class="in16"  v-model="cvc" :maxlength="cvv_size" type="text" id="cvv" name="cvv" placeholder="352" v-bind="{'disabled':mos}">
-									</div>
+							<label class="lab" for="ccnum" >Número de tarjeta</label>
+							<input class="in16" maxlength="19" type="text" v-model="cardnumber" id="ccnum" name="cardnumber" placeholder="1111 2222 3333 4444">
+							
+							<label class="lab" for="expmonth">Mes de expiración</label>
+							<select class="in16" v-bind="{'disabled':mos}" v-model="expmes">
+								<option value="01">Enero</option>
+								<option value="02">Febrero </option>
+								<option value="03">Marzo</option>
+								<option value="04">Abril</option>
+								<option value="05">Mayo</option>
+								<option value="06">Junio</option>
+								<option value="07">Julio</option>
+								<option value="08">Agosto</option>
+								<option value="09">Setiembre</option>
+								<option value="10">Octubre</option>
+								<option value="11">Noviembre</option>
+								<option value="12">Diciembre</option>
+							</select>
+							<!--<input class="in16" maxlength="9" type="text" v-model="expmes" id="expmonth" name="expmonth" placeholder="September">-->
+							<div class="r16 row">
+								<div class="col-50">
+									<label class="lab" for="expyear">Año de expiración</label>
+									<input class="in16" type="text" id="expyear" v-model="expaño" maxlength="4" name="expyear" placeholder="2018" v-bind="{'disabled':mos}">
+								</div>
+								<div class="col-50">
+									<label class="lab" for="cvv">CVC</label>
+									<input class="in16"  v-model="cvc" :maxlength="cvv_size" type="text" id="cvv" name="cvv" placeholder="352" v-bind="{'disabled':mos}">
 								</div>
 							</div>
 						</div>
-						<button class="b16"  type="submit" >Realizar pago</button>
+					</div>
+					<button class="b16">Realizar pago</button>
+					<!-- -->
+					<form>
+						<div class="form-grup">
+							<label for="">Titular</label>
+							<input type="text" class="form-control">
+						</div>
+						<div class="form-group">
+							<label><span>Correo Electrónico</span></label>
+							<input type="text" size="50" data-culqi="card[email]" id="card[email]" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>
+								<span>Número de tarjeta</span>
+							</label>
+							<input type="text" size="20" data-culqi="card[number]" id="card[number]" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>
+								<span>CVV</span>
+								
+							</label>
+							<input type="text" size="4" data-culqi="card[cvv]" id="card[cvv]" class="form-control">
+						</div>
+						<div class="row">
+							<label class="col-md-3"><span>Fecha expiración (MM/YYYY)</span></label>
+							<div class="col-md-3">
+								<input size="2" data-culqi="card[exp_month]" id="card[exp_month]" class="form-control">
+							</div>
+							
+							<div class="col-md-3">
+								<input size="4" data-culqi="card[exp_year]" id="card[exp_year]" class="form-control">
+							</div>
+						</div>
+						<div class="form-group mt-3">
+							<button id="btn_pagar" class="btn btn-success btn-block btn-lg">Pagar</button>
+						</div>
 					</form>
+					<!-- -->
 				</div>
 			</div>
 			<div class="col-25" >
@@ -78,6 +114,7 @@
 <script >
 	import Payform from 'payform'
 	import store from '../store/index.js'
+
 	export default {
 		name:'pago',
 		props:['pago', 'data'], 
