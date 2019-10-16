@@ -23,73 +23,75 @@
 	<link rel="stylesheet" href="https://jaysalvat.github.io/vegas/releases/latest/vegas.min.css">
 </head>
 <body>
-    <div id="app">
+	<div id="app">
 		<nav id="navbar" class="navbar navbar-expand-lg navbar-dark fixed-top">
 			<div class="container">
-
+				
 				<a class="navbar-brand" href="{{ url('/') }}" style="font-family: 'Amatic SC', cursive; font-size:25px;">
 					<img src="/img/logo/logopit.png" width="90" height="48" class="d-inline-block align-top" alt="">
 				</a>
-
+				
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<!-- Left Side Of Navbar -->
-					<ul class="navbar-nav mr-auto">
-						<li class="nav-item mr-3">
-							<a href="{{ route('business') }}" class="nav-link navbar-list__link">Empresas</a>
-						</li>
-						<li class="nav-item mr-3">
-							<a href="{{ url('/planes') }}" class="nav-link navbar-list__link">Planes</a>
-						</li>
-						<li class="nav-item mr-3">
-						<a href="{{url('/contact')}}" class="nav-link navbar-list__link">Contacto</a>
-						</li>
-					</ul>
-					<!-- Center Side Of Navbar -->
-					<a id="logo" href="{{ url('/') }}" class="logo-main" style="margin-left: -80px;">
-						<span style="font-family: 'Amatic SC', cursive; font-size:25px;" class="logo-main-title d-none">Rountable</span>
-						<img id="img-logo" src="/img/logo/logo-v3.png" class="img-fluid">
-						<img id="img-small-logo" src="/img/logo/logopit.png" class="img-fluid" style="display: none;">
-					</a>
-					<!-- Right Side Of Navbar -->
-					<ul class="navbar-nav ml-auto">
-						<!-- Authentication Links -->
-						@guest
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<!-- Left Side Of Navbar -->
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item mr-3">
+								<a href="{{ route('business') }}" class="nav-link navbar-list__link">Empresas</a>
+							</li>
+							<li class="nav-item mr-3">
+								<a href="{{ url('/planes') }}" class="nav-link navbar-list__link">Planes</a>
+							</li>
+							<li class="nav-item mr-3">
+								<a href="{{url('/contact')}}" class="nav-link navbar-list__link">Contacto</a>
+							</li>
+						</ul>
+						<!-- Center Side Of Navbar -->
+						<a id="logo" href="{{ url('/') }}" class="logo-main" style="margin-left: -80px;">
+							<span style="font-family: 'Amatic SC', cursive; font-size:25px;" class="logo-main-title d-none">Rountable</span>
+							<img id="img-logo" src="/img/logo/logo-v3.png" class="img-fluid">
+							<img id="img-small-logo" src="/img/logo/logopit.png" class="img-fluid" style="display: none;">
+						</a>
+						<!-- Right Side Of Navbar -->
+						<ul class="navbar-nav ml-auto">
+							<!-- Authentication Links -->
+							@guest
 							<li class="nav-item">
 								<a class="nav-link navbar-list__link" href="#" data-toggle="modal" data-target="#login" id="button_login">{{ __('Iniciar Sesion') }}</a>
 							</li>
 							@if (Route::has('register'))
-								<li class="nav-item">
-									<a class="nav-link navbar-list__link" href="#" data-toggle="modal" data-target="#login" id="button_register">{{ __('Registrate') }}</a>
-								</li>
+							<li class="nav-item">
+								<a class="nav-link navbar-list__link" href="#" data-toggle="modal" data-target="#login" id="button_register">{{ __('Registrate') }}</a>
+							</li>
 							@endif
-						@else
+							@else
 							<li class="nav-item">
 								<a href="{{ route('profile') }}" class="nav-link navbar-list__link">
-									{{ Auth::user()->name }}</a>
-							</li>
-							<li class="nav-item">
-								<a href="{{ route('logout') }}"
-									onclick="event.preventDefault();
+										{{ Auth::user()->name }}</a>
+									</li>
+									<li class="nav-item">
+										<a href="{{ route('logout') }}"
+										onclick="event.preventDefault();
 										document.getElementById('logout-form').submit();"
 									class="nav-link navbar-list__link">
 									Cerrar Sesión
 								</a>
 								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-									@csrf
-								</form>
-							</li>
-						@endguest
-					</ul>
-				</div>
+										@csrf
+									</form>
+								</li>
+								@endguest
+							</ul>
+						</div>
+					</div>
+				</nav>
+				
+				@yield('content')
 			</div>
-		</nav>
-
-		@yield('content')
-	</div>
-	<script src="http://zeptojs.com/zepto.min.js"></script>
-</body>
-</html>
+			<script src="http://zeptojs.com/zepto.min.js"></script>
+			<!-- Incluyendo .js de Culqi JS -->
+			<script src="https://checkout.culqi.com/v2"></script>
+		</body>
+		</html>
