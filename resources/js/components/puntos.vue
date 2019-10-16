@@ -220,7 +220,15 @@ export default {
  .c1{
    text-align: center;
  }
- Add-Bag>{
-   color: white;
+ 
+ .e15{
+   margin: 0px 0px 50px 0px;
+ }
+ @media only screen and(max-width: 769px){
+   .ca20{
+     width: 100%;
+     margin: 5px 5px 20px 5px;
+   }
+   
  }
 </style>
