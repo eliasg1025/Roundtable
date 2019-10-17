@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PagosController extends Controller
@@ -13,11 +14,18 @@ class PagosController extends Controller
     }
 
     public function index($product, $slug){
-        $r = DB::table($product)->where('slug', $slug)->first();
+		$r = DB::table($product)->where('slug', $slug)->first();
+		$user = Auth::user();
         $data=[
             'product'=> $r,
-            'type' => $product,
+			'type' => $product,
+			'user' => $user,
         ];
 		return view('pagos', compact('data'));
+	}
+
+	public function processPayment(Request $request)
+	{
+		return $request->data;
 	}
 }

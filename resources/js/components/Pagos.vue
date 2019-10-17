@@ -18,76 +18,46 @@
 							<label class="lab" for="cname">Nombre en la tarjeta</label>
 							<input class="in16" type="text" maxlength="30" id="cname" name="cardname" placeholder="Pedro A. Pérez">                     
 
-							<label class="lab" for="ccnum" >Número de tarjeta</label>
-							<input class="in16" maxlength="19" type="text" v-model="cardnumber" id="ccnum" name="cardnumber" placeholder="1111 2222 3333 4444">
+							<label class="lab" for="ccemail">Correo Electrónico</label>
+							<input class="in16" maxlength="50" type="email" v-model="data.user.email" data-culqi="card[email]" id="ccemail" placeholder="empresa@email.com">
+
+							<div class="r16 row">
+								<div class="col-70">
+									<label class="lab" for="ccnum" >Número de tarjeta</label>
+									<input class="in16" maxlength="19" type="text" v-model="cardnumber" data-culqi="card[number]" id="ccnum" name="cardnumber" placeholder="1111 2222 3333 4444">
+								</div>
+								<div class="col-30">
+									<label class="lab" for="cvv">CVC</label>
+									<input class="in16"  v-model="cvc" :maxlength="cvv_size" type="text" data-culqi="card[cvv]" id="cvv" name="cvv" placeholder="352" v-bind="{'disabled':mos}">
+								</div>
+							</div>
 							
-							<label class="lab" for="expmonth">Mes de expiración</label>
-							<select class="in16" v-bind="{'disabled':mos}" v-model="expmes">
-								<option value="01">Enero</option>
-								<option value="02">Febrero </option>
-								<option value="03">Marzo</option>
-								<option value="04">Abril</option>
-								<option value="05">Mayo</option>
-								<option value="06">Junio</option>
-								<option value="07">Julio</option>
-								<option value="08">Agosto</option>
-								<option value="09">Setiembre</option>
-								<option value="10">Octubre</option>
-								<option value="11">Noviembre</option>
-								<option value="12">Diciembre</option>
-							</select>
-							<!--<input class="in16" maxlength="9" type="text" v-model="expmes" id="expmonth" name="expmonth" placeholder="September">-->
 							<div class="r16 row">
 								<div class="col-50">
-									<label class="lab" for="expyear">Año de expiración</label>
-									<input class="in16" type="text" id="expyear" v-model="expaño" maxlength="4" name="expyear" placeholder="2018" v-bind="{'disabled':mos}">
+									<label class="lab" for="expmonth">Mes de expiración</label>
+									<select class="in16" v-bind="{'disabled':mos}" data-culqi="card[exp_month]" v-model="expmes">
+										<option value="01">01</option>
+										<option value="02">02</option>
+										<option value="03">03</option>
+										<option value="04">04</option>
+										<option value="05">05</option>
+										<option value="06">06</option>
+										<option value="07">07</option>
+										<option value="08">08</option>
+										<option value="09">09</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+									</select>
 								</div>
 								<div class="col-50">
-									<label class="lab" for="cvv">CVC</label>
-									<input class="in16"  v-model="cvc" :maxlength="cvv_size" type="text" id="cvv" name="cvv" placeholder="352" v-bind="{'disabled':mos}">
+									<label class="lab" for="expyear">Año de expiración</label>
+									<input class="in16" type="text" id="expyear" data-culqi="card[exp_year]" v-model="expano" maxlength="4" name="expyear" placeholder="2018" v-bind="{'disabled':mos}">
 								</div>
 							</div>
 						</div>
 					</div>
-					<button class="b16">Realizar pago</button>
-					<!-- -->
-					<form>
-						<div class="form-grup">
-							<label for="">Titular</label>
-							<input type="text" class="form-control">
-						</div>
-						<div class="form-group">
-							<label><span>Correo Electrónico</span></label>
-							<input type="text" size="50" data-culqi="card[email]" id="card[email]" class="form-control">
-						</div>
-						<div class="form-group">
-							<label>
-								<span>Número de tarjeta</span>
-							</label>
-							<input type="text" size="20" data-culqi="card[number]" id="card[number]" class="form-control">
-						</div>
-						<div class="form-group">
-							<label>
-								<span>CVV</span>
-								
-							</label>
-							<input type="text" size="4" data-culqi="card[cvv]" id="card[cvv]" class="form-control">
-						</div>
-						<div class="row">
-							<label class="col-md-3"><span>Fecha expiración (MM/YYYY)</span></label>
-							<div class="col-md-3">
-								<input size="2" data-culqi="card[exp_month]" id="card[exp_month]" class="form-control">
-							</div>
-							
-							<div class="col-md-3">
-								<input size="4" data-culqi="card[exp_year]" id="card[exp_year]" class="form-control">
-							</div>
-						</div>
-						<div class="form-group mt-3">
-							<button id="btn_pagar" class="btn btn-success btn-block btn-lg">Pagar</button>
-						</div>
-					</form>
-					<!-- -->
+					<button class="b16" type="button" @click="processPayment()">Realizar pago</button>
 				</div>
 			</div>
 			<div class="col-25" >
@@ -123,7 +93,7 @@
 				cardname:'',
 				cardnumber:'',
 				expmes:'',
-				expaño:'',
+				expano:'',
 				cvc:'',
 				mos:true,
 				onlyNumber:'',
@@ -154,18 +124,30 @@
 
 				e.preventDefault();
 
-				if(this.cardname="" || this.cardnumber=="" || this.expmes=="" || this.expaño=="" || this.cvc=="")
+				if(this.cardname="" || this.cardnumber=="" || this.expmes=="" || this.expano=="" || this.cvc=="")
 				alert('Todos los campos son obligatorios')
 
 				else 
 				if(this.cardname.length>30)
 				alert("Nombre supera los 30 caracteres");
 				else
-				if(isNaN(this.cvc) || isNaN(this.expaño) || isNaN(this.cardnumber)){
+				if(isNaN(this.cvc) || isNaN(this.expano) || isNaN(this.cardnumber)){
 				alert("Ingrese números donde corresponda");
 
 				}
 			},*/
+			processPayment() {
+				Culqi.createToken();
+
+				const settings = {
+					title: `${this.data.type} ${this.data.product.name}`,
+					currency: 'USD',
+					description: `Compra: Tipo: ${this.data.type}, Producto: ${this.data.product.name} por ${this.data.product.cost} PEN`,
+					amount: Math.ceil(this.data.product.cost),
+				}
+
+				Culqi.settings(settings);
+			}
 		},
 		watch : {
 			cardnumber : function( newValue) {
@@ -238,6 +220,11 @@
 		flex: 25%;
 	}
 
+	.col-30 {
+		-ms-flex: 30%;
+		flex: 30%;
+	}
+
 	.col-50 {
 		-ms-flex: 50%; /* IE10 */
 		flex: 50%;
@@ -248,8 +235,15 @@
 		flex: 75%;
 	}
 
+	.col-70 {
+		-ms-flex: 70%;
+		flex: 70%;
+	}
+
 	.col-25,
+	.col-30,
 	.col-50,
+	.col-70,
 	.col-75 {
 		padding: 0 16px;
 	}
@@ -328,7 +322,7 @@
 		.r16 {
 			flex-direction: column-reverse;
 		}
-		.col-25 {
+		.col-25, .col-30 {
 			margin-bottom: 20px;
 		}
 	}
