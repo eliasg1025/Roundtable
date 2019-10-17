@@ -93,5 +93,21 @@
 			<script src="http://zeptojs.com/zepto.min.js"></script>
 			<!-- Incluyendo .js de Culqi JS -->
 			<script src="https://checkout.culqi.com/v2"></script>
+			<script>
+				const culqi = () => {
+					if (Culqi.token) { // ¡Objeto Token creado exitosamente!
+						let {id, email} = Culqi.token;
+						console.log('Se ha generado el token:' + id + ', con el email: ' + email);
+						//En esta linea de codigo debemos enviar el "Culqi.token.id"
+						axios.post('/pagos/process-payment', {
+							data: 'data'
+						})
+					} else {
+						// Mostramos JSON de objeto error en consola
+						console.log(Culqi.error)
+						console.log(Culqi.error.user_message)
+					}
+				}
+			</script>
 		</body>
 		</html>
