@@ -14,7 +14,15 @@
 								<img src="/img/tarjetas/amex.jpg" id="amex">
 								<img src="/img/tarjetas/dc.jpg" id="diner">
 							</div>
+
+							<!-- Datos producto -->
+							<input type="hidden" id="cproduct" v-model="data.product.slug">
+							<input type="hidden" id="ctype" v-model="data.type">
+							<!-- End -->
 							
+							<label class="lab" for="cruc">R.U.C.</label>
+							<input class="in16" type="text" maxlength="30" id="cruc" name="cardruc" v-model="data.user.ruc" disabled> 
+
 							<label class="lab" for="cname">Nombre en la tarjeta</label>
 							<input class="in16" type="text" maxlength="30" id="cname" name="cardname" placeholder="Pedro A. Pérez">                     
 
@@ -52,7 +60,20 @@
 								</div>
 								<div class="col-50">
 									<label class="lab" for="expyear">Año de expiración</label>
-									<input class="in16" type="text" id="expyear" data-culqi="card[exp_year]" v-model="expano" maxlength="4" name="expyear" placeholder="2018" v-bind="{'disabled':mos}">
+									<select class="in16" v-bind="{'disabled':mos}" data-culqi="card[exp_year]" v-model="expano">
+										<option value="2019">2019</option>
+										<option value="2020">2020</option>
+										<option value="2021">2021</option>
+										<option value="2022">2022</option>
+										<option value="2023">2023</option>
+										<option value="2024">2024</option>
+										<option value="2025">2025</option>
+										<option value="2026">2026</option>
+										<option value="2027">2027</option>
+										<option value="2028">2028</option>
+										<option value="2029">2029</option>
+										<option value="2030">2030</option>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -61,20 +82,18 @@
 				</div>
 			</div>
 			<div class="col-25" >
-				
 				<div class="c18 container">
-				<h4 class="producto">Producto
-				<span class="precio" style="color:#56ab2f">
-				<i class="fa fa-shopping-bag"></i>
-				</span>
-				</h4>
-				<p v-if="data.type == 'coin_packs'"><span href="#" class="parr1">Paquete de {{data.product.amount_coins}} puntos</span> 
-				<span class="precio">$ {{data.product.cost}}</span><br/> <i class="parr2">{{data.product.description}}</i> </p>
-				<p v-else ><span href="#" class="parr1">Plan {{data.product.name}}</span> 
-				<span class="precio">$ {{data.product.cost}}</span><br/><i class="parr2">{{data.product.description}}</i></p>
-
-				<hr>
-				<p ><b class="total1">Total</b> <span class="precio" style="color:black"><b class="total1">$ {{data.product.cost}}</b></span></p>
+					<h4 class="producto">Producto
+						<span class="precio" style="color:#56ab2f">
+							<i class="fa fa-shopping-bag"></i>
+						</span>
+					</h4>
+					<p v-if="data.type == 'coin_packs'"><span href="#" class="parr1">Paquete de {{ data.product.amount_coins }} puntos</span> 
+					<span class="precio">$ {{data.product.cost}}</span><br/> <i class="parr2">{{ data.product.description }}</i> </p>
+					<p v-else ><span href="#" class="parr1">Plan {{data.product.name}}</span> 
+					<span class="precio">$ {{data.product.cost}}</span><br/><i class="parr2">{{ data.product.description }}</i></p>
+					<hr>
+					<p ><b class="total1">Total</b> <span class="precio" style="color:black"><b class="total1">$ {{ data.product.cost }}</b></span></p>
 				</div>
 			</div>
 		</div>
@@ -86,24 +105,24 @@
 	import store from '../store/index.js'
 
 	export default {
-		name:'pago',
-		props:['pago', 'data'], 
+		name: 'pago',
+		props: ['pago', 'data'], 
 		data() {
 			return  {
-				cardname:'',
-				cardnumber:'',
-				expmes:'',
-				expano:'',
-				cvc:'',
-				mos:true,
-				onlyNumber:'',
-				cvv_size:'',
-				reaPago:'',
+				cardname: '',
+				cardnumber: '',
+				expmes: '',
+				expano: '',
+				cvc: '',
+				mos: true,
+				onlyNumber: '',
+				cvv_size: '',
+				reaPago: '',
 				tarjetas :{
-					visa:'',
-					mastercard:'',
-					imax :'',
-					diner:'',
+					visa: '',
+					mastercard: '',
+					imax: '',
+					diner: '',
 				},
 				response: {}
 			}
@@ -139,6 +158,7 @@
 			processPayment() {
 				Culqi.createToken();
 
+				// Capturando los datos del producto
 				const settings = {
 					title: `${this.data.type} ${this.data.product.name}`,
 					currency: 'USD',
@@ -151,21 +171,21 @@
 		},
 		watch : {
 			cardnumber : function( newValue) {
-				this.cardnumber=Payform.formatCardNumber(newValue);
+				this.cardnumber = Payform.formatCardNumber(newValue);
 				//this.cardnumber = Payform(newValue);
 				this.tarjetas.imax.removeClass('transparent');
 				this.tarjetas.visa.removeClass('transparent');
 				this.tarjetas.mastercard.removeClass('transparent');
 				this.tarjetas.diner.removeClass('transparent');
-				this.mos=true; 
+				this.mos = true; 
 
 				if (Payform.parseCardType(newValue) == 'visa') {
 
 					this.tarjetas.mastercard.addClass('transparent');
 					this.tarjetas.diner.addClass('transparent');
 					this.tarjetas.imax.addClass('transparent');        
-					this.mos=false; 
-					this.cvv_size = 3 ;
+					this.mos = false; 
+					this.cvv_size = 3;
 
 				} else if (Payform.parseCardType(newValue) == 'amex') {
 					this.tarjetas.visa.addClass('transparent');
@@ -178,14 +198,14 @@
 					this.tarjetas.visa.addClass('transparent');
 					this.tarjetas.diner.addClass('transparent');
 					this.tarjetas.imax.addClass('transparent');
-					this.mos=false; 
+					this.mos = false; 
 					this.cvv_size = 3 ;
 
 				} else if (Payform.parseCardType(newValue) == 'dinersclub') {
 					this.tarjetas.visa.addClass('transparent');
 					this.tarjetas.mastercard.addClass('transparent');
 					this.tarjetas.imax.addClass('transparent');
-					this.mos=false; 
+					this.mos = false; 
 					this.cvv_size = 3 ;
 				}
 				/* if (newValue.length == 4 || newValue.length == 9 || newValue.length==14) {

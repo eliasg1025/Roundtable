@@ -26,6 +26,14 @@ class PagosController extends Controller
 
 	public function processPayment(Request $request)
 	{
-		return $request->data;
+		$user = Auth::user();
+
+		$given_user = DB::table('users')->where('ruc', $request->ruc)->first();
+
+		if ($user->id == $given_user->id) {
+			
+			return $request;
+
+		}
 	}
 }

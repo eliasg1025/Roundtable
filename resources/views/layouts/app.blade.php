@@ -96,12 +96,21 @@
 			<script>
 				const culqi = () => {
 					if (Culqi.token) { // ¡Objeto Token creado exitosamente!
-						let {id, email} = Culqi.token;
-						console.log('Se ha generado el token:' + id + ', con el email: ' + email);
+						let token = Culqi.token;
+						console.log('Se ha generado el token: ' + token.id);
 						//En esta linea de codigo debemos enviar el "Culqi.token.id"
 						axios.post('/pagos/process-payment', {
-							data: 'data'
+							token: token.id,
+							ruc: document.getElementById('cruc').value,
+							type: document.getElementById('ctype').value,
+							product: document.getElementById('cproduct').value,
 						})
+							.then(res => {
+								console.log(res)
+							})
+							.catch(err => {
+								console.error(err.response)
+							})
 					} else {
 						// Mostramos JSON de objeto error en consola
 						console.log(Culqi.error)

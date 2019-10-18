@@ -2531,8 +2531,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'contacto',
   props: ['data'],
@@ -3499,6 +3497,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3549,7 +3566,8 @@ __webpack_require__.r(__webpack_exports__);
     		}
     },*/
     processPayment: function processPayment() {
-      Culqi.createToken();
+      Culqi.createToken(); // Capturando los datos del producto
+
       var settings = {
         title: "".concat(this.data.type, " ").concat(this.data.product.name),
         currency: 'USD',
@@ -74390,7 +74408,7 @@ var staticRenderFns = [
               _vm._v(" "),
               _c("div", { staticClass: "cuerpo" }, [
                 _c("div", { staticStyle: { "margin-left": "10px" } }, [
-                  _c("span", { staticClass: "emo fa fa-map-marker" })
+                  _c("span", { staticClass: "emo fas fa-map-marker-alt" })
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "parrafo" }, [
@@ -74404,7 +74422,7 @@ var staticRenderFns = [
               _vm._v(" "),
               _c("div", { staticClass: "cuerpo" }, [
                 _c("div", { staticStyle: { "margin-left": "10px" } }, [
-                  _c("span", { staticClass: "emo fa fa-mobile" })
+                  _c("span", { staticClass: "emo fas fa-mobile-alt" })
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "parrafo" }, [
@@ -74413,9 +74431,7 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "cuerpo" }, [
-                _c("div", [
-                  _c("span", { staticClass: "emo fa fa-envelope-o" })
-                ]),
+                _c("div", [_c("span", { staticClass: "emo fas fa-envelope" })]),
                 _vm._v(" "),
                 _c("div", { staticClass: "parrafo" }, [
                   _c("p", [_vm._v("informes@roundtableperu.com")])
@@ -76248,6 +76264,80 @@ var render = function() {
                 _vm._v(" "),
                 _vm._m(0),
                 _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.data.product.slug,
+                      expression: "data.product.slug"
+                    }
+                  ],
+                  attrs: { type: "hidden", id: "cproduct" },
+                  domProps: { value: _vm.data.product.slug },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.data.product, "slug", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.data.type,
+                      expression: "data.type"
+                    }
+                  ],
+                  attrs: { type: "hidden", id: "ctype" },
+                  domProps: { value: _vm.data.type },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.data, "type", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { staticClass: "lab", attrs: { for: "cruc" } }, [
+                  _vm._v("R.U.C.")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.data.user.ruc,
+                      expression: "data.user.ruc"
+                    }
+                  ],
+                  staticClass: "in16",
+                  attrs: {
+                    type: "text",
+                    maxlength: "30",
+                    id: "cruc",
+                    name: "cardruc",
+                    disabled: ""
+                  },
+                  domProps: { value: _vm.data.user.ruc },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.data.user, "ruc", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
                 _c("label", { staticClass: "lab", attrs: { for: "cname" } }, [
                   _vm._v("Nombre en la tarjeta")
                 ]),
@@ -76477,7 +76567,7 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c(
-                      "input",
+                      "select",
                       _vm._b(
                         {
                           directives: [
@@ -76489,28 +76579,76 @@ var render = function() {
                             }
                           ],
                           staticClass: "in16",
-                          attrs: {
-                            type: "text",
-                            id: "expyear",
-                            "data-culqi": "card[exp_year]",
-                            maxlength: "4",
-                            name: "expyear",
-                            placeholder: "2018"
-                          },
-                          domProps: { value: _vm.expano },
+                          attrs: { "data-culqi": "card[exp_year]" },
                           on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.expano = $event.target.value
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.expano = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
                             }
                           }
                         },
-                        "input",
+                        "select",
                         { disabled: _vm.mos },
                         false
-                      )
+                      ),
+                      [
+                        _c("option", { attrs: { value: "2019" } }, [
+                          _vm._v("2019")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "2020" } }, [
+                          _vm._v("2020")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "2021" } }, [
+                          _vm._v("2021")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "2022" } }, [
+                          _vm._v("2022")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "2023" } }, [
+                          _vm._v("2023")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "2024" } }, [
+                          _vm._v("2024")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "2025" } }, [
+                          _vm._v("2025")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "2026" } }, [
+                          _vm._v("2026")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "2027" } }, [
+                          _vm._v("2027")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "2028" } }, [
+                          _vm._v("2028")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "2029" } }, [
+                          _vm._v("2029")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "2030" } }, [
+                          _vm._v("2030")
+                        ])
+                      ]
                     )
                   ])
                 ])
@@ -76613,7 +76751,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h4", { staticClass: "producto" }, [
-      _vm._v("Producto\n\t\t\t"),
+      _vm._v("Producto\n\t\t\t\t\t"),
       _c("span", { staticClass: "precio", staticStyle: { color: "#56ab2f" } }, [
         _c("i", { staticClass: "fa fa-shopping-bag" })
       ])
