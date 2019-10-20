@@ -6718,12 +6718,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'search-bar',
   data: function data() {
     return {
       query: '',
-      results: []
+      results: [],
+      loading: false,
+      searched: false
     };
   },
   methods: {
@@ -6731,6 +6741,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.results = [];
+      this.loading = true;
 
       if (this.query.length > 2) {
         axios.get('api/business/search', {
@@ -6738,8 +6749,15 @@ __webpack_require__.r(__webpack_exports__);
             query: this.query
           }
         }).then(function (res) {
-          _this.results = res.data;
+          setTimeout(function () {
+            _this.results = res.data;
+            _this.loading = false;
+            _this.searched = true;
+          }, 1000);
         });
+      } else {
+        this.loading = false;
+        this.searched = false;
       }
     }
   }
@@ -11871,7 +11889,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nbutton .search-icon img{\n\ttransition: transform .25s;\n}\nbutton .search-icon img:hover {\n\ttransform: scale(1.2);\n}\n.searchBar {\n\theight: 60px;\n\twidth: 100%;\n    max-width: 100%;\n    background: white;\n    border-radius: 10px;\n    left: 0;\n    right: 0;\n\tdisplay: flex;\n\tmargin: 40px 0;\n\tbox-shadow: 0 0 1px 1px #88BE2E;\n}\n.input-search {\n\tborder: none;\n\twidth: 100%;\n\tborder-radius: 10px;\n\tpadding: 30px;\n}\n.search-icon {\n\tpadding: 16px;\n\tbackground: transparent;\n\tborder: none;\n\tcursor: pointer;\n}\n.results a{\n\tcolor: black;\n}\n.results a:hover{\n\tcolor: #88BE2E\n}\n", ""]);
+exports.push([module.i, "\n.searchBar {\n\t\theight: 60px;\n\t\twidth: 100%;\n\t    max-width: 100%;\n\t    background: white;\n\t    border-radius: 10px;\n\t    left: 0;\n\t    right: 0;\n\t\tdisplay: flex;\n\t\tmargin: 40px 0;\n\t\tbox-shadow: 0 0 1px 1px #88BE2E;\n}\n.input-search {\n\t\tborder: none;\n\t\twidth: 100%;\n\t\tborder-radius: 10px;\n\t\tpadding: 30px;\n\t\toutline: none;\n}\n.input-search:focus + button.search-icon {\n\t\tcolor: #88BE2E;\n}\n.search-icon {\n\t\tpadding: 16px;\n\t\tbackground: transparent;\n\t\tborder: none;\n\t\tcursor: pointer;\n}\n.results {\n\t\tposition: absolute;\n    \tz-index: 100;\n    \twidth: 97%;\n\t\tmargin-top: -25px;\n\t\tbox-shadow: 0px 1px 0px 0px rgba(0,0,0,0.5);\n}\n.results a{\n\t\tcolor: black;\n}\n.results a:hover{\n\t\tcolor: #88BE2E\n}\n", ""]);
 
 // exports
 
@@ -82591,7 +82609,9 @@ var render = function() {
         },
         domProps: { value: _vm.query },
         on: {
-          keyup: _vm.autoComplete,
+          keyup: function($event) {
+            return _vm.autoComplete()
+          },
           input: function($event) {
             if ($event.target.composing) {
               return
@@ -82604,32 +82624,44 @@ var render = function() {
       _vm._m(0)
     ]),
     _vm._v(" "),
-    _vm.results.length
-      ? _c("div", { staticClass: "results panel-footer" }, [
-          _c(
-            "ul",
-            { staticClass: "list-group" },
-            _vm._l(_vm.results, function(result) {
-              return _c(
-                "a",
-                {
-                  key: result.id,
-                  staticClass: "list-group-item",
-                  attrs: { href: "/business/profile/" + result.uuid }
-                },
-                [
-                  _c("img", {
-                    staticStyle: { "margin-right": "10px" },
-                    attrs: { src: result.profile_img, height: "30px" }
+    _c("div", { staticClass: "results" }, [
+      _vm.loading == true
+        ? _c("div", { staticClass: "list-group" }, [_vm._m(1)])
+        : _c("div", [
+            _vm.results.length
+              ? _c(
+                  "div",
+                  { staticClass: "list-group" },
+                  _vm._l(_vm.results, function(result) {
+                    return _c(
+                      "a",
+                      {
+                        key: result.id,
+                        staticClass: "list-group-item",
+                        attrs: { href: "/business/profile/" + result.uuid }
+                      },
+                      [
+                        _c("img", {
+                          staticStyle: { "margin-right": "10px" },
+                          attrs: { src: result.profile_img, height: "30px" }
+                        }),
+                        _vm._v(
+                          " " + _vm._s(result.commercial_name) + "\n\t\t\t\t"
+                        )
+                      ]
+                    )
                   }),
-                  _vm._v(" " + _vm._s(result.commercial_name) + "\n\t\t\t")
-                ]
-              )
-            }),
-            0
-          )
-        ])
-      : _vm._e()
+                  0
+                )
+              : _vm.results.length <= 0 && _vm.searched == true
+              ? _c("div", { staticClass: "list-group" }, [
+                  _c("p", { staticClass: "list-group-item text-muted" }, [
+                    _vm._v(" No se encontró una empresa con ese nombre.")
+                  ])
+                ])
+              : _vm._e()
+          ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -82638,9 +82670,16 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("button", { staticClass: "search-icon" }, [
-      _c("img", {
-        attrs: { src: "https://img.icons8.com/cotton/24/000000/search--v2.png" }
-      })
+      _c("i", { staticClass: "fas fa-search" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "list-group-item" }, [
+      _c("i", { staticClass: "fas fa-spinner fa-spin" }),
+      _vm._v(" Buscando")
     ])
   }
 ]
