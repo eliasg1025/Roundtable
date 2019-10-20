@@ -24,19 +24,19 @@
 							<input class="in16" type="text" maxlength="30" id="cruc" name="cardruc" v-model="data.user.ruc" disabled> 
 
 							<label class="lab" for="cname">Nombre en la tarjeta</label>
-							<input class="in16" type="text" maxlength="30" id="cname" name="cardname" placeholder="Pedro A. Pérez">                     
+							<input class="in16" type="text" maxlength="30" id="cname" name="cardname" v-model="cardname" placeholder="Ej: Pedro Pérez">                     
 
 							<label class="lab" for="ccemail">Correo Electrónico</label>
-							<input class="in16" maxlength="50" type="email" v-model="data.user.email" data-culqi="card[email]" id="ccemail" placeholder="empresa@email.com">
+							<input class="in16" maxlength="50" type="email" v-model="cardemail" data-culqi="card[email]" id="ccemail" placeholder="Ej: empresa@email.com">
 
 							<div class="r16 row">
 								<div class="col-70">
 									<label class="lab" for="ccnum" >Número de tarjeta</label>
-									<input class="in16" maxlength="19" type="text" v-model="cardnumber" data-culqi="card[number]" id="ccnum" name="cardnumber" placeholder="1111 2222 3333 4444">
+									<input class="in16" maxlength="19" type="text" v-model="cardnumber" data-culqi="card[number]" id="ccnum" name="cardnumber" placeholder="Ej: 1111 2222 3333 4444">
 								</div>
 								<div class="col-30">
 									<label class="lab" for="cvv">CVC</label>
-									<input class="in16"  v-model="cvc" :maxlength="cvv_size" type="text" data-culqi="card[cvv]" id="cvv" name="cvv" placeholder="352" v-bind="{'disabled':mos}">
+									<input class="in16"  v-model="cvc" :maxlength="cvv_size" type="text" data-culqi="card[cvv]" id="cvv" name="cvv" placeholder="Ej: 352" v-bind="{'disabled':mos}">
 								</div>
 							</div>
 							
@@ -78,7 +78,10 @@
 							</div>
 						</div>
 					</div>
-					<button class="b16" type="button" @click="processPayment()">Realizar pago</button>
+					<div>
+						<button v-if="!loading" class="b16" type="button" @click="processPayment()">Realizar pago</button>
+						<button v-else class="b16-disabled" type="button" disabled><i class="fas fa-spinner fa-spin"></i> Procesando</button>
+					</div>
 				</div>
 			</div>
 			<div class="col-25" >
@@ -111,6 +114,7 @@
 			return  {
 				cardname: '',
 				cardnumber: '',
+				cardemail: this.data.user.email,
 				expmes: '',
 				expano: '',
 				cvc: '',
@@ -124,7 +128,8 @@
 					imax: '',
 					diner: '',
 				},
-				response: {}
+				response: {},
+				loading: false,
 			}
 		},
 		computed: {
@@ -139,34 +144,94 @@
 			this.tarjetas.diner=$('#diner');
 		},
 		methods :{
-			/*sendForm(e) {
+			verifyForm() {
+				let message = '';
 
-				e.preventDefault();
-
-				if(this.cardname="" || this.cardnumber=="" || this.expmes=="" || this.expano=="" || this.cvc=="")
-				alert('Todos los campos son obligatorios')
-
-				else 
-				if(this.cardname.length>30)
-				alert("Nombre supera los 30 caracteres");
-				else
-				if(isNaN(this.cvc) || isNaN(this.expano) || isNaN(this.cardnumber)){
-				alert("Ingrese números donde corresponda");
-
+				if (this.cardname=="" || this.cardemail=="" || this.cardnumber=="" || this.expmes=="" || this.expano=="" || this.cvc=="") {
+					message = 'Todos los campos son obligatorios';
+				} else {
+					if(this.cardname.length > 200) {
+						message = "Nombre supera los 200 caracteres";
+					}
+					else if(isNaN(parseInt(this.cvc)) || isNaN(parseInt(this.cardnumber))){
+						message = "Ingrese números donde corresponda";
+					}
 				}
-			},*/
+				
+				return message;
+			},
 			processPayment() {
-				Culqi.createToken();
+				
+				let verify = this.verifyForm();
 
-				// Capturando los datos del producto
-				const settings = {
-					title: `${this.data.type} ${this.data.product.name}`,
-					currency: 'USD',
-					description: `Compra: Tipo: ${this.data.type}, Producto: ${this.data.product.name} por ${this.data.product.cost} PEN`,
-					amount: Math.ceil(this.data.product.cost),
+				if (verify === '') {
+					this.loading = true;
+					Culqi.createToken();
+
+					// Capturando los datos del producto
+					const settings = {
+						title: `${this.data.type} ${this.data.product.name}`,
+						currency: 'USD',
+						description: `Compra: Tipo: ${this.data.type}, Producto: ${this.data.product.name} por ${this.data.product.cost} PEN`,
+						amount: Math.ceil(this.data.product.cost),
+					}
+
+					Culqi.settings(settings);
+
+					// Funcion de culqi
+					window.culqi = function() {
+						if (Culqi.token) {
+							Swal.fire({
+								title: 'Procesando pago',
+								onBeforeOpen: () => {
+									Swal.showLoading()
+								}
+							})
+							let token = Culqi.token;
+							console.log('Se ha generado el token: ' + token.id);
+
+							axios.post('/pagos/process-payment', {
+								token: token.id,
+								email: token.email,
+								cardholder: document.getElementById('cname').value,
+								ruc: document.getElementById('cruc').value,
+								type: document.getElementById('ctype').value,
+								product: document.getElementById('cproduct').value,
+							})
+								.then(res => {
+									// console.log(res.data)
+									Swal.fire({
+										title: res.data.message,
+										type: 'success',
+										text: res.data.text,
+										timer: 2500,
+										showConfirmButton: false,
+									})
+										.then(res => {
+											location.href = "/profile"
+										})
+								})
+								.catch(err => {
+									let message_error = JSON.parse(err.response.data.message);
+									console.log(message_error);
+									
+									Swal.fire({
+										title: 'Error',
+										text: message_error.user_message,
+										type: 'error',
+									})
+										.then(res => location.reload())
+								})
+						} else {
+							// Mostramos JSON de objeto error en consola
+							console.log(Culqi.error)
+							console.log(Culqi.error.user_message)
+						}
+					}
+					// End 
+				} else {
+					Swal.fire({title: verify, type: 'warning'})
 				}
-
-				Culqi.settings(settings);
 			}
 		},
 		watch : {
@@ -327,6 +392,19 @@
 	.b16:hover {
 		background-position: right center;
 		color:rgb(231, 255, 255);
+	}
+
+	.b16-disabled {
+		background-color: #56ab2f;
+		color: white;
+		border: none;
+		padding: 8px 15px;
+		text-align: center;
+		text-decoration: none;
+		font-size: 15px;
+		font-family: 'Nunito',sans-serif;
+		border-radius: 3px;
+        width: 100%;
 	}
 
 	span.precio {

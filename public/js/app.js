@@ -3195,7 +3195,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             _this.login_loading = false;
           }
         }).then(function (result) {
-          window.location.href = "/profile"; // Redirigir a ruta /profile
+          window.location.reload(); // Redirigir a ruta /profile
         });
       })["catch"](function (error) {
         // Si hay error 422 mostrar error
@@ -3516,6 +3516,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3525,6 +3528,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       cardname: '',
       cardnumber: '',
+      cardemail: this.data.user.email,
       expmes: '',
       expano: '',
       cvc: '',
@@ -3538,7 +3542,8 @@ __webpack_require__.r(__webpack_exports__);
         imax: '',
         diner: ''
       },
-      response: {}
+      response: {},
+      loading: false
     };
   },
   computed: {
@@ -3553,28 +3558,88 @@ __webpack_require__.r(__webpack_exports__);
     this.tarjetas.diner = $('#diner');
   },
   methods: {
-    /*sendForm(e) {
-    		e.preventDefault();
-    		if(this.cardname="" || this.cardnumber=="" || this.expmes=="" || this.expano=="" || this.cvc=="")
-    	alert('Todos los campos son obligatorios')
-    		else 
-    	if(this.cardname.length>30)
-    	alert("Nombre supera los 30 caracteres");
-    	else
-    	if(isNaN(this.cvc) || isNaN(this.expano) || isNaN(this.cardnumber)){
-    	alert("Ingrese números donde corresponda");
-    		}
-    },*/
-    processPayment: function processPayment() {
-      Culqi.createToken(); // Capturando los datos del producto
+    verifyForm: function verifyForm() {
+      var message = '';
 
-      var settings = {
-        title: "".concat(this.data.type, " ").concat(this.data.product.name),
-        currency: 'USD',
-        description: "Compra: Tipo: ".concat(this.data.type, ", Producto: ").concat(this.data.product.name, " por ").concat(this.data.product.cost, " PEN"),
-        amount: Math.ceil(this.data.product.cost)
-      };
-      Culqi.settings(settings);
+      if (this.cardname == "" || this.cardemail == "" || this.cardnumber == "" || this.expmes == "" || this.expano == "" || this.cvc == "") {
+        message = 'Todos los campos son obligatorios';
+      } else {
+        if (this.cardname.length > 200) {
+          message = "Nombre supera los 200 caracteres";
+        } else if (isNaN(parseInt(this.cvc)) || isNaN(parseInt(this.cardnumber))) {
+          message = "Ingrese números donde corresponda";
+        }
+      }
+
+      return message;
+    },
+    processPayment: function processPayment() {
+      var verify = this.verifyForm();
+
+      if (verify === '') {
+        this.loading = true;
+        Culqi.createToken(); // Capturando los datos del producto
+
+        var settings = {
+          title: "".concat(this.data.type, " ").concat(this.data.product.name),
+          currency: 'USD',
+          description: "Compra: Tipo: ".concat(this.data.type, ", Producto: ").concat(this.data.product.name, " por ").concat(this.data.product.cost, " PEN"),
+          amount: Math.ceil(this.data.product.cost)
+        };
+        Culqi.settings(settings); // Funcion de culqi
+
+        window.culqi = function () {
+          if (Culqi.token) {
+            Swal.fire({
+              title: 'Procesando pago',
+              onBeforeOpen: function onBeforeOpen() {
+                Swal.showLoading();
+              }
+            });
+            var token = Culqi.token;
+            console.log('Se ha generado el token: ' + token.id);
+            axios.post('/pagos/process-payment', {
+              token: token.id,
+              email: token.email,
+              cardholder: document.getElementById('cname').value,
+              ruc: document.getElementById('cruc').value,
+              type: document.getElementById('ctype').value,
+              product: document.getElementById('cproduct').value
+            }).then(function (res) {
+              // console.log(res.data)
+              Swal.fire({
+                title: res.data.message,
+                type: 'success',
+                text: res.data.text,
+                timer: 2500,
+                showConfirmButton: false
+              }).then(function (res) {
+                location.href = "/profile";
+              });
+            })["catch"](function (err) {
+              var message_error = JSON.parse(err.response.data.message);
+              console.log(message_error);
+              Swal.fire({
+                title: 'Error',
+                text: message_error.user_message,
+                type: 'error'
+              }).then(function (res) {
+                return location.reload();
+              });
+            });
+          } else {
+            // Mostramos JSON de objeto error en consola
+            console.log(Culqi.error);
+            console.log(Culqi.error.user_message);
+          }
+        }; // End 
+
+      } else {
+        Swal.fire({
+          title: verify,
+          type: 'warning'
+        });
+      }
     }
   },
   watch: {
@@ -11654,7 +11719,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.disabled{\n\t\tcolor:darkgray;\n}\n\t/* .r16 {\n\t\tdisplay: -ms-flexbox; \n\t\tdisplay: flex;\n\t\t-ms-flex-wrap: wrap; \n\t\tflex-wrap: wrap;\n\t\tmargin: 0 -16px;\n\t}*/\n.col-25 { /* IE10 */\n\t\tflex: 25%;\n}\n.col-30 {\n\t\tflex: 30%;\n}\n.col-50 { /* IE10 */\n\t\tflex: 50%;\n}\n.col-75 { /* IE10 */\n\t\tflex: 75%;\n}\n.col-70 {\n\t\tflex: 70%;\n}\n.col-25,\n\t.col-30,\n\t.col-50,\n\t.col-70,\n\t.col-75 {\n\t\tpadding: 0 16px;\n}\n.c18 {\n\t\t\n\t\tpadding: 25px 20px 15px 20px;\n\t\tborder: 1px solid lightgrey;\n\t\tborder-radius: 3px;\n\t\tmargin-top: 25px;\n\t\tmargin-bottom: 25px;\n}\n.in16 {\n\t\twidth: 100%;\n\t\tmargin-bottom: 20px;\n\t\tpadding: 12px;\n\t\tborder: 1px solid #ccc;\n\t\tborder-radius: 3px;\n}\ninput[class=\"in16\"]:focus{\n\t  outline: 1px solid #70f36b;  \n\t  border-radius: 3px;\n}\n.lab {\n\t\tfont-size: 17px;\n\t\tcolor: black;\n\t\tmargin-bottom: 10px;\n\t\tdisplay: block;\n\t\tfont-family: 'Nunito',sans-serif;\n}\n\n\t/*.grupo input:placeholder-shown ~ label{\n\t\tcolor:#999;\n\t\tfont-weight: 400;\n\t\t\n\t}*/\n.icon-container {\n\t\tmargin-bottom: 20px;\n\t\tpadding: 7px 0;\n\t\tfont-size: 24px;\n}\n.b16 {\n\t\tbackground-image: linear-gradient(to right, #56ab2f 0%, #a8e063 51%, #56ab2f 100%);\n\t\ttransition: 0.5s;\n\t\tbackground-size: 200% auto;\n\t\tborder: none;\n\t\tcolor: white;\n\t\tpadding: 8px 15px;\n\t\ttext-align: center;\n\t\ttext-decoration: none;\n\t\tfont-size: 15px;\n\t\tfont-family: 'Nunito',sans-serif;\n\t\tborder-radius: 3px;\n        width: 100%;\n}\n.b16:hover {\n\t\tbackground-position: right center;\n\t\tcolor:rgb(231, 255, 255);\n}\nspan.precio {\n\t\tfloat: right;\n\t\tcolor:black;\n\t\tfont-family: 'Nunito',sans-serif;\n\t\tfont-size: 20px;\n}\n\n\t/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the \"cart\" column go on top) */\n@media (max-width: 800px) {\n.r16 {\n\t\t\tflex-direction: column-reverse;\n}\n.col-25, .col-30 {\n\t\t\tmargin-bottom: 20px;\n}\n}\n.parr1{\n\t\tfont-family: 'Nunito',sans-serif;\n\t\tcolor: black;\n\t\tfont-size: 20px;\n}\n.parr2{\n\t\tfont-size: 17px;\n\t\tcolor:darkgray;\n\t\tmargin: 2%;\n}\n.producto{\n\t\tcolor: #56ab2f;\n\t\tfont-family: 'Nunito',sans-serif;\n}\n.total1{\n\t\tfont-family: 'Nunito',sans-serif;\n\t\tcolor: black;\n\t\tfont-size: 23px;\n}\n.transparent {\n\t\topacity: 0.2;\n}\n", ""]);
+exports.push([module.i, "\n.disabled{\n\t\tcolor:darkgray;\n}\n\t/* .r16 {\n\t\tdisplay: -ms-flexbox; \n\t\tdisplay: flex;\n\t\t-ms-flex-wrap: wrap; \n\t\tflex-wrap: wrap;\n\t\tmargin: 0 -16px;\n\t}*/\n.col-25 { /* IE10 */\n\t\tflex: 25%;\n}\n.col-30 {\n\t\tflex: 30%;\n}\n.col-50 { /* IE10 */\n\t\tflex: 50%;\n}\n.col-75 { /* IE10 */\n\t\tflex: 75%;\n}\n.col-70 {\n\t\tflex: 70%;\n}\n.col-25,\n\t.col-30,\n\t.col-50,\n\t.col-70,\n\t.col-75 {\n\t\tpadding: 0 16px;\n}\n.c18 {\n\t\t\n\t\tpadding: 25px 20px 15px 20px;\n\t\tborder: 1px solid lightgrey;\n\t\tborder-radius: 3px;\n\t\tmargin-top: 25px;\n\t\tmargin-bottom: 25px;\n}\n.in16 {\n\t\twidth: 100%;\n\t\tmargin-bottom: 20px;\n\t\tpadding: 12px;\n\t\tborder: 1px solid #ccc;\n\t\tborder-radius: 3px;\n}\ninput[class=\"in16\"]:focus{\n\t  outline: 1px solid #70f36b;  \n\t  border-radius: 3px;\n}\n.lab {\n\t\tfont-size: 17px;\n\t\tcolor: black;\n\t\tmargin-bottom: 10px;\n\t\tdisplay: block;\n\t\tfont-family: 'Nunito',sans-serif;\n}\n\n\t/*.grupo input:placeholder-shown ~ label{\n\t\tcolor:#999;\n\t\tfont-weight: 400;\n\t\t\n\t}*/\n.icon-container {\n\t\tmargin-bottom: 20px;\n\t\tpadding: 7px 0;\n\t\tfont-size: 24px;\n}\n.b16 {\n\t\tbackground-image: linear-gradient(to right, #56ab2f 0%, #a8e063 51%, #56ab2f 100%);\n\t\ttransition: 0.5s;\n\t\tbackground-size: 200% auto;\n\t\tborder: none;\n\t\tcolor: white;\n\t\tpadding: 8px 15px;\n\t\ttext-align: center;\n\t\ttext-decoration: none;\n\t\tfont-size: 15px;\n\t\tfont-family: 'Nunito',sans-serif;\n\t\tborder-radius: 3px;\n        width: 100%;\n}\n.b16:hover {\n\t\tbackground-position: right center;\n\t\tcolor:rgb(231, 255, 255);\n}\n.b16-disabled {\n\t\tbackground-color: #56ab2f;\n\t\tcolor: white;\n\t\tborder: none;\n\t\tpadding: 8px 15px;\n\t\ttext-align: center;\n\t\ttext-decoration: none;\n\t\tfont-size: 15px;\n\t\tfont-family: 'Nunito',sans-serif;\n\t\tborder-radius: 3px;\n        width: 100%;\n}\nspan.precio {\n\t\tfloat: right;\n\t\tcolor:black;\n\t\tfont-family: 'Nunito',sans-serif;\n\t\tfont-size: 20px;\n}\n\n\t/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the \"cart\" column go on top) */\n@media (max-width: 800px) {\n.r16 {\n\t\t\tflex-direction: column-reverse;\n}\n.col-25, .col-30 {\n\t\t\tmargin-bottom: 20px;\n}\n}\n.parr1{\n\t\tfont-family: 'Nunito',sans-serif;\n\t\tcolor: black;\n\t\tfont-size: 20px;\n}\n.parr2{\n\t\tfont-size: 17px;\n\t\tcolor:darkgray;\n\t\tmargin: 2%;\n}\n.producto{\n\t\tcolor: #56ab2f;\n\t\tfont-family: 'Nunito',sans-serif;\n}\n.total1{\n\t\tfont-family: 'Nunito',sans-serif;\n\t\tcolor: black;\n\t\tfont-size: 23px;\n}\n.transparent {\n\t\topacity: 0.2;\n}\n", ""]);
 
 // exports
 
@@ -76343,13 +76408,30 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.cardname,
+                      expression: "cardname"
+                    }
+                  ],
                   staticClass: "in16",
                   attrs: {
                     type: "text",
                     maxlength: "30",
                     id: "cname",
                     name: "cardname",
-                    placeholder: "Pedro A. Pérez"
+                    placeholder: "Ej: Pedro Pérez"
+                  },
+                  domProps: { value: _vm.cardname },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.cardname = $event.target.value
+                    }
                   }
                 }),
                 _vm._v(" "),
@@ -76362,8 +76444,8 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.data.user.email,
-                      expression: "data.user.email"
+                      value: _vm.cardemail,
+                      expression: "cardemail"
                     }
                   ],
                   staticClass: "in16",
@@ -76372,15 +76454,15 @@ var render = function() {
                     type: "email",
                     "data-culqi": "card[email]",
                     id: "ccemail",
-                    placeholder: "empresa@email.com"
+                    placeholder: "Ej: empresa@email.com"
                   },
-                  domProps: { value: _vm.data.user.email },
+                  domProps: { value: _vm.cardemail },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.data.user, "email", $event.target.value)
+                      _vm.cardemail = $event.target.value
                     }
                   }
                 }),
@@ -76409,7 +76491,7 @@ var render = function() {
                         "data-culqi": "card[number]",
                         id: "ccnum",
                         name: "cardnumber",
-                        placeholder: "1111 2222 3333 4444"
+                        placeholder: "Ej: 1111 2222 3333 4444"
                       },
                       domProps: { value: _vm.cardnumber },
                       on: {
@@ -76447,7 +76529,7 @@ var render = function() {
                             "data-culqi": "card[cvv]",
                             id: "cvv",
                             name: "cvv",
-                            placeholder: "352"
+                            placeholder: "Ej: 352"
                           },
                           domProps: { value: _vm.cvc },
                           on: {
@@ -76655,19 +76737,33 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "b16",
-                attrs: { type: "button" },
-                on: {
-                  click: function($event) {
-                    return _vm.processPayment()
-                  }
-                }
-              },
-              [_vm._v("Realizar pago")]
-            )
+            _c("div", [
+              !_vm.loading
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "b16",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.processPayment()
+                        }
+                      }
+                    },
+                    [_vm._v("Realizar pago")]
+                  )
+                : _c(
+                    "button",
+                    {
+                      staticClass: "b16-disabled",
+                      attrs: { type: "button", disabled: "" }
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-spinner fa-spin" }),
+                      _vm._v(" Procesando")
+                    ]
+                  )
+            ])
           ])
         ]),
         _vm._v(" "),
