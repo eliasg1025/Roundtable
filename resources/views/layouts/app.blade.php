@@ -92,24 +92,40 @@
 			</div>
 			<script src="http://zeptojs.com/zepto.min.js"></script>
 			<!-- Incluyendo .js de Culqi JS -->
-			<script src="https://checkout.culqi.com/v2"></script>
+			<script src="https://checkout.culqi.com/v2" type="text/javascript"></script>
 			<script>
 				const culqi = () => {
-					if (Culqi.token) { // ¡Objeto Token creado exitosamente!
+					if (Culqi.token) {
 						let token = Culqi.token;
-						console.log('Se ha generado el token: ' + token.id);
-						//En esta linea de codigo debemos enviar el "Culqi.token.id"
+						// console.log('Se ha generado el token: ' + token.id);
 						axios.post('/pagos/process-payment', {
 							token: token.id,
+							email: token.email,
+							cardholder: document.getElementById('cname').value,
 							ruc: document.getElementById('cruc').value,
 							type: document.getElementById('ctype').value,
 							product: document.getElementById('cproduct').value,
 						})
 							.then(res => {
-								console.log(res)
+								// console.log(res.data)
+								Swal.fire({
+									title: res.data.message,
+									type: 'success',
+									text: res.data.text,
+									timer: 2500,
+									showConfirmButton: false,
+								})
+									.then(res => {
+										location.href = "/profile"
+									})
 							})
 							.catch(err => {
-								console.error(err.response)
+								message_error = JSON.parse(err.response.data.message);
+								console.log(message_error)
+								Swal.fire({
+									text: message_error.user_message,
+									type: 'error',
+								})
 							})
 					} else {
 						// Mostramos JSON de objeto error en consola
