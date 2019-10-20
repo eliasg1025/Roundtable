@@ -250,7 +250,7 @@ export default {
 							this.login_loading = false
 						}
 					}).then(result => {
-						window.location.href = "/profile"; // Redirigir a ruta /profile
+						window.location.reload(); // Redirigir a ruta /profile
 					})
 				})
 				.catch(error => {
