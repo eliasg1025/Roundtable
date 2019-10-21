@@ -3,20 +3,28 @@
 		<div class="searchBar">
 			<input
 				v-model="query"
-				v-on:keyup="autoComplete"
+				v-on:keyup="autoComplete()"
 				type="text" placeholder="Busca alguna empresa" name="search" class="input-search"
 				autocomplete="off"
 			>
 			<button class="search-icon">
-				<img src="https://img.icons8.com/cotton/24/000000/search--v2.png">
+				<i class="fas fa-search"></i>
 			</button>
 		</div>
-		<div v-if="results.length" class="results panel-footer">
-			<ul class="list-group">
-				<a :href="'/business/profile/' + result.uuid" class="list-group-item" v-for="result in results" :key="result.id">
-					<img :src="result.profile_img" height="30px" style="margin-right: 10px;"> {{ result.commercial_name }}
-				</a>
-			</ul>
+		<div class="results">
+			<div v-if="loading == true" class="list-group">
+				<p class="list-group-item"><i class="fas fa-spinner fa-spin"></i>&nbsp;Buscando</p>
+			</div>
+			<div v-else>
+				<div class="list-group" v-if="results.length">
+					<a :href="'/business/profile/' + result.uuid" class="list-group-item" v-for="result in results" :key="result.id">
+						<img :src="result.profile_img" height="30px" style="margin-right: 10px;"> {{ result.commercial_name }}
+					</a>
+				</div>
+				<div class="list-group" v-else-if="results.length <= 0 && searched == true">
+					<p class="list-group-item text-muted"> No se encontró una empresa con ese nombre.</p>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -27,19 +35,29 @@
 		data() {
 			return {
 				query: '',
-				results: []
+				results: [],
+				loading: false,
+				searched: false,
 			}
 		},
 		methods: {
 			autoComplete() {
 				this.results = [];
+				this.loading = true;
 				if (this.query.length > 2) {
 					axios.get('api/business/search', {
 						params: {query: this.query}
 					})
 						.then(res => {
-							this.results = res.data
+							setTimeout(() => {
+								this.results = res.data;
+								this.loading = false;
+								this.searched = true;
+							}, 1000);
 						})
+				} else {
+					this.loading = false;
+					this.searched = false;
 				}
 			}
 		}
@@ -47,14 +65,6 @@
 </script>
 
 <style>
-	button .search-icon img{
-		transition: transform .25s;
-	}
-
-	button .search-icon img:hover {
-		transform: scale(1.2);
-	}
-
 	.searchBar {
 		height: 60px;
 		width: 100%;
@@ -73,6 +83,11 @@
 		width: 100%;
 		border-radius: 10px;
 		padding: 30px;
+		outline: none;
+	}
+
+	.input-search:focus + button.search-icon {
+		color: #88BE2E;
 	}
 
 	.search-icon {
@@ -80,6 +95,14 @@
 		background: transparent;
 		border: none;
 		cursor: pointer;
+	}
+
+	.results {
+		position: absolute;
+    	z-index: 100;
+    	width: 97%;
+		margin-top: -25px;
+		box-shadow: 0px 1px 0px 0px rgba(0,0,0,0.5);
 	}
 
 	.results a{

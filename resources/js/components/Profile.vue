@@ -201,6 +201,7 @@
 						<div class="panel" v-if="panel === 4">
 							<panel-meet
 								:user="user"
+								:data="data.meetings"
 							></panel-meet>
 						</div>
 					</section>
@@ -376,8 +377,14 @@
 							<div v-for="message in messages" :key="message.id" class="message card mt-2">
 								<div class="row no-gutters">
 									<div class="col-md-2">
-										<div class="icon-message">
+										<div v-if="message.type == 'success'" class="icon-message success-icon">
 											<i class="far fa-check-circle"></i>
+										</div>
+										<div v-else-if="message.type == 'transaction'" class="icon-message transaction-icon">
+											<i class="fas fa-certificate"></i>
+										</div>
+										<div v-else-if="message.type == 'meet'" class="icon-message meet-icon">
+											<i class="fas fa-address-book"></i>
 										</div>
 									</div>
 									<div class="col-md-10">
@@ -468,8 +475,19 @@
 	.message .icon-message {
 		display: block;
 		font-size: 60px;
-		color:#88BE2E;
 		text-align: center;
+	}
+
+	.success-icon {
+		color:#88BE2E;
+	}
+
+	.transaction-icon {
+		color: #FD7E14;
+	}
+
+	.meet-icon {
+		color: rgb(13, 75, 168);
 	}
 
 	.message-date {

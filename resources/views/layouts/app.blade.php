@@ -92,6 +92,6 @@
 			</div>
 			<script src="http://zeptojs.com/zepto.min.js"></script>
 			<!-- Incluyendo .js de Culqi JS -->
-			<script src="https://checkout.culqi.com/v2"></script>
+			<script src="https://checkout.culqi.com/v2" type="text/javascript"></script>
 		</body>
 		</html>
