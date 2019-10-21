@@ -28,7 +28,7 @@ class PlansTableSeeder extends Seeder
 		$plan->name = "Standard";
 		$plan->slug = Str::slug($plan->name);
 		$plan->is_best = false;
-        $plan->cost = 29;
+        $plan->cost = 29.9;
 		$plan->initial_coins = 40;
 		$plan->images = 6;
 		$plan->videos = 1;
@@ -39,7 +39,7 @@ class PlansTableSeeder extends Seeder
 		$plan->name = "Premium";
 		$plan->slug = Str::slug($plan->name);
 		$plan->is_best = true;
-        $plan->cost = 49;
+        $plan->cost = 49.9;
 		$plan->initial_coins = 100;
 		$plan->images = 10;
 		$plan->videos = 3;

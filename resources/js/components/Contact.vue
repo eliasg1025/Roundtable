@@ -8,19 +8,17 @@
                                  <h4 class="cabeza">Contacto</h4>
                              </div>
                              <div class="cuerpo">
-                                 <div style="margin-left:10px;"><span class="emo fa fa-map-marker"></span> </div>
+                                 <div style="margin-left:10px;"><span class="emo fas fa-map-marker-alt"></span> </div>
                                  <div class="parrafo"><p>Lun - Vie: 8:00am - 5:00pm <br/>Sab: 8:00am - 12:00pm</p></div>
                              </div>    
                              <div class="cuerpo">
-                                 <div style="margin-left:10px;"><span class="emo fa fa-mobile"></span> </div>
+                                 <div style="margin-left:10px;"><span class="emo fas fa-mobile-alt"></span> </div>
                                  <div class="parrafo"><p>(+51) 987 785 052</p></div>
                              </div>
                              <div class="cuerpo">
-                                  <div><span class="emo fa fa-envelope-o"></span> </div>
+                                  <div><span class="emo fas fa-envelope"></span> </div>
                                  <div class="parrafo"><p>informes@roundtableperu.com</p></div>
                              </div>
-                            
-
                         </div>
                     </div>
             </div>
