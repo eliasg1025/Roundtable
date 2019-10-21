@@ -27,7 +27,7 @@ class ProfileController extends Controller
     {
     	$user = Auth::user();
     	$plans = DB::table('plan_user')
-    					->join('plans', 'plan_user.plan_id', '=', 'plans.id')
+						->join('plans', 'plan_user.plan_id', '=', 'plans.id')
 						->where('user_id', $user->id)
 						->orderBy('plan_id', 'DESC') ////////////////////////////
 						->get();
@@ -37,17 +37,33 @@ class ProfileController extends Controller
 						->orderBy('created_at', 'DESC')
 						->get();
 
+		$sended_meetings = DB::table('meetings')
+							->where('sender_id', $user->id)
+							->orderBy('meetings.created_at', 'DESC')
+							->get();
+
+		$received_meetings = DB::table('meetings')
+								->where('receiver_id', $user->id)
+								->orderBy('meetings.created_at', 'DESC')
+								->get();
+
 		$account_data = [
 			'rating_data' => $this->getRating($user),
 			'categories_data' => $this->getCategories($user),
 			'user_certifications' => $this->getCertifications($user),
-			'offers_data' => $this->getOffers($user)
+			'offers_data' => $this->getOffers($user),
 		];
+
+		$meetings = array(
+			'sended_meetings' => $this->getDataMeetings($sended_meetings, 'sended'),
+			'received_meetings' => $this->getDataMeetings($received_meetings, 'received'),
+		);
 
 		$data = [
 			'user' => $user,
 			'user_plans' => $plans,
 			'messages' => $messages,
+			'meetings' => $meetings,
 			'account_data' => $account_data,
 			'media_data' => $this->getMediaData($user),
 		];
@@ -300,6 +316,7 @@ class ProfileController extends Controller
 				$message->title = 'Producto agregado';
 				$message->message = 'El producto fue agregado satisfactoriamente. Se han consumido ' . $operation->coins_cost . ' de tus coins.';
 				$message->date = Carbon::now();
+				$message->type = 'success';
 				$message->user_id = $user->id;
 				$message->save();
 
@@ -421,6 +438,7 @@ class ProfileController extends Controller
 				$message->title = 'Certificado de producto agregado';
 				$message->message = 'El certificado fue agregado satisfactoriamente. Se han consumido ' . $operation->coins_cost . ' de tus coins.';
 				$message->date = Carbon::now();
+				$message->type = 'success';
 				$message->user_id = $user->id;
 				$message->save();
 	
@@ -547,6 +565,7 @@ class ProfileController extends Controller
 				$message->title = 'Certificado agregado';
 				$message->message = 'El certificado fue agregado satisfactoriamente. Se han consumido ' . $operation->coins_cost . ' de tus coins.';
 				$message->date = Carbon::now();
+				$message->type = 'success';
 				$message->user_id = $user->id;
 				$message->save();
 
@@ -671,7 +690,37 @@ class ProfileController extends Controller
 		return response()->json($data, $data['code']);
 	}
 
-    // Get data functions
+	// Get data functions
+	
+	private function getDataMeetings($meetings, $type)
+	{
+		$data = [];
+		foreach ($meetings as $meeting) {
+			if ($type == 'sended') {
+				$other_user_id = $meeting->receiver_id;
+				
+			} elseif ($type == 'received') {
+				$other_user_id = $meeting->sender_id;
+			}
+
+			$other_user = DB::table('users')
+									->select('id', 'name', 'email', 'uuid', 'slug', 'commercial_name', 'ruc', 'legal_registration', 'phone', 'profile_img', 'cover_img', 'address', 'description', 'verified', 'type_id')
+									->where('id', $other_user_id)
+									->first();
+
+			$state = DB::table('states')
+							->select('id', 'name')
+							->where('id', $meeting->state_id)
+							->first();
+
+			array_push($data, [
+				'meeting' => $meeting,
+				'other_user' => $other_user,
+				'state' => $state,
+			]);
+		}
+		return $data;
+	}
 
     private function getRating($user)
 	{

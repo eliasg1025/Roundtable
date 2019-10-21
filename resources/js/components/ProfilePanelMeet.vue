@@ -23,9 +23,14 @@
 					Guardar Cambios
 				</button>
 			</div>
-
-
-			<div class="table-responsive mt-5">
+			<br>
+			<br>
+			<hr>
+			<br>
+			<div class="text-center panel-info-subtitle mt-5">
+				<label for="" class="text-uppercase h5">Enviados</label>
+			</div>
+			<div class="table-responsive mt-1 table-meet">
 				<table class="table table-hover">
 					<thead>
 						<tr class="text-center">
@@ -36,12 +41,146 @@
 						</tr>
 					</thead>
 					<tbody>
-
+						<tr v-for="data_meeting in data.sended_meetings" :key="data_meeting.id" class="text-center">
+							<td>
+								<div class="business-card-meet-table text-center">
+									<div class="container">
+										<img :src="data_meeting.other_user.profile_img" width="100%">
+									</div>
+									<p class="my-2"><b>{{ data_meeting.other_user.commercial_name }}</b></p>
+									<hr>
+									<a :href="'/business/profile/' + data_meeting.other_user.uuid" target="blank" class="my-2"><i class="fas fa-search"></i> Ver Perfil</a><br>
+									<a :href="'/business/profile/' + data_meeting.other_user.uuid" class="my-2"><i class="fas fa-address-book"></i> Ver Datos</a>
+								</div>
+							</td>
+							<td>
+								<textarea
+									rows="7"
+									class="form-control meet-message"
+									disabled
+									v-model="data_meeting.meeting.message"
+								></textarea>
+							</td>
+							<td>
+								<p class="meet-state">
+									{{ data_meeting.state.name }}
+								</p>
+							</td>
+							<td>
+								<div class="container-button" v-if="data_meeting.state.id == 1">
+									<div class="container mb-1">
+										<button class="btn btn-secondary disabled btn-block" disabled>
+											Por confirmar
+										</button>
+									</div>
+								</div>
+								<div class="container-button" v-else-if="data_meeting.state.id == 2">
+									<div class="container mb-1">
+										<button class="btn btn-danger disabled btn-block" disabled>
+											Cancelado
+										</button>
+									</div>
+								</div>
+								<div class="container-button" v-else-if="data_meeting.state.id == 3">
+									<div class="container mb-1">
+										<button class="btn btn-success btn-block">Agendar</button>
+									</div>
+									<div class="container mb-1">
+										<button class="btn btn-danger btn-block">Cancelar</button>
+									</div>
+								</div>
+								<div class="container-button" v-else-if="data_meeting.state.id == 4">
+									<div class="container mb-1">
+										<button class="btn btn-success disabled btn-block" disabled>
+											Realizado
+										</button>
+									</div>
+								</div>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
-			<div class="mt-5 text-center" v-if="0 === 0">
-				<p style="color: #6C757D; font-size: 25px;">Aún no tienes agendamientos</p>
+			<div class="mt-5 text-center" v-if="data.sended_meetings.length === 0">
+				<p style="color: #6C757D; font-size: 25px;">Aún no tienes agendamientos enviados</p>
+			</div>
+			<br>
+			<br>
+			<hr>
+			<br>
+			<div class="text-center panel-info-subtitle mt-5">
+				<label for="" class="text-uppercase h5">Recibidos</label>
+			</div>
+			<div class="table-responsive mt-1 table-meet">
+				<table class="table table-hover">
+					<thead>
+						<tr class="text-center">
+							<th>Empresa</th>
+							<th>Mensaje</th>
+							<th>Estado</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="data_meeting in data.received_meetings" :key="data_meeting.id" class="text-center">
+							<td>
+								<div class="business-card-meet-table text-center">
+									<div class="container">
+										<img :src="data_meeting.other_user.profile_img" width="100%">
+									</div>
+									<p class="my-2"><b>{{ data_meeting.other_user.commercial_name }}</b></p>
+									<hr>
+									<a :href="'/business/profile/' + data_meeting.other_user.uuid" target="blank" class="my-2"><i class="fas fa-search"></i> Ver Perfil</a><br>
+									<a :href="'/business/profile/' + data_meeting.other_user.uuid" class="my-2"><i class="fas fa-address-book"></i> Ver Datos</a>
+								</div>
+							</td>
+							<td>
+								<textarea
+									rows="7"
+									class="form-control meet-message"
+									disabled
+									v-model="data_meeting.meeting.message"
+								></textarea>
+							</td>
+							<td>
+								<p class="meet-state">
+									{{ data_meeting.state.name }}
+								</p>
+							</td>
+							<td>
+								<div class="container-button" v-if="data_meeting.state.id == 1">
+									<div class="container mb-1">
+										<button class="btn btn-success btn-block">Aceptar</button>
+									</div>
+									<div class="container mb-1">
+										<button class="btn btn-danger btn-block">Rechazar</button>
+									</div>
+								</div>
+								<div class="container-button" v-else-if="data_meeting.state.id == 2">
+									<div class="container mb-1">
+										<button class="btn btn-danger disabled btn-block" disabled>Cancelado</button>
+									</div>
+								</div>
+								<div class="container-button" v-else-if="data_meeting.state.id == 3">
+									<div class="container mb-1">
+										<button class="btn btn-success btn-block">Agendar</button>
+									</div>
+									<div class="container mb-1">
+										<button class="btn btn-danger btn-block">Cancelar</button>
+									</div>
+								</div>
+								<div class="container-button" v-else-if="data_meeting.state.id == 4">
+									<button class="btn btn-success disabled btn-block" disabled>
+										Realizado
+									</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="mt-5 text-center" v-if="data.received_meetings.length === 0">
+				<p style="color: #6C757D; font-size: 25px;">Aún no tienes agendamientos recibidos</p>
 			</div>
 		</div>
 	</div>
@@ -49,7 +188,7 @@
 
 <script>
 	export default {
-		props: ['user'],
+		props: ['data', 'user'],
 		data() {
 			return {
 				hangouts_url: '',
@@ -94,5 +233,28 @@
 </script>
 
 <style>
-
+	.table-meet > * {
+		font-size: 14px;
+	}
+	.business-card-meet-table {
+		width: 150px;
+		margin: auto;
+	}
+	.container-button {
+		width: 150px;
+		font-size: 14px;
+		margin: auto;
+	}
+	.meet-message {
+		width: 310px;
+		text-align: initial;
+		font-size: 14px;
+		resize: none;
+	}
+	.meet-state {
+		background-color: #dadada;
+		padding: 5px;
+		border: 1px solid #b1b1b1;
+		border-radius: 4px;
+	}
 </style>
