@@ -251,7 +251,11 @@
 											class="form-control" id="" rows="4"
 											placeholder="Deja tu mensaje para esta empresa. (Opcional)"
 											v-model="message"
+											maxlength="255"
 										></textarea>
+										<small class="mt-1">
+											<span class="text-muted">Máximo 255 caracteres: {{ length_message }}/255</span>
+										</small>
 									</div>
 								</div>
 							</div>
@@ -284,6 +288,11 @@
 				value_rating: 0,
 				show_rating: false,
 				message: '',
+			}
+		},
+		computed: {
+			length_message() {
+				return this.message.length
 			}
 		},
 		mounted() {
