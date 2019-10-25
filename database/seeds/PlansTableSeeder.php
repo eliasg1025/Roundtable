@@ -30,7 +30,7 @@ class PlansTableSeeder extends Seeder
 		$plan->is_best = false;
         $plan->cost = 29.9;
 		$plan->initial_coins = 40;
-		$plan->images = 6;
+		$plan->images = 8;
 		$plan->videos = 1;
 		$plan->description = "Esto de plan estandar";
         $plan->save();
@@ -41,7 +41,7 @@ class PlansTableSeeder extends Seeder
 		$plan->is_best = true;
         $plan->cost = 49.9;
 		$plan->initial_coins = 100;
-		$plan->images = 10;
+		$plan->images = 20;
 		$plan->videos = 3;
 		$plan->description = "Esto de plan Premium";
         $plan->save();

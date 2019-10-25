@@ -22,7 +22,7 @@
 								ref="uploadCert"
 								@change="handleCert()"
 							>
-							<label class="custom-file-label" for="editCertFile"><i class="fas fa-file-pdf"></i> Selecciona un archivo(.pdf)</label>
+							<label class="custom-file-label" for="editCertFile"><i class="fas fa-file-pdf"></i> {{ upload_cert_name }}</label>
 							<small><span class="text-muted">Solamente se aceptará archivos de formato pdf</span></small>
 						</div>
 					</div>
@@ -43,15 +43,18 @@
 			return {
 				title: '',
 				upload_cert: '',
+				upload_cert_name: '',
 			}
 		},
 		created() {
+			this.upload_cert_name = 'Selecciona un archivo(.pdf)'
 			this.title = this.certification.title
 			this.url = this.certification.url
 		},
 		methods: {
 			handleCert() {
 				this.upload_cert = this.$refs.uploadCert.files[0]
+				this.upload_cert_name = this.upload_cert.name
 			},
 			editCert() {
 				Swal.fire({

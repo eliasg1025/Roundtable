@@ -68,4 +68,9 @@ class MeetController extends Controller
 
 		return response()->json($data, $data['code']);
 	}
+
+	public function acceptMeet(Request $request)
+	{
+		return 'ok';
+	}
 }

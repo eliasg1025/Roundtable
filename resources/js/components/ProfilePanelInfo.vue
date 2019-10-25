@@ -58,7 +58,7 @@
 										ref="profileImage"
 										@change="handleUserImage(1)"
 									>
-									<label class="custom-file-label" for="editProfileImage"><i class="fas fa-camera"></i> Seleccione una imagen</label>
+									<label class="custom-file-label" for="editProfileImage"><i class="fas fa-camera"></i> {{ upload_profile_img_name }}</label>
 								</div>
 								<small class="text-muted">La imagen tiene que pesar menos de 2 MB</small>
 							</div>
@@ -90,7 +90,7 @@
 										ref="coverImage"
 										@change="handleUserImage(2)"
 									>
-									<label class="custom-file-label" for="editCoverImage"><i class="fas fa-camera"></i> Seleccione una imagen</label>
+									<label class="custom-file-label" for="editCoverImage"><i class="fas fa-camera"></i> {{ upload_cover_img_name }}</label>
 								</div>
 								<small class="text-muted">La imagen tiene que pesar menos de 2 MB</small>
 							</div>
@@ -197,6 +197,45 @@
 			</button>
 		</div>
 
+		<!-- Verificacion -->
+		<div class="text-center panel-info-subtitle">
+			<span class="text-uppercase h5">Validación</span>
+		</div>
+		<div class="panel-info-section">
+			<div class="panel-alert alert alert-secondary mt-3" role="alert">
+				Si quieres obtener una cuenta verificada, sigue los siguientes pasos:
+				<br><br>
+				<ol style="margin-left: 15px;">
+					<li>Ingresa la ficha RUC(formato PDF) de tu empresa.</li>
+					<li>Espera a que te llegue un Código de Verificación a tu dirección fiscal.</li>
+					<li>Ingresa el código de Verificación.</li>
+					<li>¡Listo! ya tienes una cuenta verificada.</li>
+				</ol>
+			</div>
+			<div class="container">
+				<p class="h5">¿Como obtener ficha RUC?</p>
+				<iframe width="727" height="409" src="https://www.youtube.com/embed/zH66mH2wIN8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			</div>
+			<br>
+			<div class="container">
+				<p class="h5">Ingresa ficha ruc:</p>
+				<div class="custom-file">
+					<input
+						type="file" class="custom-file-input"
+						id="rucFile" accept="application/pdf"
+						ref="rucFile"
+						@change="handleFile()"
+					>
+					<label class="custom-file-label" for="rucFile"><i class="fas fa-file-pdf"></i> {{ruc_file_name}}</label>
+					<small><span class="text-muted">Solamente se aceptará archivos de formato pdf</span></small>
+				</div>
+			</div>
+			<button @click="sendRucFile()" class="btn btn-lg btn-block btn-save" style="margin-top: 25px;">
+				Enviar Ficha RUC
+			</button>
+		</div>
+		<!-- End -->
+
 		<!-- Imagenes -->
 		<div class="text-center panel-info-subtitle">
 			<label for="" class="text-uppercase h5">Imagenes</label>
@@ -286,11 +325,11 @@
 								<div class="custom-file">
 									<input
 										type="file" class="custom-file-input"
-										id="editOfferImage" lang="es" accept="image/*"
+										id="accountImage" lang="es" accept="image/*"
 										ref="accountImage"
 										@change="handleAccountImage()"
 									>
-									<label class="custom-file-label" for="editOfferImage"><i class="fas fa-camera"></i> Seleccione una imagen</label>
+									<label class="custom-file-label" for="accountImage"><i class="fas fa-camera"></i> {{ account_img_name }}</label>
 								</div>
 							</div>
 							<small class="text-muted">La imagen tiene que pesar menos de 2 MB</small>
@@ -400,7 +439,7 @@
 										ref="accountVideo"
 										@change="handleAccountVideo()"
 									>
-									<label class="custom-file-label" for="editOfferImage"><i class="fas fa-video"></i> Seleccione un video (.mp4)</label>
+									<label class="custom-file-label" for="editOfferImage"><i class="fas fa-video"></i> {{account_video_name}}</label>
 								</div>
 							</div>
 							<small class="text-muted">La video debe pesar menos de 30 MB</small>
@@ -445,6 +484,13 @@
 				upload_cover_img: [],
 				account_img: [],
 				account_video: [],
+				ruc_file: [],
+				//
+				upload_profile_img_name: '',
+				upload_cover_img_name: '',
+				account_img_name: '',
+				account_video_name: '',
+				ruc_file_name: '',
 			}
 		},
 		created() {
@@ -460,6 +506,13 @@
 			this.images = this.media_data.images
 			this.videos = this.media_data.videos
 			this.user_categories = this.categories_data
+
+			//
+			this.upload_profile_img_name = 'Seleccione una imagen'
+			this.upload_cover_img_name = 'Seleccione una imagen'
+			this.account_img_name = 'Seleccione una imagen'
+			this.account_video_name = 'Seleccione un video(.mp4)'
+			this.ruc_file_name = 'Selecciona un archivo(.pdf)'
 
 			axios.get('/api/categories')
 					.then(res => {
@@ -645,9 +698,11 @@
 				switch (type) {
 					case 1:
 						this.upload_profile_img = this.$refs.profileImage.files[0]
+						this.upload_profile_img_name = this.upload_profile_img.name
 						break;
 					case 2:
 						this.upload_cover_img = this.$refs.coverImage.files[0]
+						this.upload_cover_img_name = this.upload_cover_img.name
 						break;
 					default:
 						console.log('Error. No exists that type: ',type);
@@ -695,12 +750,13 @@
 					})
 			},
 			handleAccountImage() {
-				this.account_image = this.$refs.accountImage.files[0]
+				this.account_img = this.$refs.accountImage.files[0]
+				this.account_img_name = this.account_img.name
 			},
 			addImage() {
 				Swal.fire({
 					title: `¿Deseas agregar esta imagen?: `,
-					text: `${this.account_image.name}`,
+					text: `${this.account_img.name}`,
 					type: 'warning',
 					confirmButtonColor: '#3085d6',
 					cancelButtonColor: '#d33',
@@ -712,7 +768,7 @@
 						if (res.value == true) {
 
 							let formData = new FormData();
-							formData.append('image', this.account_image)
+							formData.append('image', this.account_img)
 
 							const config = {
 								headers: {'content-type': 'multipart/form-data'}
@@ -764,6 +820,7 @@
 			},
 			handleAccountVideo() {
 				this.account_video = this.$refs.accountVideo.files[0]
+				this.account_video_name = this.account_video.name
 			},
 			addVideo() {
 				Swal.fire({
@@ -828,6 +885,28 @@
 									Swal.fire({title: 'Error al borrar video', type: 'error'})
 								})
 						}
+					})
+			},
+			handleFile() {
+				this.ruc_file = this.$refs.rucFile.files[0]
+				this.ruc_file_name = this.ruc_file.name
+			},
+			sendRucFile() {
+				Swal.fire({
+					title: 'Enviando',
+					onBeforeOpen: () => {
+						Swal.showLoading();
+					}
+				})
+
+				axios.post('/validacion/process-ruc-file/', {
+					file: '',
+				})
+					.then(res => {
+						console.log(res.data)
+					})
+					.catch(err => {
+						console.log(err.response.data)
 					})
 			}
 		}

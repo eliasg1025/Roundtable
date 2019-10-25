@@ -50,29 +50,24 @@
 							</a>
 
 							<h4 class="text-center">{{ user.commercial_name }}</h4>
-							<hr>
-							<ul class="notifications container">
-								<li class="align-top d-flex justify-content-between align-items-center">
-									<a href="#" class="p-1" data-toggle="modal" data-target="#modalNotiPlan">
-										Plan Actual <span class="badge badge-secondary">{{ current_plan.name }}</span>
-									</a>
-								</li>
-								<li class="align-top d-flex justify-content-between align-items-center">
-									<a href="#" class="p-1" data-toggle="modal" data-target="#modalNotiCoins">
-										Tienes <span class="badge badge-success">{{user.coins}} coins</span>
-									</a>
-								</li>
-								<li class="align-top d-flex justify-content-between align-items-center">
-									<a href="#" class="p-1" data-toggle="modal" data-target="#modalNotiViews">
-										Visitas <span class="badge badge-success">{{ user.views }}</span>
-									</a>
-								</li>
-								<li class="align-top d-flex justify-content-between align-items-center">
-									<a href="#" class="p-1" data-toggle="modal" data-target="#modalNotiMessages">
-										Notificaciones <span class="badge badge-success">{{ messages.length }}</span>
-									</a>
-								</li>
-							</ul>
+							<div class="list-group notifications">
+								<a href="#" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#modalNotiPlan">
+									Plan
+									<span class="badge badge-roundtable">{{ current_plan.name }}</span>
+								</a>
+								<a href="#" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#modalNotiMessages">
+									Notificaciones
+									<span class="badge badge-roundtable">{{ messages.length }}</span>
+								</a>
+								<a href="#" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#modalNotiCoins">
+									Coins
+									<span class="badge badge-roundtable">{{user.coins}}</span>
+								</a>
+								<a href="#" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#modalNotiViews">
+									Visitas
+									<span class="badge badge-roundtable">{{ user.views }}</span>
+								</a>
+							</div>
 						</div>
 					</div>
 					<!-- End Box Profile -->
@@ -539,19 +534,21 @@
 	}
 
 	.notifications {
-		list-style: none;
-		margin-bottom: 5px;
+		margin-top: 15px;
+		font-size: 15px;
+		font-family: 'Roboto', sans-serif;
 	}
 
-	.notifications li a {
+	.notifications a {
 		color: #212529;
 		transition: ease 0.5s;
 	}
 
-	.notifications li a:hover {
+	.notifications a:hover {
 		transition: all 0.3s;
 		color: #88be2e;
-		margin-left: 10px;
+		margin-left: 5px;
+		margin-right: 5px;
 		cursor: pointer;
 	}
 

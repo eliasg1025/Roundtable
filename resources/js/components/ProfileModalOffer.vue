@@ -29,7 +29,7 @@
 										ref="editOfferImage"
 										@change="handleEditOfferImage()"
 									>
-									<label class="custom-file-label" for="editOfferImage"><i class="fas fa-camera"></i> Seleccione una imagen</label>
+									<label class="custom-file-label" for="editOfferImage"><i class="fas fa-camera"></i> {{ upload_offer_image_name }}</label>
 								</div>
 							</div>
 							<div class="form-group">
@@ -68,16 +68,19 @@
 				image_url: '',
 				category_id: '',
 				upload_offer_image: [],
+				upload_offer_image_name: '',
 			}
 		},
 		created() {
 			this.title = this.data_offer.offer.title
 			this.image_url = this.data_offer.offer.image_url
 			this.category_id = this.data_offer.offer.category_id
+			this.upload_offer_image_name = 'Seleccione una imagen'
 		},
 		methods: {
 			handleEditOfferImage() {
 				this.upload_offer_image = this.$refs.editOfferImage.files[0]
+				this.upload_offer_image_name = this.upload_offer_image.name
 			},
 			editProduct()  {
 				Swal.fire({

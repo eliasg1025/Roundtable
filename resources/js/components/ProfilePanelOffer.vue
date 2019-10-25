@@ -125,7 +125,7 @@
 										ref="offerImage"
 										@change="handleOfferImage()"
 									>
-									<label class="custom-file-label" for="addProductImage"><i class="fas fa-camera"></i> Seleccione una imagen</label>
+									<label class="custom-file-label" for="addProductImage"><i class="fas fa-camera"></i> {{ upload_offer_image_name }}</label>
 								</div>
 							</div>
 						</div>
@@ -172,9 +172,12 @@
 				image: {},
 				category_id: '',
 				upload_offer_image: [],
+				upload_offer_image_name: '',
 			}
 		},
 		created() {
+			this.upload_offer_image_name = 'Selecciona una imagen';
+
 			axios.get('api/categories')
 				.then(res => {
 					this.categories = res.data
@@ -183,6 +186,7 @@
 		methods: {
 			handleOfferImage() {
 				this.upload_offer_image = this.$refs.offerImage.files[0]
+				this.upload_offer_image_name = this.upload_offer_image.name
 			},
 			addProduct() {
 				Swal.fire({

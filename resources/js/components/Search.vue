@@ -43,6 +43,12 @@
 										</div>
 									</div>
 
+									<div v-if="users.data.length === 0" v-show="!loading" class="container">
+										<div class="text-center py-4">
+											<span class="text-muted h3">Aún no hay empresas en esta categoría</span>
+										</div>
+									</div>
+
 									<!-- Pagination -->
 									<nav class="w-100 mt-4">
 										<ul class="pagination justify-content-center">
@@ -111,7 +117,9 @@
 		],
 		data() {
 			return {
-				users: {},
+				users: {
+					data: []
+				},
 				category_title: '',
 				loading: false,
 			}
