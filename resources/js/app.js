@@ -37,6 +37,7 @@ Vue.component('BusinessVideos', require('./components/BusinessVideos.vue').defau
 Vue.component('BusinessImages', require('./components/BusinessImages.vue').default);
 Vue.component('BusinessProducts', require('./components/BusinessProducts.vue').default);
 
+Vue.component('PruebaVideo', require('./components/PruebaVideo.vue').default);
 //planes
 // estos son nombres de tus componentes
 Vue.component('planes', require('./components/Planes.vue').default);
