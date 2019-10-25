@@ -7,11 +7,17 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Font-awesome
 @import '../../node_modules/@fortawesome/fontawesome-free/css/all.css';
+
+// Bootstrap notifications and dropdown
+@import './bootstrap-dropmenu.css';
+@import './bootstrap-notifications.css';
 
 * {
 	margin: 0;
 	padding: 0;
+	font-family: 'Roboto', sans-serif;
 }
 
 a, button.close {
@@ -108,7 +114,29 @@ input:focus, select:focus {
 	}
 }
 
+.badge-roundtable {
+	color: white;
+	background-color: #88BE2E;
+	margin-left: 5px;
+	min-width: 40px;
+	max-width: 80px;
+	font-size: 85%;
+}
+
+.navbar-dropdown a {
+	font-size: 13px !important;
+}
+
+.navbar-dropdown a:hover {
+	color: #88BE2E;
+}
+
 /* Reescribiendo estilo bootstrap */
 .table th, .table td {
 	vertical-align: middle;
+}
+
+.notification-menu-right {
+	left: auto;
+    right: -50%;
 }

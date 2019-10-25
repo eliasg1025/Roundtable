@@ -227,19 +227,19 @@
 								<div class="col-md-6">
 									<p class="form-destinity">De:</p>
 									<div class="business-meet-card text-center">
-										<div class="container">
+										<div class="container pt-3">
 											<img :src="data_visit_user.data.profile_img" width="100%">
 										</div>
-										<p class="my-2">{{ data_visit_user.data.commercial_name }}</p>
+										<p class="my-2 h6">{{ data_visit_user.data.commercial_name }}</p>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<p class="form-destinity second">Para:</p>
 									<div class="business-meet-card text-center">
-										<div class="container">
+										<div class="container pt-3">
 											<img :src="data_user.profile_img" width="100%">
 										</div>
-										<p class="my-2">{{ data_user.commercial_name }}</p>
+										<p class="my-2 h6">{{ data_user.commercial_name }}</p>
 									</div>
 								</div>
 							</div>

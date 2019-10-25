@@ -81,7 +81,7 @@
 												ref="uploadFile"
 												@change="handleFile()"
 											>
-											<label class="custom-file-label" for="addOfferCertFile"><i class="fas fa-file-pdf"></i> Selecciona un archivo(.pdf)</label>
+											<label class="custom-file-label" for="addOfferCertFile"><i class="fas fa-file-pdf"></i> {{ upload_file_name }}}</label>
 											<small><span class="text-muted">Solamente se aceptará archivos de formato pdf</span></small>
 										</div>
 									</div>
@@ -120,11 +120,16 @@
 				title: '',
 				file: '',
 				upload_file: '',
+				upload_file_name: ''
 			}
+		},
+		created() {
+			this.upload_file_name = 'Selecciona un archivo(.pdf)'
 		},
 		methods: {
 			handleFile() {
 				this.upload_file = this.$refs.uploadFile.files[0]
+				this.upload_file_name = this.upload_file.name
 			},
 			addOfferCert() {
 				Swal.fire({

@@ -41,7 +41,9 @@ Route::post('/profile/add-cert', 'ProfileController@addCert');
 Route::post('/profile/edit-cert/{id}', 'ProfileController@editCert');
 Route::delete('/profile/delete-cert/{id}', 'ProfileController@deleteCert');
 
-Route::post('profile/update-contact-info', 'ProfileController@updateContactInfo');
+Route::post('/profile/update-contact-info', 'ProfileController@updateContactInfo');
+Route::post('/validacion/process-ruc-file', 'ValidacionController@processRucFile');
+Route::post('/meet/accept-meet', 'MeetController@acceptMeet');
 
 Route::get('/business', 'BusinessController@index')->name('business');
 Route::post('/business/create-meet', 'MeetController@createMeet');
@@ -50,3 +52,7 @@ Route::get('/business/category/{slug}', 'BusinessController@category')->name('bu
 
 Route::get('/business/profile/{slug}', 'BusinessController@show')->name('business.show');
 
+Route::get('/test', function () {
+	event(new App\Events\TestEvent('Test funciona!'));
+	return 'Enviado';
+});

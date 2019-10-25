@@ -9,12 +9,13 @@
 
     <title>{{ config('app.name', 'Roundtable') }}  | Conectamos compradores de todo el mundo con alimentos peruanos 100% orgánicos y ecológicos</title>
 
+    <!-- Pusher.js -->
+	<script src="https://js.pusher.com/5.0/pusher.min.js"></script>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito|Roboto|Amatic+SC:700|Poppins" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito|Roboto|Poppins" rel="stylesheet">
     <link rel="shortcut icon" href="/img/logo/favicon.png" type="image/x-icon">
 
     <!-- Styles -->
@@ -32,66 +33,116 @@
 				</a>
 				
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-						<span class="navbar-toggler-icon"></span>
-					</button>
+					<span class="navbar-toggler-icon"></span>
+				</button>
 					
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<!-- Left Side Of Navbar -->
-						<ul class="navbar-nav mr-auto">
-							<li class="nav-item mr-3">
-								<a href="{{ route('business') }}" class="nav-link navbar-list__link">Empresas</a>
-							</li>
-							<li class="nav-item mr-3">
-								<a href="{{ url('/planes') }}" class="nav-link navbar-list__link">Planes</a>
-							</li>
-							<li class="nav-item mr-3">
-								<a href="{{url('/contact')}}" class="nav-link navbar-list__link">Contacto</a>
-							</li>
-						</ul>
-						<!-- Center Side Of Navbar -->
-						<a id="logo" href="{{ url('/') }}" class="logo-main" style="margin-left: -80px;">
-							<span style="font-family: 'Amatic SC', cursive; font-size:25px;" class="logo-main-title d-none">Rountable</span>
-							<img id="img-logo" src="/img/logo/logo-v3.png" class="img-fluid">
-							<img id="img-small-logo" src="/img/logo/logopit.png" class="img-fluid" style="display: none;">
-						</a>
-						<!-- Right Side Of Navbar -->
-						<ul class="navbar-nav ml-auto">
-							<!-- Authentication Links -->
-							@guest
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<!-- Left Side Of Navbar -->
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item mr-3">
+							<a href="{{ route('business') }}" class="nav-link navbar-list__link">Empresas</a>
+						</li>
+						<li class="nav-item mr-3">
+							<a href="{{ url('/planes') }}" class="nav-link navbar-list__link">Planes</a>
+						</li>
+						<li class="nav-item mr-3">
+							<a href="{{url('/contact')}}" class="nav-link navbar-list__link">Contacto</a>
+						</li>
+					</ul>
+					<!-- Center Side Of Navbar -->
+					<a id="logo" href="{{ url('/') }}" class="logo-main" style="margin-left: -80px;">
+						<span style="font-family: 'Amatic SC', cursive; font-size:25px;" class="logo-main-title d-none">Rountable</span>
+						<img id="img-logo" src="/img/logo/logo-v3.png" class="img-fluid">
+						<img id="img-small-logo" src="/img/logo/logopit.png" class="img-fluid" style="display: none;">
+					</a>
+					<!-- Right Side Of Navbar -->
+					<ul class="navbar-nav ml-auto">
+						<!-- Authentication Links -->
+						@guest
 							<li class="nav-item">
 								<a class="nav-link navbar-list__link" href="#" data-toggle="modal" data-target="#login" id="button_login">{{ __('Iniciar Sesion') }}</a>
 							</li>
 							@if (Route::has('register'))
-							<li class="nav-item">
-								<a class="nav-link navbar-list__link" href="#" data-toggle="modal" data-target="#login" id="button_register">{{ __('Registrate') }}</a>
-							</li>
+								<li class="nav-item">
+									<a class="nav-link navbar-list__link" href="#" data-toggle="modal" data-target="#login" id="button_register">{{ __('Registrate') }}</a>
+								</li>
 							@endif
-							@else
-							<li class="nav-item">
-								<a href="{{ route('profile') }}" class="nav-link navbar-list__link">
-										{{ Auth::user()->name }}</a>
-									</li>
-									<li class="nav-item">
-										<a href="{{ route('logout') }}"
-										onclick="event.preventDefault();
-										document.getElementById('logout-form').submit();"
-									class="nav-link navbar-list__link">
-									Cerrar Sesión
+						@else
+							<li class="nav-item dropdown dropdown-notifications">
+								<!--
+								<a class="nav-link navbar-list__link" href="#">
+									<i class="fas fa-bell"></i>
+								</a>-->
+								<a id="notificationDropdown" href="#" role="button" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i data-count="0" class="notification-icon fas fa-bell" style="font-size: 16px;"></i>
 								</a>
-								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+
+								<div class="dropdown-menu notification-menu-right" aria-labelledby="#notificationDropdown">
+									<div class="dropdown-toolbar">
+										<div class="dropdown-toolbar-actions" style="display: none;">
+											<a href="#">Mark all as read</a>
+										</div>
+										<h5 class="dropdown-toolbar-title">Notificaciones (<span class="notif-count">0</span>)</h5>
+									</div>
+									<ul id="notification-list">
+										<li class="notification active">
+									      <div class="media">
+									        <div class="media-left mr-3">
+									          <div class="media-object">
+									            <img src="https://api.adorable.io/avatars/71/50.png" class="img-circle" alt="50x50" style="width: 50px; height: 50px;">
+									          </div>
+									        </div>
+									        <div class="media-body">
+									          <strong class="notification-title">Ahora tienes Plan Premium</strong>
+									          <!--p class="notification-desc">Extra description can go here</p-->
+									          <div class="notification-meta">
+									            <small class="timestamp">about a minute ago</small>
+									          </div>
+									        </div>
+									      </div>
+									  </li>
+									</ul>
+									<div class="dropdown-footer text-center">
+										<a href="#">Ver todo</a>
+									</div>
+								</div>
+							</li>
+							<li class="nav-item dropdown">
+								<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+									{{ Auth::user()->name }} <span class="caret"></span>
+								</a>
+
+								<div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="{{ route('profile') }}">
+										{{ __('Ver perfil') }}
+									</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('planes') }}">
+										{{ __('Coins') }}
+										<span class="badge badge-roundtable">{{ Auth::user()->coins }}</span>
+									</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('logout') }}"
+									onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+									>
+										{{ __('Cerrar Sesión') }}
+									</a>
+
+									<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 										@csrf
 									</form>
-								</li>
-								@endguest
-							</ul>
-						</div>
-					</div>
-				</nav>
-				
-				@yield('content')
+								</div>
+							</li>
+						@endguest
+					</ul>
+				</div>
 			</div>
-			<script src="http://zeptojs.com/zepto.min.js"></script>
-			<!-- Incluyendo .js de Culqi JS -->
-			<script src="https://checkout.culqi.com/v2" type="text/javascript"></script>
-		</body>
-		</html>
+		</nav>	
+		@yield('content')
+	</div>
+	<!-- Zepto.js -->
+	<script src="http://zeptojs.com/zepto.min.js"></script>
+	<!-- Culqi.js -->
+	<script src="https://checkout.culqi.com/v2"></script>
+</body>
+</html>

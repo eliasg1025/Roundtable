@@ -11,8 +11,8 @@
 					<li class="grey">
 					<span style="font-size:40px; color:gray;">Gratis</span>
 					<!--<span style="font-size:20px; color:gray;">Gratis</span></li>-->
-					<li><span class="izq fa fa-check"></span> 10GB Storage</li>
-					<li><span class="izq fa fa-check"></span>20 Emails</li>
+					<li><span class="izq fa fa-check"></span>Perfil Empresarial</li>
+					<li><span class="izq fa fa-check"></span>3 imagenes y 1 video</li>
 					<li><span class="izq fa fa-check"></span>10 Domains</li>
 					<li><span class="izq fa fa-check"></span>1GB Bandwidth</li>
 					<li class="grey">
@@ -26,8 +26,8 @@
 					<li class="verde">Plan Premium</li>
 					<li class="grey">
 						<sup style="font-size:25px; color:#FF8008;">$</sup>
-						<span style="font-size:40px; color:#FF8008;">49.99</span>
-						<span style="font-size:20px; color:#FF8008;">al año</span>
+						<span style="font-size:40px; color:#FF8008;">49.9</span>
+						<span style="font-size:20px; color:#FF8008;">una vez</span>
 					</li>
 					<li><span class="izq fa fa-check"></span>10GB Storage</li>
 					<li><span class="izq fa fa-check"></span>10 Emails</li>
@@ -42,11 +42,11 @@
 			</div> 
 			<div class="columna col-lg-4">
 				<ul class="price" style="border:1px solid #FAA56E; box-shadow: 0 8px 12px 0 rgba(15, 15, 15, 0.2);" >
-					<li class="claro">Plan Basic</li>
+					<li class="claro">Plan Standard</li>
 					<li class="grey">
 						<sup style="font-size:25px; color:#C73A71;">$</sup>
-						<span style="font-size:40px; color:#C73A71;">29.99</span>
-						<span style="font-size:20px; color:#C73A71;">al año</span>
+						<span style="font-size:40px; color:#C73A71;">29.9</span>
+						<span style="font-size:20px; color:#C73A71;">una vez</span>
 					</li>
 					<li><span class="izq fa fa-check"></span>10GB Storage</li>
 					<li><span class="izq fa fa-check"></span>10 Emails</li>

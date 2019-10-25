@@ -59,3 +59,4 @@ require('./carousel');
 require('./helpers');
 require('./navbar');
 require('./culqi');
+require('./pusher-action.js');
