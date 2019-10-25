@@ -273,16 +273,10 @@
 					this.mos = false; 
 					this.cvv_size = 3 ;
 				}
-				/* if (newValue.length == 4 || newValue.length == 9 || newValue.length==14) {
-				this.cardnumber = newValue + ' ';
-				}*/
+				
 			},
 			cvc: function (newValue) {
-				/* this.cvc = window.event ? window.event.keyCode : e.which;
-				if ((this.cvc == 8) || (this.cvc == 46))
-				return true;
-
-				return /\d/.test(String.fromCharCode(this.cvc));*/
+				
 			},
 		}
 	}

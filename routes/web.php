@@ -19,6 +19,7 @@ Route::get('/planes','PlanesController@index')->name('planes');
 Route::get('/pagos/{product}/{slug}','PagosController@index')->name('pagos');
 Route::post('/pagos/process-payment', 'PagosController@processPayment');
 
+Route::get('/video', 'VideoController@video')->name('video');
 Route::get('/contact','contactController@contacto')->name('contacto');
 
 // Edit profile routes
