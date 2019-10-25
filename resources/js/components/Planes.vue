@@ -34,8 +34,8 @@
 					<li><span class="izq fa fa-check"></span>10 Domains</li>
 					<li><span class="izq fa fa-check"></span>1GB Bandwidth</li>
 					<li class="grey">
-						<a href="#" class="button have-to-login" data-toggle="modal" data-target="#login" v-if="data.loged == false">¡LO QUIERO!</a>
-						<a :href="'/pagos/plans/'+data.plans[2].slug" class="button" v-else-if="current_plan.plan_id <= 2">¡LO QUIERO!</a>
+						<a href="#" class="button have-to-login" data-toggle="modal" data-target="#login" v-if="data.loged == false">Adquirir</a>
+						<a :href="'/pagos/plans/'+data.plans[2].slug" class="button" v-else-if="current_plan.plan_id <= 2">Adquirir</a>
 						<a href="" class="button btn disabled" v-else>ADQUIRIDO</a>
 					</li>
 				</ul>
@@ -53,8 +53,8 @@
 					<li><span class="izq fa fa-check"></span>10 Domains</li>
 					<li><span class="izq fa fa-check"></span>1GB Bandwidth</li>
 					<li class="grey">
-						<a href="#" class="button have-to-login" data-toggle="modal" data-target="#login" v-if="data.loged == false">¡LO QUIERO!</a>
-						<a :href="'/pagos/plans/'+data.plans[1].slug" class="button" v-else-if="current_plan.plan_id <= 1">¡LO QUIERO!</a>
+						<a href="#" class="button have-to-login" data-toggle="modal" data-target="#login" v-if="data.loged == false">Adquirir</a>
+						<a :href="'/pagos/plans/'+data.plans[1].slug" class="button" v-else-if="current_plan.plan_id <= 1">Adquirir</a>
 						<a href="" class="button btn disabled" v-else>ADQUIRIDO</a>
 					</li>
 				</ul>
@@ -186,7 +186,7 @@
 
 	/* The "Sign Up" button */
 	.button {
-		background: linear-gradient(to right, #88be2e 0%, rgb(143, 214, 110) 51%, #10b725 100%);
+		background: linear-gradient(to right, #88be2e 0%, rgb(143, 214, 110) 51%, #aae747 100%);
 		transition: 0.5s;
 		background-size: 200% auto;
 		border: none;
@@ -195,7 +195,7 @@
 		text-align: center;
 		text-decoration: none;
 		font-size: 15px;
-		font-family: 'Roboto',sans-serif;
+		font-family: 'Nunito',sans-serif;
 		border-radius: 3px;
 	}
 
@@ -206,7 +206,7 @@
 
 	/* Change the width of the three columns to 100%
 	(to stack horizontally on small screens)*/ 
-	@media only screen and (max-width: 400px) {
+	@media only screen and (max-width: 769px) {
 		.columna {
 			width: 100%;
 			margin: 15px 15px 20PX 15px;

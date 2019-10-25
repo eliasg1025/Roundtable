@@ -38,7 +38,7 @@ export default {
 <style>
 /*href="/planes/pagos" target="_blank" */
 div>.b1{
-   background: linear-gradient(to right, #88be2e 0%, rgb(143, 214, 110) 51%, #10b725 100%);
+   background: linear-gradient(to right, #88be2e 0%, rgb(143, 214, 110) 51%, #aae747 100%);
 		transition: 0.5s;
 		background-size: 200% auto;
 		border: none;
@@ -47,9 +47,9 @@ div>.b1{
 		text-align: center;
 		text-decoration: none;
 		font-size: 15px;
-		font-family: 'Roboto',sans-serif;
+		font-family: 'Nunito',sans-serif;
 		border-radius: 3px;
-   width: 50%;
+        width: 60%;
  }
  
  
