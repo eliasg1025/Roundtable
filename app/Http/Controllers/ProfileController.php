@@ -7,9 +7,13 @@ use App\Message;
 use App\Offer;
 use App\OfferCertfication;
 use App\Operation;
+use App\TypeMessage;
 use App\User;
 use App\UserCertfication;
 use App\Video;
+use App\Traits\NotificationMessage;
+use App\Traits\UserData;
+use App\Events\NotificationEvent;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +22,9 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
+    use NotificationMessage;
+    use UserData;
+
     public function __construct()
     {
         $this->middleware(['auth','verified']);
@@ -30,11 +37,6 @@ class ProfileController extends Controller
 						->join('plans', 'plan_user.plan_id', '=', 'plans.id')
 						->where('user_id', $user->id)
 						->orderBy('plan_id', 'DESC') ////////////////////////////
-						->get();
-
-		$messages = DB::table('messages')
-						->where('user_id', $user->id)
-						->orderBy('created_at', 'DESC')
 						->get();
 
 		$sended_meetings = DB::table('meetings')
@@ -62,7 +64,6 @@ class ProfileController extends Controller
 		$data = [
 			'user' => $user,
 			'user_plans' => $plans,
-			'messages' => $messages,
 			'meetings' => $meetings,
 			'account_data' => $account_data,
 			'media_data' => $this->getMediaData($user),
@@ -312,13 +313,7 @@ class ProfileController extends Controller
 				$user->coins = $user->coins - $operation->coins_cost;
 				$user->save();
 
-				$message = new Message();
-				$message->title = 'Producto agregado';
-				$message->message = 'El producto fue agregado satisfactoriamente. Se han consumido ' . $operation->coins_cost . ' de tus coins.';
-				$message->date = Carbon::now();
-				$message->type = 'success';
-				$message->user_id = $user->id;
-				$message->save();
+				$this->createMessage('producto', $operation->coins_cost, 2, $user->id);
 
 				$data = array(
 					'code' => 200,
@@ -434,13 +429,7 @@ class ProfileController extends Controller
 
 				$user->coins = $user->coins - $operation->coins_cost;
 
-				$message = new Message();
-				$message->title = 'Certificado de producto agregado';
-				$message->message = 'El certificado fue agregado satisfactoriamente. Se han consumido ' . $operation->coins_cost . ' de tus coins.';
-				$message->date = Carbon::now();
-				$message->type = 'success';
-				$message->user_id = $user->id;
-				$message->save();
+				$this->createMessage('certificado de producto', $operation->coins_cost, 2, $user->id);
 	
 				$data = array(
 					'code' => 200,
@@ -561,13 +550,7 @@ class ProfileController extends Controller
 				$user_cert->user_id = $user->id;
 				$user_cert->save();
 
-				$message = new Message();
-				$message->title = 'Certificado agregado';
-				$message->message = 'El certificado fue agregado satisfactoriamente. Se han consumido ' . $operation->coins_cost . ' de tus coins.';
-				$message->date = Carbon::now();
-				$message->type = 'success';
-				$message->user_id = $user->id;
-				$message->save();
+				$this->createMessage('certificado', $operation->coins_cost, 2, $user->id);
 
 				$user->coins = $user->coins - $operation->coins_cost;
 				$user->save();
@@ -690,7 +673,7 @@ class ProfileController extends Controller
 		return response()->json($data, $data['code']);
 	}
 
-	// Get data functions
+	// Functions
 	
 	private function getDataMeetings($meetings, $type)
 	{
@@ -720,59 +703,5 @@ class ProfileController extends Controller
 			]);
 		}
 		return $data;
-	}
-
-    private function getRating($user)
-	{
-		$data = [
-			'value' => $user->ratings()->avg('value'),
-			'amount' => $user->ratings()->count(),
-			'show' => $user->ratings()->count() > 5 ? true : false,
-		];
-
-		return $data;
-	}
-
-	private function getCategories($user)
-	{
-		$categories = $user->categories()->get();
-		return $categories;
-	}
-
-	private function getOffers($user)
-	{
-		$offers = $user->offers()->get();
-		$data = [];
-
-		foreach($offers as $offer) {
-			$certifications = $offer->offer_certifications()->get();
-
-			array_push($data, [
-				'offer' => $offer,
-				'offer_category' => $offer->category()->get(),
-				'certifications' => $certifications,
-			]);
-
-			unset($certifications);
-		}
-
-		return $data;
-	}
-
-	private function getCertifications($user)
-	{
-		$user_certifications = $user->user_certifications()->get();
-		return $user_certifications;
-	}
-
-	private function getMediaData($user)
-	{
-		$images = $user->images()->get();
-		$videos = $user->videos()->get();
-
-		return [
-			'images' => $images,
-			'videos' => $videos
-		];
 	}
 }

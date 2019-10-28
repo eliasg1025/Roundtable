@@ -59,4 +59,5 @@ require('./carousel');
 require('./helpers');
 require('./navbar');
 require('./culqi');
+require('./notifications.js');
 require('./pusher-action.js');

@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="utf-8">
+	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+	<!-- CSRF Token -->
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Roundtable') }}  | Conectamos compradores de todo el mundo con alimentos peruanos 100% orgánicos y ecológicos</title>
+	<title>{{ config('app.name', 'Roundtable') }}  | Conectamos compradores de todo el mundo con alimentos peruanos 100% orgánicos y ecológicos</title>
 
-    <!-- Pusher.js -->
+	<!-- Pusher.js -->
 	<script src="https://js.pusher.com/5.0/pusher.min.js"></script>
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito|Roboto|Poppins" rel="stylesheet">
-    <link rel="shortcut icon" href="/img/logo/favicon.png" type="image/x-icon">
+	<!-- Scripts -->
+	<script src="{{ asset('js/app.js') }}" defer></script>
+	<!-- Fonts -->
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css?family=Nunito|Roboto|Poppins" rel="stylesheet">
+	<link rel="shortcut icon" href="/img/logo/favicon.png" type="image/x-icon">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+	<!-- Styles -->
+	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.1/tiny-slider.css">
 	<link rel="stylesheet" href="https://jaysalvat.github.io/vegas/releases/latest/vegas.min.css">
 </head>
@@ -84,24 +84,7 @@
 										</div>
 										<h5 class="dropdown-toolbar-title">Notificaciones (<span class="notif-count">0</span>)</h5>
 									</div>
-									<ul id="notification-list">
-										<li class="notification active">
-									      <div class="media">
-									        <div class="media-left mr-3">
-									          <div class="media-object">
-									            <img src="https://api.adorable.io/avatars/71/50.png" class="img-circle" alt="50x50" style="width: 50px; height: 50px;">
-									          </div>
-									        </div>
-									        <div class="media-body">
-									          <strong class="notification-title">Ahora tienes Plan Premium</strong>
-									          <!--p class="notification-desc">Extra description can go here</p-->
-									          <div class="notification-meta">
-									            <small class="timestamp">about a minute ago</small>
-									          </div>
-									        </div>
-									      </div>
-									  </li>
-									</ul>
+									<ul id="notification-list"></ul>
 									<div class="dropdown-footer text-center">
 										<a href="#">Ver todo</a>
 									</div>

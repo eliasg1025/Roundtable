@@ -42,7 +42,7 @@ class MeetController extends Controller
 				$message->message = 'Se ha enviado la invitacion a '. $recevier->commercial_name .' con éxito. Se han consumido ' . $operation->coins_cost . ' de tus coins.';
 				$message->date = Carbon::now();
 				$message->user_id = $sender->id;
-				$message->type = 'meet';
+				$message->type_message_id = 3;
 				$message->save();
 	
 				$data = [

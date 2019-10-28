@@ -33,6 +33,9 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center">
 					<p class="h6"><a class="text-green ml-2" href="/" target="_blank">©2018-2019 <span class="name-brand text-uppercase">Roundtable Perú</span> . Todos los derechos reservados</a></p>
 				</div>
+				<div class="col-md-12 text-muted text-center">
+					<small>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/"     title="Flaticon">www.flaticon.com</a></small>
+				</div>
 				<hr/>
 			</div>
 		</div>

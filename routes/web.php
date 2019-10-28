@@ -52,6 +52,9 @@ Route::get('/business/category/{slug}', 'BusinessController@category')->name('bu
 
 Route::get('/business/profile/{slug}', 'BusinessController@show')->name('business.show');
 
+// Return notifications
+Route::get('/profile/messages', 'Api\MessagesController@index');
+
 Route::get('/test', function () {
 	event(new App\Events\TestEvent('Test funciona!'));
 	return 'Enviado';
