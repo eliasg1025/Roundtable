@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="videos">
-            <video v-show="videoUsu" class="my-video"></video>
+            <video id="localVideo" class="my-video"></video>
             <video class="user-video"></video>
         </div>
         <div>
@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { Stream } from 'stream';
 
 export  default{
     //No olvidar que la videollamada se debe autoretomar la conversación
@@ -22,22 +23,28 @@ export  default{
     },
     mounted(){
         this.start=$('#start');
+        this.localVideo=$('#localVideo');
     },
     methods:{
+        gotStream(Stream) {
+              trace('Received local stream');
+              this.localVideo.srcObject = stream;
+              localStream = stream;
+             /*callButton.disabled = false;*/
+        },
         empezar: function(){
-          this.start.disabled=true
-             navigator.mediaDevices.getUserMedia({video: true, audio: true})
-             .then(gotStream)
+             /*navigator.mediaDevices.getUserMedia({video: true, audio: true})
+             .then(this.gotStream)
                 .catch(function(e) {
                     alert('getUserMedia() error: ' + e.name);
-                })  
-
-        },
-        videoUsu:function() {
-            localVideo.addEventListener('loadedmetadata', function() {
+                })  */
+                this.localVideo.addEventListener('loadedmetadata', function() {
                 trace('Local video videoWidth: ' + this.videoWidth +
                 'px,  videoHeight: ' + this.videoHeight + 'px');
             });
+        },
+        mostrar() {
+            
         }
     },
 }
