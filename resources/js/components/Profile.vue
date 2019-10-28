@@ -57,7 +57,7 @@
 								</a>
 								<a href="#" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#modalNotiMessages">
 									Notificaciones
-									<span class="badge badge-roundtable">{{ messages.length }}</span>
+									<span class="badge badge-roundtable">{{ messages_data.length }}</span>
 								</a>
 								<a href="#" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#modalNotiCoins">
 									Coins
@@ -343,7 +343,7 @@
 
 		<!-- Modal Noti Messages modalNotiMessages-->
 		<div class="modal fade" id="modalNotiMessages" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-body">
 						<div class="container d-flex">
@@ -352,10 +352,10 @@
 							</button>
 						</div>
 						
-						<div v-if="messages.length === 0">
+						<div v-if="messages_data.length === 0">
 							<div class="text-center">
 								<h5 class="modal-title h3">Notificaciones</h5>
-								<p class="display-4">{{ messages.length }}</p>
+								<p class="display-4">{{ messages_data.length }}</p>
 							</div>
 
 							<div class="text-center">
@@ -367,26 +367,15 @@
 							<div class="text-center">
 								<h5 class="modal-title h4">Notificaciones</h5>
 							</div>
-							<hr><br>
+							<hr>
 							
-							<div v-for="message in messages" :key="message.id" class="message card mt-2">
-								<div class="row no-gutters">
-									<div class="col-md-2">
-										<div v-if="message.type == 'success'" class="icon-message success-icon">
-											<i class="far fa-check-circle"></i>
-										</div>
-										<div v-else-if="message.type == 'transaction'" class="icon-message transaction-icon">
-											<i class="fas fa-certificate"></i>
-										</div>
-										<div v-else-if="message.type == 'meet'" class="icon-message meet-icon">
-											<i class="fas fa-address-book"></i>
-										</div>
-									</div>
-									<div class="col-md-10">
-										<div class="card-body">
-											<h5 class="card-title">{{ message.title }} <span class="message-date"><i class="far fa-clock"></i> {{ message_date(message.date) }}</span></h5>
-											<p class="card-text">{{ message.message }}</p>
-										</div>
+							<div v-for="message_data in messages_data" :key="message_data.message.id" class="message card mt-2">
+								<div class="media">
+									<img class="align-self-center icon-message p-3 mr-3" :src="message_data.type_message.picture" alt="notification-icon">
+									<div class="media-body p-3">
+										<h5 class="mt-1">{{ message_data.message.title }} </h5>
+										<p class="mb-0">{{ message_data.message.message }}</p>
+										<span class="message-date"><i class="far fa-clock"></i> {{ message_date(message_data.message.date) }}</span>
 									</div>
 								</div>
 							</div>
@@ -421,7 +410,7 @@
 			return {
 				user: this.data.user,
 				user_plans: this.data.user_plans,
-				messages: this.data.messages,
+				messages_data: [],
 				media_data: this.data.media_data,
 				rating: this.data.account_data.rating_data,
 				data_offers: this.data.account_data.offers_data,
@@ -442,7 +431,12 @@
 			}
 		},
 		mounted() {
-			console.log(Moment)
+			axios.get('/profile/messages')
+				.then(res => {
+					// console.log(res.data.data)
+					this.messages_data = res.data.data;
+				})
+				.catch(err => console.log(err.response))
 		},
 		methods: {
 			activePanel(option) {
@@ -468,9 +462,7 @@
 	}
 	
 	.message .icon-message {
-		display: block;
-		font-size: 60px;
-		text-align: center;
+		width: 100px;
 	}
 
 	.success-icon {
@@ -802,6 +794,10 @@
 
 		.message {
 			font-size: 12px;
+		}
+
+		.message h5 {
+			font-size: 14px;
 		}
 
 		.message-date {

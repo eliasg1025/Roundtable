@@ -221,7 +221,6 @@
 										.then(res => location.reload())
 								})
 								.catch(err => {
-									console.log(err.response)
 									Swal.fire({title: err.response.data.message, type: 'error', timer: 2000})
 								})
 						}

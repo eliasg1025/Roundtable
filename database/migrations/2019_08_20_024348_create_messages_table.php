@@ -17,12 +17,14 @@ class CreateMessagesTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
 			$table->text('message');
+            $table->boolean('viewed')->default(false);
 			$table->timestamp('date');
-			$table->string('type', 30);
             $table->timestamps();
             //
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->bigInteger('type_message_id')->unsigned();
+            $table->foreign('type_message_id')->references('id')->on('type_messages');
         });
     }
 

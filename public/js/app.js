@@ -3407,6 +3407,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -3626,6 +3629,7 @@ __webpack_require__.r(__webpack_exports__);
                 location.href = "/profile";
               });
             })["catch"](function (err) {
+              console.log(err.response);
               var message_error = JSON.parse(err.response.data.message);
               console.log(message_error);
               Swal.fire({
@@ -4193,17 +4197,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -4221,7 +4214,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       user: this.data.user,
       user_plans: this.data.user_plans,
-      messages: this.data.messages,
+      messages_data: [],
       media_data: this.data.media_data,
       rating: this.data.account_data.rating_data,
       data_offers: this.data.account_data.offers_data,
@@ -4242,18 +4235,25 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    console.log(Moment);
+    var _this = this;
+
+    axios.get('/profile/messages').then(function (res) {
+      // console.log(res.data.data)
+      _this.messages_data = res.data.data;
+    })["catch"](function (err) {
+      return console.log(err.response);
+    });
   },
   methods: {
     activePanel: function activePanel(option) {
-      var _this = this;
+      var _this2 = this;
 
       this.active = true;
       this.panel = 0;
       this.loading = true;
       setTimeout(function () {
-        _this.panel = option;
-        _this.loading = false;
+        _this2.panel = option;
+        _this2.loading = false;
       }, 500);
     },
     message_date: function message_date(date) {
@@ -6582,7 +6582,6 @@ __webpack_require__.r(__webpack_exports__);
               return location.reload();
             });
           })["catch"](function (err) {
-            console.log(err.response);
             Swal.fire({
               title: err.response.data.message,
               type: 'error',
@@ -11703,7 +11702,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/*href=\"/planes/pagos\" target=\"_blank\" */\ndiv>.b1{\r\n   background: linear-gradient(to right, #88be2e 0%, rgb(143, 214, 110) 51%, #aae747 100%);\r\n\t\ttransition: 0.5s;\r\n\t\tbackground-size: 200% auto;\r\n\t\tborder: none;\r\n\t\tcolor: white;\r\n\t\tpadding: 7px 15px;\r\n\t\ttext-align: center;\r\n\t\ttext-decoration: none;\r\n\t\tfont-size: 15px;\r\n\t\tfont-family: 'Nunito',sans-serif;\r\n\t\tborder-radius: 3px;\r\n        width: 60%;\n}\n.b1:hover{\r\n   background-position: right center;\r\n\t\tcolor:rgb(243, 245, 245);\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*href=\"/planes/pagos\" target=\"_blank\" */\ndiv>.b1{\n   background: linear-gradient(to right, #88be2e 0%, rgb(143, 214, 110) 51%, #aae747 100%);\n\t\ttransition: 0.5s;\n\t\tbackground-size: 200% auto;\n\t\tborder: none;\n\t\tcolor: white;\n\t\tpadding: 7px 15px;\n\t\ttext-align: center;\n\t\ttext-decoration: none;\n\t\tfont-size: 15px;\n\t\tfont-family: 'Nunito',sans-serif;\n\t\tborder-radius: 3px;\n        width: 60%;\n}\n.b1:hover{\n   background-position: right center;\n\t\tcolor:rgb(243, 245, 245);\n}\n", ""]);
 
 // exports
 
@@ -11798,7 +11797,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.e12{\r\n    margin-top: -100px;\r\n    /*width:50%;*/\r\n    padding-left: 0px;\r\n    padding-right: 0px;\n}\n.ca .cabeza{\r\n    color: #ffffff;\r\n    background-image: linear-gradient(to right, #cb2d3e 0%, #cb2d3e 51%, #ef473a 100%);\r\n    margin-bottom: 40px;\r\n    padding-top: 130px;\r\n    padding-bottom: 20px;\r\n    padding-left: 20px;\r\n    padding-right: 20px;\n}\n.ce .cabeza{\r\n    color: #ffffff!important;\r\n    background-image: linear-gradient(to right, #000000 0%, #020202 51%, #0b0e0a 100%);\r\n    margin-bottom: 40px!important;\r\n    padding-top: 130px!important;\r\n    padding-bottom: 20px!important;\r\n    padding-left: 20px!important;\r\n    padding-right: 20px!important;\n}\n.cabeza{\r\n    position: relative;\r\n    display: inline-block;\r\n    width: auto;\r\n    text-decoration: none;\r\n    font-weight:500;\n}\n.emo{\r\n    float:left;\r\n    font-size: 2.6em;\r\n    color: #ce1b28;\n}\n.cuerpo{\r\n    color:#606961;\r\n    margin-top: 10px;\r\n    font-size: 16px;\r\n    font-weight: 400;\n}\n.parrafo{\r\n    margin-left: 60px;\r\n    margin-bottom: 40px;\r\n    font-family: 'Roboto',sans-serif;\r\n    /*font-style: normal;*/\n}\n.lista{\r\n    list-style-type: none;\n}\n.lis{\r\n    margin-top: 16px;\r\n    padding-right: 16px;\n}\n.lis>label{\r\n    font-family: 'Roboto',sans-serif;\r\n    /*font-size: normal;*/\n}\n.lis label>span{\r\n    color: #ce1b28;\r\n    font-size: 1.3em;\r\n    font-weight: 500;\n}\n.caja> .ee12{\r\n    height: 2.8em;\n}\n.caja> .ee{\r\n    width: 49%;\n}\n.caja> .ee .ee12{\r\n    margin-top:4px;\r\n    border-color: #7777;\r\n    height: 2.8em;\r\n    width:100%;\r\n    border-style: solid;\r\n    padding:7px 7px 7px 7px;\r\n    border-width: 2px;\n}\n.caja > .ee12{\r\n    margin-top:4px;\r\n    border-color: #7777;\r\n    height: 2.8em;\r\n    width:266px;\r\n    border-style: solid;\r\n    padding:7px 7px 7px 7px;\r\n    border-width: 2px;\n}\n.caja >textarea{\r\n    margin-top:4px;\r\n    border-color: #7777;\r\n    border-style: solid;\r\n    border-width: 2px;\r\n    padding:7px 7px 7px 7px;\n}\n.lis >button{\r\n        background-image: linear-gradient(to right, #56ab2f 0%, #a8e063 51%, #56ab2f 100%);\r\n\t\ttransition: 0.5s;\r\n\t\tbackground-size: 200% auto;\r\n\t\tborder: none;\r\n\t\tcolor: white;\r\n\t\tpadding: 7px 15px;\r\n\t\ttext-align: center;\r\n\t\ttext-decoration: none;\r\n\t\tfont-size: 15px;\r\n\t\tfont-family: 'Roboto',sans-serif;\r\n\t\tborder-radius: 3px;\r\n        width: 100%;\n}\n.lis >button:hover{\r\n    background-position: right center;\r\n\t\tcolor:rgb(231, 255, 255);\n}\n::-webkit-input-placeholder { color: #7777;\n}\ninput[class=\"ee12\"]:focus{\r\n  outline: 2px solid #ef473a;\n}\ntextarea:focus{\r\n    outline: 2px solid  #ef473a;\n}\n@media screen and (max-width: 768px){\n.e12{\r\n        float: left;\r\n        margin-top: 20px;\r\n        margin-left: 15px;\n}\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.e12{\n    margin-top: -100px;\n    /*width:50%;*/\n    padding-left: 0px;\n    padding-right: 0px;\n}\n.ca .cabeza{\n    color: #ffffff;\n    background-image: linear-gradient(to right, #cb2d3e 0%, #cb2d3e 51%, #ef473a 100%);\n    margin-bottom: 40px;\n    padding-top: 130px;\n    padding-bottom: 20px;\n    padding-left: 20px;\n    padding-right: 20px;\n}\n.ce .cabeza{\n    color: #ffffff!important;\n    background-image: linear-gradient(to right, #000000 0%, #020202 51%, #0b0e0a 100%);\n    margin-bottom: 40px!important;\n    padding-top: 130px!important;\n    padding-bottom: 20px!important;\n    padding-left: 20px!important;\n    padding-right: 20px!important;\n}\n.cabeza{\n    position: relative;\n    display: inline-block;\n    width: auto;\n    text-decoration: none;\n    font-weight:500;\n}\n.emo{\n    float:left;\n    font-size: 2.6em;\n    color: #ce1b28;\n}\n.cuerpo{\n    color:#606961;\n    margin-top: 10px;\n    font-size: 16px;\n    font-weight: 400;\n}\n.parrafo{\n    margin-left: 60px;\n    margin-bottom: 40px;\n    font-family: 'Roboto',sans-serif;\n    /*font-style: normal;*/\n}\n.lista{\n    list-style-type: none;\n}\n.lis{\n    margin-top: 16px;\n    padding-right: 16px;\n}\n.lis>label{\n    font-family: 'Roboto',sans-serif;\n    /*font-size: normal;*/\n}\n.lis label>span{\n    color: #ce1b28;\n    font-size: 1.3em;\n    font-weight: 500;\n}\n.caja> .ee12{\n    height: 2.8em;\n}\n.caja> .ee{\n    width: 49%;\n}\n.caja> .ee .ee12{\n    margin-top:4px;\n    border-color: #7777;\n    height: 2.8em;\n    width:100%;\n    border-style: solid;\n    padding:7px 7px 7px 7px;\n    border-width: 2px;\n}\n.caja > .ee12{\n    margin-top:4px;\n    border-color: #7777;\n    height: 2.8em;\n    width:266px;\n    border-style: solid;\n    padding:7px 7px 7px 7px;\n    border-width: 2px;\n}\n.caja >textarea{\n    margin-top:4px;\n    border-color: #7777;\n    border-style: solid;\n    border-width: 2px;\n    padding:7px 7px 7px 7px;\n}\n.lis >button{\n        background-image: linear-gradient(to right, #56ab2f 0%, #a8e063 51%, #56ab2f 100%);\n\t\ttransition: 0.5s;\n\t\tbackground-size: 200% auto;\n\t\tborder: none;\n\t\tcolor: white;\n\t\tpadding: 7px 15px;\n\t\ttext-align: center;\n\t\ttext-decoration: none;\n\t\tfont-size: 15px;\n\t\tfont-family: 'Roboto',sans-serif;\n\t\tborder-radius: 3px;\n        width: 100%;\n}\n.lis >button:hover{\n    background-position: right center;\n\t\tcolor:rgb(231, 255, 255);\n}\n::-webkit-input-placeholder { color: #7777;\n}\ninput[class=\"ee12\"]:focus{\n  outline: 2px solid #ef473a;\n}\ntextarea:focus{\n    outline: 2px solid  #ef473a;\n}\n@media screen and (max-width: 768px){\n.e12{\n        float: left;\n        margin-top: 20px;\n        margin-left: 15px;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -12045,7 +12044,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.message {\n\t\tfont-size: 15px;\n\t\tfont-weight: 300;\n}\n.message .icon-message {\n\t\tdisplay: block;\n\t\tfont-size: 60px;\n\t\ttext-align: center;\n}\n.success-icon {\n\t\tcolor:#88BE2E;\n}\n.transaction-icon {\n\t\tcolor: #FD7E14;\n}\n.meet-icon {\n\t\tcolor: rgb(13, 75, 168);\n}\n.message-date {\n\t\tfont-size: 12px;\n}\n.welcome-img {\n\t\theight: 200px;\n}\n.btn-view-profile {\n\t\tfont-family: 'Poppins', sans-serif;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 1.1rem;\n\t\twidth: 380px;\n\t\tfloat: right;\n\t\tbackground-color: rgb(136, 190, 46);\n\t\tborder-color: rgb(136, 190, 46);\n\t\ttransition: all 0.6s;\n\t\tcolor: #fff;\n}\n.btn-view-profile:hover {\n\t\tbackground-color: rgba(136, 190, 46, 0.9);\n\t\tborder-color: rgba(136, 190, 46, 0.9);\n\t\tmargin-right: 5px;\n\t\ttransition: all 0.6s;\n\t\tcolor: #fff;\n}\n.user_profile {\n\t\tpadding: 50px 0;\n    \tbackground: #f1f1f1;\n}\n.box-profile-img {\n\t    padding: 10px;\n    \tbackground: #fff;\n    \tbox-shadow: 0px 0px 5px 5px #ececec;\n    \tborder-radius: 10px;\n}\n.box-profile-img .head {\n\t\tpadding: 10px;\n}\n.box-profile-img .body {\n\t\tmargin: 25px 0 5px 0;\n}\n.notifications {\n\t\tmargin-top: 15px;\n\t\tfont-size: 15px;\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.notifications a {\n\t\tcolor: #212529;\n\t\ttransition: ease 0.5s;\n}\n.notifications a:hover {\n\t\ttransition: all 0.3s;\n\t\tcolor: #88be2e;\n\t\tmargin-left: 5px;\n\t\tmargin-right: 5px;\n\t\tcursor: pointer;\n}\n\n\t/* User options */\n.user-options {\n\t\tdisplay: flex;\n\t\tflex-flow: row wrap;\n\t\tborder-bottom: 0;\n\t\tlist-style: none;\n\t\tpadding-left: 0;\n\t\tmargin-bottom: 0;\n}\n.user-options > li {\n\t\twidth: 45%;\n\t\tmargin: 0 auto;\n\t\tborder-radius: 15px;\n}\nfigure.snip {\n\t\tfont-family: 'Poppins', sans-serif;\n\t\tfont-weight: 600;\n\t\tcolor: #ececec;\n\t\tposition: relative;\n\t\toverflow: hidden;\n\t\tmin-width: 220px;\n\t\tmax-width: 400px;\n\t\theight: 205px;\n\t\twidth: 100%;\n\t\tbackground: #000000;\n\t\ttext-align: center;\n\t\tborder-radius: 15px;\n\t\tbox-shadow: 0px 0px 5px 5px #ececec;\n}\nfigure.snip * {\n\t\tbox-sizing: border-box;\n\t\ttransition: all 0.3s;\n}\nfigure.snip img {\n\t\topacity: 1;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\ttransition: all 0.6s;\n}\nfigure.snip figcaption {\n\t\tposition: absolute;\n\t\tbottom: 0;\n\t\tleft: 18%;\n\t\tright: 18%;\n\t\theight: 100%;\n}\nfigure.snip figcaption > div {\n\t\toverflow: hidden;\n\t\twidth: 100%;\n\t\tposition: relative;\n\t\theight: 50%;\n}\nfigure.snip h5, figure.snip span {\n\t\tmargin: 0;\n\t\tpadding: 10px 15px;\n\t\tdisplay: inline-block;\n\t\twidth: 100%;\n\t\tfont-weight: 700;\n}\nfigure.snip span {\n\t\tbackground: #88be2e;\n\t\tcolor: #fff; /*#4d4d4d*/\n\t\tposition: relative;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\tposition: absolute;\n\t\ttransform: translate3d(0%, 100%, 0);\n\t\tborder-radius: 5px;\n}\nfigure.snip h5 {\n\t\tbackground: rgba(51, 51, 51, 0.5);\n\t\ttransform: translate3d(0%, 0%, 0);\n\t\tborder-radius: 5px;\n\t\tfont-size: 17px;\n}\nfigure.snip a {\n\t\tleft: 0;\n\t\tright: 0;\n\t\ttop: 0;\n\t\tbottom: 0;\n\t\tposition: absolute;\n\t\tcolor: #ffffff;\n}\nfigure.snip:hover img, figure.snip.hover img {\n\t\topacity: 0.35;\n\t\t-webkit-filter: blur(5px);\n\t\tfilter: blur(5px);\n\t\ttransform: scale(1.1);\n}\nfigure.snip:hover figcaption span, figure.snip.hover figcaption span {\n\t\ttransform: translate3d(0%, 0%, 0);\n}\nfigure.snip:hover figcaption h5, figure.snip.hover figcaption h5 {\n\t\ttransform: translate3d(0%, -100%, 0);\n}\n.adv {\n\t\twidth: 100%;\n}\n.adv a {\n\t\tcolor: #fff;\n\t\tbackground-color: rgb(136, 190, 46);\n\t\ttransition: all 0.6s;\n}\n.adv a:hover {\n\t\tcolor: #fff;\n\t\ttransform: scale(1.05);\n\t\ttransition: all 0.6s;\n}\n\n\t/* Lateral User Options */\n.lateral-user-options {\n\t\tlist-style: none;\n\t\tdisplay: none;\n}\n.item-topbar {\n\t\tcolor: black;\n\t\ttransition: all ease 500ms;\n\t\ttext-align: center;\n\t\tvertical-align: middle;\n}\n.item-topbar:hover {\n\t\tbackground-color:#E9ECEF;\n\t\tcolor: #88BE2E;\n\t\tmargin-top: 1%;\n\t\tmargin-bottom: -1%;\n}\n.panels {\n\t\tmargin-top: 10px;\n}\n.panel {\n\t\tmargin-top: 25px;\n}\n.spinner-container {\n\t\tmargin-top: 50px;\n}\n@media (max-width: 768px) {\nfigure.snip {\n\t\t\theight: 180px;\n}\n.box-profile-img h4 {\n\t\t\tfont-size: 16px;\n}\n.box-profile-img ul {\n\t\t\tfont-size: 12px;\n}\n.welcome-text {\n\t\t\tpadding: 0px 25px;\n}\n.adv .row{\n\t\t\tmargin: 0;\n}\n}\n@media (max-width: 768px) and (orientation: landscape){\n.btn-view-profile {\n\t\t\twidth: 60%;\n\t\t\tfloat: none;\n}\n.box-profile-img {\n\t\t\twidth: 60%;\n\t\t\tmargin: 0 auto;\n}\n.box-profile-img h4 {\n\t\t\tfont-size: 23px;\n}\n.box-profile-img ul {\n\t\t\tfont-size: 16px;\n}\nfigure.snip {\n\t\t\tmargin: 0 auto 1rem;\n}\n}\n@media (max-width: 568px) {\n.box-profile-img {\n\t\t\tmargin-bottom: 35px;\n}\n.btn-view-profile {\n\t\t\twidth: 80%;\n\t\t\tfloat: none;\n}\n.user-options > li {\n\t\t\twidth: 100%;\n}\n.lateral-user-options {\n\t\t\tdisplay: block;\n}\n.top-user-options {\n\t\t\tdisplay: none;\n}\n.box-profile-img h4 {\n\t\t\tfont-size: 26px;\n}\n.box-profile-img ul {\n\t\t\tfont-size: 18px;\n}\n.panel-alert {\n\t\t\tfont-size: 14px;\n}\n.message {\n\t\t\tfont-size: 12px;\n}\n.message-date {\n\t\t\tfont-size: 10px;\n}\n}\n@media (max-width: 414px) and (orientation: portrait) {\n.welcome-text__title {\n\t\t\tfont-size: 2.5rem;\n}\n.welcome-text__message {\n\t\t\tfont-size: 1.1rem;\n}\n}\n", ""]);
+exports.push([module.i, "\n.message {\n\t\tfont-size: 15px;\n\t\tfont-weight: 300;\n}\n.message .icon-message {\n\t\twidth: 100px;\n}\n.success-icon {\n\t\tcolor:#88BE2E;\n}\n.transaction-icon {\n\t\tcolor: #FD7E14;\n}\n.meet-icon {\n\t\tcolor: rgb(13, 75, 168);\n}\n.message-date {\n\t\tfont-size: 12px;\n}\n.welcome-img {\n\t\theight: 200px;\n}\n.btn-view-profile {\n\t\tfont-family: 'Poppins', sans-serif;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 1.1rem;\n\t\twidth: 380px;\n\t\tfloat: right;\n\t\tbackground-color: rgb(136, 190, 46);\n\t\tborder-color: rgb(136, 190, 46);\n\t\ttransition: all 0.6s;\n\t\tcolor: #fff;\n}\n.btn-view-profile:hover {\n\t\tbackground-color: rgba(136, 190, 46, 0.9);\n\t\tborder-color: rgba(136, 190, 46, 0.9);\n\t\tmargin-right: 5px;\n\t\ttransition: all 0.6s;\n\t\tcolor: #fff;\n}\n.user_profile {\n\t\tpadding: 50px 0;\n    \tbackground: #f1f1f1;\n}\n.box-profile-img {\n\t    padding: 10px;\n    \tbackground: #fff;\n    \tbox-shadow: 0px 0px 5px 5px #ececec;\n    \tborder-radius: 10px;\n}\n.box-profile-img .head {\n\t\tpadding: 10px;\n}\n.box-profile-img .body {\n\t\tmargin: 25px 0 5px 0;\n}\n.notifications {\n\t\tmargin-top: 15px;\n\t\tfont-size: 15px;\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.notifications a {\n\t\tcolor: #212529;\n\t\ttransition: ease 0.5s;\n}\n.notifications a:hover {\n\t\ttransition: all 0.3s;\n\t\tcolor: #88be2e;\n\t\tmargin-left: 5px;\n\t\tmargin-right: 5px;\n\t\tcursor: pointer;\n}\n\n\t/* User options */\n.user-options {\n\t\tdisplay: flex;\n\t\tflex-flow: row wrap;\n\t\tborder-bottom: 0;\n\t\tlist-style: none;\n\t\tpadding-left: 0;\n\t\tmargin-bottom: 0;\n}\n.user-options > li {\n\t\twidth: 45%;\n\t\tmargin: 0 auto;\n\t\tborder-radius: 15px;\n}\nfigure.snip {\n\t\tfont-family: 'Poppins', sans-serif;\n\t\tfont-weight: 600;\n\t\tcolor: #ececec;\n\t\tposition: relative;\n\t\toverflow: hidden;\n\t\tmin-width: 220px;\n\t\tmax-width: 400px;\n\t\theight: 205px;\n\t\twidth: 100%;\n\t\tbackground: #000000;\n\t\ttext-align: center;\n\t\tborder-radius: 15px;\n\t\tbox-shadow: 0px 0px 5px 5px #ececec;\n}\nfigure.snip * {\n\t\tbox-sizing: border-box;\n\t\ttransition: all 0.3s;\n}\nfigure.snip img {\n\t\topacity: 1;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\ttransition: all 0.6s;\n}\nfigure.snip figcaption {\n\t\tposition: absolute;\n\t\tbottom: 0;\n\t\tleft: 18%;\n\t\tright: 18%;\n\t\theight: 100%;\n}\nfigure.snip figcaption > div {\n\t\toverflow: hidden;\n\t\twidth: 100%;\n\t\tposition: relative;\n\t\theight: 50%;\n}\nfigure.snip h5, figure.snip span {\n\t\tmargin: 0;\n\t\tpadding: 10px 15px;\n\t\tdisplay: inline-block;\n\t\twidth: 100%;\n\t\tfont-weight: 700;\n}\nfigure.snip span {\n\t\tbackground: #88be2e;\n\t\tcolor: #fff; /*#4d4d4d*/\n\t\tposition: relative;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\tposition: absolute;\n\t\ttransform: translate3d(0%, 100%, 0);\n\t\tborder-radius: 5px;\n}\nfigure.snip h5 {\n\t\tbackground: rgba(51, 51, 51, 0.5);\n\t\ttransform: translate3d(0%, 0%, 0);\n\t\tborder-radius: 5px;\n\t\tfont-size: 17px;\n}\nfigure.snip a {\n\t\tleft: 0;\n\t\tright: 0;\n\t\ttop: 0;\n\t\tbottom: 0;\n\t\tposition: absolute;\n\t\tcolor: #ffffff;\n}\nfigure.snip:hover img, figure.snip.hover img {\n\t\topacity: 0.35;\n\t\t-webkit-filter: blur(5px);\n\t\tfilter: blur(5px);\n\t\ttransform: scale(1.1);\n}\nfigure.snip:hover figcaption span, figure.snip.hover figcaption span {\n\t\ttransform: translate3d(0%, 0%, 0);\n}\nfigure.snip:hover figcaption h5, figure.snip.hover figcaption h5 {\n\t\ttransform: translate3d(0%, -100%, 0);\n}\n.adv {\n\t\twidth: 100%;\n}\n.adv a {\n\t\tcolor: #fff;\n\t\tbackground-color: rgb(136, 190, 46);\n\t\ttransition: all 0.6s;\n}\n.adv a:hover {\n\t\tcolor: #fff;\n\t\ttransform: scale(1.05);\n\t\ttransition: all 0.6s;\n}\n\n\t/* Lateral User Options */\n.lateral-user-options {\n\t\tlist-style: none;\n\t\tdisplay: none;\n}\n.item-topbar {\n\t\tcolor: black;\n\t\ttransition: all ease 500ms;\n\t\ttext-align: center;\n\t\tvertical-align: middle;\n}\n.item-topbar:hover {\n\t\tbackground-color:#E9ECEF;\n\t\tcolor: #88BE2E;\n\t\tmargin-top: 1%;\n\t\tmargin-bottom: -1%;\n}\n.panels {\n\t\tmargin-top: 10px;\n}\n.panel {\n\t\tmargin-top: 25px;\n}\n.spinner-container {\n\t\tmargin-top: 50px;\n}\n@media (max-width: 768px) {\nfigure.snip {\n\t\t\theight: 180px;\n}\n.box-profile-img h4 {\n\t\t\tfont-size: 16px;\n}\n.box-profile-img ul {\n\t\t\tfont-size: 12px;\n}\n.welcome-text {\n\t\t\tpadding: 0px 25px;\n}\n.adv .row{\n\t\t\tmargin: 0;\n}\n}\n@media (max-width: 768px) and (orientation: landscape){\n.btn-view-profile {\n\t\t\twidth: 60%;\n\t\t\tfloat: none;\n}\n.box-profile-img {\n\t\t\twidth: 60%;\n\t\t\tmargin: 0 auto;\n}\n.box-profile-img h4 {\n\t\t\tfont-size: 23px;\n}\n.box-profile-img ul {\n\t\t\tfont-size: 16px;\n}\nfigure.snip {\n\t\t\tmargin: 0 auto 1rem;\n}\n}\n@media (max-width: 568px) {\n.box-profile-img {\n\t\t\tmargin-bottom: 35px;\n}\n.btn-view-profile {\n\t\t\twidth: 80%;\n\t\t\tfloat: none;\n}\n.user-options > li {\n\t\t\twidth: 100%;\n}\n.lateral-user-options {\n\t\t\tdisplay: block;\n}\n.top-user-options {\n\t\t\tdisplay: none;\n}\n.box-profile-img h4 {\n\t\t\tfont-size: 26px;\n}\n.box-profile-img ul {\n\t\t\tfont-size: 18px;\n}\n.panel-alert {\n\t\t\tfont-size: 14px;\n}\n.message {\n\t\t\tfont-size: 12px;\n}\n.message h5 {\n\t\t\tfont-size: 14px;\n}\n.message-date {\n\t\t\tfont-size: 10px;\n}\n}\n@media (max-width: 414px) and (orientation: portrait) {\n.welcome-text__title {\n\t\t\tfont-size: 2.5rem;\n}\n.welcome-text__message {\n\t\t\tfont-size: 1.1rem;\n}\n}\n", ""]);
 
 // exports
 
@@ -76627,6 +76626,33 @@ var staticRenderFns = [
             ]
           ),
           _vm._v(" "),
+          _c("div", { staticClass: "col-md-12 text-muted text-center" }, [
+            _c("small", [
+              _vm._v("Icons made by "),
+              _c(
+                "a",
+                {
+                  attrs: {
+                    href: "https://www.flaticon.com/authors/smashicons",
+                    title: "Smashicons"
+                  }
+                },
+                [_vm._v("Smashicons")]
+              ),
+              _vm._v(" from "),
+              _c(
+                "a",
+                {
+                  attrs: {
+                    href: "https://www.flaticon.com/",
+                    title: "Flaticon"
+                  }
+                },
+                [_vm._v("www.flaticon.com")]
+              )
+            ])
+          ]),
+          _vm._v(" "),
           _c("hr")
         ])
       ])
@@ -77683,7 +77709,7 @@ var render = function() {
                         "\n\t\t\t\t\t\t\t\tNotificaciones\n\t\t\t\t\t\t\t\t"
                       ),
                       _c("span", { staticClass: "badge badge-roundtable" }, [
-                        _vm._v(_vm._s(_vm.messages.length))
+                        _vm._v(_vm._s(_vm.messages_data.length))
                       ])
                     ]
                   ),
@@ -78334,13 +78360,13 @@ var render = function() {
       [
         _c(
           "div",
-          { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
               _c("div", { staticClass: "modal-body" }, [
                 _vm._m(22),
                 _vm._v(" "),
-                _vm.messages.length === 0
+                _vm.messages_data.length === 0
                   ? _c("div", [
                       _c("div", { staticClass: "text-center" }, [
                         _c("h5", { staticClass: "modal-title h3" }, [
@@ -78348,7 +78374,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("p", { staticClass: "display-4" }, [
-                          _vm._v(_vm._s(_vm.messages.length))
+                          _vm._v(_vm._s(_vm.messages_data.length))
                         ])
                       ]),
                       _vm._v(" "),
@@ -78360,83 +78386,46 @@ var render = function() {
                         _vm._m(24),
                         _vm._v(" "),
                         _c("hr"),
-                        _c("br"),
                         _vm._v(" "),
-                        _vm._l(_vm.messages, function(message) {
+                        _vm._l(_vm.messages_data, function(message_data) {
                           return _c(
                             "div",
                             {
-                              key: message.id,
+                              key: message_data.message.id,
                               staticClass: "message card mt-2"
                             },
                             [
-                              _c("div", { staticClass: "row no-gutters" }, [
-                                _c("div", { staticClass: "col-md-2" }, [
-                                  message.type == "success"
-                                    ? _c(
-                                        "div",
-                                        {
-                                          staticClass:
-                                            "icon-message success-icon"
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass: "far fa-check-circle"
-                                          })
-                                        ]
-                                      )
-                                    : message.type == "transaction"
-                                    ? _c(
-                                        "div",
-                                        {
-                                          staticClass:
-                                            "icon-message transaction-icon"
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass: "fas fa-certificate"
-                                          })
-                                        ]
-                                      )
-                                    : message.type == "meet"
-                                    ? _c(
-                                        "div",
-                                        {
-                                          staticClass: "icon-message meet-icon"
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass: "fas fa-address-book"
-                                          })
-                                        ]
-                                      )
-                                    : _vm._e()
-                                ]),
+                              _c("div", { staticClass: "media" }, [
+                                _c("img", {
+                                  staticClass:
+                                    "align-self-center icon-message p-3 mr-3",
+                                  attrs: {
+                                    src: message_data.type_message.picture,
+                                    alt: "notification-icon"
+                                  }
+                                }),
                                 _vm._v(" "),
-                                _c("div", { staticClass: "col-md-10" }, [
-                                  _c("div", { staticClass: "card-body" }, [
-                                    _c("h5", { staticClass: "card-title" }, [
-                                      _vm._v(_vm._s(message.title) + " "),
-                                      _c(
-                                        "span",
-                                        { staticClass: "message-date" },
-                                        [
-                                          _c("i", {
-                                            staticClass: "far fa-clock"
-                                          }),
-                                          _vm._v(
-                                            " " +
-                                              _vm._s(
-                                                _vm.message_date(message.date)
-                                              )
+                                _c("div", { staticClass: "media-body p-3" }, [
+                                  _c("h5", { staticClass: "mt-1" }, [
+                                    _vm._v(
+                                      _vm._s(message_data.message.title) + " "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", { staticClass: "mb-0" }, [
+                                    _vm._v(_vm._s(message_data.message.message))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("span", { staticClass: "message-date" }, [
+                                    _c("i", { staticClass: "far fa-clock" }),
+                                    _vm._v(
+                                      " " +
+                                        _vm._s(
+                                          _vm.message_date(
+                                            message_data.message.date
                                           )
-                                        ]
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("p", { staticClass: "card-text" }, [
-                                      _vm._v(_vm._s(message.message))
-                                    ])
+                                        )
+                                    )
                                   ])
                                 ])
                               ])
@@ -97248,6 +97237,8 @@ __webpack_require__(/*! ./navbar */ "./resources/js/navbar.js");
 
 __webpack_require__(/*! ./culqi */ "./resources/js/culqi.js");
 
+__webpack_require__(/*! ./notifications.js */ "./resources/js/notifications.js");
+
 __webpack_require__(/*! ./pusher-action.js */ "./resources/js/pusher-action.js");
 
 /***/ }),
@@ -100523,6 +100514,34 @@ window.onscroll = function () {
 
 /***/ }),
 
+/***/ "./resources/js/notifications.js":
+/*!***************************************!*\
+  !*** ./resources/js/notifications.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var notifications_data = [];
+axios.get('/profile/messages').then(function (res) {
+  notifications_data = res.data.data;
+  var notificationsWrapper = $('.dropdown-notifications');
+  var notificationsToggle = notificationsWrapper.find('a[data-toggle]');
+  var notificationsCountElem = notificationsToggle.find('i[data-count]');
+  var notifications = notificationsWrapper.find('ul#notification-list');
+  notifications_data.forEach(function (element) {
+    var existingNotifications = notifications.html();
+    var newNotificationHtml = "\n\t\t\t\t<li class=\"notification active\">\n\t\t\t\t\t<div class=\"media\">\n\t\t\t\t\t<div class=\"media-left mr-3\">\n\t\t\t\t\t\t<div class=\"media-object\">\n\t\t\t\t\t\t<img src=\"".concat(element.type_message.picture, "\" class=\"img-circle\" alt=\"50x50\" style=\"width: 50px; height: 50px;\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"media-body\">\n\t\t\t\t\t\t<strong class=\"notification-title\">").concat(element.message.message, "</strong>\n\t\t\t\t\t\t<!--p class=\"notification-desc\">").concat(element.message.message, "</p-->\n\t\t\t\t\t\t<div class=\"notification-meta\">\n\t\t\t\t\t\t<small class=\"timestamp\">").concat(Moment(element.message.date, "YYYY-MM-DD hh:mm:ss").fromNow(), "</small>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</li>\n\t\t\t");
+    notifications.html(existingNotifications + newNotificationHtml);
+  });
+  notificationsCountElem.attr('data-count', notifications_data.length);
+  notificationsWrapper.find('.notif-count').text(notifications_data.length);
+  notificationsWrapper.show();
+})["catch"](function (err) {
+  console.log(err.response);
+});
+
+/***/ }),
+
 /***/ "./resources/js/pusher-action.js":
 /*!***************************************!*\
   !*** ./resources/js/pusher-action.js ***!
@@ -100530,23 +100549,23 @@ window.onscroll = function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var notificationsWrapper = $('.dropdown-notifications');
-var notificationsToggle = notificationsWrapper.find('a[data-toggle]');
-var notificationsCountElem = notificationsToggle.find('i[data-count]');
-var notificationsCount = parseInt(notificationsCountElem.data('count'));
-var notifications = notificationsWrapper.find('ul#notification-list');
 Pusher.logToConsole = true;
 var pusher = new Pusher('4bcc98f6c9321c69044d', {
   cluster: 'us2',
   forceTLS: true
 });
-var channel = pusher.subscribe('test-channel');
-channel.bind('test-event', function (data) {
+var channel = pusher.subscribe('notification-channel');
+channel.bind('notification-event', function (data) {
+  var notificationsWrapper = $('.dropdown-notifications');
+  var notificationsToggle = notificationsWrapper.find('a[data-toggle]');
+  var notificationsCountElem = notificationsToggle.find('i[data-count]');
+  var notificationsCount = parseInt(notificationsCountElem.data('count'));
+  var notifications = notificationsWrapper.find('ul#notification-list');
   var existingNotifications = notifications.html();
-  var avatar = Math.floor(Math.random() * (71 - 20 + 1)) + 20;
-  var newNotificationHtml = "\n\t  <li class=\"notification active\">\n\t      <div class=\"media\">\n\t        <div class=\"media-left\">\n\t          <div class=\"media-object\">\n\t            <img src=\"https://api.adorable.io/avatars/71/".concat(avatar, ".png\" class=\"img-circle\" alt=\"50x50\" style=\"width: 50px; height: 50px;\">\n\t          </div>\n\t        </div>\n\t        <div class=\"media-body\">\n\t          <strong class=\"notification-title\">").concat(data.message, "</strong>\n\t          <!--p class=\"notification-desc\">Extra description can go here</p-->\n\t          <div class=\"notification-meta\">\n\t            <small class=\"timestamp\">about a minute ago</small>\n\t          </div>\n\t        </div>\n\t      </div>\n\t  </li>\n\t");
+  console.log(notificationsCountElem);
+  var newNotificationHtml = "\n\t  <li class=\"notification active\">\n\t      <div class=\"media\">\n\t        <div class=\"media-left mr-3\">\n\t          <div class=\"media-object\">\n\t            <img src=\"".concat(data.picture, "\" class=\"img-circle\" alt=\"50x50\" style=\"width: 50px; height: 50px;\">\n\t          </div>\n\t        </div>\n\t        <div class=\"media-body\">\n\t          <strong class=\"notification-title\">").concat(data.message, "</strong>\n\t          <!--p class=\"notification-desc\">Extra description can go here</p-->\n\t          <div class=\"notification-meta\">\n\t            <small class=\"timestamp\">").concat(Moment(data.date, "YYYY-MM-DD hh:mm:ss").fromNow(), "</small>\n\t          </div>\n\t        </div>\n\t      </div>\n\t  </li>\n\t");
   notifications.html(newNotificationHtml + existingNotifications);
-  notificationsCount += 1;
+  notificationsCount++;
   notificationsCountElem.attr('data-count', notificationsCount);
   notificationsWrapper.find('.notif-count').text(notificationsCount);
   notificationsWrapper.show();
@@ -100616,8 +100635,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\Roundtable\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\Roundtable\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\LENOVO\code\Roundtable\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\LENOVO\code\Roundtable\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

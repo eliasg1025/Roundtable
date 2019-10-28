@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(CoinPacksTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(OperationsTableSeeder::class);
-        $this->call(StatesTableSeeder::class);
+		$this->call(StatesTableSeeder::class);
+		$this->call(TypeMessagesSeeder::class);
 
         // Seeders para datos de prueba
         $this->call(UsersTableSeeder::class);

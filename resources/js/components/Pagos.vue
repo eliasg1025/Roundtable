@@ -212,6 +212,7 @@
 										})
 								})
 								.catch(err => {
+									console.log(err.response);
 									let message_error = JSON.parse(err.response.data.message);
 									console.log(message_error);
 									
