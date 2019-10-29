@@ -6542,7 +6542,8 @@ __webpack_require__.r(__webpack_exports__);
   //cuando se corte la conexión por problemas de red
   data: function data() {
     return {
-      start: ''
+      start: '',
+      localVideo: ''
     };
   },
   mounted: function mounted() {
@@ -6551,22 +6552,35 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     gotStream: function gotStream(Stream) {
-      trace('Received local stream');
-      this.localVideo.srcObject = stream;
-      localStream = stream;
+      this.trace('Received local stream');
+      /*this.localVideo.srcObject = stream;*/
+
+      try {
+        this.localVideo.srcObject = stream;
+        localStream = stream;
+        this.localVideo = ('loadedmetadata', function () {
+          this.trace('Local video videoWidth: ' + this.videoWidth + 'px,  videoHeight: ' + this.videoHeight + 'px');
+        });
+      } catch (error) {
+        this.src = window.URL.createObjectURL(stream);
+      }
       /*callButton.disabled = false;*/
+
     },
     empezar: function empezar() {
-      /*navigator.mediaDevices.getUserMedia({video: true, audio: true})
-      .then(this.gotStream)
-         .catch(function(e) {
-             alert('getUserMedia() error: ' + e.name);
-         })  */
-      this.localVideo.addEventListener('loadedmetadata', function () {
-        trace('Local video videoWidth: ' + this.videoWidth + 'px,  videoHeight: ' + this.videoHeight + 'px');
+      this.trace('Requesting local stream');
+      navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true
+      }).then(this.gotStream)["catch"](function (e) {
+        alert('getUserMedia() error: ' + e.name);
       });
     },
-    mostrar: function mostrar() {}
+    mostrar: function mostrar() {},
+    trace: function trace(arg) {
+      var now = (window.performance.now() / 1000).toFixed(3);
+      console.log(now + ': ', arg);
+    }
   }
 });
 
@@ -88639,7 +88653,15 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("section", [
-    _vm._m(0),
+    _c("div", { staticClass: "videos" }, [
+      _c("video", {
+        staticClass: "my-video",
+        attrs: { id: "localVideo", autoplay: "", muted: "", playsinline: "" },
+        domProps: { muted: true }
+      }),
+      _vm._v(" "),
+      _c("video", { staticClass: "user-video" })
+    ]),
     _vm._v(" "),
     _c("div", [
       _c("button", { attrs: { id: "start" }, on: { click: _vm.empezar } }, [
@@ -88648,18 +88670,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "videos" }, [
-      _c("video", { staticClass: "my-video", attrs: { id: "localVideo" } }),
-      _vm._v(" "),
-      _c("video", { staticClass: "user-video" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

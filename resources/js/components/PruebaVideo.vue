@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="videos">
-            <video id="localVideo" class="my-video"></video>
+            <video id="localVideo" class="my-video" autoplay muted playsinline></video>
             <video class="user-video"></video>
         </div>
         <div>
@@ -13,12 +13,15 @@
 <script>
 import { Stream } from 'stream';
 
+
 export  default{
     //No olvidar que la videollamada se debe autoretomar la conversación
     //cuando se corte la conexión por problemas de red
+    
     data(){
         return{
            start:'',
+           localVideo:'',
         }
     },
     mounted(){
@@ -26,25 +29,39 @@ export  default{
         this.localVideo=$('#localVideo');
     },
     methods:{
+        
         gotStream(Stream) {
-              trace('Received local stream');
-              this.localVideo.srcObject = stream;
-              localStream = stream;
+              this.trace('Received local stream');
+              /*this.localVideo.srcObject = stream;*/
+            try {
+                this.localVideo.srcObject = stream;
+                localStream = stream;
+                this.localVideo=('loadedmetadata', function() {
+                 this.trace('Local video videoWidth: ' + this.videoWidth +
+                'px,  videoHeight: ' + this.videoHeight + 'px');
+                 });
+            } catch (error) {
+                this.src = window.URL.createObjectURL(stream);
+            }
+              
              /*callButton.disabled = false;*/
         },
         empezar: function(){
-             /*navigator.mediaDevices.getUserMedia({video: true, audio: true})
-             .then(this.gotStream)
+            this.trace('Requesting local stream');
+            navigator.mediaDevices.getUserMedia({video: true, audio: true})
+               .then(this.gotStream)
                 .catch(function(e) {
                     alert('getUserMedia() error: ' + e.name);
-                })  */
-                this.localVideo.addEventListener('loadedmetadata', function() {
-                trace('Local video videoWidth: ' + this.videoWidth +
-                'px,  videoHeight: ' + this.videoHeight + 'px');
-            });
+                })
+                
+              
         },
         mostrar() {
             
+        },
+        trace(arg) {
+            var now = (window.performance.now() / 1000).toFixed(3);
+            console.log(now + ': ', arg);
         }
     },
 }
