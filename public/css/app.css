@@ -15554,6 +15554,18 @@ select:focus {
   color: #88BE2E;
 }
 
+.scrollable-menu {
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+}
+
+.scrollable-menu-lg {
+  height: auto;
+  max-height: 323.96px;
+  overflow-x: hidden;
+}
+
 /* Reescribiendo estilo bootstrap */
 
 .table th,

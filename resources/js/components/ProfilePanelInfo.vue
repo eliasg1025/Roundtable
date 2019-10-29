@@ -935,12 +935,6 @@
 		border-radius: 6px;
 	}
 
-	.scrollable-menu {
-		height: auto;
-		max-height: 200px;
-		overflow-x: hidden;
-	}
-
 	.multi-preview-info {
 		font-family: 'Poppins', sans-serif;
 		font-size: 20px;

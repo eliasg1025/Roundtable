@@ -131,6 +131,19 @@ input:focus, select:focus {
 	color: #88BE2E;
 }
 
+.scrollable-menu {
+	height: auto;
+	max-height: 200px;
+	overflow-x: hidden;
+}
+
+.scrollable-menu-lg {
+	height: auto;
+	max-height: 80.99px * 4;
+	overflow-x: hidden;
+}
+
+
 /* Reescribiendo estilo bootstrap */
 .table th, .table td {
 	vertical-align: middle;

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Meeting;
 use App\Message;
 use App\Operation;
+use App\Traits\NotificationMessage;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,8 @@ use Illuminate\Http\Request;
 
 class MeetController extends Controller
 {
+    use NotificationMessage;
+
     public function __construct()
     {
         $this->middleware(['auth','verified']);
@@ -37,13 +40,7 @@ class MeetController extends Controller
 				$sender->coins = $sender->coins - $operation->coins_cost;
 				$sender->save();
 
-				$message = new Message();
-				$message->title = 'Reunion agendada';
-				$message->message = 'Se ha enviado la invitacion a '. $recevier->commercial_name .' con éxito. Se han consumido ' . $operation->coins_cost . ' de tus coins.';
-				$message->date = Carbon::now();
-				$message->user_id = $sender->id;
-				$message->type_message_id = 3;
-				$message->save();
+				$this->createMessage('reunion', $operation->coins_cost, 3, $sender->id, $recevier->commercial_name);
 	
 				$data = [
 					'code' => 200,
