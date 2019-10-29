@@ -54,6 +54,13 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
 		],
+
+        'user_verification' => [
+            'driver' => 'local',
+            'root' => storage_path('app/user_verification'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
 		
 		'users' => [
             'driver' => 'local',

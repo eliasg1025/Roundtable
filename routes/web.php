@@ -52,10 +52,11 @@ Route::get('/business/category/{slug}', 'BusinessController@category')->name('bu
 
 Route::get('/business/profile/{slug}', 'BusinessController@show')->name('business.show');
 
-// Return notifications
+// Api
 Route::get('/profile/messages', 'Api\MessagesController@index');
+Route::get('/profile/operations', 'Api\OperationsController@index');
 
 Route::get('/test', function () {
-	event(new App\Events\TestEvent('Test funciona!'));
-	return 'Enviado';
+	$operation = App\Operation::where('name', 'Solicitar verificación')->first();
+	return response()->json($operation);
 });

@@ -230,7 +230,7 @@
 					<small><span class="text-muted">Solamente se aceptará archivos de formato pdf</span></small>
 				</div>
 			</div>
-			<button @click="sendRucFile()" class="btn btn-lg btn-block btn-save" style="margin-top: 25px;">
+			<button @click="validatePlan()" class="btn btn-lg btn-block btn-save" style="margin-top: 25px;">
 				Enviar Ficha RUC
 			</button>
 		</div>
@@ -837,11 +837,18 @@
 						if (res.value === true) {
 
 							let formData = new FormData();
-							formData.append('video', this.account_video)
+							formData.append('video', this.account_video);
 
 							const config = {
 								headers: {'content-type': 'multipart/form-data'}
 							}
+
+							Swal.fire({
+								title: 'Guardando',
+								onBeforeOpen: () => {
+									Swal.showLoading();
+								}
+							})
 
 							axios.post('/profile/add-account-video', formData, config)
 								.then(res => {
@@ -866,6 +873,14 @@
 				})
 					.then(res => {
 						if (res.value == true) {
+
+							Swal.fire({
+								title: 'Borrando',
+								onBeforeOpen: () => {
+									Swal.showLoading();
+								}
+							})
+
 							axios.delete(`/profile/delete-account-video/${video_id}`)
 								.then(res => {
 									Swal.fire({title: res.data.message, type: res.data.status, timer:1500, showConfirmButton: false})
@@ -891,22 +906,62 @@
 				this.ruc_file = this.$refs.rucFile.files[0]
 				this.ruc_file_name = this.ruc_file.name
 			},
-			sendRucFile() {
-				Swal.fire({
-					title: 'Enviando',
-					onBeforeOpen: () => {
-						Swal.showLoading();
-					}
-				})
+			validatePlan() {
+				let operation = this.$parent.operations[4]; // Solicitat verificacion
 
-				axios.post('/validacion/process-ruc-file/', {
-					file: '',
-				})
+				switch (this.$parent.current_plan.slug) {
+					case 'premium':	
+						this.sendRucFile();
+						break;
+
+					case 'standard':
+						Swal.fire({
+							title: `Estas consumiendo ${operation.coins_cost} coins en esta operación`,
+							text: '¿Deseas continuar?',
+							type: 'info',
+							confirmButtonColor: '#3085d6',
+							cancelButtonColor: '#d33',
+							confirmButtonText: 'Si',
+							cancelButtonText: 'Cancelar',
+							showCancelButton: true,
+						})
+							.then(res => {
+								this.sendRucFile();
+							})
+
+						break;
+
+					case 'free':
+						Swal.fire({
+							title: 'No puede realizar esta operación',
+							text: 'Usted tiene el Plan Free',
+							type: 'error',
+							timer: 2000,
+						})
+						break;
+				}
+			},
+			sendRucFile() {
+				let formData = new FormData();
+				formData.append('file', this.ruc_file);
+
+				const config = {
+					headers: {'content-type': 'multipart/form-data'}
+				}
+
+				Swal.fire({
+						title: 'Enviando',
+						onBeforeOpen: () => {
+							Swal.showLoading();
+						}
+					})
+
+				axios.post('/validacion/process-ruc-file', formData, config)
 					.then(res => {
-						console.log(res.data)
+						console.log(res.data);
 					})
 					.catch(err => {
-						console.log(err.response.data)
+						console.log(err.response.data);
 					})
 			}
 		}

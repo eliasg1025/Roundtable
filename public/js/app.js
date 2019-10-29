@@ -4215,6 +4215,7 @@ __webpack_require__.r(__webpack_exports__);
       user: this.data.user,
       user_plans: this.data.user_plans,
       messages_data: [],
+      operations: [],
       media_data: this.data.media_data,
       rating: this.data.account_data.rating_data,
       data_offers: this.data.account_data.offers_data,
@@ -4242,6 +4243,11 @@ __webpack_require__.r(__webpack_exports__);
       _this.messages_data = res.data.data;
     })["catch"](function (err) {
       return console.log(err.response);
+    });
+    axios.get('/profile/operations').then(function (res) {
+      _this.operations = res.data.data;
+    })["catch"](function (err) {
+      return console.log(err.reponse);
     });
   },
   methods: {
@@ -6000,6 +6006,12 @@ __webpack_require__.r(__webpack_exports__);
               'content-type': 'multipart/form-data'
             }
           };
+          Swal.fire({
+            title: 'Guardando',
+            onBeforeOpen: function onBeforeOpen() {
+              Swal.showLoading();
+            }
+          });
           axios.post('/profile/add-account-video', formData, config).then(function (res) {
             Swal.fire({
               title: res.data.message,
@@ -6031,6 +6043,12 @@ __webpack_require__.r(__webpack_exports__);
         showCancelButton: true
       }).then(function (res) {
         if (res.value == true) {
+          Swal.fire({
+            title: 'Borrando',
+            onBeforeOpen: function onBeforeOpen() {
+              Swal.showLoading();
+            }
+          });
           axios["delete"]("/profile/delete-account-video/".concat(video_id)).then(function (res) {
             Swal.fire({
               title: res.data.message,
@@ -6061,16 +6079,56 @@ __webpack_require__.r(__webpack_exports__);
       this.ruc_file = this.$refs.rucFile.files[0];
       this.ruc_file_name = this.ruc_file.name;
     },
+    validatePlan: function validatePlan() {
+      var _this9 = this;
+
+      var operation = this.$parent.operations[4]; // Solicitat verificacion
+
+      switch (this.$parent.current_plan.slug) {
+        case 'premium':
+          this.sendRucFile();
+          break;
+
+        case 'standard':
+          Swal.fire({
+            title: "Estas consumiendo ".concat(operation.coins_cost, " coins en esta operaci\xF3n"),
+            text: '¿Deseas continuar?',
+            type: 'info',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si',
+            cancelButtonText: 'Cancelar',
+            showCancelButton: true
+          }).then(function (res) {
+            _this9.sendRucFile();
+          });
+          break;
+
+        case 'free':
+          Swal.fire({
+            title: 'No puede realizar esta operación',
+            text: 'Usted tiene el Plan Free',
+            type: 'error',
+            timer: 2000
+          });
+          break;
+      }
+    },
     sendRucFile: function sendRucFile() {
+      var formData = new FormData();
+      formData.append('file', this.ruc_file);
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      };
       Swal.fire({
         title: 'Enviando',
         onBeforeOpen: function onBeforeOpen() {
           Swal.showLoading();
         }
       });
-      axios.post('/validacion/process-ruc-file/', {
-        file: ''
-      }).then(function (res) {
+      axios.post('/validacion/process-ruc-file', formData, config).then(function (res) {
         console.log(res.data);
       })["catch"](function (err) {
         console.log(err.response.data);
@@ -80707,7 +80765,7 @@ var render = function() {
           staticStyle: { "margin-top": "25px" },
           on: {
             click: function($event) {
-              return _vm.sendRucFile()
+              return _vm.validatePlan()
             }
           }
         },

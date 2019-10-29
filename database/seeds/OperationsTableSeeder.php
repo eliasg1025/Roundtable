@@ -31,5 +31,10 @@ class OperationsTableSeeder extends Seeder
         $operation->name = 'Agendar reuniones';
         $operation->coins_cost = 10;
         $operation->save();
+
+        $operation = new Operation();
+        $operation->name = 'Solicitar verificación';
+        $operation->coins_cost = 10;
+        $operation->save();
     }
 }

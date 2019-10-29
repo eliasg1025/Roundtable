@@ -411,6 +411,7 @@
 				user: this.data.user,
 				user_plans: this.data.user_plans,
 				messages_data: [],
+				operations: [],
 				media_data: this.data.media_data,
 				rating: this.data.account_data.rating_data,
 				data_offers: this.data.account_data.offers_data,
@@ -436,7 +437,13 @@
 					// console.log(res.data.data)
 					this.messages_data = res.data.data;
 				})
-				.catch(err => console.log(err.response))
+				.catch(err => console.log(err.response));
+
+			axios.get('/profile/operations')
+				.then(res => {
+					this.operations = res.data.data;
+				})
+				.catch(err => console.log(err.reponse));
 		},
 		methods: {
 			activePanel(option) {
