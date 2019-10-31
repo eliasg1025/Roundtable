@@ -202,7 +202,7 @@
 			<span class="text-uppercase h5">Validación</span>
 		</div>
 		<div class="panel-info-section">
-			<div class="panel-alert alert alert-secondary mt-3" role="alert">
+			<div v-if="verified !== 2" class="panel-alert alert alert-secondary mt-3" role="alert">
 				Si quieres obtener una cuenta verificada, sigue los siguientes pasos:
 				<br><br>
 				<ol style="margin-left: 15px;">
@@ -212,27 +212,51 @@
 					<li>¡Listo! ya tienes una cuenta verificada.</li>
 				</ol>
 			</div>
-			<div class="container">
-				<p class="h5">¿Como obtener ficha RUC?</p>
-				<iframe width="727" height="409" src="https://www.youtube.com/embed/zH66mH2wIN8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-			</div>
-			<br>
-			<div class="container">
-				<p class="h5">Ingresa ficha ruc:</p>
-				<div class="custom-file">
-					<input
-						type="file" class="custom-file-input"
-						id="rucFile" accept="application/pdf"
-						ref="rucFile"
-						@change="handleFile()"
-					>
-					<label class="custom-file-label" for="rucFile"><i class="fas fa-file-pdf"></i> {{ruc_file_name}}</label>
-					<small><span class="text-muted">Solamente se aceptará archivos de formato pdf</span></small>
+			<div v-if="verified === 0">
+				<div class="container">
+					<p class="h5">¿Como obtener ficha RUC?</p>
+					<iframe width="727" height="409" src="https://www.youtube.com/embed/zH66mH2wIN8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 				</div>
+				<br>
+				<div class="container">
+					<p class="h5">Ingresa ficha ruc:</p>
+					<div class="custom-file">
+						<input
+							type="file" class="custom-file-input"
+							id="rucFile" accept="application/pdf"
+							ref="rucFile"
+							@change="handleFile()"
+						>
+						<label class="custom-file-label" for="rucFile"><i class="fas fa-file-pdf"></i> {{ruc_file_name}}</label>
+						<small><span class="text-muted">Solamente se aceptará archivos de formato pdf</span></small>
+					</div>
+				</div>
+				<button @click="validatePlan()" class="btn btn-lg btn-block btn-save" style="margin-top: 25px;">
+					Enviar Ficha RUC
+				</button>
 			</div>
-			<button @click="validatePlan()" class="btn btn-lg btn-block btn-save" style="margin-top: 25px;">
-				Enviar Ficha RUC
-			</button>
+			<div v-else-if="verified == 1">
+				<div class="container">
+					<p class="h5">Ingresa código de verificación:</p>
+					<div class="custom-file">
+						<input type="text" class="form-control" v-model="verificationCode" maxlength="30">
+					</div>
+				</div>
+				<button @click="validateAccount()" class="btn btn-lg btn-block btn-save" style="margin-top: 25px;">
+					Validar
+				</button>
+			</div>
+			<div v-else-if="verified == 2">
+				<div class="container my-2">
+					<div class="media">
+						<img class="align-self-center mr-3" src="\img\notification-icons\success.svg" style="width: 150px;">
+						<div class="media-body align-self-center">
+							<h3 class="mt-0">Verificado exitosamente</h3>
+						</div>
+					</div>			
+				</div>
+				
+			</div>
 		</div>
 		<!-- End -->
 
@@ -474,6 +498,7 @@
 				description: '',
 				profile_img: '',
 				cover_img: '',
+				verified: '',
 				images: [],
 				videos: [],
 				plans: [],
@@ -491,6 +516,8 @@
 				account_img_name: '',
 				account_video_name: '',
 				ruc_file_name: '',
+				//
+				verificationCode: '',
 			}
 		},
 		created() {
@@ -506,6 +533,7 @@
 			this.images = this.media_data.images
 			this.videos = this.media_data.videos
 			this.user_categories = this.categories_data
+			this.verified = this.user.verified
 
 			//
 			this.upload_profile_img_name = 'Seleccione una imagen'
@@ -572,8 +600,8 @@
 
 				return {
 					'number': number,
-					'can': number > 0 ? true : false,
-					'limit': this.current_plan.is_best ? true : false,
+					'can': number > 0,
+					'limit': !!this.current_plan.is_best,
 				}
 			},
 			might_add_videos() {
@@ -581,8 +609,8 @@
 
 				return  {
 					'number': number,
-					'can': number > 0 ? true : false,
-					'limit': this.current_plan.is_best ? true : false,
+					'can': number > 0,
+					'limit': !!this.current_plan.is_best,
 				}
 			}
 		},
@@ -654,7 +682,7 @@
 					showCancelButton: true,
 				})
 					.then(res => {
-						if (res.value == true) {
+						if (res.value === true) {
 							this.user_categories.forEach((element, index) => {
 								if (element.id === category_id) {
 									this.user_categories.splice(index, 1)
@@ -674,7 +702,7 @@
 					showCancelButton: true,
 				})
 					.then(res => {
-						if (res.value == true) {
+						if (res.value === true) {
 							axios.put(`/profile/user`, {
 								name: this.name,
 								commercial_name: this.commercial_name,
@@ -730,7 +758,7 @@
 							}
 
 							// Comprobar el contenido del formData
-							for (var key of formData.entries()) {
+							for (let key of formData.entries()) {
 								console.log(key[0] + ', ' + key[1]);
 							}
 
@@ -934,7 +962,7 @@
 					case 'free':
 						Swal.fire({
 							title: 'No puede realizar esta operación',
-							text: 'Usted tiene el Plan Free',
+							text: 'Es necesario el Plan Standard o Premium para poder verificar tu cuenta',
 							type: 'error',
 							timer: 2000,
 						})
@@ -959,10 +987,46 @@
 				axios.post('/validacion/process-ruc-file', formData, config)
 					.then(res => {
 						console.log(res.data);
+						this.resultAlert(res.data);
 					})
 					.catch(err => {
 						console.log(err.response.data);
+						this.resultAlert(err.response.data);
 					})
+			},
+            validateAccount() {
+			    Swal.fire({
+			    	title: 'Verificando código',
+			    	onBeforeOpen: () => {
+			    		Swal.showLoading();
+			    	}
+			    })
+
+			    axios.post('/validacion/validate-account', {
+			    	code: this.verificationCode
+			    })
+			    	.then(res => {
+			    		console.log(res.data);
+			    		this.resultAlert(res.data);
+			    	})
+			    	.catch(err => {
+			    		console.log(err.response.data);
+			    		this.resultAlert(err.response.data);
+			    	})
+			},
+			resultAlert(data){
+				Swal.fire({
+	    			title: data.message,
+	    			text: data.text,
+	    			type: data.status,
+	    		})
+	    			.then(res => {
+	    				if (data.status === 'success') {
+	    					location.reload();
+	    				} else {
+	    					console.log('ok');
+	    				}
+	    			})
 			}
 		}
 	}

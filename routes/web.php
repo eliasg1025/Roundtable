@@ -43,6 +43,7 @@ Route::delete('/profile/delete-cert/{id}', 'ProfileController@deleteCert');
 
 Route::post('/profile/update-contact-info', 'ProfileController@updateContactInfo');
 Route::post('/validacion/process-ruc-file', 'ValidacionController@processRucFile');
+Route::post('/validacion/validate-account', 'ValidacionController@validateAccount');
 Route::post('/meet/accept-meet', 'MeetController@acceptMeet');
 
 Route::get('/business', 'BusinessController@index')->name('business');
@@ -57,6 +58,6 @@ Route::get('/profile/messages', 'Api\MessagesController@index');
 Route::get('/profile/operations', 'Api\OperationsController@index');
 
 Route::get('/test', function () {
-	$operation = App\Operation::where('name', 'Solicitar verificación')->first();
-	return response()->json($operation);
+	$user = App\User::where('uuid', 'ZVIjs')->first();
+	return response()->json($user);
 });

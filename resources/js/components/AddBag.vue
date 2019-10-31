@@ -17,11 +17,9 @@ export default {
     data(){
         return{
             items:{
-            cantidad: this.cantidad,
-            price: this.cost,
+				cantidad: this.cantidad,
+				price: this.cost,
             }
-            
-
         }
     },
     methods:{

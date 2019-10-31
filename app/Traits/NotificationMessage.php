@@ -30,6 +30,7 @@ trait NotificationMessage
 
 		switch ($elemento) {
 			case 'bienvenida':
+				
 				$username = User::find($user_id)->commercial_name;
 
 				$message->title = 'Bienvenido ' . $username;
@@ -40,7 +41,19 @@ trait NotificationMessage
 				$message->title = ucfirst($elemento). ' agendada';
 				$message->message = 'Se ha enviado la invitacion a '. $recevier_name .' con éxito. Se han consumido ' . $cost . ' de tus coins.';
 				break;
-			
+				
+			case 'envio_ruc':
+				$message->title = 'Ficha RUC enviada';
+				$message->message = 'Se ha enviado la Ficha RUC. Se ha consumido '.$cost.' coins de tu cuenta.';
+				break;
+
+			case 'verificacion':
+				$username = User::find($user_id)->commercial_name;
+
+				$message->title = 'Cuenta verificada';
+				$message->message = '¡Felicidades!, ahora '. $username . ' es una empresa verificada.';
+				break;
+				
 			default:
 				$message->title = ucfirst($elemento) . ' agregado';
 				$message->message = 'El '. $elemento . ' fue agregado satisfactoriamente. Se han consumido ' . $cost . ' de tus coins.';

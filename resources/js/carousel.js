@@ -44,7 +44,7 @@ if (document.getElementById('vendedores_destacados') !== null && document.getEle
 	});
 }
 
-if (document.getElementById('vendedores_destacados') !== null && document.getElementById('vendedores_destacados').hasChildNodes()) {
+if (document.getElementById('empresas_mas_visitadas') !== null && document.getElementById('empresas_mas_visitadas').hasChildNodes()) {
 	const slider_mv = Tiny.tns({
 		container: '#empresas_mas_visitadas',
 		slideBy: 1,
