@@ -5,7 +5,7 @@
 		</div>
 		<div :id="name_id" >
 			<card-business
-				v-for="(company, index) in data" :key="index"
+				v-for="(company, index) in data" :key="company.id"
 				:company="company"
 				:loged="loged"
 			>

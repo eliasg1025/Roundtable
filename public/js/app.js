@@ -5580,6 +5580,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user', 'media_data', 'current_plan', 'categories_data'],
   data: function data() {
@@ -5593,6 +5617,7 @@ __webpack_require__.r(__webpack_exports__);
       description: '',
       profile_img: '',
       cover_img: '',
+      verified: '',
       images: [],
       videos: [],
       plans: [],
@@ -5609,7 +5634,9 @@ __webpack_require__.r(__webpack_exports__);
       upload_cover_img_name: '',
       account_img_name: '',
       account_video_name: '',
-      ruc_file_name: ''
+      ruc_file_name: '',
+      //
+      verificationCode: ''
     };
   },
   created: function created() {
@@ -5626,7 +5653,8 @@ __webpack_require__.r(__webpack_exports__);
     this.cover_img = this.user.cover_img;
     this.images = this.media_data.images;
     this.videos = this.media_data.videos;
-    this.user_categories = this.categories_data; //
+    this.user_categories = this.categories_data;
+    this.verified = this.user.verified; //
 
     this.upload_profile_img_name = 'Seleccione una imagen';
     this.upload_cover_img_name = 'Seleccione una imagen';
@@ -5686,16 +5714,16 @@ __webpack_require__.r(__webpack_exports__);
       var number = this.current_plan.images - this.images.length;
       return {
         'number': number,
-        'can': number > 0 ? true : false,
-        'limit': this.current_plan.is_best ? true : false
+        'can': number > 0,
+        'limit': !!this.current_plan.is_best
       };
     },
     might_add_videos: function might_add_videos() {
       var number = this.current_plan.videos - this.videos.length;
       return {
         'number': number,
-        'can': number > 0 ? true : false,
-        'limit': this.current_plan.is_best ? true : false
+        'can': number > 0,
+        'limit': !!this.current_plan.is_best
       };
     }
   },
@@ -5767,7 +5795,7 @@ __webpack_require__.r(__webpack_exports__);
         cancelButtonText: 'Cancelar',
         showCancelButton: true
       }).then(function (res) {
-        if (res.value == true) {
+        if (res.value === true) {
           _this2.user_categories.forEach(function (element, index) {
             if (element.id === category_id) {
               _this2.user_categories.splice(index, 1);
@@ -5788,7 +5816,7 @@ __webpack_require__.r(__webpack_exports__);
         cancelButtonText: 'Cancelar',
         showCancelButton: true
       }).then(function (res) {
-        if (res.value == true) {
+        if (res.value === true) {
           axios.put("/profile/user", {
             name: _this3.name,
             commercial_name: _this3.commercial_name,
@@ -6107,7 +6135,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'free':
           Swal.fire({
             title: 'No puede realizar esta operación',
-            text: 'Usted tiene el Plan Free',
+            text: 'Es necesario el Plan Standard o Premium para poder verificar tu cuenta',
             type: 'error',
             timer: 2000
           });
@@ -6115,6 +6143,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     sendRucFile: function sendRucFile() {
+      var _this10 = this;
+
       var formData = new FormData();
       formData.append('file', this.ruc_file);
       var config = {
@@ -6130,8 +6160,46 @@ __webpack_require__.r(__webpack_exports__);
       });
       axios.post('/validacion/process-ruc-file', formData, config).then(function (res) {
         console.log(res.data);
+
+        _this10.resultAlert(res.data);
       })["catch"](function (err) {
         console.log(err.response.data);
+
+        _this10.resultAlert(err.response.data);
+      });
+    },
+    validateAccount: function validateAccount() {
+      var _this11 = this;
+
+      Swal.fire({
+        title: 'Verificando código',
+        onBeforeOpen: function onBeforeOpen() {
+          Swal.showLoading();
+        }
+      });
+      axios.post('/validacion/validate-account', {
+        code: this.verificationCode
+      }).then(function (res) {
+        console.log(res.data);
+
+        _this11.resultAlert(res.data);
+      })["catch"](function (err) {
+        console.log(err.response.data);
+
+        _this11.resultAlert(err.response.data);
+      });
+    },
+    resultAlert: function resultAlert(data) {
+      Swal.fire({
+        title: data.message,
+        text: data.text,
+        type: data.status
+      }).then(function (res) {
+        if (data.status === 'success') {
+          location.reload();
+        } else {
+          console.log('ok');
+        }
       });
     }
   }
@@ -11760,7 +11828,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*href=\"/planes/pagos\" target=\"_blank\" */\ndiv>.b1{\n   background: linear-gradient(to right, #88be2e 0%, rgb(143, 214, 110) 51%, #aae747 100%);\n\t\ttransition: 0.5s;\n\t\tbackground-size: 200% auto;\n\t\tborder: none;\n\t\tcolor: white;\n\t\tpadding: 7px 15px;\n\t\ttext-align: center;\n\t\ttext-decoration: none;\n\t\tfont-size: 15px;\n\t\tfont-family: 'Nunito',sans-serif;\n\t\tborder-radius: 3px;\n        width: 60%;\n}\n.b1:hover{\n   background-position: right center;\n\t\tcolor:rgb(243, 245, 245);\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*href=\"/planes/pagos\" target=\"_blank\" */\ndiv>.b1{\n   background: linear-gradient(to right, #88be2e 0%, rgb(143, 214, 110) 51%, #aae747 100%);\n\t\ttransition: 0.5s;\n\t\tbackground-size: 200% auto;\n\t\tborder: none;\n\t\tcolor: white;\n\t\tpadding: 7px 15px;\n\t\ttext-align: center;\n\t\ttext-decoration: none;\n\t\tfont-size: 15px;\n\t\tfont-family: 'Nunito',sans-serif;\n\t\tborder-radius: 3px;\n        width: 60%;\n}\n.b1:hover{\n   background-position: right center;\n\t\tcolor:rgb(243, 245, 245);\n}\n", ""]);
 
 // exports
 
@@ -75421,7 +75489,7 @@ var render = function() {
       { attrs: { id: _vm.name_id } },
       _vm._l(_vm.data, function(company, index) {
         return _c("card-business", {
-          key: index,
+          key: company.id,
           attrs: { company: company, loged: _vm.loged }
         })
       }),
@@ -80724,56 +80792,132 @@ var render = function() {
     _vm._m(16),
     _vm._v(" "),
     _c("div", { staticClass: "panel-info-section" }, [
-      _vm._m(17),
-      _vm._v(" "),
-      _vm._m(18),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("div", { staticClass: "container" }, [
-        _c("p", { staticClass: "h5" }, [_vm._v("Ingresa ficha ruc:")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "custom-file" }, [
-          _c("input", {
-            ref: "rucFile",
-            staticClass: "custom-file-input",
-            attrs: { type: "file", id: "rucFile", accept: "application/pdf" },
-            on: {
-              change: function($event) {
-                return _vm.handleFile()
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            { staticClass: "custom-file-label", attrs: { for: "rucFile" } },
+      _vm.verified !== 2
+        ? _c(
+            "div",
+            {
+              staticClass: "panel-alert alert alert-secondary mt-3",
+              attrs: { role: "alert" }
+            },
             [
-              _c("i", { staticClass: "fas fa-file-pdf" }),
-              _vm._v(" " + _vm._s(_vm.ruc_file_name))
+              _vm._v(
+                "\n\t\t\tSi quieres obtener una cuenta verificada, sigue los siguientes pasos:\n\t\t\t"
+              ),
+              _c("br"),
+              _c("br"),
+              _vm._v(" "),
+              _vm._m(17)
             ]
-          ),
-          _vm._v(" "),
-          _vm._m(19)
-        ])
-      ]),
+          )
+        : _vm._e(),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-lg btn-block btn-save",
-          staticStyle: { "margin-top": "25px" },
-          on: {
-            click: function($event) {
-              return _vm.validatePlan()
-            }
-          }
-        },
-        [_vm._v("\n\t\t\tEnviar Ficha RUC\n\t\t")]
-      )
+      _vm.verified === 0
+        ? _c("div", [
+            _vm._m(18),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("div", { staticClass: "container" }, [
+              _c("p", { staticClass: "h5" }, [_vm._v("Ingresa ficha ruc:")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "custom-file" }, [
+                _c("input", {
+                  ref: "rucFile",
+                  staticClass: "custom-file-input",
+                  attrs: {
+                    type: "file",
+                    id: "rucFile",
+                    accept: "application/pdf"
+                  },
+                  on: {
+                    change: function($event) {
+                      return _vm.handleFile()
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "custom-file-label",
+                    attrs: { for: "rucFile" }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-file-pdf" }),
+                    _vm._v(" " + _vm._s(_vm.ruc_file_name))
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(19)
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-lg btn-block btn-save",
+                staticStyle: { "margin-top": "25px" },
+                on: {
+                  click: function($event) {
+                    return _vm.validatePlan()
+                  }
+                }
+              },
+              [_vm._v("\n\t\t\t\tEnviar Ficha RUC\n\t\t\t")]
+            )
+          ])
+        : _vm.verified == 1
+        ? _c("div", [
+            _c("div", { staticClass: "container" }, [
+              _c("p", { staticClass: "h5" }, [
+                _vm._v("Ingresa código de verificación:")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "custom-file" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.verificationCode,
+                      expression: "verificationCode"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", maxlength: "30" },
+                  domProps: { value: _vm.verificationCode },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.verificationCode = $event.target.value
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-lg btn-block btn-save",
+                staticStyle: { "margin-top": "25px" },
+                on: {
+                  click: function($event) {
+                    return _vm.validateAccount()
+                  }
+                }
+              },
+              [_vm._v("\n\t\t\t\tValidar\n\t\t\t")]
+            )
+          ])
+        : _vm.verified == 2
+        ? _c("div", [_vm._m(20)])
+        : _vm._e()
     ]),
     _vm._v(" "),
-    _vm._m(20),
+    _vm._m(21),
     _vm._v(" "),
     _c(
       "div",
@@ -80835,7 +80979,7 @@ var render = function() {
               _vm._s(_vm.might_add_images.number) +
               " imagen(es)\n\t\t\t"
           ),
-          _vm._m(21)
+          _vm._m(22)
         ]),
         _vm._v(" "),
         _c(
@@ -80870,12 +81014,12 @@ var render = function() {
             }),
             _vm._v(" "),
             _vm.might_add_images.can
-              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(22)])
+              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(23)])
               : _vm._e(),
             _vm._v(" "),
             _vm.might_add_images.can == false &&
             _vm.might_add_images.limit == false
-              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(23)])
+              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(24)])
               : _vm._e()
           ],
           2
@@ -80948,7 +81092,7 @@ var render = function() {
               { staticClass: "modal-dialog", attrs: { role: "document" } },
               [
                 _c("div", { staticClass: "modal-content" }, [
-                  _vm._m(24),
+                  _vm._m(25),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-body" }, [
                     _c("div", { staticClass: "form-group" }, [
@@ -81033,7 +81177,7 @@ var render = function() {
       2
     ),
     _vm._v(" "),
-    _vm._m(25),
+    _vm._m(26),
     _vm._v(" "),
     _c(
       "div",
@@ -81095,7 +81239,7 @@ var render = function() {
               _vm._s(_vm.might_add_videos.number) +
               " video(s)\n\t\t\t"
           ),
-          _vm._m(26)
+          _vm._m(27)
         ]),
         _vm._v(" "),
         _c(
@@ -81130,12 +81274,12 @@ var render = function() {
             }),
             _vm._v(" "),
             _vm.might_add_videos.can
-              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(27)])
+              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(28)])
               : _vm._e(),
             _vm._v(" "),
             _vm.might_add_videos.can == false &&
             _vm.might_add_videos.limit == false
-              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(28)])
+              ? _c("div", { staticClass: "multi-carousel-item" }, [_vm._m(29)])
               : _vm._e()
           ],
           2
@@ -81212,7 +81356,7 @@ var render = function() {
               { staticClass: "modal-dialog", attrs: { role: "document" } },
               [
                 _c("div", { staticClass: "modal-content" }, [
-                  _vm._m(29),
+                  _vm._m(30),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-body" }, [
                     _c("div", { staticClass: "form-group" }, [
@@ -81552,36 +81696,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "panel-alert alert alert-secondary mt-3",
-        attrs: { role: "alert" }
-      },
-      [
+    return _c("ol", { staticStyle: { "margin-left": "15px" } }, [
+      _c("li", [_vm._v("Ingresa la ficha RUC(formato PDF) de tu empresa.")]),
+      _vm._v(" "),
+      _c("li", [
         _vm._v(
-          "\n\t\t\tSi quieres obtener una cuenta verificada, sigue los siguientes pasos:\n\t\t\t"
-        ),
-        _c("br"),
-        _c("br"),
-        _vm._v(" "),
-        _c("ol", { staticStyle: { "margin-left": "15px" } }, [
-          _c("li", [
-            _vm._v("Ingresa la ficha RUC(formato PDF) de tu empresa.")
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "Espera a que te llegue un Código de Verificación a tu dirección fiscal."
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", [_vm._v("Ingresa el código de Verificación.")]),
-          _vm._v(" "),
-          _c("li", [_vm._v("¡Listo! ya tienes una cuenta verificada.")])
-        ])
-      ]
-    )
+          "Espera a que te llegue un Código de Verificación a tu dirección fiscal."
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", [_vm._v("Ingresa el código de Verificación.")]),
+      _vm._v(" "),
+      _c("li", [_vm._v("¡Listo! ya tienes una cuenta verificada.")])
+    ])
   },
   function() {
     var _vm = this
@@ -81610,6 +81737,24 @@ var staticRenderFns = [
     return _c("small", [
       _c("span", { staticClass: "text-muted" }, [
         _vm._v("Solamente se aceptará archivos de formato pdf")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container my-2" }, [
+      _c("div", { staticClass: "media" }, [
+        _c("img", {
+          staticClass: "align-self-center mr-3",
+          staticStyle: { width: "150px" },
+          attrs: { src: "\\img\\notification-icons\\success.svg" }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "media-body align-self-center" }, [
+          _c("h3", { staticClass: "mt-0" }, [_vm._v("Verificado exitosamente")])
+        ])
       ])
     ])
   },
@@ -97420,7 +97565,7 @@ if (document.getElementById('vendedores_destacados') !== null && document.getEle
   });
 }
 
-if (document.getElementById('vendedores_destacados') !== null && document.getElementById('vendedores_destacados').hasChildNodes()) {
+if (document.getElementById('empresas_mas_visitadas') !== null && document.getElementById('empresas_mas_visitadas').hasChildNodes()) {
   var slider_mv = Tiny.tns({
     container: '#empresas_mas_visitadas',
     slideBy: 1,
