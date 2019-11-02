@@ -1790,6 +1790,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var tippy_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tippy.js */ "./node_modules/tippy.js/esm/index.all.js");
+/* harmony import */ var _node_modules_tippy_js_index_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/tippy.js/index.css */ "./node_modules/tippy.js/index.css");
+/* harmony import */ var _node_modules_tippy_js_index_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_tippy_js_index_css__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -2063,6 +2066,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['data_user', 'data_account', 'data_visit_user'],
   data: function data() {
@@ -2074,7 +2101,11 @@ __webpack_require__.r(__webpack_exports__);
       rating: this.data_account.rating_data,
       value_rating: 0,
       show_rating: false,
-      message: ''
+      message: '',
+      type_user: '',
+      can_send_meet: true,
+      loading_btn: true,
+      loading_type: true
     };
   },
   computed: {
@@ -2082,13 +2113,43 @@ __webpack_require__.r(__webpack_exports__);
       return this.message.length;
     }
   },
+  created: function created() {
+    var _this = this;
+
+    axios.get('/profile/types').then(function (res) {
+      res.data.data.forEach(function (element) {
+        if (element.id === _this.data_user.type_id) {
+          _this.loading_type = false;
+          _this.type_user = element.name;
+        }
+      });
+    });
+    axios.post('/business/check-meet/', {
+      receiver_id: this.data_user.id
+    }).then(function (res) {
+      console.log(res.data.data);
+
+      if (res.data.data.state_id === 2 || res.data.data.state_id === 5) {
+        _this.can_send_meet = true;
+      } else {
+        _this.can_send_meet = false;
+      }
+
+      _this.loading_btn = false;
+    })["catch"](function (err) {
+      console.log(err.response.data);
+      _this.loading_btn = false;
+    });
+  },
   mounted: function mounted() {
+    Object(tippy_js__WEBPACK_IMPORTED_MODULE_0__["default"])('[data-tippy-content]'); // Give img to banner
+
     var el = document.querySelector("#".concat(this.id));
     el.style = "background-image: url('".concat(this.data_user.cover_img, "')");
   },
   methods: {
     agendar: function agendar() {
-      var _this = this;
+      var _this2 = this;
 
       Swal.fire({
         title: 'Estas consumiendo 30 coins en esta operación',
@@ -2100,11 +2161,17 @@ __webpack_require__.r(__webpack_exports__);
         cancelButtonText: 'Cancelar',
         showCancelButton: true
       }).then(function (res) {
-        if (res.value == true) {
+        if (res.value === true) {
+          Swal.fire({
+            title: 'Enviando',
+            onBeforeOpen: function onBeforeOpen() {
+              Swal.showLoading();
+            }
+          });
           axios.post('/business/create-meet', {
-            receiver_id: _this.data_user.id,
-            sender_id: _this.data_visit_user.data.id,
-            message: _this.message
+            receiver_id: _this2.data_user.id,
+            sender_id: _this2.data_visit_user.data.id,
+            message: _this2.message
           }).then(function (res) {
             console.log(res.data);
             Swal.fire({
@@ -2453,6 +2520,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+Tippy["default"]('data-tippy-default');
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'card-business',
   props: ['company', 'loged']
@@ -3806,6 +3876,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProfilePanelCert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProfilePanelCert */ "./resources/js/components/ProfilePanelCert.vue");
 /* harmony import */ var _ProfilePanelMeet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ProfilePanelMeet */ "./resources/js/components/ProfilePanelMeet.vue");
 /* harmony import */ var _Spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Spinner */ "./resources/js/components/Spinner.vue");
+/* harmony import */ var tippy_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tippy.js */ "./node_modules/tippy.js/esm/index.all.js");
+/* harmony import */ var _node_modules_tippy_js_index_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../node_modules/tippy.js/index.css */ "./node_modules/tippy.js/index.css");
+/* harmony import */ var _node_modules_tippy_js_index_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_node_modules_tippy_js_index_css__WEBPACK_IMPORTED_MODULE_6__);
 //
 //
 //
@@ -4197,6 +4270,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
+
 
 
 
@@ -4216,6 +4295,7 @@ __webpack_require__.r(__webpack_exports__);
       user_plans: this.data.user_plans,
       messages_data: [],
       operations: [],
+      name_type_user: '',
       media_data: this.data.media_data,
       rating: this.data.account_data.rating_data,
       data_offers: this.data.account_data.offers_data,
@@ -4238,6 +4318,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
+    Object(tippy_js__WEBPACK_IMPORTED_MODULE_5__["default"])('[data-tippy-content]');
     axios.get('/profile/messages').then(function (res) {
       // console.log(res.data.data)
       _this.messages_data = res.data.data;
@@ -4247,7 +4328,16 @@ __webpack_require__.r(__webpack_exports__);
     axios.get('/profile/operations').then(function (res) {
       _this.operations = res.data.data;
     })["catch"](function (err) {
-      return console.log(err.reponse);
+      return console.log(err.response);
+    });
+    axios.get('/profile/types').then(function (res) {
+      res.data.data.forEach(function (element) {
+        if (element.id === _this.user.type_id) {
+          _this.name_type_user = element.name;
+        }
+      });
+    })["catch"](function (err) {
+      return console.log(err.response);
     });
   },
   methods: {
@@ -6805,12 +6895,16 @@ __webpack_require__.r(__webpack_exports__);
     this.stars.no_rating_star = 5 - (this.stars.rating_star + this.stars.half_rating_star);
   },
   mounted: function mounted() {
+    Tippy["default"]('[data-tippy-content]');
     this.$emit('value_rating', this.value_rating);
     this.$emit('show_rating', this.show_rating);
   },
   methods: {
     rounded_rating: function rounded_rating() {
       return Math.round(this.avg_rating * 2) / 2;
+    },
+    mounted: function mounted() {
+      tippy('[data-tippy-content]');
     }
   }
 });
@@ -7045,7 +7139,7 @@ __webpack_require__.r(__webpack_exports__);
     axios.get(this.apiUrl).then(function (res) {
       _this.users = res.data;
     })["catch"](function (err) {
-      console.log(err);
+      console.log(err.response);
     });
   },
   methods: {
@@ -11816,6 +11910,25 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/tippy.js/index.css":
+/*!*************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/tippy.js/index.css ***!
+  \*************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".tippy-iOS{cursor:pointer!important;-webkit-tap-highlight-color:transparent}.tippy-popper{transition-timing-function:cubic-bezier(.165,.84,.44,1);max-width:calc(100% - 8px);pointer-events:none;outline:0}.tippy-popper[x-placement^=top] .tippy-backdrop{border-radius:40% 40% 0 0}.tippy-popper[x-placement^=top] .tippy-roundarrow{bottom:-7px;bottom:-6.5px;-webkit-transform-origin:50% 0;transform-origin:50% 0;margin:0 3px}.tippy-popper[x-placement^=top] .tippy-roundarrow svg{position:absolute;left:0;-webkit-transform:rotate(180deg);transform:rotate(180deg)}.tippy-popper[x-placement^=top] .tippy-arrow{border-top:8px solid #333;border-right:8px solid transparent;border-left:8px solid transparent;bottom:-7px;margin:0 3px;-webkit-transform-origin:50% 0;transform-origin:50% 0}.tippy-popper[x-placement^=top] .tippy-backdrop{-webkit-transform-origin:0 25%;transform-origin:0 25%}.tippy-popper[x-placement^=top] .tippy-backdrop[data-state=visible]{-webkit-transform:scale(1) translate(-50%,-55%);transform:scale(1) translate(-50%,-55%)}.tippy-popper[x-placement^=top] .tippy-backdrop[data-state=hidden]{-webkit-transform:scale(.2) translate(-50%,-45%);transform:scale(.2) translate(-50%,-45%);opacity:0}.tippy-popper[x-placement^=top] [data-animation=shift-toward][data-state=visible]{-webkit-transform:translateY(-10px);transform:translateY(-10px)}.tippy-popper[x-placement^=top] [data-animation=shift-toward][data-state=hidden]{opacity:0;-webkit-transform:translateY(-20px);transform:translateY(-20px)}.tippy-popper[x-placement^=top] [data-animation=perspective]{-webkit-transform-origin:bottom;transform-origin:bottom}.tippy-popper[x-placement^=top] [data-animation=perspective][data-state=visible]{-webkit-transform:perspective(700px) translateY(-10px);transform:perspective(700px) translateY(-10px)}.tippy-popper[x-placement^=top] [data-animation=perspective][data-state=hidden]{opacity:0;-webkit-transform:perspective(700px) rotateX(60deg);transform:perspective(700px) rotateX(60deg)}.tippy-popper[x-placement^=top] [data-animation=fade][data-state=visible]{-webkit-transform:translateY(-10px);transform:translateY(-10px)}.tippy-popper[x-placement^=top] [data-animation=fade][data-state=hidden]{opacity:0;-webkit-transform:translateY(-10px);transform:translateY(-10px)}.tippy-popper[x-placement^=top] [data-animation=shift-away][data-state=visible]{-webkit-transform:translateY(-10px);transform:translateY(-10px)}.tippy-popper[x-placement^=top] [data-animation=shift-away][data-state=hidden]{opacity:0}.tippy-popper[x-placement^=top] [data-animation=scale]{-webkit-transform-origin:bottom;transform-origin:bottom}.tippy-popper[x-placement^=top] [data-animation=scale][data-state=visible]{-webkit-transform:translateY(-10px);transform:translateY(-10px)}.tippy-popper[x-placement^=top] [data-animation=scale][data-state=hidden]{opacity:0;-webkit-transform:translateY(-10px) scale(.5);transform:translateY(-10px) scale(.5)}.tippy-popper[x-placement^=bottom] .tippy-backdrop{border-radius:0 0 30% 30%}.tippy-popper[x-placement^=bottom] .tippy-roundarrow{top:-7px;-webkit-transform-origin:50% 100%;transform-origin:50% 100%;margin:0 3px}.tippy-popper[x-placement^=bottom] .tippy-roundarrow svg{position:absolute;left:0}.tippy-popper[x-placement^=bottom] .tippy-arrow{border-bottom:8px solid #333;border-right:8px solid transparent;border-left:8px solid transparent;top:-7px;margin:0 3px;-webkit-transform-origin:50% 100%;transform-origin:50% 100%}.tippy-popper[x-placement^=bottom] .tippy-backdrop{-webkit-transform-origin:0 -50%;transform-origin:0 -50%}.tippy-popper[x-placement^=bottom] .tippy-backdrop[data-state=visible]{-webkit-transform:scale(1) translate(-50%,-45%);transform:scale(1) translate(-50%,-45%)}.tippy-popper[x-placement^=bottom] .tippy-backdrop[data-state=hidden]{-webkit-transform:scale(.2) translate(-50%);transform:scale(.2) translate(-50%);opacity:0}.tippy-popper[x-placement^=bottom] [data-animation=shift-toward][data-state=visible]{-webkit-transform:translateY(10px);transform:translateY(10px)}.tippy-popper[x-placement^=bottom] [data-animation=shift-toward][data-state=hidden]{opacity:0;-webkit-transform:translateY(20px);transform:translateY(20px)}.tippy-popper[x-placement^=bottom] [data-animation=perspective]{-webkit-transform-origin:top;transform-origin:top}.tippy-popper[x-placement^=bottom] [data-animation=perspective][data-state=visible]{-webkit-transform:perspective(700px) translateY(10px);transform:perspective(700px) translateY(10px)}.tippy-popper[x-placement^=bottom] [data-animation=perspective][data-state=hidden]{opacity:0;-webkit-transform:perspective(700px) rotateX(-60deg);transform:perspective(700px) rotateX(-60deg)}.tippy-popper[x-placement^=bottom] [data-animation=fade][data-state=visible]{-webkit-transform:translateY(10px);transform:translateY(10px)}.tippy-popper[x-placement^=bottom] [data-animation=fade][data-state=hidden]{opacity:0;-webkit-transform:translateY(10px);transform:translateY(10px)}.tippy-popper[x-placement^=bottom] [data-animation=shift-away][data-state=visible]{-webkit-transform:translateY(10px);transform:translateY(10px)}.tippy-popper[x-placement^=bottom] [data-animation=shift-away][data-state=hidden]{opacity:0}.tippy-popper[x-placement^=bottom] [data-animation=scale]{-webkit-transform-origin:top;transform-origin:top}.tippy-popper[x-placement^=bottom] [data-animation=scale][data-state=visible]{-webkit-transform:translateY(10px);transform:translateY(10px)}.tippy-popper[x-placement^=bottom] [data-animation=scale][data-state=hidden]{opacity:0;-webkit-transform:translateY(10px) scale(.5);transform:translateY(10px) scale(.5)}.tippy-popper[x-placement^=left] .tippy-backdrop{border-radius:50% 0 0 50%}.tippy-popper[x-placement^=left] .tippy-roundarrow{right:-12px;-webkit-transform-origin:33.33333333% 50%;transform-origin:33.33333333% 50%;margin:3px 0}.tippy-popper[x-placement^=left] .tippy-roundarrow svg{position:absolute;left:0;-webkit-transform:rotate(90deg);transform:rotate(90deg)}.tippy-popper[x-placement^=left] .tippy-arrow{border-left:8px solid #333;border-top:8px solid transparent;border-bottom:8px solid transparent;right:-7px;margin:3px 0;-webkit-transform-origin:0 50%;transform-origin:0 50%}.tippy-popper[x-placement^=left] .tippy-backdrop{-webkit-transform-origin:50% 0;transform-origin:50% 0}.tippy-popper[x-placement^=left] .tippy-backdrop[data-state=visible]{-webkit-transform:scale(1) translate(-50%,-50%);transform:scale(1) translate(-50%,-50%)}.tippy-popper[x-placement^=left] .tippy-backdrop[data-state=hidden]{-webkit-transform:scale(.2) translate(-75%,-50%);transform:scale(.2) translate(-75%,-50%);opacity:0}.tippy-popper[x-placement^=left] [data-animation=shift-toward][data-state=visible]{-webkit-transform:translateX(-10px);transform:translateX(-10px)}.tippy-popper[x-placement^=left] [data-animation=shift-toward][data-state=hidden]{opacity:0;-webkit-transform:translateX(-20px);transform:translateX(-20px)}.tippy-popper[x-placement^=left] [data-animation=perspective]{-webkit-transform-origin:right;transform-origin:right}.tippy-popper[x-placement^=left] [data-animation=perspective][data-state=visible]{-webkit-transform:perspective(700px) translateX(-10px);transform:perspective(700px) translateX(-10px)}.tippy-popper[x-placement^=left] [data-animation=perspective][data-state=hidden]{opacity:0;-webkit-transform:perspective(700px) rotateY(-60deg);transform:perspective(700px) rotateY(-60deg)}.tippy-popper[x-placement^=left] [data-animation=fade][data-state=visible]{-webkit-transform:translateX(-10px);transform:translateX(-10px)}.tippy-popper[x-placement^=left] [data-animation=fade][data-state=hidden]{opacity:0;-webkit-transform:translateX(-10px);transform:translateX(-10px)}.tippy-popper[x-placement^=left] [data-animation=shift-away][data-state=visible]{-webkit-transform:translateX(-10px);transform:translateX(-10px)}.tippy-popper[x-placement^=left] [data-animation=shift-away][data-state=hidden]{opacity:0}.tippy-popper[x-placement^=left] [data-animation=scale]{-webkit-transform-origin:right;transform-origin:right}.tippy-popper[x-placement^=left] [data-animation=scale][data-state=visible]{-webkit-transform:translateX(-10px);transform:translateX(-10px)}.tippy-popper[x-placement^=left] [data-animation=scale][data-state=hidden]{opacity:0;-webkit-transform:translateX(-10px) scale(.5);transform:translateX(-10px) scale(.5)}.tippy-popper[x-placement^=right] .tippy-backdrop{border-radius:0 50% 50% 0}.tippy-popper[x-placement^=right] .tippy-roundarrow{left:-12px;-webkit-transform-origin:66.66666666% 50%;transform-origin:66.66666666% 50%;margin:3px 0}.tippy-popper[x-placement^=right] .tippy-roundarrow svg{position:absolute;left:0;-webkit-transform:rotate(-90deg);transform:rotate(-90deg)}.tippy-popper[x-placement^=right] .tippy-arrow{border-right:8px solid #333;border-top:8px solid transparent;border-bottom:8px solid transparent;left:-7px;margin:3px 0;-webkit-transform-origin:100% 50%;transform-origin:100% 50%}.tippy-popper[x-placement^=right] .tippy-backdrop{-webkit-transform-origin:-50% 0;transform-origin:-50% 0}.tippy-popper[x-placement^=right] .tippy-backdrop[data-state=visible]{-webkit-transform:scale(1) translate(-50%,-50%);transform:scale(1) translate(-50%,-50%)}.tippy-popper[x-placement^=right] .tippy-backdrop[data-state=hidden]{-webkit-transform:scale(.2) translate(-25%,-50%);transform:scale(.2) translate(-25%,-50%);opacity:0}.tippy-popper[x-placement^=right] [data-animation=shift-toward][data-state=visible]{-webkit-transform:translateX(10px);transform:translateX(10px)}.tippy-popper[x-placement^=right] [data-animation=shift-toward][data-state=hidden]{opacity:0;-webkit-transform:translateX(20px);transform:translateX(20px)}.tippy-popper[x-placement^=right] [data-animation=perspective]{-webkit-transform-origin:left;transform-origin:left}.tippy-popper[x-placement^=right] [data-animation=perspective][data-state=visible]{-webkit-transform:perspective(700px) translateX(10px);transform:perspective(700px) translateX(10px)}.tippy-popper[x-placement^=right] [data-animation=perspective][data-state=hidden]{opacity:0;-webkit-transform:perspective(700px) rotateY(60deg);transform:perspective(700px) rotateY(60deg)}.tippy-popper[x-placement^=right] [data-animation=fade][data-state=visible]{-webkit-transform:translateX(10px);transform:translateX(10px)}.tippy-popper[x-placement^=right] [data-animation=fade][data-state=hidden]{opacity:0;-webkit-transform:translateX(10px);transform:translateX(10px)}.tippy-popper[x-placement^=right] [data-animation=shift-away][data-state=visible]{-webkit-transform:translateX(10px);transform:translateX(10px)}.tippy-popper[x-placement^=right] [data-animation=shift-away][data-state=hidden]{opacity:0}.tippy-popper[x-placement^=right] [data-animation=scale]{-webkit-transform-origin:left;transform-origin:left}.tippy-popper[x-placement^=right] [data-animation=scale][data-state=visible]{-webkit-transform:translateX(10px);transform:translateX(10px)}.tippy-popper[x-placement^=right] [data-animation=scale][data-state=hidden]{opacity:0;-webkit-transform:translateX(10px) scale(.5);transform:translateX(10px) scale(.5)}.tippy-tooltip{position:relative;color:#fff;border-radius:.25rem;font-size:.875rem;padding:.3125rem .5625rem;line-height:1.4;text-align:center;background-color:#333}.tippy-tooltip[data-size=small]{padding:.1875rem .375rem;font-size:.75rem}.tippy-tooltip[data-size=large]{padding:.375rem .75rem;font-size:1rem}.tippy-tooltip[data-animatefill]{overflow:hidden;background-color:initial}.tippy-tooltip[data-interactive],.tippy-tooltip[data-interactive] .tippy-roundarrow path{pointer-events:auto}.tippy-tooltip[data-inertia][data-state=visible]{transition-timing-function:cubic-bezier(.54,1.5,.38,1.11)}.tippy-tooltip[data-inertia][data-state=hidden]{transition-timing-function:ease}.tippy-arrow,.tippy-roundarrow{position:absolute;width:0;height:0}.tippy-roundarrow{width:18px;height:7px;fill:#333;pointer-events:none}.tippy-backdrop{position:absolute;background-color:#333;border-radius:50%;width:calc(110% + 2rem);left:50%;top:50%;z-index:-1;transition:all cubic-bezier(.46,.1,.52,.98);-webkit-backface-visibility:hidden;backface-visibility:hidden}.tippy-backdrop:after{content:\"\";float:left;padding-top:100%}.tippy-backdrop+.tippy-content{transition-property:opacity;will-change:opacity}.tippy-backdrop+.tippy-content[data-state=hidden]{opacity:0}", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AddBag.vue?vue&type=style&index=0&lang=css&":
 /*!************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AddBag.vue?vue&type=style&index=0&lang=css& ***!
@@ -11847,7 +11960,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.businessBanner {\n\tpadding: 200px 0 100px 0;\n\tbackground-size: cover;\n\tbackground-position: center;\n\tposition: relative;\n\tbackground-color: #FDFDFD;\n\tbox-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);\n}\n.businessBanner:before {\n\tcontent: \"\";\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 100%;\n\tbackground: #000;\n\topacity: .3;\n}\n.wave {\n\tmargin-top: -100px;\n\tz-index: 100;\n\tposition: relative;\n}\n.profile-img {\n\tbackground-color: #fff;\n\tdisplay: inline-block;\n\tmax-width: 270px;\n\tborder-radius: 50%;\n\tbox-shadow: 0px 0px 1px 1px #B7B7B76B;\n\tmargin-top: 150px;\n\tposition: relative;\n\tz-index: 1000;\n}\n.profile-img img {\n\tmax-width: 100%;\n}\n.business-text {\n\tz-index: 1000;\n\tmargin-bottom: 100px;\n}\n.business-name {\n\tmargin-top: 20px;\n}\n.business-name h2 {\n\tfont-family: 'Roboto', sans-serif;\n\ttext-transform: uppercase;\n\tfont-weight: 700;\n\tdisplay: inline-block;\n\tposition: relative;\n\tmargin-top: 10px;\n\tborder-left: 5px solid #88be2e;\n\tborder-right: 5px solid #88be2e;\n\tpadding-left: 8px;\n\tpadding-right: 8px;\n}\n.business-name h2:before {\n\tcontent: \"\";\n    height: 5px;\n    width: 40px;\n\tbackground-color: #88be2e;\n\tposition: absolute;\n\tleft: 0;\n\ttop: 0;\n\tmargin-top: -5px;\n\tmargin-left: -5px;\n}\n.business-name h2:after {\n\tcontent: \"\";\n    height: 5px;\n    width: 40px;\n\tbackground-color: #88be2e;\n\tposition: absolute;\n\tbottom: 0;\n\tright: 0;\n\tmargin-bottom: -5px;\n\tmargin-right: -5px;\n}\n.business-address {\n\tmargin-top: 10px;\n\tfont-weight: 600;\n}\n.business-description {\n\tmargin-top: 15px;\n}\n\n/* Stat names */\n.business-stats {\n\tpadding-top: 350px;\n\tpadding-bottom: 20px;\n}\n.business-stats .btn-agendar {\n\tbackground-color: #88be2e;\n\tcolor: #fff;\n\tfont-family: 'Roboto', sans-serif;\n\ttext-transform: uppercase;\n\ttransition: ease 0.3s;\n\tbox-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);\n\tletter-spacing: 2px;\n\tfont-weight: 700;\n}\n.business-stats .btn-agendar:hover {\n\tmargin-top: -2px;\n\tmargin-left: -2px;\n\ttransition: ease 0.3s;\n\tbox-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);\n}\n.nav__business-stat {\n\tcolor: #212529;\n\tfont-family: 'Roboto', sans-serif;\n}\n.business-stats .nav-item {\n\twidth: 25%;\n\ttext-align: center;\n}\n.nav__business-stat:hover {\n\tcolor: #88be2e;\n\tmargin-top: -1px;\n\tmargin-left: -1px;\n}\n.stat-value {\n\tfont-size: 30px;\n}\n.stat-name {\n\tfont-size: 20px;\n}\n\n/* Modals */\n.stats-modals {\n\tfont-family: 'Roboto', sans-serif;\n}\n.rating-stars-modal {\n\tfont-size: 40px;\n}\n.rating-stars-modal li {\n\tmargin-right: 10px;\n}\n.business-stat-modal .nav {\n\tmargin-top: 25px;\n}\n.business-stat-modal .nav-item {\n\twidth: 33%;\n\ttext-align: center;\n\tpadding: 10px;\n}\n.business-stat-modal__item {\n\tdisplay: block;\n\tpadding: 5px;\n\tbackground: #f1f1f1;\n\tborder-radius: 5px;\n\tbox-shadow: 0px 0px 1px 1px #cecece;\n\ttext-decoration: none;\n\tcolor: #212529;\n}\n#modalAgendar {\n\tfont-family: 'Nunito', sans-serif;\n}\n.business-meet-card {\n\tcolor: #383d41;\n\tbackground-color: #e2e3e5;\n\tborder: 1px solid #d6d8db;\n\tborder-radius: 6px;\n}\n.form-destinity {\n\tmargin-bottom: 5px;\n}\n@media (max-width: 600px) {\n.profile-img {\n\t\tmargin-top: 170px;\n\t\tmax-width: 200px;\n}\n.business-name h2 {\n\t\tfont-size: 25px;\n}\n.business-address {\n\t\tfont-size: 14px;\n}\n.business-description {\n\t\tfont-size: 15px;\n}\n.stat-value {\n\t\tfont-size: 20px;\n}\n.stat-name {\n\t\tfont-size: 15px;\n}\n.form-destinity.second {\n\t\tmargin-top: 15px;\n}\n}\n@media (max-width: 360px) {\n.business-description {\n\t\tfont-size: 14px;\n}\n.stat-value {\n\t\tfont-size: 17px;\n}\n.stat-name {\n\t\tfont-size: 12px;\n}\n}\n\n", ""]);
+exports.push([module.i, "\n.businessBanner {\n\tpadding: 200px 0 100px 0;\n\tbackground-size: cover;\n\tbackground-position: center;\n\tposition: relative;\n\tbackground-color: #FDFDFD;\n\tbox-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);\n}\n.businessBanner:before {\n\tcontent: \"\";\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 100%;\n\tbackground: #000;\n\topacity: .3;\n}\n.wave {\n\tmargin-top: -100px;\n\tz-index: 100;\n\tposition: relative;\n}\n.profile-img {\n\tbackground-color: #fff;\n\tdisplay: inline-block;\n\tmax-width: 270px;\n\tborder-radius: 50%;\n\tbox-shadow: 0px 0px 1px 1px #B7B7B76B;\n\tmargin-top: 150px;\n\tposition: relative;\n\tz-index: 1000;\n}\n.profile-img img {\n\tmax-width: 100%;\n}\n.business-text {\n\tz-index: 1000;\n\tmargin-bottom: 100px;\n}\n.business-name {\n\tmargin-top: 20px;\n}\n.business-name h2 {\n\tfont-family: 'Roboto', sans-serif;\n\ttext-transform: uppercase;\n\tfont-weight: 700;\n\tdisplay: inline-block;\n\tposition: relative;\n\tmargin-top: 10px;\n\tborder-left: 5px solid #88be2e;\n\tborder-right: 5px solid #88be2e;\n\tpadding-left: 8px;\n\tpadding-right: 8px;\n}\n.business-name h2:before {\n\tcontent: \"\";\n    height: 5px;\n    width: 40px;\n\tbackground-color: #88be2e;\n\tposition: absolute;\n\tleft: 0;\n\ttop: 0;\n\tmargin-top: -5px;\n\tmargin-left: -5px;\n}\n.business-name h2:after {\n\tcontent: \"\";\n    height: 5px;\n    width: 40px;\n\tbackground-color: #88be2e;\n\tposition: absolute;\n\tbottom: 0;\n\tright: 0;\n\tmargin-bottom: -5px;\n\tmargin-right: -5px;\n}\n.business-address {\n\tmargin-top: 10px;\n\tfont-weight: 600;\n}\n.business-description {\n\tmargin-top: 15px;\n}\n\n/* Stat names */\n.business-stats {\n\tpadding-top: 350px;\n\tpadding-bottom: 20px;\n}\n.business-stats .btn-agendar, .business-stats .btn-agendar-off {\n\tbackground-color: #88be2e;\n\tcolor: #fff;\n\tfont-family: 'Roboto', sans-serif;\n\ttext-transform: uppercase;\n\ttransition: ease 0.3s;\n\tbox-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);\n\tletter-spacing: 2px;\n\tfont-weight: 700;\n}\n.business-stats .btn-agendar:hover {\n\tmargin-top: -2px;\n\tmargin-left: -2px;\n\ttransition: ease 0.3s;\n\tbox-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);\n}\n.nav__business-stat {\n\tcolor: #212529;\n\tfont-family: 'Roboto', sans-serif;\n}\n.business-stats .nav-item {\n\twidth: 25%;\n\ttext-align: center;\n}\n.nav__business-stat:hover {\n\tcolor: #88be2e;\n\tmargin-top: -1px;\n\tmargin-left: -1px;\n}\n.stat-value {\n\tfont-size: 30px;\n}\n.stat-name {\n\tfont-size: 20px;\n}\n\n/* Modals */\n.stats-modals {\n\tfont-family: 'Roboto', sans-serif;\n}\n.rating-stars-modal {\n\tfont-size: 40px;\n}\n.rating-stars-modal li {\n\tmargin-right: 10px;\n}\n.business-stat-modal .nav {\n\tmargin-top: 25px;\n}\n.business-stat-modal .nav-item {\n\twidth: 33%;\n\ttext-align: center;\n\tpadding: 10px;\n}\n.business-stat-modal__item {\n\tdisplay: block;\n\tpadding: 5px;\n\tbackground: #f1f1f1;\n\tborder-radius: 5px;\n\tbox-shadow: 0px 0px 1px 1px #cecece;\n\ttext-decoration: none;\n\tcolor: #212529;\n}\n#modalAgendar {\n\tfont-family: 'Nunito', sans-serif;\n}\n.business-meet-card {\n\tcolor: #383d41;\n\tbackground-color: #e2e3e5;\n\tborder: 2px solid #d6d8db;\n\tborder-radius: 6px;\n}\n.business-meet-name p{\n\ttext-transform: uppercase;\n\tfont-weight: 600;\n}\n.form-destinity {\n\tmargin-bottom: 5px;\n}\n@media (max-width: 600px) {\n.profile-img {\n\t\tmargin-top: 170px;\n\t\tmax-width: 200px;\n}\n.business-name h2 {\n\t\tfont-size: 25px;\n}\n.business-address {\n\t\tfont-size: 14px;\n}\n.business-description {\n\t\tfont-size: 15px;\n}\n.stat-value {\n\t\tfont-size: 20px;\n}\n.stat-name {\n\t\tfont-size: 15px;\n}\n.form-destinity.second {\n\t\tmargin-top: 15px;\n}\n}\n@media (max-width: 360px) {\n.business-description {\n\t\tfont-size: 14px;\n}\n.stat-value {\n\t\tfont-size: 17px;\n}\n.stat-name {\n\t\tfont-size: 12px;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -11980,7 +12093,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.card {\n        box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);\n        border: 0;\n        font-weight: 400;\n        border-radius: 0.25rem;\n}\n.card-title a{\n        text-decoration: none;\n        color: black;\n\t\tfont-weight: 600;\n\t\tfont-size: 17px;\n}\n.view-overlay {\n\t\tmin-height: 150px;\n}\n.view-overlay img {\n\t\t-o-object-fit: cover;\n\t\t   object-fit: cover;\n}\n.img-profile {\n\t\tborder-radius: 50%;\n}\n.business-card-container {\n\t\theight: 380px;\n}\n.business-card-container .card {\n\t\theight: 100%;\n}\n.business-card-logo-container {\n\t\tdisplay: flex;\n\t\talign-items: center;\n}\n", ""]);
+exports.push([module.i, "\n.card {\n        box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);\n        border: 0;\n        font-weight: 400;\n        border-radius: 0.25rem;\n}\n.card-title a{\n        text-decoration: none;\n        color: black;\n\t\tfont-weight: 600;\n\t\tfont-size: 17px;\n}\n.view-overlay {\n\t\tmin-height: 150px;\n}\n.view-overlay img {\n\t\t-o-object-fit: cover;\n\t\t   object-fit: cover;\n}\n.img-profile {\n\t\tborder-radius: 50%;\n}\n.business-card-container {\n\t\theight: 400px;\n}\n.business-card-container .card {\n\t\theight: 100%;\n}\n.business-card-logo-container {\n\t\tdisplay: flex;\n\t\talign-items: center;\n}\n", ""]);
 
 // exports
 
@@ -12170,7 +12283,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.message {\n\t\tfont-size: 15px;\n\t\tfont-weight: 300;\n}\n.message .icon-message {\n\t\twidth: 100px;\n}\n.success-icon {\n\t\tcolor:#88BE2E;\n}\n.transaction-icon {\n\t\tcolor: #FD7E14;\n}\n.meet-icon {\n\t\tcolor: rgb(13, 75, 168);\n}\n.message-date {\n\t\tfont-size: 12px;\n}\n.welcome-img {\n\t\theight: 200px;\n}\n.btn-view-profile {\n\t\tfont-family: 'Poppins', sans-serif;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 1.1rem;\n\t\twidth: 380px;\n\t\tfloat: right;\n\t\tbackground-color: rgb(136, 190, 46);\n\t\tborder-color: rgb(136, 190, 46);\n\t\ttransition: all 0.6s;\n\t\tcolor: #fff;\n}\n.btn-view-profile:hover {\n\t\tbackground-color: rgba(136, 190, 46, 0.9);\n\t\tborder-color: rgba(136, 190, 46, 0.9);\n\t\tmargin-right: 5px;\n\t\ttransition: all 0.6s;\n\t\tcolor: #fff;\n}\n.user_profile {\n\t\tpadding: 50px 0;\n    \tbackground: #f1f1f1;\n}\n.box-profile-img {\n\t    padding: 10px;\n    \tbackground: #fff;\n    \tbox-shadow: 0px 0px 5px 5px #ececec;\n    \tborder-radius: 10px;\n}\n.box-profile-img .head {\n\t\tpadding: 10px;\n}\n.box-profile-img .body {\n\t\tmargin: 25px 0 5px 0;\n}\n.notifications {\n\t\tmargin-top: 15px;\n\t\tfont-size: 15px;\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.notifications a {\n\t\tcolor: #212529;\n\t\ttransition: ease 0.5s;\n}\n.notifications a:hover {\n\t\ttransition: all 0.3s;\n\t\tcolor: #88be2e;\n\t\tmargin-left: 5px;\n\t\tmargin-right: 5px;\n\t\tcursor: pointer;\n}\n\n\t/* User options */\n.user-options {\n\t\tdisplay: flex;\n\t\tflex-flow: row wrap;\n\t\tborder-bottom: 0;\n\t\tlist-style: none;\n\t\tpadding-left: 0;\n\t\tmargin-bottom: 0;\n}\n.user-options > li {\n\t\twidth: 45%;\n\t\tmargin: 0 auto;\n\t\tborder-radius: 15px;\n}\nfigure.snip {\n\t\tfont-family: 'Poppins', sans-serif;\n\t\tfont-weight: 600;\n\t\tcolor: #ececec;\n\t\tposition: relative;\n\t\toverflow: hidden;\n\t\tmin-width: 220px;\n\t\tmax-width: 400px;\n\t\theight: 205px;\n\t\twidth: 100%;\n\t\tbackground: #000000;\n\t\ttext-align: center;\n\t\tborder-radius: 15px;\n\t\tbox-shadow: 0px 0px 5px 5px #ececec;\n}\nfigure.snip * {\n\t\tbox-sizing: border-box;\n\t\ttransition: all 0.3s;\n}\nfigure.snip img {\n\t\topacity: 1;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\ttransition: all 0.6s;\n}\nfigure.snip figcaption {\n\t\tposition: absolute;\n\t\tbottom: 0;\n\t\tleft: 18%;\n\t\tright: 18%;\n\t\theight: 100%;\n}\nfigure.snip figcaption > div {\n\t\toverflow: hidden;\n\t\twidth: 100%;\n\t\tposition: relative;\n\t\theight: 50%;\n}\nfigure.snip h5, figure.snip span {\n\t\tmargin: 0;\n\t\tpadding: 10px 15px;\n\t\tdisplay: inline-block;\n\t\twidth: 100%;\n\t\tfont-weight: 700;\n}\nfigure.snip span {\n\t\tbackground: #88be2e;\n\t\tcolor: #fff; /*#4d4d4d*/\n\t\tposition: relative;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\tposition: absolute;\n\t\ttransform: translate3d(0%, 100%, 0);\n\t\tborder-radius: 5px;\n}\nfigure.snip h5 {\n\t\tbackground: rgba(51, 51, 51, 0.5);\n\t\ttransform: translate3d(0%, 0%, 0);\n\t\tborder-radius: 5px;\n\t\tfont-size: 17px;\n}\nfigure.snip a {\n\t\tleft: 0;\n\t\tright: 0;\n\t\ttop: 0;\n\t\tbottom: 0;\n\t\tposition: absolute;\n\t\tcolor: #ffffff;\n}\nfigure.snip:hover img, figure.snip.hover img {\n\t\topacity: 0.35;\n\t\t-webkit-filter: blur(5px);\n\t\tfilter: blur(5px);\n\t\ttransform: scale(1.1);\n}\nfigure.snip:hover figcaption span, figure.snip.hover figcaption span {\n\t\ttransform: translate3d(0%, 0%, 0);\n}\nfigure.snip:hover figcaption h5, figure.snip.hover figcaption h5 {\n\t\ttransform: translate3d(0%, -100%, 0);\n}\n.adv {\n\t\twidth: 100%;\n}\n.adv a {\n\t\tcolor: #fff;\n\t\tbackground-color: rgb(136, 190, 46);\n\t\ttransition: all 0.6s;\n}\n.adv a:hover {\n\t\tcolor: #fff;\n\t\ttransform: scale(1.05);\n\t\ttransition: all 0.6s;\n}\n\n\t/* Lateral User Options */\n.lateral-user-options {\n\t\tlist-style: none;\n\t\tdisplay: none;\n}\n.item-topbar {\n\t\tcolor: black;\n\t\ttransition: all ease 500ms;\n\t\ttext-align: center;\n\t\tvertical-align: middle;\n}\n.item-topbar:hover {\n\t\tbackground-color:#E9ECEF;\n\t\tcolor: #88BE2E;\n\t\tmargin-top: 1%;\n\t\tmargin-bottom: -1%;\n}\n.panels {\n\t\tmargin-top: 10px;\n}\n.panel {\n\t\tmargin-top: 25px;\n}\n.spinner-container {\n\t\tmargin-top: 50px;\n}\n@media (max-width: 768px) {\nfigure.snip {\n\t\t\theight: 180px;\n}\n.box-profile-img h4 {\n\t\t\tfont-size: 16px;\n}\n.box-profile-img ul {\n\t\t\tfont-size: 12px;\n}\n.welcome-text {\n\t\t\tpadding: 0px 25px;\n}\n.adv .row{\n\t\t\tmargin: 0;\n}\n}\n@media (max-width: 768px) and (orientation: landscape){\n.btn-view-profile {\n\t\t\twidth: 60%;\n\t\t\tfloat: none;\n}\n.box-profile-img {\n\t\t\twidth: 60%;\n\t\t\tmargin: 0 auto;\n}\n.box-profile-img h4 {\n\t\t\tfont-size: 23px;\n}\n.box-profile-img ul {\n\t\t\tfont-size: 16px;\n}\nfigure.snip {\n\t\t\tmargin: 0 auto 1rem;\n}\n}\n@media (max-width: 568px) {\n.box-profile-img {\n\t\t\tmargin-bottom: 35px;\n}\n.btn-view-profile {\n\t\t\twidth: 80%;\n\t\t\tfloat: none;\n}\n.user-options > li {\n\t\t\twidth: 100%;\n}\n.lateral-user-options {\n\t\t\tdisplay: block;\n}\n.top-user-options {\n\t\t\tdisplay: none;\n}\n.box-profile-img h4 {\n\t\t\tfont-size: 26px;\n}\n.box-profile-img ul {\n\t\t\tfont-size: 18px;\n}\n.panel-alert {\n\t\t\tfont-size: 14px;\n}\n.message {\n\t\t\tfont-size: 12px;\n}\n.message h5 {\n\t\t\tfont-size: 14px;\n}\n.message-date {\n\t\t\tfont-size: 10px;\n}\n}\n@media (max-width: 414px) and (orientation: portrait) {\n.welcome-text__title {\n\t\t\tfont-size: 2.5rem;\n}\n.welcome-text__message {\n\t\t\tfont-size: 1.1rem;\n}\n}\n", ""]);
+exports.push([module.i, "\n.message {\n\t\tfont-size: 15px;\n\t\tfont-weight: 300;\n}\n.message .icon-message {\n\t\twidth: 100px;\n}\n.success-icon {\n\t\tcolor:#88BE2E;\n}\n.transaction-icon {\n\t\tcolor: #FD7E14;\n}\n.meet-icon {\n\t\tcolor: rgb(13, 75, 168);\n}\n.message-date {\n\t\tfont-size: 12px;\n}\n.welcome-img {\n\t\theight: 200px;\n}\n.btn-view-profile {\n\t\tfont-family: 'Poppins', sans-serif;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 1.1rem;\n\t\twidth: 380px;\n\t\tfloat: right;\n\t\tbackground-color: rgb(136, 190, 46);\n\t\tborder-color: rgb(136, 190, 46);\n\t\ttransition: all 0.6s;\n\t\tcolor: #fff;\n}\n.btn-view-profile:hover {\n\t\tbackground-color: rgba(136, 190, 46, 0.9);\n\t\tborder-color: rgba(136, 190, 46, 0.9);\n\t\tmargin-right: 5px;\n\t\ttransition: all 0.6s;\n\t\tcolor: #fff;\n}\n.user_profile {\n\t\tpadding: 50px 0;\n    \tbackground: #f1f1f1;\n}\n.not-yet-verified {\n\t\tcolor: #7e7e7e;\n\t\tcursor: pointer;\n}\n.is-verified {\n\t\tcolor: #11B726;\n\t\tcursor: pointer;\n}\n.box-profile-img {\n\t    padding: 10px;\n    \tbackground: #fff;\n    \tbox-shadow: 0px 0px 5px 5px #ececec;\n    \tborder-radius: 10px;\n}\n.box-profile-img .head {\n\t\tpadding: 10px;\n}\n.box-profile-img .body {\n\t\tmargin: 25px 0 5px 0;\n}\n.notifications {\n\t\tmargin-top: 15px;\n\t\tfont-size: 15px;\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.notifications a {\n\t\tcolor: #212529;\n\t\ttransition: ease 0.5s;\n}\n.notifications a:hover {\n\t\ttransition: all 0.3s;\n\t\tcolor: #88be2e;\n\t\tmargin-left: 5px;\n\t\tmargin-right: 5px;\n\t\tcursor: pointer;\n}\n\n\t/* User options */\n.user-options {\n\t\tdisplay: flex;\n\t\tflex-flow: row wrap;\n\t\tborder-bottom: 0;\n\t\tlist-style: none;\n\t\tpadding-left: 0;\n\t\tmargin-bottom: 0;\n}\n.user-options > li {\n\t\twidth: 45%;\n\t\tmargin: 0 auto;\n\t\tborder-radius: 15px;\n}\nfigure.snip {\n\t\tfont-family: 'Poppins', sans-serif;\n\t\tfont-weight: 600;\n\t\tcolor: #ececec;\n\t\tposition: relative;\n\t\toverflow: hidden;\n\t\tmin-width: 220px;\n\t\tmax-width: 400px;\n\t\theight: 205px;\n\t\twidth: 100%;\n\t\tbackground: #000000;\n\t\ttext-align: center;\n\t\tborder-radius: 15px;\n\t\tbox-shadow: 0px 0px 5px 5px #ececec;\n}\nfigure.snip * {\n\t\tbox-sizing: border-box;\n\t\ttransition: all 0.3s;\n}\nfigure.snip img {\n\t\topacity: 1;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\ttransition: all 0.6s;\n}\nfigure.snip figcaption {\n\t\tposition: absolute;\n\t\tbottom: 0;\n\t\tleft: 18%;\n\t\tright: 18%;\n\t\theight: 100%;\n}\nfigure.snip figcaption > div {\n\t\toverflow: hidden;\n\t\twidth: 100%;\n\t\tposition: relative;\n\t\theight: 50%;\n}\nfigure.snip h5, figure.snip span {\n\t\tmargin: 0;\n\t\tpadding: 10px 15px;\n\t\tdisplay: inline-block;\n\t\twidth: 100%;\n\t\tfont-weight: 700;\n}\nfigure.snip span {\n\t\tbackground: #88be2e;\n\t\tcolor: #fff; /*#4d4d4d*/\n\t\tposition: relative;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\tposition: absolute;\n\t\ttransform: translate3d(0%, 100%, 0);\n\t\tborder-radius: 5px;\n}\nfigure.snip h5 {\n\t\tbackground: rgba(51, 51, 51, 0.5);\n\t\ttransform: translate3d(0%, 0%, 0);\n\t\tborder-radius: 5px;\n\t\tfont-size: 17px;\n}\nfigure.snip a {\n\t\tleft: 0;\n\t\tright: 0;\n\t\ttop: 0;\n\t\tbottom: 0;\n\t\tposition: absolute;\n\t\tcolor: #ffffff;\n}\nfigure.snip:hover img, figure.snip.hover img {\n\t\topacity: 0.35;\n\t\t-webkit-filter: blur(5px);\n\t\tfilter: blur(5px);\n\t\ttransform: scale(1.1);\n}\nfigure.snip:hover figcaption span, figure.snip.hover figcaption span {\n\t\ttransform: translate3d(0%, 0%, 0);\n}\nfigure.snip:hover figcaption h5, figure.snip.hover figcaption h5 {\n\t\ttransform: translate3d(0%, -100%, 0);\n}\n.adv {\n\t\twidth: 100%;\n}\n.adv a {\n\t\tcolor: #fff;\n\t\tbackground-color: rgb(136, 190, 46);\n\t\ttransition: all 0.6s;\n}\n.adv a:hover {\n\t\tcolor: #fff;\n\t\ttransform: scale(1.05);\n\t\ttransition: all 0.6s;\n}\n\n\t/* Lateral User Options */\n.lateral-user-options {\n\t\tlist-style: none;\n\t\tdisplay: none;\n}\n.item-topbar {\n\t\tcolor: black;\n\t\ttransition: all ease 500ms;\n\t\ttext-align: center;\n\t\tvertical-align: middle;\n}\n.item-topbar:hover {\n\t\tbackground-color:#E9ECEF;\n\t\tcolor: #88BE2E;\n\t\tmargin-top: 1%;\n\t\tmargin-bottom: -1%;\n}\n.panels {\n\t\tmargin-top: 10px;\n}\n.panel {\n\t\tmargin-top: 25px;\n}\n.spinner-container {\n\t\tmargin-top: 50px;\n}\n@media (max-width: 768px) {\nfigure.snip {\n\t\t\theight: 180px;\n}\n.box-profile-img h4 {\n\t\t\tfont-size: 16px;\n}\n.box-profile-img ul {\n\t\t\tfont-size: 12px;\n}\n.welcome-text {\n\t\t\tpadding: 0px 25px;\n}\n.adv .row{\n\t\t\tmargin: 0;\n}\n}\n@media (max-width: 768px) and (orientation: landscape){\n.btn-view-profile {\n\t\t\twidth: 60%;\n\t\t\tfloat: none;\n}\n.box-profile-img {\n\t\t\twidth: 60%;\n\t\t\tmargin: 0 auto;\n}\n.box-profile-img h4 {\n\t\t\tfont-size: 23px;\n}\n.box-profile-img ul {\n\t\t\tfont-size: 16px;\n}\nfigure.snip {\n\t\t\tmargin: 0 auto 1rem;\n}\n}\n@media (max-width: 568px) {\n.box-profile-img {\n\t\t\tmargin-bottom: 35px;\n}\n.btn-view-profile {\n\t\t\twidth: 80%;\n\t\t\tfloat: none;\n}\n.user-options > li {\n\t\t\twidth: 100%;\n}\n.lateral-user-options {\n\t\t\tdisplay: block;\n}\n.top-user-options {\n\t\t\tdisplay: none;\n}\n.box-profile-img h4 {\n\t\t\tfont-size: 26px;\n}\n.box-profile-img ul {\n\t\t\tfont-size: 18px;\n}\n.panel-alert {\n\t\t\tfont-size: 14px;\n}\n.message {\n\t\t\tfont-size: 12px;\n}\n.message h5 {\n\t\t\tfont-size: 14px;\n}\n.message-date {\n\t\t\tfont-size: 10px;\n}\n}\n@media (max-width: 414px) and (orientation: portrait) {\n.welcome-text__title {\n\t\t\tfont-size: 2.5rem;\n}\n.welcome-text__message {\n\t\t\tfont-size: 1.1rem;\n}\n}\n", ""]);
 
 // exports
 
@@ -12246,7 +12359,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.rating, .no-rating {\n    \tlist-style-type: none;\n    \tpadding: 0;\n\t\tmargin: 0;\n}\n.rating li, .no-rating li {\n\t\tdisplay: inline-block;\n}\n.rating-star {\n\t\tcolor: #ffa000;\n}\n.no-rating-star {\n\t\tcolor: #cecece;\n}\n", ""]);
+exports.push([module.i, "\n.rating, .no-rating {\n    \tlist-style-type: none;\n    \tpadding: 0;\n\t\tmargin: 0;\n}\n.rating li, .no-rating li {\n\t\tdisplay: inline-block;\n}\n.rating-star {\n\t\tcolor: #ffa000;\n}\n.no-rating-star {\n\t\tcolor: #cecece;\n}\n.rating-info-icon {\n\t\tcursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -72482,6 +72595,36 @@ injectCSS(css);
 
 /***/ }),
 
+/***/ "./node_modules/tippy.js/index.css":
+/*!*****************************************!*\
+  !*** ./node_modules/tippy.js/index.css ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../css-loader??ref--6-1!../postcss-loader/src??ref--6-2!./index.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/tippy.js/index.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/vegas/dist/vegas.js":
 /*!******************************************!*\
   !*** ./node_modules/vegas/dist/vegas.js ***!
@@ -73365,7 +73508,34 @@ var render = function() {
           _c("div", { staticClass: "col-md-12 business-text" }, [
             _c("div", { staticClass: "text-center" }, [
               _c("div", { staticClass: "business-name" }, [
-                _c("h2", [_vm._v(_vm._s(this.data_user.commercial_name))])
+                _c("h2", [_vm._v(_vm._s(this.data_user.commercial_name))]),
+                _vm._v(" "),
+                this.data_user.verified == 2
+                  ? _c(
+                      "span",
+                      {
+                        staticClass: "is-verified",
+                        staticStyle: { "font-size": "25px" }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "fas fa-check-circle",
+                          attrs: { "data-tippy-content": "Empresa verificada" }
+                        })
+                      ]
+                    )
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "business-address text-muted h4" }, [
+                _vm.loading_type
+                  ? _c("span", [
+                      _c("i", { staticClass: "fas fa-spinner fa-spin" })
+                    ])
+                  : _c("span", [
+                      _c("i", { staticClass: "fas fa-tag" }),
+                      _vm._v(" " + _vm._s(_vm.type_user))
+                    ])
               ]),
               _vm._v(" "),
               _c("p", { staticClass: "business-description" }, [
@@ -73478,29 +73648,57 @@ var render = function() {
             "div",
             { staticClass: "col-md-4", staticStyle: { margin: "auto" } },
             [
-              _vm.data_visit_user.data == false
+              _vm.data_visit_user.data === false
                 ? _c("div", [_vm._m(0)])
                 : _c("div", [
                     _vm.data_visit_user.data.id !== _vm.data_user.id
                       ? _c("div", { staticClass: "text-center" }, [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-block btn-agendar",
-                              attrs: {
-                                type: "button",
-                                "data-toggle": "modal",
-                                "data-target": "#modalAgendar"
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n\t\t\t\t\t\t\t\tAgendar\n\t\t\t\t\t\t\t"
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _vm._m(1)
+                          _vm.loading_btn
+                            ? _c("div", [_vm._m(1)])
+                            : _c("div", [
+                                _vm.can_send_meet === true
+                                  ? _c("div", [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn btn-block btn-agendar",
+                                          attrs: {
+                                            type: "button",
+                                            "data-toggle": "modal",
+                                            "data-target": "#modalAgendar"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n\t\t\t\t\t\t\t\t\t\tAgendar\n\t\t\t\t\t\t\t\t\t"
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._m(2)
+                                    ])
+                                  : _c("div", [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn btn-block btn-agendar-off disabled",
+                                          attrs: {
+                                            type: "button",
+                                            disabled: ""
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n\t\t\t\t\t\t\t\t\t\tAgendado\n\t\t\t\t\t\t\t\t\t"
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._m(3)
+                                    ])
+                              ])
                         ])
                       : _vm._e(),
                     _vm._v(" "),
@@ -73544,7 +73742,7 @@ var render = function() {
             [
               _c("div", { staticClass: "modal-content" }, [
                 _c("div", { staticClass: "modal-body" }, [
-                  _vm._m(2),
+                  _vm._m(4),
                   _vm._v(" "),
                   _c("div", { staticClass: "text-center" }, [
                     _c("h5", { staticClass: "modal-title h3" }, [
@@ -73637,9 +73835,9 @@ var render = function() {
             [
               _c("div", { staticClass: "modal-content" }, [
                 _c("div", { staticClass: "modal-body" }, [
-                  _vm._m(3),
+                  _vm._m(5),
                   _vm._v(" "),
-                  _vm._m(4),
+                  _vm._m(6),
                   _vm._v(" "),
                   _c("div", { staticClass: "business-stat-modal container" }, [
                     _vm.certifications.length > 0
@@ -73732,9 +73930,9 @@ var render = function() {
             [
               _c("div", { staticClass: "modal-content" }, [
                 _c("div", { staticClass: "modal-body" }, [
-                  _vm._m(5),
+                  _vm._m(7),
                   _vm._v(" "),
-                  _vm._m(6),
+                  _vm._m(8),
                   _vm._v(" "),
                   _c("div", { staticClass: "business-stat-modal container" }, [
                     _vm.categories.length > 0
@@ -73817,7 +74015,7 @@ var render = function() {
             { staticClass: "modal-dialog", attrs: { role: "document" } },
             [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(7),
+                _vm._m(9),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
                   _c("div", { staticClass: "row" }, [
@@ -73828,21 +74026,27 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "div",
+                        { staticClass: "business-meet-name container" },
+                        [
+                          _c("p", { staticClass: "my-2 h6 text-center" }, [
+                            _vm._v(
+                              _vm._s(_vm.data_visit_user.data.commercial_name)
+                            )
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
                         { staticClass: "business-meet-card text-center" },
                         [
-                          _c("div", { staticClass: "container pt-3" }, [
+                          _c("div", { staticClass: "container py-3" }, [
                             _c("img", {
                               attrs: {
                                 src: _vm.data_visit_user.data.profile_img,
                                 width: "100%"
                               }
                             })
-                          ]),
-                          _vm._v(" "),
-                          _c("p", { staticClass: "my-2 h6" }, [
-                            _vm._v(
-                              _vm._s(_vm.data_visit_user.data.commercial_name)
-                            )
                           ])
                         ]
                       )
@@ -73855,19 +74059,25 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "div",
+                        { staticClass: "business-meet-name container" },
+                        [
+                          _c("p", { staticClass: "my-2 h6 text-center" }, [
+                            _vm._v(_vm._s(_vm.data_user.commercial_name))
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
                         { staticClass: "business-meet-card text-center" },
                         [
-                          _c("div", { staticClass: "container pt-3" }, [
+                          _c("div", { staticClass: "container py-3" }, [
                             _c("img", {
                               attrs: {
                                 src: _vm.data_user.profile_img,
                                 width: "100%"
                               }
                             })
-                          ]),
-                          _vm._v(" "),
-                          _c("p", { staticClass: "my-2 h6" }, [
-                            _vm._v(_vm._s(_vm.data_user.commercial_name))
                           ])
                         ]
                       )
@@ -73973,12 +74183,38 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-block btn-agendar-off disabled",
+        attrs: { type: "button", disabled: "" }
+      },
+      [
+        _vm._v("\n\t\t\t\t\t\t\t\t\tEspere "),
+        _c("i", { staticClass: "fas fa-spinner fa-spin" })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("small", { staticClass: "mt-1" }, [
       _c("span", { staticClass: "text-muted" }, [
         _vm._v("Esta operación cuesta 30 coins. "),
         _c("a", { attrs: { href: "/planes", target: "_blank" } }, [
           _vm._v("Conseguir coins.")
         ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("small", { staticClass: "mt-1" }, [
+      _c("span", { staticClass: "text-muted" }, [
+        _vm._v("Debes esperar la confirmación de esta empresa.")
       ])
     ])
   },
@@ -74837,7 +75073,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "business-card-container container p-3" }, [
+  return _c("div", { staticClass: "business-card-container container p-2" }, [
     _c("div", { staticClass: "card" }, [
       _c("div", { staticClass: "view-overlay" }, [
         _c("img", {
@@ -74861,7 +75097,23 @@ var render = function() {
           [
             _c("h6", { staticClass: "card-title" }, [
               _c("a", { attrs: { href: "" } }, [
-                _vm._v(_vm._s(_vm.company.commercial_name))
+                _vm._v(_vm._s(_vm.company.commercial_name) + " "),
+                _vm.company.verified == 2
+                  ? _c("span", { staticStyle: { color: "#10B725" } }, [
+                      _c("i", {
+                        staticClass: "fas fa-check-circle",
+                        attrs: { "data-tippy-content": "Empresa verificada" }
+                      })
+                    ])
+                  : _vm._e()
+              ]),
+              _c("br"),
+              _vm._v(" "),
+              _c("small", [
+                _c("span", { staticClass: "text-muted" }, [
+                  _c("i", { staticClass: "fas fa-tag" }),
+                  _vm._v(" " + _vm._s(_vm.company.name))
+                ])
               ])
             ]),
             _vm._v(" "),
@@ -77796,7 +78048,27 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c("h4", { staticClass: "text-center" }, [
-                  _vm._v(_vm._s(_vm.user.commercial_name))
+                  _vm._v(_vm._s(_vm.user.commercial_name) + "\n\t\t\t\t\t\t\t"),
+                  _vm.user.verified !== 2
+                    ? _c("span", { staticClass: "not-yet-verified" }, [
+                        _c("i", {
+                          staticClass: "far fa-check-circle",
+                          attrs: {
+                            "data-tippy-content":
+                              "Empresa no verificada. Para verificar tu cuenta dirigete a: Información Empresa > Validación"
+                          }
+                        })
+                      ])
+                    : _c("span", { staticClass: "is-verified" }, [
+                        _c("i", {
+                          staticClass: "fas fa-check-circle",
+                          attrs: { "data-tippy-content": "Empresa verificada" }
+                        })
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-center text-muted" }, [
+                  _vm._v(_vm._s(_vm.name_type_user))
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "list-group notifications" }, [
@@ -81748,7 +82020,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "media" }, [
         _c("img", {
           staticClass: "align-self-center mr-3",
-          staticStyle: { width: "150px" },
+          staticStyle: { width: "70px" },
           attrs: { src: "\\img\\notification-icons\\success.svg" }
         }),
         _vm._v(" "),
@@ -83191,8 +83463,19 @@ var render = function() {
                     _vm._s(_vm.value_rating) +
                       " (" +
                       _vm._s(_vm.amount_rating) +
-                      ")"
-                  )
+                      ") "
+                  ),
+                  _c("sup", [
+                    _c("i", {
+                      staticClass: "fas fa-info rating-info-icon",
+                      attrs: {
+                        "data-tippy-content":
+                          "Basado en la puntuación de " +
+                          _vm.amount_rating +
+                          " usuarios"
+                      }
+                    })
+                  ])
                 ])
               ])
             : _vm._e()
@@ -83205,8 +83488,6 @@ var render = function() {
         _vm._m(2),
         _vm._m(3),
         _vm._m(4),
-        _vm._v(" "),
-        _c("br"),
         _vm._v(" "),
         _vm._m(5)
       ])
@@ -83247,7 +83528,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("li", [
-      _c("p", { staticClass: "text-muted" }, [_vm._v("Sin valoración")])
+      _c("small", [
+        _c("p", { staticClass: "text-muted" }, [_vm._v("Sin valoración")])
+      ])
     ])
   }
 ]
@@ -97532,7 +97815,6 @@ if (document.getElementById('compradores_destacados') !== null && document.getEl
     responsive: {
       768: {
         edgePadding: 20,
-        gutter: 20,
         items: 2
       },
       1100: {
@@ -97555,7 +97837,6 @@ if (document.getElementById('vendedores_destacados') !== null && document.getEle
     responsive: {
       768: {
         edgePadding: 20,
-        gutter: 20,
         items: 2
       },
       1100: {
@@ -97578,7 +97859,6 @@ if (document.getElementById('empresas_mas_visitadas') !== null && document.getEl
     responsive: {
       768: {
         edgePadding: 20,
-        gutter: 20,
         items: 2
       },
       1100: {

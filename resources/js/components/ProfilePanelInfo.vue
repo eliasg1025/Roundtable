@@ -249,7 +249,7 @@
 			<div v-else-if="verified == 2">
 				<div class="container my-2">
 					<div class="media">
-						<img class="align-self-center mr-3" src="\img\notification-icons\success.svg" style="width: 150px;">
+						<img class="align-self-center mr-3" src="\img\notification-icons\success.svg" style="width: 70px;">
 						<div class="media-body align-self-center">
 							<h3 class="mt-0">Verificado exitosamente</h3>
 						</div>

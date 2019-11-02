@@ -59,13 +59,19 @@ class InicioController extends Controller
 							->select('user_id')
 							->join('plans', 'plans.id', '=', 'plan_user.plan_id')
 							->where('plans.is_best', '=', '1');
+
+		$typeInfo = DB::table('types')
+        				->select(DB::raw('id as xid'), 'name');
 		
-		$users = App\User::select('id', 'commercial_name', 'uuid', 'profile_img', 'cover_img', 'views', 'verified', 'type_id', 'amount_rating', 'total_rating', 'avg_rating')
+		$users = App\User::select('id', 'commercial_name', 'uuid', 'profile_img', 'cover_img', 'views', 'verified', 'type_id', 'amount_rating', 'total_rating', 'avg_rating', 'type_info.name')
 							->joinSub($ratingInfo, 'rating_info', function($join) {
 								$join->on('users.id', '=', 'rating_info.user_id');
 							})
 							->joinSub($planInfo, 'plan_info', function($join) {
 								$join->on('plan_info.user_id', '=', 'users.id');
+							})
+							->joinSub($typeInfo, 'type_info', function($join) {
+								$join->on('users.type_id', '=', 'type_info.xid');
 							})
 							->whereIn('type_id', $types)
 							->orderBy('total_rating', 'DESC', 'avg_rating', 'DESC')
@@ -80,10 +86,16 @@ class InicioController extends Controller
 		$ratingInfo = DB::table('ratings')
 							->select('user_id', DB::raw('COUNT(*) as amount_rating, SUM(value) as total_rating, AVG(value) as avg_rating'))
 							->groupBy('user_id');
+
+		$typeInfo = DB::table('types')
+        				->select(DB::raw('id as xid'), 'name');
 		
-		$users = App\User::select('id', 'commercial_name', 'uuid', 'profile_img', 'cover_img', 'views', 'verified', 'type_id', 'amount_rating', 'total_rating', 'avg_rating')
+		$users = App\User::select('id', 'commercial_name', 'uuid', 'profile_img', 'cover_img', 'views', 'verified', 'type_id', 'amount_rating', 'total_rating', 'avg_rating', 'type_info.name')
 							->joinSub($ratingInfo, 'rating_info', function($join) {
 								$join->on('users.id', '=', 'rating_info.user_id');
+							})
+							->joinSub($typeInfo, 'type_info', function($join) {
+								$join->on('users.type_id', '=', 'type_info.xid');
 							})
 							->orderBy('views', 'DESC')
 							->limit(10)

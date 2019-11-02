@@ -35,9 +35,15 @@ class BusinessController extends Controller
                             ->select('user_id', DB::raw('COUNT(*) as amount_rating, SUM(value) as total_rating, AVG(value) as avg_rating'))
                             ->groupBy('user_id');
 
-		$users = User::select('id', 'commercial_name', 'uuid', 'profile_img', 'cover_img', 'description', 'verified', 'amount_rating', 'total_rating', 'avg_rating')
+        $typeInfo = DB::table('types')
+        				->select(DB::raw('id as xid'), 'name');
+
+		$users = User::select('id', 'commercial_name', 'uuid', 'profile_img', 'cover_img', 'description', 'verified', 'amount_rating', 'total_rating', 'avg_rating', 'type_id', 'type_info.name')
 						->joinSub($ratingInfo, 'rating_info', function($join) {
 							$join->on('users.id', '=', 'rating_info.user_id');
+						})
+						->joinSub($typeInfo, 'type_info', function($join) {
+							$join->on('users.type_id', '=', 'type_info.xid');
 						})
 						->orderBy('total_rating', 'DESC', 'avg_rating', 'DESC')
 						->paginate(4); // Cantidad de empresas por pagina
@@ -56,12 +62,18 @@ class BusinessController extends Controller
         						->join('categories', 'categories.id', '=', 'category_user.category_id')
         						->where('slug', $slug);
 
-		$users = User::select('id', 'commercial_name', 'uuid', 'profile_img', 'cover_img', 'description', 'verified', 'amount_rating', 'total_rating', 'avg_rating', 'cat_user.slug')
+		$typeInfo = DB::table('types')
+        				->select(DB::raw('id as xid'), 'name');
+
+		$users = User::select('id', 'commercial_name', 'uuid', 'profile_img', 'cover_img', 'description', 'verified', 'amount_rating', 'total_rating', 'avg_rating', 'cat_user.slug', 'type_id', 'type_info.name')
 						->joinSub($ratingInfo, 'rating_info', function($join) {
 							$join->on('users.id', '=', 'rating_info.user_id');
 						})
 						->joinSub($catUser, 'cat_user', function($join) {
 							$join->on('users.id', '=', 'cat_user.user_id');
+						})
+						->joinSub($typeInfo, 'type_info', function($join) {
+							$join->on('users.type_id', '=', 'type_info.xid');
 						})
 						->orderBy('total_rating', 'DESC', 'avg_rating', 'DESC')
 						->paginate(4); // Cantidad de empresas por pagina
