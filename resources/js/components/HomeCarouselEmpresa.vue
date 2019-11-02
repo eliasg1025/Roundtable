@@ -55,7 +55,7 @@ export default {
 	}
 
 	.business-card-container {
-		height: 380px;
+		height: 400px;
 	}
 
 	.business-card-container .card {

@@ -48,6 +48,7 @@ Route::post('/meet/accept-meet', 'MeetController@acceptMeet');
 
 Route::get('/business', 'BusinessController@index')->name('business');
 Route::post('/business/create-meet', 'MeetController@createMeet');
+Route::post('/business/check-meet', 'MeetController@checkMeet');
 
 Route::get('/business/category/{slug}', 'BusinessController@category')->name('business.category');
 
@@ -56,6 +57,7 @@ Route::get('/business/profile/{slug}', 'BusinessController@show')->name('busines
 // Api
 Route::get('/profile/messages', 'Api\MessagesController@index');
 Route::get('/profile/operations', 'Api\OperationsController@index');
+Route::get('/profile/types', 'Api\TypesController@index');
 
 Route::get('/test', function () {
 	$user = App\User::where('uuid', 'ZVIjs')->first();

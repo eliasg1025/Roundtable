@@ -7,6 +7,7 @@ use App\Message;
 use App\Operation;
 use App\Traits\NotificationMessage;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -46,7 +47,7 @@ class MeetController extends Controller
 					'code' => 200,
 					'status' => 'success',
 					'message' => 'Reunión agendada con éxito',
-				];		
+				];	
 			} else {
 				$data = [
 					'code' => 403,
@@ -63,6 +64,34 @@ class MeetController extends Controller
 			];
 		}
 
+		return response()->json($data, $data['code']);
+	}
+
+	public function checkMeet(Request $request)
+	{
+		$sender = Auth::user();
+		$receiver = User::find($request->receiver_id);
+		
+		$last_meet = DB::table('meetings')
+						->where('sender_id', $sender->id)
+						->where('receiver_id', $receiver->id)
+						->orderBy('created_at', 'DESC')
+						->first();
+		
+		if ($last_meet) {
+			$data = array(
+				'code' => 200,
+				'status' => 'success',
+				'data' => $last_meet,
+			);
+		} else {
+			$data = array(
+				'code' => 404,
+				'status' => 'error',
+				'message' => 'No hay agendamientos previos con esta empresa'
+			);
+		}
+		
 		return response()->json($data, $data['code']);
 	}
 

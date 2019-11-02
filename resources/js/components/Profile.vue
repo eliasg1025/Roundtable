@@ -49,7 +49,11 @@
 								</rating-stars>
 							</a>
 
-							<h4 class="text-center">{{ user.commercial_name }}</h4>
+							<h4 class="text-center">{{ user.commercial_name }}
+								<span v-if="user.verified !== 2" class="not-yet-verified"><i class="far fa-check-circle" data-tippy-content="Empresa no verificada. Para verificar tu cuenta dirigete a: Información Empresa > Validación"></i></span>
+								<span v-else class="is-verified"><i class="fas fa-check-circle" data-tippy-content="Empresa verificada"></i></span>
+							</h4>
+							<p class="text-center text-muted">{{ name_type_user }}</p>
 							<div class="list-group notifications">
 								<a href="#" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#modalNotiPlan">
 									Plan
@@ -85,7 +89,7 @@
 					</div>
 				</div>
 
-				<!-- Rigth Side -->
+				<!-- Right Side -->
 				<div class="col-md-9">
 					<!-- Top user Options -->
 					<div class="top-user-options my-3">
@@ -395,6 +399,8 @@
 	import PanelCert from "./ProfilePanelCert";
 	import PanelMeet from "./ProfilePanelMeet";
 	import Spinner from "./Spinner";
+	import tippy from 'tippy.js';
+	import '../../../node_modules/tippy.js/index.css';
 
 	export default {
 		components: {
@@ -412,6 +418,7 @@
 				user_plans: this.data.user_plans,
 				messages_data: [],
 				operations: [],
+				name_type_user: '',
 				media_data: this.data.media_data,
 				rating: this.data.account_data.rating_data,
 				data_offers: this.data.account_data.offers_data,
@@ -432,6 +439,8 @@
 			}
 		},
 		mounted() {
+            tippy('[data-tippy-content]');
+            
 			axios.get('/profile/messages')
 				.then(res => {
 					// console.log(res.data.data)
@@ -443,7 +452,17 @@
 				.then(res => {
 					this.operations = res.data.data;
 				})
-				.catch(err => console.log(err.reponse));
+				.catch(err => console.log(err.response));
+			
+			axios.get('/profile/types')
+				.then(res => {
+				    res.data.data.forEach(element => {
+                        if (element.id === this.user.type_id) {
+                            this.name_type_user = element.name;
+                        }
+                    });
+				})
+				.catch(err => console.log(err.response));
 		},
 		methods: {
 			activePanel(option) {
@@ -515,6 +534,16 @@
 	.user_profile {
 		padding: 50px 0;
     	background: #f1f1f1;
+	}
+	
+	.not-yet-verified {
+		color: #7e7e7e;
+		cursor: pointer;
+	}
+	
+	.is-verified {
+		color: #11B726;
+		cursor: pointer;
 	}
 
 	.box-profile-img {

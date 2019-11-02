@@ -11,7 +11,6 @@ if (document.getElementById('compradores_destacados') !== null && document.getEl
 		responsive: {
 			768: {
 				edgePadding: 20,
-				gutter: 20,
 				items: 2
 			},
 			1100: {
@@ -34,7 +33,6 @@ if (document.getElementById('vendedores_destacados') !== null && document.getEle
 		responsive: {
 			768: {
 				edgePadding: 20,
-				gutter: 20,
 				items: 2
 			},
 			1100: {
@@ -57,7 +55,6 @@ if (document.getElementById('empresas_mas_visitadas') !== null && document.getEl
 		responsive: {
 			768: {
 				edgePadding: 20,
-				gutter: 20,
 				items: 2
 			},
 			1100: {

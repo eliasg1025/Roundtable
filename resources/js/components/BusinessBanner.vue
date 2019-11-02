@@ -12,12 +12,13 @@
 					<div class="col-md-12 business-text">
 						<div class="text-center">
 							<div class="business-name">
-								<h2>{{ this.data_user.commercial_name }}</h2>
+								<h2>{{ this.data_user.commercial_name }}</h2>   
+								<span v-if="this.data_user.verified == 2" class="is-verified" style="font-size: 25px;"><i data-tippy-content="Empresa verificada" class="fas fa-check-circle"></i></span>
 							</div>
-							<!--
-							<p v-if="this.data_user.address !== null" class="business-address text-muted">
-								{{ this.data_user.address }}
-							</p> -->
+							<p class="business-address text-muted h4">
+								<span v-if="loading_type"><i class="fas fa-spinner fa-spin"></i></span>
+								<span v-else><i class="fas fa-tag"></i> {{ type_user }}</span>
+							</p>
 							<p class="business-description">{{ this.data_user.description }}</p>
 						</div>
 					</div>
@@ -72,7 +73,7 @@
 					</div>
 					<div class="col-md-4" style="margin: auto;">
 
-						<div v-if="data_visit_user.data == false">
+						<div v-if="data_visit_user.data === false">
 							<a
 								class="btn btn-block btn-agendar have-to-login"
 								data-toggle="modal" data-target="#login"
@@ -83,12 +84,29 @@
 
 						<div v-else>
 							<div v-if="data_visit_user.data.id !== data_user.id" class="text-center">
-								<button type="button" class="btn btn-block btn-agendar" data-toggle="modal" data-target="#modalAgendar">
-									Agendar
-								</button>
-								<small class="mt-1">
-									<span class="text-muted">Esta operación cuesta 30 coins. <a href="/planes" target="_blank">Conseguir coins.</a></span>
-								</small>
+								<div v-if="loading_btn">
+									<button type="button" class="btn btn-block btn-agendar-off disabled" disabled>
+										Espere <i class="fas fa-spinner fa-spin"></i>
+									</button>
+								</div>
+								<div v-else>
+									<div v-if="can_send_meet === true">
+										<button type="button" class="btn btn-block btn-agendar" data-toggle="modal" data-target="#modalAgendar">
+											Agendar
+										</button>
+										<small class="mt-1">
+											<span class="text-muted">Esta operación cuesta 30 coins. <a href="/planes" target="_blank">Conseguir coins.</a></span>
+										</small>
+									</div>
+									<div v-else>
+										<button type="button" class="btn btn-block btn-agendar-off disabled" disabled>
+											Agendado
+										</button>
+										<small class="mt-1">
+											<span class="text-muted">Debes esperar la confirmación de esta empresa.</span>
+										</small>
+									</div>
+								</div>
 							</div>
 
 							<a
@@ -226,20 +244,24 @@
 							<div class="row">
 								<div class="col-md-6">
 									<p class="form-destinity">De:</p>
+									<div class="business-meet-name container">
+										<p class="my-2 h6 text-center">{{ data_visit_user.data.commercial_name }}</p>
+									</div>
 									<div class="business-meet-card text-center">
-										<div class="container pt-3">
+										<div class="container py-3">
 											<img :src="data_visit_user.data.profile_img" width="100%">
 										</div>
-										<p class="my-2 h6">{{ data_visit_user.data.commercial_name }}</p>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<p class="form-destinity second">Para:</p>
+									<div class="business-meet-name container">
+										<p class="my-2 h6 text-center">{{ data_user.commercial_name }}</p>
+									</div>
 									<div class="business-meet-card text-center">
-										<div class="container pt-3">
+										<div class="container py-3">
 											<img :src="data_user.profile_img" width="100%">
 										</div>
-										<p class="my-2 h6">{{ data_user.commercial_name }}</p>
 									</div>
 								</div>
 							</div>
@@ -272,6 +294,9 @@
 </template>
 
 <script>
+    import tippy from 'tippy.js';
+    import '../../../node_modules/tippy.js/index.css';
+    
 	export default {
 		props: [
 			'data_user',
@@ -288,6 +313,10 @@
 				value_rating: 0,
 				show_rating: false,
 				message: '',
+				type_user: '',
+				can_send_meet: true,
+				loading_btn: true,
+				loading_type: true,
 			}
 		},
 		computed: {
@@ -295,7 +324,37 @@
 				return this.message.length
 			}
 		},
+		created() {
+		    axios.get('/profile/types')
+				.then(res => {
+				    res.data.data.forEach(element => {
+				        if (element.id === this.data_user.type_id) {
+				            this.loading_type = false;
+				            this.type_user = element.name;
+						}
+					})
+				})
+
+			axios.post('/business/check-meet/', {
+                receiver_id : this.data_user.id
+			})
+				.then(res => {
+				    console.log(res.data.data);
+				    if (res.data.data.state_id === 2 || res.data.data.state_id === 5) {
+                        this.can_send_meet = true;
+					} else {
+				        this.can_send_meet = false;
+					}
+				    this.loading_btn = false
+				})
+				.catch(err => {
+				    console.log(err.response.data);
+				    this.loading_btn = false;
+				})
+		},
 		mounted() {
+            tippy('[data-tippy-content]');
+            // Give img to banner
 			let el = document.querySelector(`#${this.id}`);
 			el.style = `background-image: url('${this.data_user.cover_img}')`;
 		},
@@ -312,7 +371,14 @@
 					showCancelButton: true,
 				})
 					.then(res => {
-						if (res.value == true) {
+						if (res.value === true) {
+							Swal.fire({
+								title: 'Enviando',
+								onBeforeOpen: () => {
+									Swal.showLoading();
+								}
+							});
+
 							axios.post('/business/create-meet', {
 								receiver_id: this.data_user.id,
 								sender_id: this.data_visit_user.data.id,
@@ -434,7 +500,7 @@
 		padding-bottom: 20px;
 	}
 
-	.business-stats .btn-agendar {
+	.business-stats .btn-agendar, .business-stats .btn-agendar-off {
 		background-color: #88be2e;
 		color: #fff;
 		font-family: 'Roboto', sans-serif;
@@ -518,8 +584,13 @@
 	.business-meet-card {
 		color: #383d41;
 		background-color: #e2e3e5;
-		border: 1px solid #d6d8db;
+		border: 2px solid #d6d8db;
 		border-radius: 6px;
+	}
+	
+	.business-meet-name p{
+		text-transform: uppercase;
+		font-weight: 600;
 	}
 
 	.form-destinity {

@@ -1,5 +1,5 @@
 <template>
-	<div class="business-card-container container p-3">
+	<div class="business-card-container container p-2">
 		<div class="card">
 			<div class="view-overlay">
 				<img :src="company.cover_img" alt="" class="" style="width:100%; height:150px;">
@@ -10,9 +10,11 @@
 				</div>
 				<div class="col-7">
 					<h6 class="card-title">
-						<a href="">{{company.commercial_name}}</a>
+						<a href="">{{company.commercial_name}} <span v-if="company.verified == 2" style="color: #10B725;"><i class="fas fa-check-circle" data-tippy-content="Empresa verificada"></i></span></a><br>
+						<small>
+							<span class="text-muted"><i class="fas fa-tag"></i> {{ company.name }}</span>
+						</small>
 					</h6>
-
 					<rating-stars
 						:amount_rating="company.amount_rating"
 						:avg_rating="company.avg_rating"
@@ -37,10 +39,12 @@
 </template>
 
 <script>
-export default {
-	name: 'card-business',
-	props: ['company', 'loged'],
-};
+	Tippy.default('data-tippy-default');
+	
+	export default {
+		name: 'card-business',
+		props: ['company', 'loged'],
+    };
 </script>
 
 <style>
