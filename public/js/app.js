@@ -4274,6 +4274,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -6495,21 +6497,280 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['data', 'user'],
   data: function data() {
     return {
       hangouts_url: '',
-      skype_url: ''
+      skype_url: '',
+      they_can_view_data: [3, 4, 5],
+      modal_loading: true
     };
   },
   created: function created() {
     this.hangouts_url = this.user.hangouts_url;
     this.skype_url = this.user.skype_url;
   },
+  mounted: function mounted() {
+    Tippy["default"]('[data-tippy-content]');
+  },
   methods: {
-    editMeetInfo: function editMeetInfo() {
+    message_date: function message_date(date) {
+      return Moment(date, "YYYY-MM-DD hh:mm:ss").fromNow();
+    },
+    view_business_data: function view_business_data() {
       var _this = this;
+
+      setTimeout(function () {
+        _this.modal_loading = false;
+      }, 1500);
+    },
+    can_view_data: function can_view_data(state_id) {
+      return this.they_can_view_data.indexOf(state_id) >= 0;
+    },
+    editMeetInfo: function editMeetInfo() {
+      var _this2 = this;
 
       Swal.fire({
         title: '¿Deseas modificar datos de contacto?',
@@ -6520,11 +6781,13 @@ __webpack_require__.r(__webpack_exports__);
         cancelButtonText: 'Cancelar',
         showCancelButton: true
       }).then(function (res) {
-        if (res.value == true) {
+        if (res.value === true) {
+          _this2.waitingAlert();
+
           axios.post('/profile/update-contact-info', {
-            user_id: _this.user.id,
-            hangouts_url: _this.hangouts_url,
-            skype_url: _this.skype_url
+            user_id: _this2.user.id,
+            hangouts_url: _this2.hangouts_url,
+            skype_url: _this2.skype_url
           }).then(function (res) {
             console.log(res);
             Swal.fire({
@@ -6543,18 +6806,89 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    acceptMeet: function acceptMeet(meet_id) {
+    responseRequestMeet: function responseRequestMeet(meet_id, operation) {
+      if (operation === 0) {
+        Swal.fire({
+          title: '¿Desea rechazar esta solicitud?',
+          text: 'Esta acción es irreversible',
+          type: 'warning'
+        }).then(function (res) {
+          if (res.value) operate();
+        });
+      } else {
+        Swal.fire({
+          title: '¿Desea aceptar esta solicitud?',
+          type: 'info'
+        }).then(function (res) {
+          if (res.value) operate();
+        });
+      }
+
+      function operate() {
+        Swal.fire({
+          title: 'Cargando',
+          onBeforeOpen: function onBeforeOpen() {
+            Swal.showLoading();
+          }
+        }); // ['aceptar', 'rechazar']
+
+        axios.post('/meet/response-request-meet', {
+          operation: operation,
+          meet_id: meet_id
+        }).then(function (res) {
+          console.log(res.data);
+          Swal.fire({
+            title: res.data.message,
+            type: 'success',
+            timer: 2000,
+            showConfirmButton: false
+          }).then(function (res) {
+            return location.reload();
+          });
+        })["catch"](function (err) {
+          console.log(err.response.data);
+        });
+      }
+    },
+    cancelMeet: function cancelMeet(meet_id) {
+      var _this3 = this;
+
+      Swal.fire({
+        title: '¿Realmente desea cancelar esta operación?',
+        text: 'Esta operación es irreversible',
+        type: 'warning'
+      }).then(function (res) {
+        if (res.value) {
+          _this3.waitingAlert();
+
+          axios.post('/meet/cancel-meet', {
+            meet_id: meet_id
+          }).then(function (res) {
+            console.log(res.data);
+            Swal.fire({
+              title: res.data.message,
+              type: 'success',
+              timer: 2500,
+              showConfirmButton: false
+            }).then(function (res) {
+              return location.reload();
+            });
+          })["catch"](function (err) {
+            console.log(err.response.data);
+            Swal.fire({
+              title: 'Error al cargar la operación, vuelva a cargar la página',
+              type: 'error'
+            });
+          });
+        }
+      });
+    },
+    waitingAlert: function waitingAlert() {
       Swal.fire({
         title: 'Cargando',
         onBeforeOpen: function onBeforeOpen() {
           Swal.showLoading();
         }
-      });
-      axios.post('/profile/accept-meet', {
-        user_id: this.user.id,
-        meet: meet_id
-      }).then(function (res) {
-        console.log(res);
       });
     }
   }
@@ -11910,7 +12244,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/tippy.js/index.css":
+/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/tippy.js/index.css?c709":
 /*!*************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/tippy.js/index.css ***!
   \*************************************************************************************************************************/
@@ -12321,7 +12655,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.table-meet > * {\n\tfont-size: 14px;\n}\n.business-card-meet-table {\n\twidth: 150px;\n\tmargin: auto;\n}\n.container-button {\n\twidth: 150px;\n\tfont-size: 14px;\n\tmargin: auto;\n}\n.meet-message {\n\twidth: 310px;\n\ttext-align: initial;\n\tfont-size: 14px;\n\tresize: none;\n}\n.meet-state {\n\tbackground-color: #dadada;\n\tpadding: 5px;\n\tborder: 1px solid #b1b1b1;\n\tborder-radius: 4px;\n}\n", ""]);
+exports.push([module.i, "\n.table-meet > * {\n\tfont-size: 14px;\n}\n.business-card-meet-table {\n\twidth: 150px;\n\tmargin: auto;\n}\n.container-button {\n\twidth: 150px;\n\tfont-size: 14px;\n\tmargin: auto;\n}\n.meet-message {\n\twidth: 310px;\n\ttext-align: initial;\n\tfont-size: 14px;\n\tresize: none;\n}\n.meet-state {\n\tbackground-color: #dadada;\n\tpadding: 5px;\n\tborder: 1px solid #b1b1b1;\n\tborder-radius: 4px;\n}\n.mostrar-datos {\n\tfont-size: 14px;\n}\n", ""]);
 
 // exports
 
@@ -72603,7 +72937,7 @@ injectCSS(css);
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../css-loader??ref--6-1!../postcss-loader/src??ref--6-2!./index.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/tippy.js/index.css");
+var content = __webpack_require__(/*! !../css-loader??ref--6-1!../postcss-loader/src??ref--6-2!./index.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/tippy.js/index.css?c709");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -78794,14 +79128,23 @@ var render = function() {
                             },
                             [
                               _c("div", { staticClass: "media" }, [
-                                _c("img", {
-                                  staticClass:
-                                    "align-self-center icon-message p-3 mr-3",
-                                  attrs: {
-                                    src: message_data.type_message.picture,
-                                    alt: "notification-icon"
-                                  }
-                                }),
+                                message_data.message.customImage
+                                  ? _c("img", {
+                                      staticClass:
+                                        "align-self-center icon-message p-3 mr-3",
+                                      attrs: {
+                                        src: message_data.message.customImage,
+                                        alt: "notification-icon"
+                                      }
+                                    })
+                                  : _c("img", {
+                                      staticClass:
+                                        "align-self-center icon-message p-3 mr-3",
+                                      attrs: {
+                                        src: message_data.type_message.picture,
+                                        alt: "notification-icon"
+                                      }
+                                    }),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "media-body p-3" }, [
                                   _c("h5", { staticClass: "mt-1" }, [
@@ -82401,15 +82744,23 @@ var render = function() {
                         ),
                         _c("br"),
                         _vm._v(" "),
-                        data_meeting.state.id == 3
+                        _vm.can_view_data(data_meeting.state.id)
                           ? _c(
                               "a",
                               {
                                 staticClass: "my-2",
                                 attrs: {
-                                  href:
-                                    "/business/profile/" +
-                                    data_meeting.other_user.uuid
+                                  role: "button",
+                                  "data-toggle": "modal",
+                                  "data-target":
+                                    "#previewInfoReceivedBusiness-" +
+                                    data_meeting.meeting.id,
+                                  href: "#"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.view_business_data()
+                                  }
                                 }
                               },
                               [
@@ -82419,7 +82770,896 @@ var render = function() {
                             )
                           : _vm._e()
                       ]
-                    )
+                    ),
+                    _vm._v(" "),
+                    _vm.can_view_data(data_meeting.state.id)
+                      ? _c("div", [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "modal fade",
+                              attrs: {
+                                id:
+                                  "previewInfoReceivedBusiness-" +
+                                  data_meeting.meeting.id,
+                                tabindex: "-1",
+                                role: "dialog",
+                                "aria-labelledby":
+                                  "previewInfoBusinessLabel-" +
+                                  data_meeting.meeting.id,
+                                "aria-hidden": "true"
+                              }
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "modal-dialog modal-lg modal-dialog-centered",
+                                  attrs: { role: "document" }
+                                },
+                                [
+                                  _c("div", { staticClass: "modal-content" }, [
+                                    _c("div", { staticClass: "modal-header" }, [
+                                      _c(
+                                        "h6",
+                                        {
+                                          staticClass: "modal-title",
+                                          attrs: {
+                                            id:
+                                              "previewInfoBusinessLabel-" +
+                                              data_meeting.meeting.id
+                                          }
+                                        },
+                                        [
+                                          _c("img", {
+                                            attrs: {
+                                              src:
+                                                data_meeting.other_user
+                                                  .profile_img,
+                                              height: "40px"
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("b", [
+                                            _vm._v(
+                                              _vm._s(
+                                                data_meeting.other_user
+                                                  .commercial_name
+                                              )
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          data_meeting.other_user.verified
+                                            ? _c(
+                                                "span",
+                                                { staticClass: "is-verified" },
+                                                [
+                                                  _c("i", {
+                                                    staticClass:
+                                                      "fas fa-check-circle",
+                                                    attrs: {
+                                                      "data-tippy-content":
+                                                        "Empresa verificada"
+                                                    }
+                                                  })
+                                                ]
+                                              )
+                                            : _vm._e()
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._m(6, true)
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "modal-body" }, [
+                                      _vm.modal_loading
+                                        ? _c(
+                                            "div",
+                                            {
+                                              staticClass: "text-center h6 p-4"
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass:
+                                                  "fas fa-spinner fa-spin"
+                                              }),
+                                              _vm._v(
+                                                " Cargando\n\t\t\t\t\t\t\t\t\t\t\t\t"
+                                              )
+                                            ]
+                                          )
+                                        : _c("div", [
+                                            _c("div", { staticClass: "row" }, [
+                                              _c(
+                                                "div",
+                                                { staticClass: "col-md-6" },
+                                                [
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "container p-3"
+                                                    },
+                                                    [
+                                                      _c("img", {
+                                                        staticClass:
+                                                          "img-thumbnail",
+                                                        attrs: {
+                                                          src:
+                                                            data_meeting
+                                                              .other_user
+                                                              .profile_img,
+                                                          width: "100%"
+                                                        }
+                                                      })
+                                                    ]
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "div",
+                                                { staticClass: "col-md-6" },
+                                                [
+                                                  _c(
+                                                    "div",
+                                                    { staticClass: "p-3" },
+                                                    [
+                                                      _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "form-group row"
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "label",
+                                                            {
+                                                              staticClass:
+                                                                "col-sm-4 col-form-label"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "Razón social"
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "div",
+                                                            {
+                                                              staticClass:
+                                                                "col-sm-8"
+                                                            },
+                                                            [
+                                                              _c("input", {
+                                                                directives: [
+                                                                  {
+                                                                    name:
+                                                                      "model",
+                                                                    rawName:
+                                                                      "v-model",
+                                                                    value:
+                                                                      data_meeting
+                                                                        .other_user
+                                                                        .name,
+                                                                    expression:
+                                                                      "data_meeting.other_user.name"
+                                                                  }
+                                                                ],
+                                                                staticClass:
+                                                                  "form-control mostrar-datos",
+                                                                attrs: {
+                                                                  type: "text",
+                                                                  disabled: ""
+                                                                },
+                                                                domProps: {
+                                                                  value:
+                                                                    data_meeting
+                                                                      .other_user
+                                                                      .name
+                                                                },
+                                                                on: {
+                                                                  input: function(
+                                                                    $event
+                                                                  ) {
+                                                                    if (
+                                                                      $event
+                                                                        .target
+                                                                        .composing
+                                                                    ) {
+                                                                      return
+                                                                    }
+                                                                    _vm.$set(
+                                                                      data_meeting.other_user,
+                                                                      "name",
+                                                                      $event
+                                                                        .target
+                                                                        .value
+                                                                    )
+                                                                  }
+                                                                }
+                                                              })
+                                                            ]
+                                                          )
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "form-group row"
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "label",
+                                                            {
+                                                              staticClass:
+                                                                "col-sm-4 col-form-label"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "Nombre comercial"
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "div",
+                                                            {
+                                                              staticClass:
+                                                                "col-sm-8"
+                                                            },
+                                                            [
+                                                              _c("input", {
+                                                                directives: [
+                                                                  {
+                                                                    name:
+                                                                      "model",
+                                                                    rawName:
+                                                                      "v-model",
+                                                                    value:
+                                                                      data_meeting
+                                                                        .other_user
+                                                                        .commercial_name,
+                                                                    expression:
+                                                                      "data_meeting.other_user.commercial_name"
+                                                                  }
+                                                                ],
+                                                                staticClass:
+                                                                  "form-control mostrar-datos",
+                                                                attrs: {
+                                                                  type: "text",
+                                                                  disabled: ""
+                                                                },
+                                                                domProps: {
+                                                                  value:
+                                                                    data_meeting
+                                                                      .other_user
+                                                                      .commercial_name
+                                                                },
+                                                                on: {
+                                                                  input: function(
+                                                                    $event
+                                                                  ) {
+                                                                    if (
+                                                                      $event
+                                                                        .target
+                                                                        .composing
+                                                                    ) {
+                                                                      return
+                                                                    }
+                                                                    _vm.$set(
+                                                                      data_meeting.other_user,
+                                                                      "commercial_name",
+                                                                      $event
+                                                                        .target
+                                                                        .value
+                                                                    )
+                                                                  }
+                                                                }
+                                                              })
+                                                            ]
+                                                          )
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "form-group row"
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "label",
+                                                            {
+                                                              staticClass:
+                                                                "col-sm-4 col-form-label"
+                                                            },
+                                                            [_vm._v("RUC")]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "div",
+                                                            {
+                                                              staticClass:
+                                                                "col-sm-8"
+                                                            },
+                                                            [
+                                                              _c("input", {
+                                                                directives: [
+                                                                  {
+                                                                    name:
+                                                                      "model",
+                                                                    rawName:
+                                                                      "v-model",
+                                                                    value:
+                                                                      data_meeting
+                                                                        .other_user
+                                                                        .ruc,
+                                                                    expression:
+                                                                      "data_meeting.other_user.ruc"
+                                                                  }
+                                                                ],
+                                                                staticClass:
+                                                                  "form-control mostrar-datos",
+                                                                attrs: {
+                                                                  type: "text",
+                                                                  disabled: ""
+                                                                },
+                                                                domProps: {
+                                                                  value:
+                                                                    data_meeting
+                                                                      .other_user
+                                                                      .ruc
+                                                                },
+                                                                on: {
+                                                                  input: function(
+                                                                    $event
+                                                                  ) {
+                                                                    if (
+                                                                      $event
+                                                                        .target
+                                                                        .composing
+                                                                    ) {
+                                                                      return
+                                                                    }
+                                                                    _vm.$set(
+                                                                      data_meeting.other_user,
+                                                                      "ruc",
+                                                                      $event
+                                                                        .target
+                                                                        .value
+                                                                    )
+                                                                  }
+                                                                }
+                                                              })
+                                                            ]
+                                                          )
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "form-group row"
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "label",
+                                                            {
+                                                              staticClass:
+                                                                "col-sm-4 col-form-label"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "Partida registral"
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "div",
+                                                            {
+                                                              staticClass:
+                                                                "col-sm-8"
+                                                            },
+                                                            [
+                                                              _c("input", {
+                                                                directives: [
+                                                                  {
+                                                                    name:
+                                                                      "model",
+                                                                    rawName:
+                                                                      "v-model",
+                                                                    value:
+                                                                      data_meeting
+                                                                        .other_user
+                                                                        .legal_registration,
+                                                                    expression:
+                                                                      "data_meeting.other_user.legal_registration"
+                                                                  }
+                                                                ],
+                                                                staticClass:
+                                                                  "form-control mostrar-datos",
+                                                                attrs: {
+                                                                  type: "text",
+                                                                  disabled: ""
+                                                                },
+                                                                domProps: {
+                                                                  value:
+                                                                    data_meeting
+                                                                      .other_user
+                                                                      .legal_registration
+                                                                },
+                                                                on: {
+                                                                  input: function(
+                                                                    $event
+                                                                  ) {
+                                                                    if (
+                                                                      $event
+                                                                        .target
+                                                                        .composing
+                                                                    ) {
+                                                                      return
+                                                                    }
+                                                                    _vm.$set(
+                                                                      data_meeting.other_user,
+                                                                      "legal_registration",
+                                                                      $event
+                                                                        .target
+                                                                        .value
+                                                                    )
+                                                                  }
+                                                                }
+                                                              })
+                                                            ]
+                                                          )
+                                                        ]
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("br"),
+                                            _vm._v(" "),
+                                            _c("div", { staticClass: "row" }, [
+                                              _c(
+                                                "div",
+                                                { staticClass: "col-md-6" },
+                                                [
+                                                  _c("fieldset", [
+                                                    _c("legend", [
+                                                      _vm._v(
+                                                        "Datos de contacto"
+                                                      )
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "div",
+                                                      { staticClass: "p-3" },
+                                                      [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "form-group row"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "label",
+                                                              {
+                                                                staticClass:
+                                                                  "col-sm-4 col-form-label"
+                                                              },
+                                                              [_vm._v("Email")]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            _c(
+                                                              "div",
+                                                              {
+                                                                staticClass:
+                                                                  "col-sm-8"
+                                                              },
+                                                              [
+                                                                _c("input", {
+                                                                  directives: [
+                                                                    {
+                                                                      name:
+                                                                        "model",
+                                                                      rawName:
+                                                                        "v-model",
+                                                                      value:
+                                                                        data_meeting
+                                                                          .other_user
+                                                                          .email,
+                                                                      expression:
+                                                                        "data_meeting.other_user.email"
+                                                                    }
+                                                                  ],
+                                                                  staticClass:
+                                                                    "form-control mostrar-datos",
+                                                                  attrs: {
+                                                                    type:
+                                                                      "text",
+                                                                    disabled: ""
+                                                                  },
+                                                                  domProps: {
+                                                                    value:
+                                                                      data_meeting
+                                                                        .other_user
+                                                                        .email
+                                                                  },
+                                                                  on: {
+                                                                    input: function(
+                                                                      $event
+                                                                    ) {
+                                                                      if (
+                                                                        $event
+                                                                          .target
+                                                                          .composing
+                                                                      ) {
+                                                                        return
+                                                                      }
+                                                                      _vm.$set(
+                                                                        data_meeting.other_user,
+                                                                        "email",
+                                                                        $event
+                                                                          .target
+                                                                          .value
+                                                                      )
+                                                                    }
+                                                                  }
+                                                                })
+                                                              ]
+                                                            )
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "form-group row"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "label",
+                                                              {
+                                                                staticClass:
+                                                                  "col-sm-4 col-form-label"
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "Telefono"
+                                                                )
+                                                              ]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            _c(
+                                                              "div",
+                                                              {
+                                                                staticClass:
+                                                                  "col-sm-8"
+                                                              },
+                                                              [
+                                                                _c("input", {
+                                                                  directives: [
+                                                                    {
+                                                                      name:
+                                                                        "model",
+                                                                      rawName:
+                                                                        "v-model",
+                                                                      value:
+                                                                        data_meeting
+                                                                          .other_user
+                                                                          .phone,
+                                                                      expression:
+                                                                        "data_meeting.other_user.phone"
+                                                                    }
+                                                                  ],
+                                                                  staticClass:
+                                                                    "form-control mostrar-datos",
+                                                                  attrs: {
+                                                                    type:
+                                                                      "text",
+                                                                    disabled: ""
+                                                                  },
+                                                                  domProps: {
+                                                                    value:
+                                                                      data_meeting
+                                                                        .other_user
+                                                                        .phone
+                                                                  },
+                                                                  on: {
+                                                                    input: function(
+                                                                      $event
+                                                                    ) {
+                                                                      if (
+                                                                        $event
+                                                                          .target
+                                                                          .composing
+                                                                      ) {
+                                                                        return
+                                                                      }
+                                                                      _vm.$set(
+                                                                        data_meeting.other_user,
+                                                                        "phone",
+                                                                        $event
+                                                                          .target
+                                                                          .value
+                                                                      )
+                                                                    }
+                                                                  }
+                                                                })
+                                                              ]
+                                                            )
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "form-group row"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "label",
+                                                              {
+                                                                staticClass:
+                                                                  "col-sm-4 col-form-label"
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "Dirección"
+                                                                )
+                                                              ]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            _c(
+                                                              "div",
+                                                              {
+                                                                staticClass:
+                                                                  "col-sm-8"
+                                                              },
+                                                              [
+                                                                _c("input", {
+                                                                  directives: [
+                                                                    {
+                                                                      name:
+                                                                        "model",
+                                                                      rawName:
+                                                                        "v-model",
+                                                                      value:
+                                                                        data_meeting
+                                                                          .other_user
+                                                                          .address,
+                                                                      expression:
+                                                                        "data_meeting.other_user.address"
+                                                                    }
+                                                                  ],
+                                                                  staticClass:
+                                                                    "form-control mostrar-datos",
+                                                                  attrs: {
+                                                                    type:
+                                                                      "text",
+                                                                    disabled: ""
+                                                                  },
+                                                                  domProps: {
+                                                                    value:
+                                                                      data_meeting
+                                                                        .other_user
+                                                                        .address
+                                                                  },
+                                                                  on: {
+                                                                    input: function(
+                                                                      $event
+                                                                    ) {
+                                                                      if (
+                                                                        $event
+                                                                          .target
+                                                                          .composing
+                                                                      ) {
+                                                                        return
+                                                                      }
+                                                                      _vm.$set(
+                                                                        data_meeting.other_user,
+                                                                        "address",
+                                                                        $event
+                                                                          .target
+                                                                          .value
+                                                                      )
+                                                                    }
+                                                                  }
+                                                                })
+                                                              ]
+                                                            )
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "form-group row"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "label",
+                                                              {
+                                                                staticClass:
+                                                                  "col-sm-4 col-form-label"
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "Hangouts"
+                                                                )
+                                                              ]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            _c(
+                                                              "div",
+                                                              {
+                                                                staticClass:
+                                                                  "col-sm-8"
+                                                              },
+                                                              [
+                                                                _c("input", {
+                                                                  directives: [
+                                                                    {
+                                                                      name:
+                                                                        "model",
+                                                                      rawName:
+                                                                        "v-model",
+                                                                      value:
+                                                                        data_meeting
+                                                                          .other_user
+                                                                          .hangouts_url,
+                                                                      expression:
+                                                                        "data_meeting.other_user.hangouts_url"
+                                                                    }
+                                                                  ],
+                                                                  staticClass:
+                                                                    "form-control mostrar-datos",
+                                                                  attrs: {
+                                                                    type:
+                                                                      "text",
+                                                                    disabled: ""
+                                                                  },
+                                                                  domProps: {
+                                                                    value:
+                                                                      data_meeting
+                                                                        .other_user
+                                                                        .hangouts_url
+                                                                  },
+                                                                  on: {
+                                                                    input: function(
+                                                                      $event
+                                                                    ) {
+                                                                      if (
+                                                                        $event
+                                                                          .target
+                                                                          .composing
+                                                                      ) {
+                                                                        return
+                                                                      }
+                                                                      _vm.$set(
+                                                                        data_meeting.other_user,
+                                                                        "hangouts_url",
+                                                                        $event
+                                                                          .target
+                                                                          .value
+                                                                      )
+                                                                    }
+                                                                  }
+                                                                })
+                                                              ]
+                                                            )
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "form-group row"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "label",
+                                                              {
+                                                                staticClass:
+                                                                  "col-sm-4 col-form-label"
+                                                              },
+                                                              [_vm._v("Skype")]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            _c(
+                                                              "div",
+                                                              {
+                                                                staticClass:
+                                                                  "col-sm-8"
+                                                              },
+                                                              [
+                                                                _c("input", {
+                                                                  directives: [
+                                                                    {
+                                                                      name:
+                                                                        "model",
+                                                                      rawName:
+                                                                        "v-model",
+                                                                      value:
+                                                                        data_meeting
+                                                                          .other_user
+                                                                          .skype_url,
+                                                                      expression:
+                                                                        "data_meeting.other_user.skype_url"
+                                                                    }
+                                                                  ],
+                                                                  staticClass:
+                                                                    "form-control mostrar-datos",
+                                                                  attrs: {
+                                                                    type:
+                                                                      "text",
+                                                                    disabled: ""
+                                                                  },
+                                                                  domProps: {
+                                                                    value:
+                                                                      data_meeting
+                                                                        .other_user
+                                                                        .skype_url
+                                                                  },
+                                                                  on: {
+                                                                    input: function(
+                                                                      $event
+                                                                    ) {
+                                                                      if (
+                                                                        $event
+                                                                          .target
+                                                                          .composing
+                                                                      ) {
+                                                                        return
+                                                                      }
+                                                                      _vm.$set(
+                                                                        data_meeting.other_user,
+                                                                        "skype_url",
+                                                                        $event
+                                                                          .target
+                                                                          .value
+                                                                      )
+                                                                    }
+                                                                  }
+                                                                })
+                                                              ]
+                                                            )
+                                                          ]
+                                                        )
+                                                      ]
+                                                    )
+                                                  ])
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _vm._m(7, true)
+                                            ])
+                                          ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _vm._m(8, true)
+                                  ])
+                                ]
+                              )
+                            ]
+                          )
+                        ])
+                      : _vm._e()
                   ]),
                   _vm._v(" "),
                   _c("td", [
@@ -82451,6 +83691,16 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("td", [
+                    _c("p", { staticClass: "text-muted" }, [
+                      _vm._v(
+                        "\n\t\t\t\t\t\t\t\tRecibido " +
+                          _vm._s(
+                            _vm.message_date(data_meeting.meeting.created_at)
+                          ) +
+                          "\n\t\t\t\t\t\t\t"
+                      )
+                    ]),
+                    _vm._v(" "),
                     _c("p", { staticClass: "meet-state" }, [
                       _vm._v(
                         "\n\t\t\t\t\t\t\t\t" +
@@ -82470,8 +83720,9 @@ var render = function() {
                                 staticClass: "btn btn-success btn-block",
                                 on: {
                                   click: function($event) {
-                                    return _vm.acceptMeet(
-                                      data_meeting.meeting.id
+                                    return _vm.responseRequestMeet(
+                                      data_meeting.meeting.id,
+                                      1
                                     )
                                   }
                                 }
@@ -82480,19 +83731,65 @@ var render = function() {
                             )
                           ]),
                           _vm._v(" "),
-                          _vm._m(6, true)
+                          _c("div", { staticClass: "container mb-1" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger btn-block",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.responseRequestMeet(
+                                      data_meeting.meeting.id,
+                                      0
+                                    )
+                                  }
+                                }
+                              },
+                              [_vm._v("Rechazar")]
+                            )
+                          ])
                         ])
                       : data_meeting.state.id == 2
                       ? _c("div", { staticClass: "container-button" }, [
-                          _vm._m(7, true)
+                          _vm._m(9, true)
                         ])
                       : data_meeting.state.id == 3
                       ? _c("div", { staticClass: "container-button" }, [
-                          _vm._m(8, true),
+                          _vm._m(10, true),
                           _vm._v(" "),
-                          _vm._m(9, true)
+                          _c("div", { staticClass: "container mb-1" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger btn-block",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.cancelMeet(
+                                      data_meeting.meeting.id
+                                    )
+                                  }
+                                }
+                              },
+                              [_vm._v("Cancelar")]
+                            )
+                          ])
                         ])
                       : data_meeting.state.id == 4
+                      ? _c("div", { staticClass: "container-button" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success disabled btn-block",
+                              attrs: { disabled: "" }
+                            },
+                            [
+                              _vm._v(
+                                "\n\t\t\t\t\t\t\t\t\tEsperando\n\t\t\t\t\t\t\t\t"
+                              )
+                            ]
+                          )
+                        ])
+                      : data_meeting.state.id == 5
                       ? _c("div", { staticClass: "container-button" }, [
                           _c(
                             "button",
@@ -82533,11 +83830,11 @@ var render = function() {
       _vm._v(" "),
       _c("hr"),
       _vm._v(" "),
-      _vm._m(10),
+      _vm._m(11),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive mt-1 table-meet" }, [
         _c("table", { staticClass: "table table-hover" }, [
-          _vm._m(11),
+          _vm._m(12),
           _vm._v(" "),
           _c(
             "tbody",
@@ -82588,15 +83885,23 @@ var render = function() {
                         ),
                         _c("br"),
                         _vm._v(" "),
-                        data_meeting.state.id == 3
+                        _vm.can_view_data(data_meeting.state.id)
                           ? _c(
                               "a",
                               {
                                 staticClass: "my-2",
                                 attrs: {
-                                  href:
-                                    "/business/profile/" +
-                                    data_meeting.other_user.uuid
+                                  role: "button",
+                                  "data-toggle": "modal",
+                                  "data-target":
+                                    "#previewInfoSendedBusiness-" +
+                                    data_meeting.meeting.id,
+                                  href: "#"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.view_business_data()
+                                  }
                                 }
                               },
                               [
@@ -82606,7 +83911,896 @@ var render = function() {
                             )
                           : _vm._e()
                       ]
-                    )
+                    ),
+                    _vm._v(" "),
+                    _vm.can_view_data(data_meeting.state.id)
+                      ? _c("div", [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "modal fade",
+                              attrs: {
+                                id:
+                                  "previewInfoSendedBusiness-" +
+                                  data_meeting.meeting.id,
+                                tabindex: "-1",
+                                role: "dialog",
+                                "aria-labelledby":
+                                  "previewInfoSendedBusinessLabel-" +
+                                  data_meeting.meeting.id,
+                                "aria-hidden": "true"
+                              }
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "modal-dialog modal-lg modal-dialog-centered",
+                                  attrs: { role: "document" }
+                                },
+                                [
+                                  _c("div", { staticClass: "modal-content" }, [
+                                    _c("div", { staticClass: "modal-header" }, [
+                                      _c(
+                                        "h6",
+                                        {
+                                          staticClass: "modal-title",
+                                          attrs: {
+                                            id:
+                                              "previewInfoSendedBusinessLabel-" +
+                                              data_meeting.meeting.id
+                                          }
+                                        },
+                                        [
+                                          _c("img", {
+                                            attrs: {
+                                              src:
+                                                data_meeting.other_user
+                                                  .profile_img,
+                                              height: "40px"
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("b", [
+                                            _vm._v(
+                                              _vm._s(
+                                                data_meeting.other_user
+                                                  .commercial_name
+                                              )
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          data_meeting.other_user.verified
+                                            ? _c(
+                                                "span",
+                                                { staticClass: "is-verified" },
+                                                [
+                                                  _c("i", {
+                                                    staticClass:
+                                                      "fas fa-check-circle",
+                                                    attrs: {
+                                                      "data-tippy-content":
+                                                        "Empresa verificada"
+                                                    }
+                                                  })
+                                                ]
+                                              )
+                                            : _vm._e()
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._m(13, true)
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "modal-body" }, [
+                                      _vm.modal_loading
+                                        ? _c(
+                                            "div",
+                                            {
+                                              staticClass: "text-center h6 p-4"
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass:
+                                                  "fas fa-spinner fa-spin"
+                                              }),
+                                              _vm._v(
+                                                " Cargando\n\t\t\t\t\t\t\t\t\t\t\t\t"
+                                              )
+                                            ]
+                                          )
+                                        : _c("div", [
+                                            _c("div", { staticClass: "row" }, [
+                                              _c(
+                                                "div",
+                                                { staticClass: "col-md-6" },
+                                                [
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "container p-3"
+                                                    },
+                                                    [
+                                                      _c("img", {
+                                                        staticClass:
+                                                          "img-thumbnail",
+                                                        attrs: {
+                                                          src:
+                                                            data_meeting
+                                                              .other_user
+                                                              .profile_img,
+                                                          width: "100%"
+                                                        }
+                                                      })
+                                                    ]
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "div",
+                                                { staticClass: "col-md-6" },
+                                                [
+                                                  _c(
+                                                    "div",
+                                                    { staticClass: "p-3" },
+                                                    [
+                                                      _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "form-group row"
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "label",
+                                                            {
+                                                              staticClass:
+                                                                "col-sm-4 col-form-label"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "Razón social"
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "div",
+                                                            {
+                                                              staticClass:
+                                                                "col-sm-8"
+                                                            },
+                                                            [
+                                                              _c("input", {
+                                                                directives: [
+                                                                  {
+                                                                    name:
+                                                                      "model",
+                                                                    rawName:
+                                                                      "v-model",
+                                                                    value:
+                                                                      data_meeting
+                                                                        .other_user
+                                                                        .name,
+                                                                    expression:
+                                                                      "data_meeting.other_user.name"
+                                                                  }
+                                                                ],
+                                                                staticClass:
+                                                                  "form-control mostrar-datos",
+                                                                attrs: {
+                                                                  type: "text",
+                                                                  disabled: ""
+                                                                },
+                                                                domProps: {
+                                                                  value:
+                                                                    data_meeting
+                                                                      .other_user
+                                                                      .name
+                                                                },
+                                                                on: {
+                                                                  input: function(
+                                                                    $event
+                                                                  ) {
+                                                                    if (
+                                                                      $event
+                                                                        .target
+                                                                        .composing
+                                                                    ) {
+                                                                      return
+                                                                    }
+                                                                    _vm.$set(
+                                                                      data_meeting.other_user,
+                                                                      "name",
+                                                                      $event
+                                                                        .target
+                                                                        .value
+                                                                    )
+                                                                  }
+                                                                }
+                                                              })
+                                                            ]
+                                                          )
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "form-group row"
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "label",
+                                                            {
+                                                              staticClass:
+                                                                "col-sm-4 col-form-label"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "Nombre comercial"
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "div",
+                                                            {
+                                                              staticClass:
+                                                                "col-sm-8"
+                                                            },
+                                                            [
+                                                              _c("input", {
+                                                                directives: [
+                                                                  {
+                                                                    name:
+                                                                      "model",
+                                                                    rawName:
+                                                                      "v-model",
+                                                                    value:
+                                                                      data_meeting
+                                                                        .other_user
+                                                                        .commercial_name,
+                                                                    expression:
+                                                                      "data_meeting.other_user.commercial_name"
+                                                                  }
+                                                                ],
+                                                                staticClass:
+                                                                  "form-control mostrar-datos",
+                                                                attrs: {
+                                                                  type: "text",
+                                                                  disabled: ""
+                                                                },
+                                                                domProps: {
+                                                                  value:
+                                                                    data_meeting
+                                                                      .other_user
+                                                                      .commercial_name
+                                                                },
+                                                                on: {
+                                                                  input: function(
+                                                                    $event
+                                                                  ) {
+                                                                    if (
+                                                                      $event
+                                                                        .target
+                                                                        .composing
+                                                                    ) {
+                                                                      return
+                                                                    }
+                                                                    _vm.$set(
+                                                                      data_meeting.other_user,
+                                                                      "commercial_name",
+                                                                      $event
+                                                                        .target
+                                                                        .value
+                                                                    )
+                                                                  }
+                                                                }
+                                                              })
+                                                            ]
+                                                          )
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "form-group row"
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "label",
+                                                            {
+                                                              staticClass:
+                                                                "col-sm-4 col-form-label"
+                                                            },
+                                                            [_vm._v("RUC")]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "div",
+                                                            {
+                                                              staticClass:
+                                                                "col-sm-8"
+                                                            },
+                                                            [
+                                                              _c("input", {
+                                                                directives: [
+                                                                  {
+                                                                    name:
+                                                                      "model",
+                                                                    rawName:
+                                                                      "v-model",
+                                                                    value:
+                                                                      data_meeting
+                                                                        .other_user
+                                                                        .ruc,
+                                                                    expression:
+                                                                      "data_meeting.other_user.ruc"
+                                                                  }
+                                                                ],
+                                                                staticClass:
+                                                                  "form-control mostrar-datos",
+                                                                attrs: {
+                                                                  type: "text",
+                                                                  disabled: ""
+                                                                },
+                                                                domProps: {
+                                                                  value:
+                                                                    data_meeting
+                                                                      .other_user
+                                                                      .ruc
+                                                                },
+                                                                on: {
+                                                                  input: function(
+                                                                    $event
+                                                                  ) {
+                                                                    if (
+                                                                      $event
+                                                                        .target
+                                                                        .composing
+                                                                    ) {
+                                                                      return
+                                                                    }
+                                                                    _vm.$set(
+                                                                      data_meeting.other_user,
+                                                                      "ruc",
+                                                                      $event
+                                                                        .target
+                                                                        .value
+                                                                    )
+                                                                  }
+                                                                }
+                                                              })
+                                                            ]
+                                                          )
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "form-group row"
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "label",
+                                                            {
+                                                              staticClass:
+                                                                "col-sm-4 col-form-label"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "Partida registral"
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "div",
+                                                            {
+                                                              staticClass:
+                                                                "col-sm-8"
+                                                            },
+                                                            [
+                                                              _c("input", {
+                                                                directives: [
+                                                                  {
+                                                                    name:
+                                                                      "model",
+                                                                    rawName:
+                                                                      "v-model",
+                                                                    value:
+                                                                      data_meeting
+                                                                        .other_user
+                                                                        .legal_registration,
+                                                                    expression:
+                                                                      "data_meeting.other_user.legal_registration"
+                                                                  }
+                                                                ],
+                                                                staticClass:
+                                                                  "form-control mostrar-datos",
+                                                                attrs: {
+                                                                  type: "text",
+                                                                  disabled: ""
+                                                                },
+                                                                domProps: {
+                                                                  value:
+                                                                    data_meeting
+                                                                      .other_user
+                                                                      .legal_registration
+                                                                },
+                                                                on: {
+                                                                  input: function(
+                                                                    $event
+                                                                  ) {
+                                                                    if (
+                                                                      $event
+                                                                        .target
+                                                                        .composing
+                                                                    ) {
+                                                                      return
+                                                                    }
+                                                                    _vm.$set(
+                                                                      data_meeting.other_user,
+                                                                      "legal_registration",
+                                                                      $event
+                                                                        .target
+                                                                        .value
+                                                                    )
+                                                                  }
+                                                                }
+                                                              })
+                                                            ]
+                                                          )
+                                                        ]
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("br"),
+                                            _vm._v(" "),
+                                            _c("div", { staticClass: "row" }, [
+                                              _c(
+                                                "div",
+                                                { staticClass: "col-md-6" },
+                                                [
+                                                  _c("fieldset", [
+                                                    _c("legend", [
+                                                      _vm._v(
+                                                        "Datos de contacto"
+                                                      )
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "div",
+                                                      { staticClass: "p-3" },
+                                                      [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "form-group row"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "label",
+                                                              {
+                                                                staticClass:
+                                                                  "col-sm-4 col-form-label"
+                                                              },
+                                                              [_vm._v("Email")]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            _c(
+                                                              "div",
+                                                              {
+                                                                staticClass:
+                                                                  "col-sm-8"
+                                                              },
+                                                              [
+                                                                _c("input", {
+                                                                  directives: [
+                                                                    {
+                                                                      name:
+                                                                        "model",
+                                                                      rawName:
+                                                                        "v-model",
+                                                                      value:
+                                                                        data_meeting
+                                                                          .other_user
+                                                                          .email,
+                                                                      expression:
+                                                                        "data_meeting.other_user.email"
+                                                                    }
+                                                                  ],
+                                                                  staticClass:
+                                                                    "form-control mostrar-datos",
+                                                                  attrs: {
+                                                                    type:
+                                                                      "text",
+                                                                    disabled: ""
+                                                                  },
+                                                                  domProps: {
+                                                                    value:
+                                                                      data_meeting
+                                                                        .other_user
+                                                                        .email
+                                                                  },
+                                                                  on: {
+                                                                    input: function(
+                                                                      $event
+                                                                    ) {
+                                                                      if (
+                                                                        $event
+                                                                          .target
+                                                                          .composing
+                                                                      ) {
+                                                                        return
+                                                                      }
+                                                                      _vm.$set(
+                                                                        data_meeting.other_user,
+                                                                        "email",
+                                                                        $event
+                                                                          .target
+                                                                          .value
+                                                                      )
+                                                                    }
+                                                                  }
+                                                                })
+                                                              ]
+                                                            )
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "form-group row"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "label",
+                                                              {
+                                                                staticClass:
+                                                                  "col-sm-4 col-form-label"
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "Telefono"
+                                                                )
+                                                              ]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            _c(
+                                                              "div",
+                                                              {
+                                                                staticClass:
+                                                                  "col-sm-8"
+                                                              },
+                                                              [
+                                                                _c("input", {
+                                                                  directives: [
+                                                                    {
+                                                                      name:
+                                                                        "model",
+                                                                      rawName:
+                                                                        "v-model",
+                                                                      value:
+                                                                        data_meeting
+                                                                          .other_user
+                                                                          .phone,
+                                                                      expression:
+                                                                        "data_meeting.other_user.phone"
+                                                                    }
+                                                                  ],
+                                                                  staticClass:
+                                                                    "form-control mostrar-datos",
+                                                                  attrs: {
+                                                                    type:
+                                                                      "text",
+                                                                    disabled: ""
+                                                                  },
+                                                                  domProps: {
+                                                                    value:
+                                                                      data_meeting
+                                                                        .other_user
+                                                                        .phone
+                                                                  },
+                                                                  on: {
+                                                                    input: function(
+                                                                      $event
+                                                                    ) {
+                                                                      if (
+                                                                        $event
+                                                                          .target
+                                                                          .composing
+                                                                      ) {
+                                                                        return
+                                                                      }
+                                                                      _vm.$set(
+                                                                        data_meeting.other_user,
+                                                                        "phone",
+                                                                        $event
+                                                                          .target
+                                                                          .value
+                                                                      )
+                                                                    }
+                                                                  }
+                                                                })
+                                                              ]
+                                                            )
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "form-group row"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "label",
+                                                              {
+                                                                staticClass:
+                                                                  "col-sm-4 col-form-label"
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "Dirección"
+                                                                )
+                                                              ]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            _c(
+                                                              "div",
+                                                              {
+                                                                staticClass:
+                                                                  "col-sm-8"
+                                                              },
+                                                              [
+                                                                _c("input", {
+                                                                  directives: [
+                                                                    {
+                                                                      name:
+                                                                        "model",
+                                                                      rawName:
+                                                                        "v-model",
+                                                                      value:
+                                                                        data_meeting
+                                                                          .other_user
+                                                                          .address,
+                                                                      expression:
+                                                                        "data_meeting.other_user.address"
+                                                                    }
+                                                                  ],
+                                                                  staticClass:
+                                                                    "form-control mostrar-datos",
+                                                                  attrs: {
+                                                                    type:
+                                                                      "text",
+                                                                    disabled: ""
+                                                                  },
+                                                                  domProps: {
+                                                                    value:
+                                                                      data_meeting
+                                                                        .other_user
+                                                                        .address
+                                                                  },
+                                                                  on: {
+                                                                    input: function(
+                                                                      $event
+                                                                    ) {
+                                                                      if (
+                                                                        $event
+                                                                          .target
+                                                                          .composing
+                                                                      ) {
+                                                                        return
+                                                                      }
+                                                                      _vm.$set(
+                                                                        data_meeting.other_user,
+                                                                        "address",
+                                                                        $event
+                                                                          .target
+                                                                          .value
+                                                                      )
+                                                                    }
+                                                                  }
+                                                                })
+                                                              ]
+                                                            )
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "form-group row"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "label",
+                                                              {
+                                                                staticClass:
+                                                                  "col-sm-4 col-form-label"
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "Hangouts"
+                                                                )
+                                                              ]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            _c(
+                                                              "div",
+                                                              {
+                                                                staticClass:
+                                                                  "col-sm-8"
+                                                              },
+                                                              [
+                                                                _c("input", {
+                                                                  directives: [
+                                                                    {
+                                                                      name:
+                                                                        "model",
+                                                                      rawName:
+                                                                        "v-model",
+                                                                      value:
+                                                                        data_meeting
+                                                                          .other_user
+                                                                          .hangouts_url,
+                                                                      expression:
+                                                                        "data_meeting.other_user.hangouts_url"
+                                                                    }
+                                                                  ],
+                                                                  staticClass:
+                                                                    "form-control mostrar-datos",
+                                                                  attrs: {
+                                                                    type:
+                                                                      "text",
+                                                                    disabled: ""
+                                                                  },
+                                                                  domProps: {
+                                                                    value:
+                                                                      data_meeting
+                                                                        .other_user
+                                                                        .hangouts_url
+                                                                  },
+                                                                  on: {
+                                                                    input: function(
+                                                                      $event
+                                                                    ) {
+                                                                      if (
+                                                                        $event
+                                                                          .target
+                                                                          .composing
+                                                                      ) {
+                                                                        return
+                                                                      }
+                                                                      _vm.$set(
+                                                                        data_meeting.other_user,
+                                                                        "hangouts_url",
+                                                                        $event
+                                                                          .target
+                                                                          .value
+                                                                      )
+                                                                    }
+                                                                  }
+                                                                })
+                                                              ]
+                                                            )
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "form-group row"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "label",
+                                                              {
+                                                                staticClass:
+                                                                  "col-sm-4 col-form-label"
+                                                              },
+                                                              [_vm._v("Skype")]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            _c(
+                                                              "div",
+                                                              {
+                                                                staticClass:
+                                                                  "col-sm-8"
+                                                              },
+                                                              [
+                                                                _c("input", {
+                                                                  directives: [
+                                                                    {
+                                                                      name:
+                                                                        "model",
+                                                                      rawName:
+                                                                        "v-model",
+                                                                      value:
+                                                                        data_meeting
+                                                                          .other_user
+                                                                          .skype_url,
+                                                                      expression:
+                                                                        "data_meeting.other_user.skype_url"
+                                                                    }
+                                                                  ],
+                                                                  staticClass:
+                                                                    "form-control mostrar-datos",
+                                                                  attrs: {
+                                                                    type:
+                                                                      "text",
+                                                                    disabled: ""
+                                                                  },
+                                                                  domProps: {
+                                                                    value:
+                                                                      data_meeting
+                                                                        .other_user
+                                                                        .skype_url
+                                                                  },
+                                                                  on: {
+                                                                    input: function(
+                                                                      $event
+                                                                    ) {
+                                                                      if (
+                                                                        $event
+                                                                          .target
+                                                                          .composing
+                                                                      ) {
+                                                                        return
+                                                                      }
+                                                                      _vm.$set(
+                                                                        data_meeting.other_user,
+                                                                        "skype_url",
+                                                                        $event
+                                                                          .target
+                                                                          .value
+                                                                      )
+                                                                    }
+                                                                  }
+                                                                })
+                                                              ]
+                                                            )
+                                                          ]
+                                                        )
+                                                      ]
+                                                    )
+                                                  ])
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _vm._m(14, true)
+                                            ])
+                                          ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _vm._m(15, true)
+                                  ])
+                                ]
+                              )
+                            ]
+                          )
+                        ])
+                      : _vm._e()
                   ]),
                   _vm._v(" "),
                   _c("td", [
@@ -82638,6 +84832,16 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("td", [
+                    _c("p", { staticClass: "text-muted" }, [
+                      _vm._v(
+                        "\n\t\t\t\t\t\t\t\tEnviado " +
+                          _vm._s(
+                            _vm.message_date(data_meeting.meeting.created_at)
+                          ) +
+                          "\n\t\t\t\t\t\t\t"
+                      )
+                    ]),
+                    _vm._v(" "),
                     _c("p", { staticClass: "meet-state" }, [
                       _vm._v(
                         "\n\t\t\t\t\t\t\t\t" +
@@ -82650,21 +84854,40 @@ var render = function() {
                   _c("td", [
                     data_meeting.state.id == 1
                       ? _c("div", { staticClass: "container-button" }, [
-                          _vm._m(12, true)
+                          _vm._m(16, true)
                         ])
                       : data_meeting.state.id == 2
                       ? _c("div", { staticClass: "container-button" }, [
-                          _vm._m(13, true)
+                          _vm._m(17, true)
                         ])
                       : data_meeting.state.id == 3
                       ? _c("div", { staticClass: "container-button" }, [
-                          _vm._m(14, true),
+                          _vm._m(18, true),
                           _vm._v(" "),
-                          _vm._m(15, true)
+                          _c("div", { staticClass: "container mb-1" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger btn-block",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.cancelMeet(
+                                      data_meeting.meeting.id
+                                    )
+                                  }
+                                }
+                              },
+                              [_vm._v("Cancelar")]
+                            )
+                          ])
                         ])
                       : data_meeting.state.id == 4
                       ? _c("div", { staticClass: "container-button" }, [
-                          _vm._m(16, true)
+                          _vm._m(19, true)
+                        ])
+                      : data_meeting.state.id == 5
+                      ? _c("div", { staticClass: "container-button" }, [
+                          _vm._m(20, true)
                         ])
                       : _vm._e()
                   ])
@@ -82710,12 +84933,6 @@ var staticRenderFns = [
           _vm._v(" te cuesta "),
           _c("a", { attrs: { href: "/planes", target: "_blank" } }, [
             _c("b", [_vm._v("30 coins")])
-          ]),
-          _vm._v(". Y "),
-          _c("b", [_vm._v("aceptar un agendamiento")]),
-          _vm._v(" te cuesta "),
-          _c("a", { attrs: { href: "/planes", target: "_blank" } }, [
-            _c("b", [_vm._v("10 coins")])
           ]),
           _vm._v(".")
         ])
@@ -82782,10 +84999,40 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container mb-1" }, [
-      _c("button", { staticClass: "btn btn-danger btn-block" }, [
-        _vm._v("Rechazar")
-      ])
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c("fieldset", [_c("legend", [_vm._v("Horarios disponibles")])])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Cerrar")]
+      )
     ])
   },
   function() {
@@ -82808,18 +85055,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "container mb-1" }, [
-      _c("button", { staticClass: "btn btn-success btn-block" }, [
+      _c("button", { staticClass: "btn btn-primary btn-block" }, [
         _vm._v("Agendar")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container mb-1" }, [
-      _c("button", { staticClass: "btn btn-danger btn-block" }, [
-        _vm._v("Cancelar")
       ])
     ])
   },
@@ -82847,6 +85084,46 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Acciones")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c("fieldset", [_c("legend", [_vm._v("Horarios disponibles")])])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Cerrar")]
+      )
     ])
   },
   function() {
@@ -82884,9 +85161,11 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "container mb-1" }, [
-      _c("button", { staticClass: "btn btn-success btn-block" }, [
-        _vm._v("Agendar")
-      ])
+      _c(
+        "button",
+        { staticClass: "btn btn-primary btn-block", attrs: { disabled: "" } },
+        [_vm._v("Esperando")]
+      )
     ])
   },
   function() {
@@ -82894,9 +85173,14 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "container mb-1" }, [
-      _c("button", { staticClass: "btn btn-danger btn-block" }, [
-        _vm._v("Cancelar")
-      ])
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-success disabled btn-block",
+          attrs: { disabled: "" }
+        },
+        [_vm._v("\n\t\t\t\t\t\t\t\t\t\tEsperando\n\t\t\t\t\t\t\t\t\t")]
+      )
     ])
   },
   function() {
@@ -101013,7 +103297,8 @@ axios.get('/profile/messages').then(function (res) {
   var notifications = notificationsWrapper.find('ul#notification-list');
   notifications_data.forEach(function (element) {
     var existingNotifications = notifications.html();
-    var newNotificationHtml = "\n\t\t\t\t<li class=\"notification active\">\n\t\t\t\t\t<div class=\"media\">\n\t\t\t\t\t<div class=\"media-left mr-3\">\n\t\t\t\t\t\t<div class=\"media-object\">\n\t\t\t\t\t\t<img src=\"".concat(element.type_message.picture, "\" class=\"img-circle\" alt=\"50x50\" style=\"width: 50px; height: 50px;\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"media-body\">\n\t\t\t\t\t\t<strong class=\"notification-title\">").concat(element.message.message, "</strong>\n\t\t\t\t\t\t<!--p class=\"notification-desc\">").concat(element.message.message, "</p-->\n\t\t\t\t\t\t<div class=\"notification-meta\">\n\t\t\t\t\t\t<small class=\"timestamp\">").concat(Moment(element.message.date, "YYYY-MM-DD hh:mm:ss").fromNow(), "</small>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</li>\n\t\t\t");
+    var picture = element.message.customImage ? element.message.customImage : element.type_message.picture;
+    var newNotificationHtml = "\n\t\t\t\t<li class=\"notification active\">\n\t\t\t\t\t<div class=\"media\">\n\t\t\t\t\t<div class=\"media-left mr-3\">\n\t\t\t\t\t\t<div class=\"media-object\">\n\t\t\t\t\t\t<img src=\"".concat(picture, "\" class=\"img-circle\" alt=\"50x50\" style=\"width: 50px; height: 50px;\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"media-body\">\n\t\t\t\t\t\t<strong class=\"notification-title\">").concat(element.message.message, "</strong>\n\t\t\t\t\t\t<!--p class=\"notification-desc\">").concat(element.message.message, "</p-->\n\t\t\t\t\t\t<div class=\"notification-meta\">\n\t\t\t\t\t\t<small class=\"timestamp\">").concat(Moment(element.message.date, "YYYY-MM-DD hh:mm:ss").fromNow(), "</small>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</li>\n\t\t\t");
     notifications.html(existingNotifications + newNotificationHtml);
   });
   notificationsCountElem.attr('data-count', notifications_data.length);
@@ -101045,8 +103330,8 @@ channel.bind('notification-event', function (data) {
   var notificationsCount = parseInt(notificationsCountElem.data('count'));
   var notifications = notificationsWrapper.find('ul#notification-list');
   var existingNotifications = notifications.html();
-  console.log(notificationsCountElem);
-  var newNotificationHtml = "\n\t  <li class=\"notification active\">\n\t      <div class=\"media\">\n\t        <div class=\"media-left mr-3\">\n\t          <div class=\"media-object\">\n\t            <img src=\"".concat(data.picture, "\" class=\"img-circle\" alt=\"50x50\" style=\"width: 50px; height: 50px;\">\n\t          </div>\n\t        </div>\n\t        <div class=\"media-body\">\n\t          <strong class=\"notification-title\">").concat(data.message, "</strong>\n\t          <!--p class=\"notification-desc\">Extra description can go here</p-->\n\t          <div class=\"notification-meta\">\n\t            <small class=\"timestamp\">").concat(Moment(data.date, "YYYY-MM-DD hh:mm:ss").fromNow(), "</small>\n\t          </div>\n\t        </div>\n\t      </div>\n\t  </li>\n\t");
+  console.log(data);
+  var newNotificationHtml = "\n\t  <li class=\"notification active\">\n\t      <div class=\"media\">\n\t        <div class=\"media-left mr-3\">\n\t          <div class=\"media-object\">\n\t            <img src=\"".concat(data.notification.picture, "\" class=\"img-circle\" alt=\"50x50\" style=\"width: 50px; height: 50px;\">\n\t          </div>\n\t        </div>\n\t        <div class=\"media-body\">\n\t          <strong class=\"notification-title\">").concat(data.notification.message, "</strong>\n\t          <!--p class=\"notification-desc\">Extra description can go here</p-->\n\t          <div class=\"notification-meta\">\n\t            <small class=\"timestamp\">").concat(Moment(data.notification.date, "YYYY-MM-DD hh:mm:ss").fromNow(), "</small>\n\t          </div>\n\t        </div>\n\t      </div>\n\t  </li>\n\t");
   notifications.html(newNotificationHtml + existingNotifications);
   notificationsCount++;
   notificationsCountElem.attr('data-count', notificationsCount);

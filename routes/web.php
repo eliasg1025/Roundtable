@@ -44,7 +44,8 @@ Route::delete('/profile/delete-cert/{id}', 'ProfileController@deleteCert');
 Route::post('/profile/update-contact-info', 'ProfileController@updateContactInfo');
 Route::post('/validacion/process-ruc-file', 'ValidacionController@processRucFile');
 Route::post('/validacion/validate-account', 'ValidacionController@validateAccount');
-Route::post('/meet/accept-meet', 'MeetController@acceptMeet');
+Route::post('/meet/response-request-meet', 'MeetController@responseRequestMeet');
+Route::post('/meet/cancel-meet', 'MeetController@cancelMeet');
 
 Route::get('/business', 'BusinessController@index')->name('business');
 Route::post('/business/create-meet', 'MeetController@createMeet');

@@ -14,12 +14,14 @@ use Carbon\Carbon;
 
 trait NotificationMessage
 {
-	private function activeEvent($message, $date, $type_message_id)
+	private function activeEvent($message, $date, $type_message_id, $custom_image=false)
 	{
+		$picture = $custom_image ? $custom_image : TypeMessage::find($type_message_id)->picture;
+
 		$data_notification = array(
 			'message' => $message,
 			'date' => $date,
-			'picture' => TypeMessage::find($type_message_id)->picture,
+			'picture' => $picture,
 		);
 		event(new NotificationEvent($data_notification));
 	}
@@ -66,5 +68,19 @@ trait NotificationMessage
 		$message->save();
 
 		$this->activeEvent($message->message, $message->date, $message->type_message_id);
+	}
+	
+	public function requestMeet(User $user)
+	{
+		$message = new Message();
+		$message->title = 'Solicitud de reunión';
+		$message->message = $user->commercial_name . ' desea agendar una reunión virtual con su empresa.';
+		$message->date = Carbon::now();
+		$message->user_id = $user->id;
+		$message->type_message_id = 3;
+		$message->customImage = $user->profile_img;
+		$message->save();
+		
+		$this->activeEvent($message->message, $message->date, $message->type_message_id, $user->profile_img); //
 	}
 }
