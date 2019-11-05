@@ -8,27 +8,37 @@
 		</div>
 		<div class="container">
 			<div class="text-center panel-info-subtitle mt-4">
-				<label for="" class="text-uppercase h5">Datos para el agendamiento</label>
+				<label class="text-uppercase h5">Datos para el agendamiento</label>
 			</div>
 			<div class="container">
 				<div class="form-group">
-					<label for=""><img src="/img/iconos/hangout_logo.png" height="17"> Hangouts</label>
+					<label><img src="/img/iconos/hangout_logo.png" height="17"> Hangouts</label>
 					<input type="text" class="form-control" placeholder="Perfil de Hangouts" v-model="hangouts_url">
 				</div>
 				<div class="form-group">
-					<label for=""><img src="/img/iconos/skype_logo.png" height="17"> Skype</label>
+					<label><img src="/img/iconos/skype_logo.png" height="17"> Skype</label>
 					<input type="text" class="form-control" placeholder="Perfil de Skype" v-model="skype_url">
 				</div>
 				<button @click="editMeetInfo()" class="btn btn-lg btn-block btn-save" style="margin-top: 25px;">
 					Guardar Cambios
 				</button>
 			</div>
+			<!-- Horarios -->
+			<div class="text-center panel-info-subtitle mt-5">
+				<label class="text-uppercase h5">Horarios</label>
+			</div>
+			<div class="container">
+				<a href="/schedule" class="btn btn-block btn-lg btn-save" style="margin-top: 25px;">
+					Ver calendario
+				</a>
+			</div>
+			<!-- End -->
 			<br>
 			<br>
 			<hr>
 
 			<div class="text-center panel-info-subtitle mt-5">
-				<label for="" class="text-uppercase h5">Recibidos</label>
+				<label class="text-uppercase h5">Recibidos</label>
 			</div>
 			<div class="table-responsive mt-1 table-meet">
 				<table class="table table-hover">
@@ -226,7 +236,7 @@
 			<hr>
 
 			<div class="text-center panel-info-subtitle mt-5">
-				<label for="" class="text-uppercase h5">Enviados</label>
+				<label class="text-uppercase h5">Enviados</label>
 			</div>
 			<div class="table-responsive mt-1 table-meet">
 				<table class="table table-hover">

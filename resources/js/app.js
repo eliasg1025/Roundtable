@@ -50,6 +50,9 @@ Vue.component('contacto', require('./components/Contact.vue').default);
 Vue.component('Search', require('./components/Search.vue').default);
 Vue.component('SearchBar', require('./components/SearchBar.vue').default);
 
+// Schedule page
+Vue.component('Schedule', require('./components/Schedule.vue').default);
+
 const app = new Vue({
 	el: '#app',
 	store
