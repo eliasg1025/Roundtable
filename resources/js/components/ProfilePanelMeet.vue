@@ -4,7 +4,7 @@
 		<div class="panel-alert alert alert-secondary" role="alert">
 			Gestiona tus agendamientos. Aquí podrás ver a las empresa que estan interesadas en tus productos y desean contactarse contigo.
 			<br>
-			<i><b>Solicitar un agendamiento</b> te cuesta <a href="/planes" target="_blank"><b>30 coins</b></a>. Y <b>aceptar un agendamiento</b> te cuesta <a href="/planes" target="_blank"><b>10 coins</b></a>.</i>
+			<i><b>Solicitar un agendamiento</b> te cuesta <a href="/planes" target="_blank"><b>30 coins</b></a>.</i>
 		</div>
 		<div class="container">
 			<div class="text-center panel-info-subtitle mt-4">
@@ -50,7 +50,118 @@
 									<p class="my-2"><b>{{ data_meeting.other_user.commercial_name }}</b></p>
 									<hr>
 									<a :href="'/business/profile/' + data_meeting.other_user.uuid" target="blank" class="my-2"><i class="fas fa-search"></i> Ver Perfil</a><br>
-									<a v-if="data_meeting.state.id == 3" :href="'/business/profile/' + data_meeting.other_user.uuid" class="my-2"><i class="fas fa-address-book"></i> Ver Datos</a>
+									<a
+										v-if="can_view_data(data_meeting.state.id)"
+										@click="view_business_data()"
+										role="button" data-toggle="modal" :data-target="'#previewInfoReceivedBusiness-'+data_meeting.meeting.id"
+										href="#" class="my-2"
+									><i class="fas fa-address-book"></i> Ver Datos</a>
+								</div>
+								<div v-if="can_view_data(data_meeting.state.id)">
+									<!--Modal-->
+									<div class="modal fade" :id="'previewInfoReceivedBusiness-'+data_meeting.meeting.id" tabindex="-1" role="dialog" :aria-labelledby="'previewInfoBusinessLabel-'+data_meeting.meeting.id" aria-hidden="true">
+										<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h6 class="modal-title" :id="'previewInfoBusinessLabel-'+data_meeting.meeting.id"><img :src="data_meeting.other_user.profile_img" height="40px"> <b>{{ data_meeting.other_user.commercial_name }}</b> <span v-if="data_meeting.other_user.verified" class="is-verified"><i class="fas fa-check-circle" data-tippy-content="Empresa verificada"></i></span></h6>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<div v-if="modal_loading" class="text-center h6 p-4">
+														<i class="fas fa-spinner fa-spin"></i> Cargando
+													</div>
+													<div v-else>
+														<div class="row">
+															<div class="col-md-6">
+																<div class="container p-3">
+																	<img :src="data_meeting.other_user.profile_img" width="100%" class="img-thumbnail">
+																</div>
+															</div>
+															<div class="col-md-6">
+																<div class="p-3">
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">Razón social</label>
+																		<div class="col-sm-8">
+																			<input type="text" class="form-control mostrar-datos" v-model="data_meeting.other_user.name" disabled>
+																		</div>
+																	</div>
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">Nombre comercial</label>
+																		<div class="col-sm-8">
+																			<input type="text" class="form-control mostrar-datos" v-model="data_meeting.other_user.commercial_name" disabled>
+																		</div>
+																	</div>
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">RUC</label>
+																		<div class="col-sm-8">
+																			<input type="text" class="form-control mostrar-datos" v-model="data_meeting.other_user.ruc" disabled>
+																		</div>
+																	</div>
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">Partida registral</label>
+																		<div class="col-sm-8">
+																			<input type="text" class="form-control mostrar-datos" v-model="data_meeting.other_user.legal_registration" disabled>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<br>
+														<div class="row">
+															<div class="col-md-6">
+																<fieldset>
+																	<legend>Datos de contacto</legend>
+																	<div class="p-3">
+																		<div class="form-group row">
+																			<label class="col-sm-4 col-form-label">Email</label>
+																			<div class="col-sm-8">
+																				<input type="text" class="form-control mostrar-datos" v-model="data_meeting.other_user.email" disabled>
+																			</div>
+																		</div>
+																		<div class="form-group row">
+																			<label class="col-sm-4 col-form-label">Telefono</label>
+																			<div class="col-sm-8">
+																				<input type="text" class="form-control mostrar-datos" v-model="data_meeting.other_user.phone" disabled>
+																			</div>
+																		</div>
+																		<div class="form-group row">
+																			<label class="col-sm-4 col-form-label">Dirección</label>
+																			<div class="col-sm-8">
+																				<input type="text" class="form-control mostrar-datos" v-model="data_meeting.other_user.address" disabled>
+																			</div>
+																		</div>
+																		<div class="form-group row">
+																			<label class="col-sm-4 col-form-label">Hangouts</label>
+																			<div class="col-sm-8">
+																				<input type="text" class="form-control mostrar-datos" v-model="data_meeting.other_user.hangouts_url" disabled>
+																			</div>
+																		</div>
+																		<div class="form-group row">
+																			<label class="col-sm-4 col-form-label">Skype</label>
+																			<div class="col-sm-8">
+																				<input type="text" class="form-control mostrar-datos" v-model="data_meeting.other_user.skype_url" disabled>
+																			</div>
+																		</div>
+																	</div>
+																</fieldset>
+															</div>
+															<div class="col-md-6">
+																<fieldset>
+																	<legend>Horarios disponibles</legend>
+																</fieldset>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--End Modal-->
 								</div>
 							</td>
 							<td>
@@ -62,6 +173,9 @@
 								></textarea>
 							</td>
 							<td>
+								<p class="text-muted">
+									Recibido {{ message_date(data_meeting.meeting.created_at) }}
+								</p>
 								<p class="meet-state">
 									{{ data_meeting.state.name }}
 								</p>
@@ -69,10 +183,10 @@
 							<td>
 								<div class="container-button" v-if="data_meeting.state.id == 1">
 									<div class="container mb-1">
-										<button class="btn btn-success btn-block" @click="acceptMeet(data_meeting.meeting.id)">Aceptar</button>
+										<button class="btn btn-success btn-block" @click="responseRequestMeet(data_meeting.meeting.id, 1)">Aceptar</button>
 									</div>
 									<div class="container mb-1">
-										<button class="btn btn-danger btn-block">Rechazar</button>
+										<button class="btn btn-danger btn-block" @click="responseRequestMeet(data_meeting.meeting.id, 0)">Rechazar</button>
 									</div>
 								</div>
 								<div class="container-button" v-else-if="data_meeting.state.id == 2">
@@ -82,13 +196,18 @@
 								</div>
 								<div class="container-button" v-else-if="data_meeting.state.id == 3">
 									<div class="container mb-1">
-										<button class="btn btn-success btn-block">Agendar</button>
+										<button class="btn btn-primary btn-block">Agendar</button>
 									</div>
 									<div class="container mb-1">
-										<button class="btn btn-danger btn-block">Cancelar</button>
+										<button class="btn btn-danger btn-block" @click="cancelMeet(data_meeting.meeting.id)">Cancelar</button>
 									</div>
 								</div>
 								<div class="container-button" v-else-if="data_meeting.state.id == 4">
+									<button class="btn btn-success disabled btn-block" disabled>
+										Esperando
+									</button>
+								</div>
+								<div class="container-button" v-else-if="data_meeting.state.id == 5">
 									<button class="btn btn-success disabled btn-block" disabled>
 										Realizado
 									</button>
@@ -129,7 +248,119 @@
 									<p class="my-2"><b>{{ data_meeting.other_user.commercial_name }}</b></p>
 									<hr>
 									<a :href="'/business/profile/' + data_meeting.other_user.uuid" target="blank" class="my-2"><i class="fas fa-search"></i> Ver Perfil</a><br>
-									<a v-if="data_meeting.state.id == 3" :href="'/business/profile/' + data_meeting.other_user.uuid" class="my-2"><i class="fas fa-address-book"></i> Ver Datos</a>
+									<a
+										v-if="can_view_data(data_meeting.state.id)"
+										@click="view_business_data()"
+										role="button" data-toggle="modal" :data-target="'#previewInfoSendedBusiness-'+data_meeting.meeting.id"
+										href="#" class="my-2"
+									><i class="fas fa-address-book"></i> Ver Datos</a>
+								</div>
+								<div v-if="can_view_data(data_meeting.state.id)">
+									<!--Modal-->
+									<div class="modal fade" :id="'previewInfoSendedBusiness-'+data_meeting.meeting.id" tabindex="-1" role="dialog" :aria-labelledby="'previewInfoSendedBusinessLabel-'+data_meeting.meeting.id" aria-hidden="true">
+										<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h6 class="modal-title" :id="'previewInfoSendedBusinessLabel-'+data_meeting.meeting.id"><img :src="data_meeting.other_user.profile_img" height="40px"> <b>{{ data_meeting.other_user.commercial_name }}</b> <span v-if="data_meeting.other_user.verified" class="is-verified"><i class="fas fa-check-circle" data-tippy-content="Empresa verificada"></i></span></h6>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<div v-if="modal_loading" class="text-center h6 p-4">
+														<i class="fas fa-spinner fa-spin"></i> Cargando
+													</div>
+													<div v-else>
+														<div class="row">
+															<div class="col-md-6">
+																<div class="container p-3">
+																	<img :src="data_meeting.other_user.profile_img" width="100%" class="img-thumbnail">
+																</div>
+															</div>
+															<div class="col-md-6">
+																<div class="p-3">
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">Razón social</label>
+																		<div class="col-sm-8">
+																			<input type="text" class="form-control mostrar-datos" v-model="data_meeting.other_user.name" disabled>
+																		</div>
+																	</div>
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">Nombre comercial</label>
+																		<div class="col-sm-8">
+																			<input type="text" class="form-control mostrar-datos" v-model="data_meeting.other_user.commercial_name" disabled>
+																		</div>
+																	</div>
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">RUC</label>
+																		<div class="col-sm-8">
+																			<input type="text" class="form-control mostrar-datos" v-model="data_meeting.other_user.ruc" disabled>
+																		</div>
+																	</div>
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">Partida registral</label>
+																		<div class="col-sm-8">
+																			<input type="text" class="form-control mostrar-datos" v-model="data_meeting.other_user.legal_registration" disabled>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<br>
+														<div class="row">
+															<div class="col-md-6">
+																<fieldset>
+																	<legend>Datos de contacto</legend>
+																	<div class="p-3">
+																		<div class="form-group row">
+																			<label class="col-sm-4 col-form-label">Email</label>
+																			<div class="col-sm-8">
+																				<input type="text" class="form-control mostrar-datos" v-model="data_meeting.other_user.email" disabled>
+																			</div>
+																		</div>
+																		<div class="form-group row">
+																			<label class="col-sm-4 col-form-label">Telefono</label>
+																			<div class="col-sm-8">
+																				<input type="text" class="form-control mostrar-datos" v-model="data_meeting.other_user.phone" disabled>
+																			</div>
+																		</div>
+																		<div class="form-group row">
+																			<label class="col-sm-4 col-form-label">Dirección</label>
+																			<div class="col-sm-8">
+																				<input type="text" class="form-control mostrar-datos" v-model="data_meeting.other_user.address" disabled>
+																			</div>
+																		</div>
+																		<div class="form-group row">
+																			<label class="col-sm-4 col-form-label">Hangouts</label>
+																			<div class="col-sm-8">
+																				<input type="text" class="form-control mostrar-datos" v-model="data_meeting.other_user.hangouts_url" disabled>
+																			</div>
+																		</div>
+																		<div class="form-group row">
+																			<label class="col-sm-4 col-form-label">Skype</label>
+																			<div class="col-sm-8">
+																				<input type="text" class="form-control mostrar-datos" v-model="data_meeting.other_user.skype_url" disabled>
+																			</div>
+																		</div>
+																		
+																	</div>
+																</fieldset>
+															</div>
+															<div class="col-md-6">
+																<fieldset>
+																	<legend>Horarios disponibles</legend>
+																</fieldset>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--End Modal-->
 								</div>
 							</td>
 							<td>
@@ -141,6 +372,9 @@
 								></textarea>
 							</td>
 							<td>
+								<p class="text-muted">
+									Enviado {{ message_date(data_meeting.meeting.created_at) }}
+								</p>
 								<p class="meet-state">
 									{{ data_meeting.state.name }}
 								</p>
@@ -162,13 +396,20 @@
 								</div>
 								<div class="container-button" v-else-if="data_meeting.state.id == 3">
 									<div class="container mb-1">
-										<button class="btn btn-success btn-block">Agendar</button>
+										<button class="btn btn-primary btn-block" disabled>Esperando</button>
 									</div>
 									<div class="container mb-1">
-										<button class="btn btn-danger btn-block">Cancelar</button>
+										<button class="btn btn-danger btn-block"  @click="cancelMeet(data_meeting.meeting.id)">Cancelar</button>
 									</div>
 								</div>
 								<div class="container-button" v-else-if="data_meeting.state.id == 4">
+									<div class="container mb-1">
+										<button class="btn btn-success disabled btn-block" disabled>
+											Esperando
+										</button>
+									</div>
+								</div>
+								<div class="container-button" v-else-if="data_meeting.state.id == 5">
 									<div class="container mb-1">
 										<button class="btn btn-success disabled btn-block" disabled>
 											Realizado
@@ -194,13 +435,29 @@
 			return {
 				hangouts_url: '',
 				skype_url: '',
+				they_can_view_data: [3, 4, 5],
+				modal_loading: true,
 			}
 		},
 		created() {
-			this.hangouts_url = this.user.hangouts_url
-			this.skype_url = this.user.skype_url
+			this.hangouts_url = this.user.hangouts_url;
+			this.skype_url = this.user.skype_url;
+		},
+		mounted() {
+			Tippy.default('[data-tippy-content]');
 		},
 		methods: {
+			message_date(date) {
+				return Moment(date, "YYYY-MM-DD hh:mm:ss").fromNow()
+			},
+			view_business_data() {
+				setTimeout(() => {
+					this.modal_loading = false;
+				}, 1500)
+			},
+			can_view_data(state_id) {
+				return this.they_can_view_data.indexOf(state_id) >= 0;
+			},
 			editMeetInfo() {
 				Swal.fire({
 					title: '¿Deseas modificar datos de contacto?',
@@ -212,7 +469,9 @@
 					showCancelButton: true,
 				})
 					.then(res => {
-						if (res.value == true) {
+						if (res.value === true) {
+							this.waitingAlert();
+
 							axios.post('/profile/update-contact-info', {
 								user_id: this.user.id,
 								hangouts_url: this.hangouts_url,
@@ -229,21 +488,92 @@
 						}
 					})
 			},
-			acceptMeet(meet_id) {
+			responseRequestMeet(meet_id, operation) {
+
+				if (operation === 0) {
+					Swal.fire({
+						title: '¿Desea rechazar esta solicitud?',
+						text: 'Esta acción es irreversible',
+						type: 'warning',
+					})
+						.then(res => {
+							if (res.value)
+								operate();
+						})
+				} else {
+					Swal.fire({
+						title: '¿Desea aceptar esta solicitud?',
+						type: 'info'
+					})
+						.then(res => {
+							if (res.value)
+								operate();
+						})
+				}
+
+				function operate() {
+					Swal.fire({
+						title: 'Cargando',
+						onBeforeOpen: () => {
+							Swal.showLoading();
+						}
+					})
+
+					// ['aceptar', 'rechazar']
+
+					axios.post('/meet/response-request-meet', {
+						operation: operation,
+						meet_id: meet_id,
+					})
+						.then(res => {
+							console.log(res.data)
+							Swal.fire({
+								title: res.data.message,
+								type: 'success',
+								timer: 2000,
+								showConfirmButton: false,
+							})
+								.then(res => location.reload())
+						})
+						.catch(err => {
+							console.log(err.response.data)
+						})
+				}
+			},
+			cancelMeet(meet_id) {
+				Swal.fire({
+					title: '¿Realmente desea cancelar esta operación?',
+					text: 'Esta operación es irreversible',
+					type: 'warning',
+				})
+					.then(res => {
+						if (res.value) {
+							this.waitingAlert();
+
+							axios.post('/meet/cancel-meet', {
+								meet_id: meet_id,
+							})
+								.then(res => {
+									console.log(res.data);
+									
+									Swal.fire({title: res.data.message, type: 'success', timer: 2500, showConfirmButton: false})
+										.then(res => location.reload());
+								})
+								.catch(err => {
+									console.log(err.response.data);
+									Swal.fire({title: 'Error al cargar la operación, vuelva a cargar la página', type: 'error'})
+								})
+						}
+					})
+			},
+			waitingAlert()
+			{
 				Swal.fire({
 					title: 'Cargando',
 					onBeforeOpen: () => {
-						Swal.showLoading()
+						Swal.showLoading();
 					}
 				})
-
-				axios.post('/profile/accept-meet', {
-					user_id: this.user.id,
-					meet: meet_id,
-				})
-					.then(res => {
-						console.log(res)
-					})
 			}
 		}
 	}
@@ -273,5 +603,8 @@
 		padding: 5px;
 		border: 1px solid #b1b1b1;
 		border-radius: 4px;
+	}
+	.mostrar-datos {
+		font-size: 14px;
 	}
 </style>

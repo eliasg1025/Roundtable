@@ -12,12 +12,13 @@ axios.get('/profile/messages')
 
 		notifications_data.forEach(element => {
 			let existingNotifications = notifications.html();
+			let picture = element.message.customImage ? element.message.customImage : element.type_message.picture;
 			let newNotificationHtml = `
 				<li class="notification active">
 					<div class="media">
 					<div class="media-left mr-3">
 						<div class="media-object">
-						<img src="${element.type_message.picture}" class="img-circle" alt="50x50" style="width: 50px; height: 50px;">
+						<img src="${picture}" class="img-circle" alt="50x50" style="width: 50px; height: 50px;">
 						</div>
 					</div>
 					<div class="media-body">

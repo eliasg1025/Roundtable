@@ -18,6 +18,7 @@ class CreateMessagesTable extends Migration
             $table->string('title');
 			$table->text('message');
             $table->boolean('viewed')->default(false);
+            $table->string('customImage')->nullable();
 			$table->timestamp('date');
             $table->timestamps();
             //

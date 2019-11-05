@@ -16,21 +16,21 @@ channel.bind('notification-event', function(data) {
 	let notifications = notificationsWrapper.find('ul#notification-list');
 	let existingNotifications = notifications.html();
 
-	console.log(notificationsCountElem);
+	console.log(data);
 
 	let newNotificationHtml = `
 	  <li class="notification active">
 	      <div class="media">
 	        <div class="media-left mr-3">
 	          <div class="media-object">
-	            <img src="${data.picture}" class="img-circle" alt="50x50" style="width: 50px; height: 50px;">
+	            <img src="${data.notification.picture}" class="img-circle" alt="50x50" style="width: 50px; height: 50px;">
 	          </div>
 	        </div>
 	        <div class="media-body">
-	          <strong class="notification-title">${data.message}</strong>
+	          <strong class="notification-title">${data.notification.message}</strong>
 	          <!--p class="notification-desc">Extra description can go here</p-->
 	          <div class="notification-meta">
-	            <small class="timestamp">${Moment(data.date, "YYYY-MM-DD hh:mm:ss").fromNow()}</small>
+	            <small class="timestamp">${Moment(data.notification.date, "YYYY-MM-DD hh:mm:ss").fromNow()}</small>
 	          </div>
 	        </div>
 	      </div>

@@ -375,7 +375,9 @@
 							
 							<div v-for="message_data in messages_data" :key="message_data.message.id" class="message card mt-2">
 								<div class="media">
-									<img class="align-self-center icon-message p-3 mr-3" :src="message_data.type_message.picture" alt="notification-icon">
+									<img v-if="message_data.message.customImage" class="align-self-center icon-message p-3 mr-3" :src="message_data.message.customImage" alt="notification-icon">
+									<img v-else class="align-self-center icon-message p-3 mr-3" :src="message_data.type_message.picture" alt="notification-icon">
+
 									<div class="media-body p-3">
 										<h5 class="mt-1">{{ message_data.message.title }} </h5>
 										<p class="mb-0">{{ message_data.message.message }}</p>
