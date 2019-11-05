@@ -409,7 +409,8 @@
 			PanelInfo,
 			PanelOffer,
 			PanelCert,
-			PanelMeet
+			PanelMeet,
+			Spinner
 		},
 		props: [
 			'data',

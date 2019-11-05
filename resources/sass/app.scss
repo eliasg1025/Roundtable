@@ -7,7 +7,7 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-// Font-awesome
+// Font awesome 5.2
 @import '../../node_modules/@fortawesome/fontawesome-free/css/all.css';
 
 // Bootstrap notifications and dropdown
@@ -16,6 +16,9 @@
 
 // Tippy
 @import '../../node_modules/tippy.js/index.css';
+
+// jQuery Schedule
+@import '../../node_modules/jquery-schedule/dist/jquery.schedule.min.css';
 
 * {
 	margin: 0;

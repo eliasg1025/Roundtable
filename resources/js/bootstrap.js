@@ -9,8 +9,10 @@ window._ = require('lodash');
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
-
-    require('bootstrap');
+	require('bootstrap');
+	require('jquery-ui/ui/widgets/draggable');
+	require('jquery-ui/ui/widgets/resizable');
+	require('jquery-schedule');
 } catch (e) {}
 
 /**

@@ -55,6 +55,8 @@ Route::get('/business/category/{slug}', 'BusinessController@category')->name('bu
 
 Route::get('/business/profile/{slug}', 'BusinessController@show')->name('business.show');
 
+Route::get('/schedule', 'ScheduleController@index')->name('schedule');
+
 // Api
 Route::get('/profile/messages', 'Api\MessagesController@index');
 Route::get('/profile/operations', 'Api\OperationsController@index');
