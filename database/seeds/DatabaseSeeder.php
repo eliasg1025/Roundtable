@@ -29,5 +29,7 @@ class DatabaseSeeder extends Seeder
 		//$this->call(OfferCertificationsTableSeeder::class);
 		//$this->call(UserCertificationsTableSeeder::class);
 		$this->call(RatingsTableSeeder::class);
+		$this->call(CalendarEventsSeeder::class);
+		$this->call(AvalibleTimesSeeder::class);
     }
 }

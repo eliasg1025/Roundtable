@@ -3,7 +3,7 @@
 @section('content')
 	<page-banner title="Horario" img="/img/fondo/fondo-pago.jpg"></page-banner>
 
-	<schedule></schedule>
+	<new-schedule></new-schedule>
 
 	<page-footer></page-footer>
 @endsection
