@@ -51,7 +51,7 @@ Vue.component('Search', require('./components/Search.vue').default);
 Vue.component('SearchBar', require('./components/SearchBar.vue').default);
 
 // Schedule page
-Vue.component('Schedule', require('./components/Schedule.vue').default);
+Vue.component('new-schedule', require('./components/NewSchedule').default);
 
 const app = new Vue({
 	el: '#app',

@@ -100,6 +100,10 @@
 										{{ __('Ver perfil') }}
 									</a>
 									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="{{ route('schedule') }}">
+										{{ __('Ver agenda') }}
+									</a>
+									<div class="dropdown-divider"></div>
 									<a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('planes') }}">
 										{{ __('Coins') }}
 										<span class="badge badge-roundtable">{{ Auth::user()->coins }}</span>

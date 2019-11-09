@@ -55,7 +55,13 @@ Route::get('/business/category/{slug}', 'BusinessController@category')->name('bu
 
 Route::get('/business/profile/{slug}', 'BusinessController@show')->name('business.show');
 
+// Schedule
 Route::get('/schedule', 'ScheduleController@index')->name('schedule');
+Route::get('/get-schedule', 'ScheduleController@getSchedule');
+Route::get('/get-avalible-time', 'ScheduleController@getAvalibleTime');
+Route::post('/edit-avalible-time', 'ScheduleController@editAvalibleTime');
+Route::post('/delete-avalible-time', 'ScheduleController@deleteAvalibleTime');
+Route::post('/add-avalible-time', 'ScheduleController@addAvalibleTime');
 
 // Api
 Route::get('/profile/messages', 'Api\MessagesController@index');

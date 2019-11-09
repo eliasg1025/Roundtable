@@ -160,6 +160,12 @@
 															<div class="col-md-6">
 																<fieldset>
 																	<legend>Horarios disponibles</legend>
+																	<div class="p-3">
+																		<div class="form-group row">
+																			<span class="badge badge-info">Lunes</span>
+																			<span class="badge badge-info">Martes</span>
+																		</div>
+																	</div>
 																</fieldset>
 															</div>
 														</div>
@@ -206,7 +212,7 @@
 								</div>
 								<div class="container-button" v-else-if="data_meeting.state.id == 3">
 									<div class="container mb-1">
-										<button class="btn btn-primary btn-block">Agendar</button>
+										<button class="btn btn-primary btn-block" disabled>Esperando</button>
 									</div>
 									<div class="container mb-1">
 										<button class="btn btn-danger btn-block" @click="cancelMeet(data_meeting.meeting.id)">Cancelar</button>
@@ -351,14 +357,18 @@
 																			<div class="col-sm-8">
 																				<input type="text" class="form-control mostrar-datos" v-model="data_meeting.other_user.skype_url" disabled>
 																			</div>
-																		</div>
-																		
+																		</div>																		
 																	</div>
 																</fieldset>
 															</div>
 															<div class="col-md-6">
 																<fieldset>
 																	<legend>Horarios disponibles</legend>
+																	<div class="p-3">
+																		<div class="form-group row">
+																			<span class="badge badge-info">Lunes</span> <!----><span class="badge badge-info">Martes</span>
+																		</div>
+																	</div>
 																</fieldset>
 															</div>
 														</div>
@@ -406,7 +416,7 @@
 								</div>
 								<div class="container-button" v-else-if="data_meeting.state.id == 3">
 									<div class="container mb-1">
-										<button class="btn btn-primary btn-block" disabled>Esperando</button>
+										<button class="btn btn-primary btn-block">Agendar</button>
 									</div>
 									<div class="container mb-1">
 										<button class="btn btn-danger btn-block"  @click="cancelMeet(data_meeting.meeting.id)">Cancelar</button>
