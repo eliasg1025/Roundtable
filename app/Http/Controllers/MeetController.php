@@ -44,7 +44,7 @@ class MeetController extends Controller
 				// To user
 				$this->createMessage('reunion', $operation->coins_cost, 3, $sender->id, $recevier->commercial_name);
 				// To reciever
-				$this->requestMeet($sender);
+				$this->requestMeet($sender, $recevier->id);
 	
 				$data = [
 					'code' => 200,
