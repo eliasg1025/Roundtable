@@ -70,13 +70,13 @@ trait NotificationMessage
 		$this->activeEvent($message->message, $message->date, $message->type_message_id);
 	}
 	
-	public function requestMeet(User $user)
+	public function requestMeet(User $user, $receiver_id)
 	{
 		$message = new Message();
 		$message->title = 'Solicitud de reunión';
 		$message->message = $user->commercial_name . ' desea agendar una reunión virtual con su empresa.';
 		$message->date = Carbon::now();
-		$message->user_id = $user->id;
+		$message->user_id = $receiver_id;
 		$message->type_message_id = 3;
 		$message->customImage = $user->profile_img;
 		$message->save();

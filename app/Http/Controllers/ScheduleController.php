@@ -38,6 +38,13 @@ class ScheduleController extends Controller
 		return $data;
 	}
 
+	public function getAvalibleTimeByUserId($id)
+	{
+		$data = AvalibleTime::where('user_id', $id)->get();
+
+		return $data;
+	}
+
 	public function getAvalibleTimeData()
 	{
 		$user = Auth::user();

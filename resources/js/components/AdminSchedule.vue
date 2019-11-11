@@ -146,13 +146,13 @@
 								newDay.value = true
 							}
 							newDays.push(newDay);
-						})
+						});
 						event.daysOfWeek = newDays;
-					})
+					});
 					this.loading_data = false;
 					// console.log(this.avalible_times);
 				})
-				.catch(err => console.log(err.reponse))
+				.catch(err => console.log(err.response))
 		},
 		methods: {
 			enableEdit(item_id) {
