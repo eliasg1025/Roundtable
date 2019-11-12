@@ -2,15 +2,19 @@
     <section class="container">
         <div class="row">
             <div class="textoP col-sm-12" >
-                <p>
+               <p class="textoEdit">
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore ipsam officia sunt consectetur nostrum reprehenderit deleniti perspiciatis maxime optio, asperiores
                     sapiente eius obcaecati veniam rem distinctio magni laborum, debitis reiciendis.
                 </p>
+               
             </div>
-        <div class="videos col-sm-9">
-            <video id="localVideo" class="my-video" autoplay muted playsinline >
-                </video>
-            <video class="user-video" > </video>
+        <div class="vi1 col-sm-8" >
+            <div class="videos">
+           <!-- <video id="localVideo" class="my-video" autoplay muted playsinline >
+                </video>-->
+            <video class="user-video" > 
+                
+            </video>
             <div class="esta">
             
             <div class="caja1" >
@@ -24,11 +28,27 @@
                  </div>
             </div>
             </div>
-            <div class="cajaT col-sm-3" >
-                <div class="tiempo">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius harum vitae nihil totam minus aliquam et nulla reiciendis a quisquam! Alias dolores facilis iure vero praesentium repellat ipsum beatae magni nulla dignissimos. Ex beatae iusto provident illum dicta quibusdam. Aperiam saepe cupiditate incidunt voluptatibus iure voluptate recusandae quibusdam adipisci in itaque rerum nostrum ea ab officiis ipsum dolore provident corrupti, voluptatum eligendi vel. Illo ab veniam quam fugiat doloribus eius in illum placeat? Officiis natus repudiandae non iste atque dignissimos eaque, praesentium quam voluptatibus inventore quasi alias ab voluptate hic nemo omnis ipsum fuga eligendi, excepturi ea a nisi at.</p>
+            </div>
+            <div class="tiempo1 col-sm-4">
+            <div class="card  tiempo" style="max-width: 100%">
+                <div class="card-header" style="font-size:22px; font-family:'Nunito' sans-serif;"><span class="deco">|</span> Tiempo total</div>
+                <div class="cuerpoCard card-body">
+                <div class="texto2 card-text">
+                    <div class="reloj">
+                        <p id="minutos" class="minutos">20</p>
+                        <p>:</p>
+                        <p id="segundos" class="segundos">36</p>
+                    </div>
+                </div>
                 </div>
             </div>
+            </div>
+            <!--https://codepen.io/AlegreCode/pen/rOZWGx
+                <div class="tiempo1 col-sm-4" >
+                <div class="tiempo">
+                    <p textoT>Ex beatae iusto provident illum dicta quibusdam. Aperiam saepe cupiditate incidunt voluptatibus iure voluptate recusandae quibusdam adipisci in itaque rerum nostrum ea ab officiis ipsum dolore provident corrupti, voluptatum eligendi vel. Illo ab veniam quam fugiat doloribus eius in illum placeat? Officiis natus repudiandae non iste atque dignissimos eaque, praesentium quam voluptatibus inventore quasi alias ab voluptate hic nemo omnis ipsum fuga eligendi, excepturi ea a nisi at.</p>
+                </div>
+            </div>-->
         </div>
     </section>
 </template>
@@ -94,30 +114,101 @@ export  default{
 .videos{
   /*width: 700px;
   height: 380px;*/
-  width: 100%;
+ 
+ /* width: 100%;
   height: 380px;
   margin-top: 20px;
   border: 1px solid #9b9b93;
   position: relative;
-  box-shadow: 1px 1px 11px #9e9e9e;
-  
+  box-shadow: 1px 1px 11px #9e9e9e;*/
+  flex: 0 0 100%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 85%;
+    max-width: 100%;
+    height: 66%;
+    
 }
+.vi1{
+   height: 400px; 
+}
+.user-video{
+    width: 100%;
+    height: 380px;
+  z-index: 1;
+  position: relative;
+    background: radial-gradient(#bcbec5 0%, #bcbcbc 51%, #9b9b93 100%);
+}
+/*.user-video{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: radial-gradient(#bcbec5 0%, #bcbcbc 51%, #9b9b93 100%);
+}*/
 .textoP{
-    margin-top: 20px;
+    width: 100%;
+    margin: 35px 0px 25px 0px;
     font-size: 18px;
-    font-family: "trebuchet MS";
-    background:radial-gradient(#bbc7f0 0%, #96b8f7 51%, #7a91fa 100%);
-    border-radius: 7px;
+    font-family: 'Nunito' sans-serif;
+    background:radial-gradient(#e7e7e9 0%, #e8e8eb 51%, #e2e3e5 100%);
+    border-radius: 0.23em;
+    
 }
-.tiempo{
-   margin-top: 20px;
-   font-size: 16px;
+.textoEdit{
+    padding:12px 20px 12px 20px;
+    border: 1px solid transparent;
+    font-family: 'Nunito' sans-serif;
+    
+}
+
+.textoT{
+   padding:12px 20px 12px 20px;
+    border: 1px solid transparent;
+}
+
+/*.tiempo{
+   margin: 20px 0px 25px 0px;
+   
+   font-size: 15px;
    font-weight: 400;
    background: radial-gradient(#dde5fc 0%, #cddefc 51%, #a8e3fa 100%);
    padding-right: 15px;
    padding-left: 15px;
+    width: 100%;
+    padding:12px 20px 12px 20px;
+    font-size: 18px;
+    font-family: 'Nunito' sans-serif;
+    background:radial-gradient(#fcfdfd 0%, #d5e9f5 51%, #e7f5fc 100%);
+    border-radius: 0.23em;
+
+}*/
+.tiempo1{
+    padding:0px 0px 0px 0px;
 }
 
+.reloj{
+    font-family: Arial, Helvetica, sans-serif;
+    width: 80%;
+    height: 1.5em;
+    font-size: 4em;
+    text-align: center;
+    background: rgba(0, 0, 0, .2);
+    
+}
+.reloj p{
+    display: inline-block;
+    line-height: 1em;
+    font-size: 30px;
+    color: white;
+    margin: 0px 0px 0px 0px;
+    align-content: center;
+
+}
 .my-video{
     /*165*/
     
@@ -130,24 +221,15 @@ export  default{
     z-index: 2;
     background: rgb(44, 44, 44);
 }
-.user-video{
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    background: radial-gradient(#bcbec5 0%, #bcbcbc 51%, #9b9b93 100%);
-}
-/*.vi{
+
+.vi{
     width: 20px;
     margin: 17px;
-}*/
-.esta{
-    margin-top:42%;
-    width: 100%;
+}
+.videos .esta{
+    margin-top:35%;
+    margin-bottom: 0%;
+    
     height: 22.5%;
     z-index: 2;
     position: relative;
@@ -222,36 +304,13 @@ export  default{
     position: relative;
     z-index: 4;
 }
-/*@media screen and(max-width: 1024px) {
-   .videos{
-    width: 100%;
-    height: 380px;
-   }
-   
+.deco{
+    font-size: 1.5em;
 
-}*/
-/*@media screen and (max-width: 1024px){
-    .videos{
-    /*flex: 0 0 100%;
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: 700px;
-    max-width: 100%;*/
-   /* width: 100%;
-    margin: 10px 10px 15px 10px;
-    }
-    
-    
-}*/
-@media (min-width: 1024px){
-    .videos {
-    flex: 0 0 75%;
-    max-width: 100%;
-    
-    }
-   
-
+    color: #88be2e;
 }
-
+.texto2{
+     text-align: center;
+}
 
 </style>
