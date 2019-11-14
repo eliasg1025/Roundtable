@@ -9,7 +9,7 @@
 			<a :href="'/business/profile/' + data_meeting.other_user.uuid" target="blank" class="my-2"><i class="fas fa-search"></i> Ver Perfil</a><br>
 			<a
 				v-if="can_view_data(data_meeting.state.id)"
-				@click="activeModal(data_meeting.other_user.id)"
+				@click="activeModal(data_meeting.other_user.uuid)"
 				role="button" data-toggle="modal" :data-target="'#previewInfoBusiness-'+data_meeting.meeting.id+'-'+type"
 				href="#" class="my-2"
 			><i class="fas fa-address-book"></i> Ver Datos</a>
@@ -161,9 +161,9 @@
 			format_hour(date) {
 				return Moment(date, 'HH:mm').format('hh:mm a');
 			},
-			activeModal(user_id) {
-				axios.get(`/get-avalible-time/${user_id}`, {
-					user_id: user_id,
+			activeModal(user_uuid) {
+				axios.get(`/get-avalible-time/${user_uuid}`, {
+					user_uuid: user_uuid,
 				})
 					.then(res => {
 						this.avalible_times = [...res.data];

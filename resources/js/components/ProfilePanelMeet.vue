@@ -167,10 +167,14 @@
 								</div>
 								<div class="container-button" v-else-if="data_meeting.state.id == 3">
 									<div class="container mb-1">
-										<button class="btn btn-primary btn-block">Agendar</button>
+										<button class="btn btn-primary btn-block" data-toggle="modal" :data-target="'#modalMeetingSchedule-'+data_meeting.meeting.id">
+											Agendar
+										</button>
+										<!-- Modal -->
+										<profile-modal-meet-schedule :data_meeting="data_meeting"/>
 									</div>
 									<div class="container mb-1">
-										<button class="btn btn-danger btn-block"  @click="cancelMeet(data_meeting.meeting.id)">Cancelar</button>
+										<button class="btn btn-danger btn-block" @click="cancelMeet(data_meeting.meeting.id)">Cancelar</button>
 									</div>
 								</div>
 								<div class="container-button" v-else-if="data_meeting.state.id == 4">
@@ -201,11 +205,13 @@
 
 <script>
 	import ProfileModalMeet from './ProfileModalMeet.vue';
+	import ProfileModalMeetSchedule from './ProfileModalMeetSchedule.vue';
 
 	export default {
 		props: ['data', 'user'],
 		components: {
-			ProfileModalMeet
+			ProfileModalMeet,
+			ProfileModalMeetSchedule,
 		},
 		data() {
 			return {

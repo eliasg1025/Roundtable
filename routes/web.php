@@ -62,7 +62,7 @@ Route::get('/get-avalible-time', 'ScheduleController@getAvalibleTime');
 Route::post('/edit-avalible-time', 'ScheduleController@editAvalibleTime');
 Route::post('/delete-avalible-time', 'ScheduleController@deleteAvalibleTime');
 Route::post('/add-avalible-time', 'ScheduleController@addAvalibleTime');
-Route::get('/get-avalible-time/{id}', 'ScheduleController@getAvalibleTimeByUserId');
+Route::get('/get-avalible-time/{uuid}', 'ScheduleController@getAvalibleTimeByUserId');
 
 // Api
 Route::get('/profile/messages', 'Api\MessagesController@index');
