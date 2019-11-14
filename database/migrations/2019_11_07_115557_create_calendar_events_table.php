@@ -18,6 +18,7 @@ class CreateCalendarEventsTable extends Migration
 			$table->string('title');
 			$table->dateTime('date');
 			$table->boolean('allDay')->default(false);
+			$table->boolean('queue')->default(true);
 			$table->timestamps();
 			// Fks
 			$table->bigInteger('user_id')->unsigned();

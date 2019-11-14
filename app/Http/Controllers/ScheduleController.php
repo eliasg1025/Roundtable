@@ -27,7 +27,7 @@ class ScheduleController extends Controller
 		$avalible_time = $this->getAvalibleTimeData();
 		$calendar_events = $this->getCalendarEventsData();
 
-		return response()->json(array_merge($calendar_events, $avalible_time));
+		return response()->json(array_merge($avalible_time, $calendar_events));
 	}
 
 	public function getAvalibleTime()
@@ -38,9 +38,10 @@ class ScheduleController extends Controller
 		return $data;
 	}
 
-	public function getAvalibleTimeByUserId($id)
+	public function getAvalibleTimeByUserId($uuid)
 	{
-		$data = AvalibleTime::where('user_id', $id)->get();
+		$user = User::where('uuid', $uuid)->first();
+		$data = AvalibleTime::where('user_id', $user->id)->get();
 
 		return $data;
 	}

@@ -22,13 +22,13 @@
 						<div class="form-group col-md-6 row">
 							<label class="col-sm-4" :for="'inputStartTime'+avalible_time.id">Desde</label>
 							<div class="col-sm-8">
-								<input type="time" :id="'inputStartTime'+avalible_time.id" v-model="avalible_time.startTime" :class="'form-control inputItem'+avalible_time.id" disabled>
+								<input type="time" step="180" :id="'inputStartTime'+avalible_time.id" v-model="avalible_time.startTime" :class="'form-control inputItem'+avalible_time.id" disabled>
 							</div>
 						</div>
 						<div class="form-group col-md-6 row">
 							<label class="col-sm-4" :for="'inputEndTime'+avalible_time.id">Hasta</label>
 							<div class="col-sm-8">
-								<input type="time" :id="'inputEndTime'+avalible_time.id" v-model="avalible_time.endTime" :class="'form-control inputItem'+avalible_time.id" disabled>
+								<input type="time" step="180" :id="'inputEndTime'+avalible_time.id" v-model="avalible_time.endTime" :class="'form-control inputItem'+avalible_time.id" disabled>
 							</div>
 						</div>
 					</div>
