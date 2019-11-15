@@ -29,7 +29,7 @@
 							</div>
 							<div v-else>
 								<hr>
-								<p class="h6 "><b>Selecciona un horario: </b></p>
+								<p class="h6"><b>Selecciona un horario: </b></p>
 								<div v-for="avalible_time in avalible_times" :key="avalible_time.id" class="row py-2 my-2">
 									<div class="col-md-12">
 										<input
@@ -38,7 +38,7 @@
 											:value="avalible_time.id" v-model="selected_avalible_time"
 										/>
 										<button @click="checkRadioSchedule(avalible_time.id, data_meeting.meeting.id)" type="button" class="btn btn-light checkbox-schedule__button">
-											<div v-for="day in avalible_time.daysOfWeek" :key="day.id" style="display: inline-block;" class="mb-1">
+											<div v-for="day in avalible_time.daysOfWeek" :key="day.id" class="d-inline-block mb-1">
 												<span v-if="day.value" href="#" class="badge badge-info">{{ day.name }}</span>&nbsp;
 											</div>
 											<br>
@@ -55,9 +55,9 @@
 							<p class="h6 "><b>Fechas próximas: </b></p>
 							<div class="row py-2 my-2">
 								<div class="col-md-12">
-									<div v-for="possibleDay in possibleDays" :key="possibleDay.date" style="display: inline-block;" class="p-2">
+									<div v-for="possibleDay in possibleDays" :key="possibleDay.date" class="d-inline-block p-2">
 										<input
-											type="radio" class="radio-button-day" name="radioSelectDay" autocomplete="off"
+											type="radio" class="radio-button-day d-none" name="radioSelectDay" autocomplete="off"
 											:id="'radioSelectDay-'+possibleDay.date"
 											:value="possibleDay.date"
 										>
@@ -72,9 +72,23 @@
 							</div>
 						</tab-content>
 
-						<tab-content title="Hora">
+						<tab-content title="Hora" :before-change="validateThirdStep">
 							<hr>
 							<p class="h6 "><b>Horas disponibles: </b></p>
+							<div class="row py-2 my-2">
+								<div class="col-md-12">
+									<div v-for="possibleHour in possibleHours" :key="possibleHour.id" class="d-inline-block p-2">
+										<input
+											type="radio" class="radio-button-hour d-none" name="radioSelectHour" autocomplete="off"
+											:id="'radioSelectHour-'+possibleHour.id"
+											:value="possibleHour.id" 
+										>
+										<button @click="checkRadioHour(possibleHour.id)" type="button" class="btn btn-primary radio-button-hour__button">
+											{{ possibleHour.hour_a }}
+										</button>
+									</div>
+								</div>
+							</div>
 						</tab-content>
 						
 						<div class="loader" v-if="loadingWizard">
@@ -123,6 +137,7 @@
 
 				// Form datas
 				possibleDays: '',
+				possibleHours: [],
 				selected_avalible_time: '',
 				selected_day: '',
 				selected_hour: '',
@@ -151,8 +166,6 @@
 
 				})
 				.catch(err => console.log(err.response));
-
-			console.log('Fecha actual: ',this.soon_days);
 		},
 		methods: {
 			format_hour(date) {
@@ -165,11 +178,21 @@
 				}
 				this.selected_day = '';
 			},
+			cleanRadioHourButtons() {
+				let radio_buttons = document.getElementsByName('radioSelectHour');
+				for (let i = 0; i < radio_buttons.length; i++) {
+					radio_buttons[i].checked = false;
+				}
+				this.possibleHours = [];
+			},
 			checkRadioSchedule(avalible_time_id, meeting_id) {
 				document.getElementById(`checkboxSchedule-${avalible_time_id}-meeting-${meeting_id}`).checked = true;
 			},
 			checkRadioDay: function(date_id) {
 				document.getElementById(`radioSelectDay-${date_id}`).checked = true;
+			},
+			checkRadioHour: function(hour_id) {
+				document.getElementById(`radioSelectHour-${hour_id}`).checked = true;
 			},
 			setLoading: function(value) {
 				this.loadingWizard = value
@@ -180,6 +203,7 @@
 			handleErrorMessage: function(errorMsg){
 				this.errorMsg = errorMsg
 			},
+			// Actions to validate data
 			validateFirstStep() {
 				// El elemento seleccionado del checkbox es guardado en la vaiable "selected_avalible_time"
 				let data = document.getElementsByName('checkbox-schedule');
@@ -190,55 +214,57 @@
 					}
 				}
 
-				let daysOfWeek;
-				this.avalible_times.forEach(el => {
-					if (el.id == this.selected_avalible_time)
-						daysOfWeek = el.daysOfWeek
-				})
-				daysOfWeek =  daysOfWeek.filter(el =>  el.value === true);
-				// console.log('daysOfWeek:', daysOfWeek);
-
-				// Funcion que hace aumentar el dia de uno en uno
-				function getNextDay(date) {
-					return new Date(date.setDate(date.getDate() + 1));
-				}
-
-				// Variable local
-				let possibleDays = [];
-				let today = new Date();
-				for (let i = 0; i < 15; i++) {
-					let next_day = getNextDay(today);
-					possibleDays.push({
-						date: next_day.getDate(),
-						day: next_day.getDay(),
-						month: next_day.getMonth(),
-						year: next_day.getFullYear(),
-					})
-				}
-
-				// Guarda solo las fechas disponible segun horario ademas añade el nombre del dia
-				possibleDays = possibleDays.filter(possibleDay => {
-												return  daysOfWeek.findIndex(el => el.id == possibleDay.day) !== -1
-											})
-											.map(possibleDay => {
-												let dayOfWeek = daysOfWeek.find(el => el.id == possibleDay.day);
-												return {
-													...possibleDay,
-													name: dayOfWeek.name,
-													shortName: dayOfWeek.shortName,
-												}
-											})
-				
-				// console.log(possibleDays);
-
-				// Si la cantidad de dias posibles es mayor a 5 se seleccionan como maximo 5, caso contario se toman todos
-				this.possibleDays = possibleDays.length >= 5 ? [...possibleDays.splice(0, 5)] : [...possibleDays];
-				this.cleanRadioDayButtons();
 
 				return new Promise((resolve, reject) => {
 					if (this.selected_avalible_time === '') {
 						reject('Debe seleccionar una de las opciones');
 					} else {
+						let daysOfWeek;
+						this.avalible_times.forEach(el => {
+							if (el.id == this.selected_avalible_time)
+								daysOfWeek = el.daysOfWeek
+						})
+						daysOfWeek =  daysOfWeek.filter(el =>  el.value === true);
+						// console.log('daysOfWeek:', daysOfWeek);
+
+						// Funcion que hace aumentar el dia de uno en uno
+						function getNextDay(date) {
+							return new Date(date.setDate(date.getDate() + 1));
+						}
+
+						// Variable local
+						let possibleDays = [];
+						let today = new Date();
+						for (let i = 0; i < 15; i++) {
+							let next_day = getNextDay(today);
+							possibleDays.push({
+								date: next_day.getDate(),
+								day: next_day.getDay(),
+								month: next_day.getMonth(),
+								year: next_day.getFullYear(),
+							})
+						}
+
+						// Guarda solo las fechas disponible segun horario ademas añade el nombre del dia
+						possibleDays = possibleDays.filter(possibleDay => {
+														return  daysOfWeek.findIndex(el => el.id == possibleDay.day) !== -1
+													})
+													.map(possibleDay => {
+														let dayOfWeek = daysOfWeek.find(el => el.id == possibleDay.day);
+														return {
+															...possibleDay,
+															name: dayOfWeek.name,
+															shortName: dayOfWeek.shortName,
+														}
+													})
+						
+						// console.log(possibleDays);
+
+						// Si la cantidad de dias posibles es mayor a 5 se seleccionan como maximo 5, caso contario se toman todos
+						this.possibleDays = possibleDays.length >= 5 ? [...possibleDays.splice(0, 5)] : [...possibleDays];
+						this.cleanRadioDayButtons();
+
+						// Resolve promise
 						resolve(true);
 					}
 				})
@@ -253,21 +279,71 @@
 					}
 				}
 
-				this.selected_day = this.possibleDays.find(possibleDay => possibleDay.date == selected_day_id);
-
 				return new Promise((resolve, reject) => {
-					if (this.selected_day === '') {
+					if (!selected_day_id) {
 						reject('Debe seleccionar una de las opciones');
 					} else {
-						resolve(true);
+						this.selected_day = this.possibleDays.find(possibleDay => possibleDay.date == selected_day_id);
+
+						let data = this.avalible_times.find(el => el.id == this.selected_avalible_time);
+						
+						let startTime = parseInt(Moment(data.startTime, 'HH:mm').format('HHmm'));
+						let endTime = parseInt(Moment(data.endTime, 'HH:mm').format('HHmm'));
+                        let difference = (endTime - startTime) / 100;
+						
+                        // Clean radio buttons
+                        this.cleanRadioHourButtons();
+                        
+                        for (let i = 0; i < difference; i++) {
+                        	this.possibleHours.push(startTime + 100*i);
+						}
+                        
+                        this.possibleHours = this.possibleHours.map((hour, index) => {
+                            if (hour < 1000) {
+                                hour = '0' + hour;
+							}
+                            return {
+                                id: index,
+                                hour_a: Moment(hour, 'HHmm').format('HH:mm a'),
+								hour: Moment(hour, 'HHmm').format('HH:mm')
+							}
+							
+						});
+                        
+                        console.log(this.possibleHours);
+                        
+                        resolve(true);
 					}
 				})
 			},
 			validateThirdStep() {
+				let data = document.getElementsByName('radioSelectHour');
+				let selected_hour_id;
+				for (let i = 0; i < data.length; i++) {
+					if (data[i].checked) {
+						selected_hour_id = data[i].value;
+						break;							
+					}
+				}
+				return new Promise((resolve, reject) => {
 
+					if (!selected_hour_id) {
+						reject('Debe seleccionar una de las opciones');
+					} else {
+
+						this.selected_hour = this.possibleHours.find(possibleHour => possibleHour.id == selected_hour_id);
+						this.cleanRadioHourButtons();
+                        resolve(true);
+					}
+				})
 			},
 			sendMeetingToQueue() {
-				alert('Success');
+				Swal.fire({
+					title: 'Agendamiento creado exitosamente',
+					type: 'success',
+					html: 'Se ha enviado un correo de confirmación a la otra empresa, una vez <b>confirme la hora y fecha</b> se podrá realizar la reunión virtual',
+					confirmButtonColor: '#88be2e',
+				})
 			}
 		}
 	}
@@ -283,6 +359,11 @@
 	}
 
 	.radio-button-day:checked + .radio-button-day__button {
+		transform: scale(1.1);
+		box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
+	}
+
+	.radio-button-hour:checked + .radio-button-hour__button {
 		transform: scale(1.1);
 		box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
 	}
