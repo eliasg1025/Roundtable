@@ -304,8 +304,8 @@
 							}
                             return {
                                 id: index,
-                                hour_a: Moment(hour, 'HHmm').format('HH:mm a'),
-								hour: Moment(hour, 'HHmm').format('HH:mm')
+                                hour_a: Moment(hour, 'HHmm').format('hh:mm a'),
+								hour: Moment(hour, 'HHmm').format('HH:mm:ss')
 							}
 							
 						});
@@ -338,11 +338,30 @@
 				})
 			},
 			sendMeetingToQueue() {
-				Swal.fire({
-					title: 'Agendamiento creado exitosamente',
-					type: 'success',
-					html: 'Se ha enviado un correo de confirmación a la otra empresa, una vez <b>confirme la hora y fecha</b> se podrá realizar la reunión virtual',
-					confirmButtonColor: '#88be2e',
+
+				Swal.fire({title: 'Enviando', onBeforeOpen: () => Swal.showLoading()})
+
+				axios.post('/calendar-event', {
+					user_uuid: this.$parent.user.uuid,
+					avalible_time_id: this.selected_avalible_time,
+					meeting_id: this.data_meeting.meeting.id,
+					day: this.selected_day,
+					hour: this.selected_hour,
+				})
+				.then(res => {
+					console.log(res.data);
+					Swal.fire({
+						title: 'Agendamiento creado exitosamente',
+						type: 'success',
+						html: 'Se ha enviado un correo de confirmación a la otra empresa, una vez <b>confirme la hora y fecha</b> se podrá realizar la reunión virtual',
+						confirmButtonColor: '#88be2e',
+					})
+						.then(res => {
+							location.reload();
+						})
+				})
+				.catch(err => {
+					console.log(err.reponse)
 				})
 			}
 		}

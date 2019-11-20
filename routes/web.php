@@ -64,6 +64,10 @@ Route::post('/delete-avalible-time', 'ScheduleController@deleteAvalibleTime');
 Route::post('/add-avalible-time', 'ScheduleController@addAvalibleTime');
 Route::get('/get-avalible-time/{uuid}', 'ScheduleController@getAvalibleTimeByUserId');
 
+Route::post('/calendar-event', 'ScheduleController@createCalendarEvent');
+Route::get('/calendar-event/{meet_id}', 'ScheduleController@checkSchedule');
+Route::post('/confirm-calendar-event', 'ScheduleController@confirmCalendarEvent');
+
 // Api
 Route::get('/profile/messages', 'Api\MessagesController@index');
 Route::get('/profile/operations', 'Api\OperationsController@index');

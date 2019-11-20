@@ -36,7 +36,8 @@
 				:events="calendarEvents"
 				:selectable="true"
 				:locale="locale"
-				@dateClick="handleDateClick"
+				:slotEventOverlap="false"
+				:slotDuration="'00:15:00'"
 			/>
 		</div>
 	</div>
@@ -67,7 +68,7 @@
 					timeGridPlugin,
 					interactionPlugin,
 				],
-				calendarWeekends: true,
+				calendarWeekends: false,
 				calendarEvents: [],
 				locale: esLocale,
 				// Custom data
