@@ -7,6 +7,8 @@ use App;
 use App\User;
 use App\AvalibleTime;
 use App\CalendarEvent;
+use App\Meeting;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -27,7 +29,7 @@ class ScheduleController extends Controller
 		$avalible_time = $this->getAvalibleTimeData();
 		$calendar_events = $this->getCalendarEventsData();
 
-		return response()->json(array_merge($avalible_time, $calendar_events));
+		return response()->json(array_merge($calendar_events, $avalible_time));
 	}
 
 	public function getAvalibleTime()
@@ -74,16 +76,19 @@ class ScheduleController extends Controller
 	public function getCalendarEventsData()
 	{
 		$user = Auth::user();
-		$data_calendar_events = CalendarEvent::where('user_id', $user->id)->get();
+		$data_calendar_events = CalendarEvent::where('user_id', $user->id)
+											->orWhere('other_user_id', $user->id)
+											->get();
 		$calendar_events = array();
 
 		foreach ($data_calendar_events as $data_calendar_event) {
-			
-			array_push($calendar_events, array(
-				'title' => $data_calendar_event['title'],
-				'date' => $data_calendar_event['date'],
-				'allDay' => $data_calendar_event['allDay'],
-			));
+			if ($data_calendar_event['queue'] == 0) {
+				array_push($calendar_events, array(
+					'title' => $data_calendar_event['title'],
+					'date' => $data_calendar_event['date'],
+					'allDay' => $data_calendar_event['allDay'],
+				));				
+			}
 		}
 
 		return $calendar_events;
@@ -178,6 +183,82 @@ class ScheduleController extends Controller
 			'message' => 'Horario creado exitosamente',
 		);
 
+		return response()->json($data);
+	}
+
+	public function createCalendarEvent(Request $request)
+	{
+		$user = Auth::user();
+		
+		if ($user->uuid == $request->user_uuid) {
+			$avalible_time = AvalibleTime::find($request->avalible_time_id);
+			
+			$other_user = User::find($avalible_time->user_id);
+
+			// Obtener fecha
+			$date = $request->day['year'] . "-" . ($request->day['month'] + 1) . "-" . $request->day['date'];
+			$time = $request->hour['hour'];
+
+			$datetime = $date . " " . $time;
+			
+			// Crea evento
+
+			$calendar_event = new CalendarEvent();
+			$calendar_event->title = "Reunion: " . $user->commercial_name . " - " . $other_user->commercial_name;
+			$calendar_event->date = $datetime;
+			$calendar_event->user_id = $user->id;
+			$calendar_event->other_user_id = $other_user->id;
+			$calendar_event->save();
+			
+			// Cambiar estado del meeting
+			$meeting = Meeting::find($request->meeting_id);
+			$meeting->state_id = 4;
+			$meeting->calendar_event_id = $calendar_event->id;
+			$meeting->save();
+
+
+
+			$data = array(
+				'code' => 200,
+				'status' => 'success',
+				'message' => '',
+			);
+		} else {
+			$data = array(
+				'code' => 200,
+				'status' => 'success',
+				'message' => 'No esta autorizado para realizar esta peticion',
+			);
+		}
+		
+		return response()->json($data);
+	}
+
+	public function checkSchedule($meet_id) {
+		$meeting = Meeting::find($meet_id);
+		$calendar_event = CalendarEvent::find($meeting->calendar_event_id);
+		return response()->json($calendar_event);
+	}
+
+	public function confirmCalendarEvent(Request $request) {
+		$calendar_event = CalendarEvent::find($request->calendar_event_id);
+
+		if ($calendar_event) {
+			$calendar_event->queue = 0;
+			$calendar_event->save();
+			
+			$data = array(
+				'code' => 200,
+				'status' => 'success',
+				'meesage' => 'Se confirmo la fecha y hora'
+			);
+		} else {
+			$data = array(
+				'code' => 403,
+				'status' => 'error',
+				'message' => 'No existe ese evento'
+			);
+		}
 		return response()->json($data);
 	}
 }

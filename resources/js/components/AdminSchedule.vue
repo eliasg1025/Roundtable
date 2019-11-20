@@ -72,13 +72,13 @@
 								<div class="form-group col-md-6 row">
 									<label class="col-sm-4" for="">Desde</label>
 									<div class="col-sm-8">
-										<input type="time" id="" class="form-control inputItem" v-model="addStartTime">
+										<input type="time" step="3600" id="" class="form-control inputItem" v-model="addStartTime">
 									</div>
 								</div>
 								<div class="form-group col-md-6 row">
 									<label class="col-sm-4" for="">Hasta</label>
 									<div class="col-sm-8">
-										<input type="time" id="" class="form-control inputItem" v-model="addEndTime">
+										<input type="time" step="3600" id="" class="form-control inputItem" v-model="addEndTime">
 									</div>
 								</div>
 							</div>

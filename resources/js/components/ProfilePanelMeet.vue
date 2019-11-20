@@ -94,11 +94,15 @@
 									</div>
 								</div>
 								<div class="container-button" v-else-if="data_meeting.state.id == 4">
-									<button class="btn btn-success disabled btn-block" disabled>
-										Esperando
-									</button>
+									<!-- Button and modal -->
+									<profile-modal-confirm-schedule :meeting="data_meeting.meeting" />
 								</div>
 								<div class="container-button" v-else-if="data_meeting.state.id == 5">
+									<button class="btn btn-roundtable btn-block">
+										Aceptado
+									</button>
+								</div>
+								<div class="container-button" v-else-if="data_meeting.state.id == 6">
 									<button class="btn btn-success disabled btn-block" disabled>
 										Realizado
 									</button>
@@ -182,9 +186,17 @@
 										<button class="btn btn-success disabled btn-block" disabled>
 											Esperando
 										</button>
+										<small class="text-muted">Esperando la confirmacion de hora y fecha</small>
 									</div>
 								</div>
 								<div class="container-button" v-else-if="data_meeting.state.id == 5">
+									<div class="container mb-1">
+										<button class="btn btn-success disabled btn-block" disabled>
+											Aceptado
+										</button>
+									</div>
+								</div>
+								<div class="container-button" v-else-if="data_meeting.state.id == 6">
 									<div class="container mb-1">
 										<button class="btn btn-success disabled btn-block" disabled>
 											Realizado
@@ -206,12 +218,14 @@
 <script>
 	import ProfileModalMeet from './ProfileModalMeet.vue';
 	import ProfileModalMeetSchedule from './ProfileModalMeetSchedule.vue';
+	import ProfileModalConfirmSchedule from './ProfileModalConfirmSchedule';
 
 	export default {
 		props: ['data', 'user'],
 		components: {
 			ProfileModalMeet,
 			ProfileModalMeetSchedule,
+			ProfileModalConfirmSchedule
 		},
 		data() {
 			return {

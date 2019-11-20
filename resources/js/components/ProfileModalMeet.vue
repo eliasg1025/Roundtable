@@ -118,6 +118,9 @@
 														<span>Hasta: <b>{{ format_hour(avalible_time.endTime) }}</b></span>
 													</div>
 												</div>
+												<div v-if="avalible_times.length == 0" class="p-4">
+													<p class="h5 text-muted">Aún no hay horarios asignados</p>
+												</div>
 											</div>
 										</fieldset>
 									</div>
