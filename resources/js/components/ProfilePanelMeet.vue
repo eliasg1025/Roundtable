@@ -88,6 +88,7 @@
 								<div class="container-button" v-else-if="data_meeting.state.id == 3">
 									<div class="container mb-1">
 										<button class="btn btn-primary btn-block" disabled>Esperando</button>
+										<small class="text-muted">Esperando elección de fecha y hora</small>
 									</div>
 									<div class="container mb-1">
 										<button class="btn btn-danger btn-block" @click="cancelMeet(data_meeting.meeting.id)">Cancelar</button>
@@ -98,9 +99,8 @@
 									<profile-modal-confirm-schedule :meeting="data_meeting.meeting" />
 								</div>
 								<div class="container-button" v-else-if="data_meeting.state.id == 5">
-									<button class="btn btn-roundtable btn-block">
-										Aceptado
-									</button>
+									<!-- Countdown timer -->
+									<countdown-timer :meeting="data_meeting.meeting" />
 								</div>
 								<div class="container-button" v-else-if="data_meeting.state.id == 6">
 									<button class="btn btn-success disabled btn-block" disabled>
@@ -191,9 +191,8 @@
 								</div>
 								<div class="container-button" v-else-if="data_meeting.state.id == 5">
 									<div class="container mb-1">
-										<button class="btn btn-success disabled btn-block" disabled>
-											Aceptado
-										</button>
+										<!-- Countdown timer -->
+										<countdown-timer :meeting="data_meeting.meeting" />
 									</div>
 								</div>
 								<div class="container-button" v-else-if="data_meeting.state.id == 6">
@@ -219,13 +218,15 @@
 	import ProfileModalMeet from './ProfileModalMeet.vue';
 	import ProfileModalMeetSchedule from './ProfileModalMeetSchedule.vue';
 	import ProfileModalConfirmSchedule from './ProfileModalConfirmSchedule';
+	import CountdownTimer from './CountdownTimer';
 
 	export default {
 		props: ['data', 'user'],
 		components: {
 			ProfileModalMeet,
 			ProfileModalMeetSchedule,
-			ProfileModalConfirmSchedule
+			ProfileModalConfirmSchedule,
+			CountdownTimer,
 		},
 		data() {
 			return {

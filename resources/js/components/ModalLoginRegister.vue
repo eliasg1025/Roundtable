@@ -106,7 +106,7 @@
 									<div class="row p-0">
 										<div class="col">
 											<div class="group">
-												<input type="text" id="signin-ruc" placeholder=" " v-model="register.ruc">
+												<input type="text" id="signin-ruc" maxlength="20" placeholder=" " v-model="register.ruc">
 												<span class="highlight"></span>
 												<span class="bar"></span>
 												<label>RUC</label>
@@ -114,7 +114,7 @@
 										</div>
 										<div class="col">
 											<div class="group">
-												<input type="text" id="signin-legal_registration" v-model="register.legal_registration" placeholder=" ">
+												<input type="text" id="signin-legal_registration" maxlength="20" v-model="register.legal_registration" placeholder=" ">
 												<span class="highlight"></span>
 												<span class="bar"></span>
 												<label>Partida Registral</label>
@@ -130,13 +130,14 @@
 									</div>
 									<div class="group">
 										<select id="signin-type" placeholder=" " v-model="register.type_id">
-											<option class="hidden" selected disabled>Seleccion una opción</option>
+											<!--<option class="hidden" selected disabled>Seleccion una opción</option>-->
 											<option value="1">Vendedor (Productor)</option>
 											<option value="2">Vendedor (Acopiador)</option>
 											<option value="3">Comprador</option>
 										</select>
 										<span class="highlight"></span>
 										<span class="bar"></span>
+										<label>Tipo de empresa</label>
 									</div>
 									<div class="group">
 										<input
@@ -227,103 +228,124 @@ export default {
 	methods: {
 		login_user: function() {
 
-			// Inciar pantalla de carga cuando se da click en Login
-			this.login_loading = true;
-
-			// Enviar los datos a la ruta /login a traves de axios.post
-			axios.post(this.href_login, {
-				// Envio de datos
-				email: this.login.email,
-				password: this.login.password,
-				token: this.login.token,
-			})
-				.then(res => {
-					// Si la operacion es exitosa mostrar mensaje de Sesion Iniciada
-					Swal.fire({
-						title: 'Iniciar Sesión',
-						text: 'Sesión iniciada satifactoriamente',
-						type: 'success',
-						showConfirmButton: false,
-						timer: 2000, // Mensaje dura 2s
-						// Quitar pantalla de carga
-						onBeforeOpen: () => {
-							this.login_loading = false
-						}
-					}).then(result => {
-						window.location.reload(); // Redirigir a ruta /profile
-					})
-				})
-				.catch(error => {
-					// Si hay error 422 mostrar error
-					if (error.response.status === 422) {
-						window.Swal.fire({
-							title: 'El email o la contraseña son incorrectos',
-							type: 'error',
-							timer: 2000, // Mensaje dura 2s
-							// Quitar pantalla de carga
-							onBeforeOpen: () => {
-								this.login_loading = false
-							}
-						})
-					} else {
-						console.log(error.response);
-					}
-				});
-		},
-		register_user: function() {
-
-			// Inciar pantalla de carga cuando se da click en Register
-			this.resgister_loading = true;
-
-			// Enviar solo si acepta terminos y condiciones
-			if (this.register.accept_terms) {
-
-				// Enviar los datos a la ruta /register a traves de axios.post
-				axios.post(this.href_register, {
-					name: this.register.name,
-					email: this.register.email,
-					password: this.register.password,
-					ruc: this.register.ruc,
-					legal_registration: this.register.legal_registration,
-					type_id: this.register.type_id,
-					password: this.register.password,
-					password_confirmation: this.register.password_confirmation,
-					token: this.register.csrf,
+			if (this.login.email !== '' || this.login.email !== '') {
+				// Inciar pantalla de carga cuando se da click en Login
+				this.login_loading = true;
+	
+				// Enviar los datos a la ruta /login a traves de axios.post
+				axios.post(this.href_login, {
+					// Envio de datos
+					email: this.login.email,
+					password: this.login.password,
+					token: this.login.token,
 				})
 					.then(res => {
+						// Si la operacion es exitosa mostrar mensaje de Sesion Iniciada
 						Swal.fire({
-							title: 'Usuario creado satisfactoriamente!',
-							text: 'Por favor verifica tu correo electronico para validar tu cuenta',
+							title: 'Iniciar Sesión',
+							text: 'Sesión iniciada satifactoriamente',
 							type: 'success',
 							showConfirmButton: false,
 							timer: 2000, // Mensaje dura 2s
 							// Quitar pantalla de carga
 							onBeforeOpen: () => {
-								this.resgister_loading = false;
+								this.login_loading = false
 							}
-						}).then(res => {
-							window.location.href = "/profile"; // Redirigir a ruta /profile
+						}).then(result => {
+							window.location.reload(); // Redirigir a ruta /profile
 						})
 					})
 					.catch(error => {
-						if (error.response.status === 500) {
-							console.log(error.response);
+						// Si hay error 422 mostrar error
+						if (error.response.status === 422) {
 							window.Swal.fire({
-								title: 'RUC ya usado',
-								text: 'Por favor utiliza otro RUC o comunicate con nosotros nosotros.',
+								title: 'El email o la contraseña son incorrectos',
 								type: 'error',
 								timer: 2000, // Mensaje dura 2s
 								// Quitar pantalla de carga
 								onBeforeOpen: () => {
-									this.resgister_loading = false
+									this.login_loading = false
 								}
 							})
-						} else if (error.response.status === 422) {
-							if (error.response.data.errors.email !== undefined) {
-								if (error.response.data.errors.email[0] == "The email has already been taken.") {
+						} else {
+							console.log(error.response);
+						}
+					});
+
+			} else {
+				Swal.fire({ title: 'Debes completar todos los campos', type: 'info' })
+			}
+
+		},
+		register_user: function() {
+
+			let validation = this.register_form_validation()
+
+			if (validation.value) {
+				// Inciar pantalla de carga cuando se da click en Register
+				this.resgister_loading = true;
+	
+				// Enviar solo si acepta terminos y condiciones
+				if (this.register.accept_terms) {
+	
+					// Enviar los datos a la ruta /register a traves de axios.post
+					axios.post(this.href_register, {
+						name: this.register.name,
+						email: this.register.email,
+						password: this.register.password,
+						ruc: this.register.ruc,
+						legal_registration: this.register.legal_registration,
+						type_id: this.register.type_id,
+						password: this.register.password,
+						password_confirmation: this.register.password_confirmation,
+						token: this.register.csrf,
+					})
+						.then(res => {
+							Swal.fire({
+								title: 'Usuario creado satisfactoriamente!',
+								text: 'Por favor verifica tu correo electronico para validar tu cuenta',
+								type: 'success',
+								showConfirmButton: false,
+								timer: 2000, // Mensaje dura 2s
+								// Quitar pantalla de carga
+								onBeforeOpen: () => {
+									this.resgister_loading = false;
+								}
+							}).then(res => {
+								window.location.href = "/profile"; // Redirigir a ruta /profile
+							})
+						})
+						.catch(error => {
+							if (error.response.status === 500) {
+								console.log(error.response);
+								window.Swal.fire({
+									title: 'RUC ya usado',
+									text: 'Por favor utiliza otro RUC o comunicate con nosotros nosotros.',
+									type: 'error',
+									timer: 2000, // Mensaje dura 2s
+									// Quitar pantalla de carga
+									onBeforeOpen: () => {
+										this.resgister_loading = false
+									}
+								})
+							} else if (error.response.status === 422) {
+								if (error.response.data.errors.email !== undefined) {
+									if (error.response.data.errors.email[0] == "The email has already been taken.") {
+										window.Swal.fire({
+											title: 'Email ya usado',
+											text: 'Por favor utiliza otra dirección de email o comunicate con nosotros.',
+											type: 'error',
+											timer: 2000, // Mensaje dura 2s
+											// Quitar pantalla de carga
+											onBeforeOpen: () => {
+												this.resgister_loading = false
+											}
+										})
+									}
+								} else {
 									window.Swal.fire({
-										title: 'Email ya usado',
-										text: 'Por favor utiliza otra dirección de email o comunicate con nosotros.',
+										title: 'Datos inválidos',
+										text: 'Por favor verifica los datos enviados',
 										type: 'error',
 										timer: 2000, // Mensaje dura 2s
 										// Quitar pantalla de carga
@@ -333,33 +355,47 @@ export default {
 									})
 								}
 							} else {
-								window.Swal.fire({
-									title: 'Datos inválidos',
-									text: 'Por favor verifica los datos enviados',
-									type: 'error',
-									timer: 2000, // Mensaje dura 2s
-									// Quitar pantalla de carga
-									onBeforeOpen: () => {
-										this.resgister_loading = false
-									}
-								})
+								console.log(error.response);
 							}
-						} else {
-							console.log(error.response);
+						});
+				} else {
+					window.Swal.fire({
+						title: 'Debe aceptar nuestros terminos y condiciones para poder continuar',
+						type: 'info',
+						showConfirmButton: false,
+						timer: 2000, // Mensaje dura 2s
+						// Quitar pantalla de carga
+						onBeforeOpen: () => {
+							this.resgister_loading = false
 						}
-					});
+					})
+				}
 			} else {
-				window.Swal.fire({
-					title: 'Debe aceptar nuestros terminos y condiciones para poder continuar',
-					type: 'info',
-					showConfirmButton: false,
-					timer: 2000, // Mensaje dura 2s
-					// Quitar pantalla de carga
-					onBeforeOpen: () => {
-						this.resgister_loading = false
-					}
-				})
+				Swal.fire({ title: validation.message, type: 'warning' })
 			}
+
+		},
+		register_form_validation() {
+			let value = true
+			let message
+			if (this.register.name !== '' && this.register.email !== '' && this.register.password !== '' && this.register.ruc !== '' && this.register.legal_registration !== '' && this.register.type_id !== '' && this.register.password_confirmation !== '') {
+				if (this.register.legal_registration.length <= 20 && this.register.ruc.length <= 20 && this.register.password.length >= 8 && this.register.password_confirmation.length >= 8) {
+					if (this.register.password === this.register.password_confirmation) {
+						value = true
+					} else {
+						value = false
+						message = 'La contraseña no es la misma'
+					}
+				} else {
+					value = false
+					message = 'Los campos deben cumplir la extensión necesaria'
+				}
+			} else {
+				value = false
+				message = 'Debes completar todos los campos'
+			}
+
+			return { value, message }
 		}
 	}
 }
@@ -486,8 +522,8 @@ export default {
 	}
 
 	.left .content, .right .content {
-		left: 17%;
-		right: 17%;
+		left: 15%;
+		right: 15%;
 		text-align: center;
 		position: absolute;
 	}
@@ -497,7 +533,7 @@ export default {
 	}
 
 	.right .content {
-		top: 12%;
+		top: 10%;
 	}
 
 	.group {

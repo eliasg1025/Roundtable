@@ -9,6 +9,7 @@ use App\AvalibleTime;
 use App\CalendarEvent;
 use App\Meeting;
 use Carbon\Carbon;
+use FB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -202,27 +203,42 @@ class ScheduleController extends Controller
 			$datetime = $date . " " . $time;
 			
 			// Crea evento
-
-			$calendar_event = new CalendarEvent();
-			$calendar_event->title = "Reunion: " . $user->commercial_name . " - " . $other_user->commercial_name;
-			$calendar_event->date = $datetime;
-			$calendar_event->user_id = $user->id;
-			$calendar_event->other_user_id = $other_user->id;
-			$calendar_event->save();
-			
-			// Cambiar estado del meeting
-			$meeting = Meeting::find($request->meeting_id);
-			$meeting->state_id = 4;
-			$meeting->calendar_event_id = $calendar_event->id;
-			$meeting->save();
-
-
-
-			$data = array(
-				'code' => 200,
-				'status' => 'success',
-				'message' => '',
+			/*
+			return array(
+				['user' => $user->commercial_name, 'overbooking' => $this->calendarEventOverbooking($user->id, $datetime)],
+				['user' => $other_user->commercial_name, 'overbooking' => $this->calendarEventOverbooking($other_user->id, $datetime)],
 			);
+			*/
+
+			$overbooking = $this->calendarEventOverbooking($user->id, $datetime) || $this->calendarEventOverbooking($other_user->id, $datetime);
+			
+			if (!$overbooking) {
+				$calendar_event = new CalendarEvent();
+				$calendar_event->title = "Reunion: " . $user->commercial_name . " - " . $other_user->commercial_name;
+				$calendar_event->date = $datetime;
+				$calendar_event->user_id = $user->id;
+				$calendar_event->other_user_id = $other_user->id;
+				$calendar_event->save();
+				
+				// Cambiar estado del meeting
+				$meeting = Meeting::find($request->meeting_id);
+				$meeting->state_id = 4;
+				$meeting->calendar_event_id = $calendar_event->id;
+				$meeting->save();
+	
+				$data = array(
+					'code' => 200,
+					'status' => 'success',
+					'message' => '',
+				);
+			} else {
+				$data = array(
+					'code' => 401,
+					'status' => 'error',
+					'message' => 'Ya hay un evento programado a esta hora. Selecciona otra fecha u hora'
+				);
+			}
+
 		} else {
 			$data = array(
 				'code' => 200,
@@ -232,6 +248,17 @@ class ScheduleController extends Controller
 		}
 		
 		return response()->json($data);
+	}
+
+	private function calendarEventOverbooking($user_id, $datetime) {
+		$calendar_events = CalendarEvent::where('user_id', $user_id)->orWhere('other_user_id', $user_id)->get();
+		
+		foreach ($calendar_events as $calendar_event) {
+			if ($calendar_event->date === $datetime) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public function checkSchedule($meet_id) {
@@ -247,10 +274,14 @@ class ScheduleController extends Controller
 			$calendar_event->queue = 0;
 			$calendar_event->save();
 			
+			$meeting = Meeting::where('calendar_event_id', $calendar_event->id)->first();
+			$meeting->state_id = 5;
+			$meeting->save();
+
 			$data = array(
 				'code' => 200,
 				'status' => 'success',
-				'meesage' => 'Se confirmo la fecha y hora'
+				'message' => 'Se confirmo la fecha y hora'
 			);
 		} else {
 			$data = array(
