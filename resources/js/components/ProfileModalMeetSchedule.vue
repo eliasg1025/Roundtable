@@ -332,7 +332,7 @@
 					} else {
 
 						this.selected_hour = this.possibleHours.find(possibleHour => possibleHour.id == selected_hour_id);
-						this.cleanRadioHourButtons();
+						// this.cleanRadioHourButtons();
                         resolve(true);
 					}
 				})
@@ -350,19 +350,21 @@
 				})
 				.then(res => {
 					console.log(res.data);
-					Swal.fire({
-						title: 'Agendamiento creado exitosamente',
-						type: 'success',
-						html: 'Se ha enviado un correo de confirmación a la otra empresa, una vez <b>confirme la hora y fecha</b> se podrá realizar la reunión virtual',
-						confirmButtonColor: '#88be2e',
-					})
-						.then(res => {
-							location.reload();
+					if (res.data.status === 'success') {
+						Swal.fire({
+							title: 'Agendamiento creado exitosamente',
+							type: 'success',
+							html: 'Se ha enviado un correo de confirmación a la otra empresa, una vez <b>confirme la hora y fecha</b> se podrá realizar la reunión virtual',
+							confirmButtonColor: '#88be2e',
 						})
+							.then(res => {
+								location.reload();
+							})
+					} else {
+						Swal.fire({ title: res.data.message, type: 'error' })
+					}
 				})
-				.catch(err => {
-					console.log(err.reponse)
-				})
+				.catch(err => console.log(err.response))
 			}
 		}
 	}
