@@ -19,7 +19,9 @@ Route::get('/planes','PlanesController@index')->name('planes');
 Route::get('/pagos/{product}/{slug}','PagosController@index')->name('pagos');
 Route::post('/pagos/process-payment', 'PagosController@processPayment');
 
+// Contacto
 Route::get('/contact','contactController@contacto')->name('contacto');
+Route::post('/contact', 'contactController@sendEmail');
 
 // Edit profile routes
 Route::get('/profile', 'ProfileController@index')->name('profile');
