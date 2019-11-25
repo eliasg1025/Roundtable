@@ -68,6 +68,7 @@ class BusinessController extends Controller
 
 
 	// View business Profile -> return view
+	//Mostrar la página de usuario tal
 	public function show($slug)
 	{
 		$uuid = substr($slug, -5);
@@ -79,7 +80,62 @@ class BusinessController extends Controller
 		}
 
 		$user->select('id', 'commercial_name', 'uuid', 'slug', 'verified', 'cover_img', 'profile_img', 'type_id', 'description');
+				
+		$ip="";
+		$fecha=carbon::now;//2019-02-02 03:03:03
+		$fecha=$fecha->format('d-m-y'); //20-02-2020
+		$time=$fecha->toTimeString(); //03:03:03
+		$user_visitador=Auth::user();
+		$band=false;		
 
+		if(getenv('http_client_ip'))
+			$ip=getenv('http_client_ip');
+		else if(getenv('http_x_forwarded_for'))
+			$ip=getenv('http_x_forwarded_for');
+			else if(getenv('http_x_forwarder'))
+				$ip=getenv('http_x_forwarder');
+					else if(getenv('http_forwarder_for'))
+						$ip=getenv('http_forwarder_for');
+							else if(getenv('http_forwarder'))
+								$ip=getenv('http_forwarder');
+									else if(getenv('remote_addr'))
+										$ip=getenv('remote_addr');
+											else
+												$ip='Indefinido';
+		
+		$visitas=DB::table('visitas')->select('user_id','ip','fecha')->where('user_id',$user_visitador->id)->get();
+		
+		foreach($visitas as $visita){
+			if($fecha==$visitas->fecha && $ip==$visitas->ip){
+				$hora=substr($time,0,2);
+				$hora_bd=date_format($visitas->fecha,'%h:%i:%s');
+				$hora_bd=substr($hora_bd,0,2);
+				if($hora!=$hora_bd){
+					BD::table('visitas')->insert([
+						'ip'=>$ip, 'fecha'=>$fecha." ".$time,
+						'user_id'=>$user_visitador->id
+					]);
+				}else{
+					$minutos=substr($time,3,2);
+					$min_bd=date_format($visitas->fecha,'%h:%i:%s');
+					if($minutos-$min_bd>=30){
+						BD::table('visitas')->insert([
+							'ip'=>$ip, 'fecha'=>$fecha." ".$time,
+							'user_id'=>$user_visitador->id
+						]);
+					}
+				}
+			}
+			$band=true;
+		break;
+		}
+		if($band==false){
+			BD::table('visitas')->insert([
+				'ip'=>$ip, 'fecha'=>$fecha." ".$time,
+				'user_id'=>$user_visitador->id
+			]);
+		}
+		//DB::table('visitas')->insert(['ip'=>$ip, 'fecha'=>$fecha,'hora'=>$hora,]);
 		// Media data
 		$media_data = $this->getMediaData($user);
 		
