@@ -85,6 +85,9 @@ Vue.component("SearchBar", require("./components/SearchBar.vue").default);
 // Schedule page
 Vue.component("new-schedule", require("./components/NewSchedule").default);
 
+// Conference page
+Vue.component("Conference", require("./components/Conference.vue").default);
+
 const app = new Vue({
 	el: "#app",
 	store
@@ -96,3 +99,4 @@ require("./navbar");
 require("./culqi");
 require("./notifications.js");
 require("./pusher-action.js");
+require("./zepto");

@@ -1,4 +1,4 @@
-Pusher.logToConsole = true;
+Pusher.logToConsole = false;
 
 let pusher = new Pusher("4bcc98f6c9321c69044d", {
 	cluster: "us2",

@@ -75,7 +75,10 @@ Route::get('/profile/messages', 'Api\MessagesController@index');
 Route::get('/profile/operations', 'Api\OperationsController@index');
 Route::get('/profile/types', 'Api\TypesController@index');
 
+
+// Conference
+Route::get('/conference', 'ConferenceController@index');
+
 Route::get('/test', function () {
-	$user = App\User::where('uuid', 'ZVIjs')->first();
-	return response()->json($user);
+	return view('conference');
 });
