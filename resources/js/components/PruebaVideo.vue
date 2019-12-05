@@ -43,12 +43,6 @@
                 </div>
             </div>
             </div>
-            <!--https://codepen.io/AlegreCode/pen/rOZWGx
-                <div class="tiempo1 col-sm-4" >
-                <div class="tiempo">
-                    <p textoT>Ex beatae iusto provident illum dicta quibusdam. Aperiam saepe cupiditate incidunt voluptatibus iure voluptate recusandae quibusdam adipisci in itaque rerum nostrum ea ab officiis ipsum dolore provident corrupti, voluptatum eligendi vel. Illo ab veniam quam fugiat doloribus eius in illum placeat? Officiis natus repudiandae non iste atque dignissimos eaque, praesentium quam voluptatibus inventore quasi alias ab voluptate hic nemo omnis ipsum fuga eligendi, excepturi ea a nisi at.</p>
-                </div>
-            </div>-->
         </div>
     </section>
 </template>
@@ -58,9 +52,7 @@ import { Stream } from 'stream';
 
 
 export  default{
-    //No olvidar que la videollamada se debe autoretomar la conversación
-    //cuando se corte la conexión por problemas de red
-    
+      
     data(){
         return{
            start:'',

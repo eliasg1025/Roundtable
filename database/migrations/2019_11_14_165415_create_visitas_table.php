@@ -16,8 +16,10 @@ class CreateVisitasTable extends Migration
         Schema::create('visitas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('ip',30)->nullable();
-            $table->timestamp('fecha')->nullable();
-            $table->biginteger('user_id')->unsigned();
+            $table->string('port',5)->nullable();
+            $table->string('fecha',20)->nullable();
+            $table->bigInteger('id_visitante')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

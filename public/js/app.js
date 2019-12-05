@@ -6559,10 +6559,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  //No olvidar que la videollamada se debe autoretomar la conversación
-  //cuando se corte la conexión por problemas de red
   data: function data() {
     return {
       start: '',
@@ -14202,7 +14214,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.videos{\r\n  /*width: 700px;\r\n  height: 380px;*/\r\n  width: 100%;\r\n  height: 380px;\r\n  margin-top: 20px;\r\n  border: 1px solid #9b9b93;\r\n  position: relative;\r\n  box-shadow: 1px 1px 11px #9e9e9e;\n}\n.textoP{\r\n    margin-top: 20px;\r\n    font-size: 18px;\r\n    font-family: \"trebuchet MS\";\r\n    background:radial-gradient(#bbc7f0 0%, #96b8f7 51%, #7a91fa 100%);\r\n    border-radius: 7px;\n}\n.tiempo{\r\n   margin-top: 20px;\r\n   font-size: 16px;\r\n   font-weight: 400;\r\n   background: radial-gradient(#dde5fc 0%, #cddefc 51%, #a8e3fa 100%);\r\n   padding-right: 15px;\r\n   padding-left: 15px;\n}\n.my-video{\r\n    width: 165px;\r\n    position: absolute;\r\n    left: 75%;\r\n    bottom: 75%;\r\n    /*border: 2px solid #56ab2f;*/\r\n    border-radius: 4px;\r\n    z-index: 2;\r\n    background: rgb(44, 44, 44);\n}\n.user-video{\r\n    position: absolute;\r\n    left: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    top: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    z-index: 1;\r\n    background: radial-gradient(#bcbec5 0%, #bcbcbc 51%, #9b9b93 100%);\n}\r\n/*.vi{\r\n    width: 20px;\r\n    margin: 17px;\r\n}*/\n.esta{\r\n    margin-top:42%;\r\n    width: 100%;\r\n    height: 22.5%;\r\n    z-index: 2;\r\n    position: relative;\r\n    overflow: hidden;\n}\n.flecha{\r\n    z-index: 4;\r\n    position: relative;\r\n    height: 25%;\n}\n.fle{\r\n    margin-left: 48%;\r\n    font-size: 1.5em;\r\n    color:white;\r\n    opacity: 0.1;\n}\n.caja1{\r\n    width: 100%;\r\n    height: 100%;\r\n    z-index: 3;\r\n    position: absolute;\r\n    transform:translate(0px,56px);\r\n    -ms-transform:translate(0%,56px); \r\n    -moz-transform:translate(0px,56px); \r\n    -webkit-transform:translate(0px,56px); \r\n    -o-transform:translate(0px,56px);\r\n    transition: all 500ms ease-in-out;\n}\n.caja1:hover{\r\n    transform:translate(0%,0%);\r\n   -ms-transform:translate(0%,0%); \r\n   -moz-transform:translate(0%,0%); \r\n   -webkit-transform:translate(0%,0%);\r\n   -o-transform:translate(0%,0%); \r\n   transition: all 500ms ease-in-out;\n}\n.mover{\r\n    margin-left: 35%;\n}\n.but1{\r\n    margin-left: 38%;\r\n    border-radius: 35px;\r\n    border: 0px;   \r\n    background-color: rgb(255, 255, 255); \r\n    position: relative;\r\n    z-index: 4;\n}\n.but2{\r\n    margin: 8px 5px 5px 5px;\r\n    border-radius: 35px;\r\n    border: 0px;  \r\n    background-color:rgb(255, 255, 255);     \r\n     position: relative;\r\n    z-index: 4;\n}\n.but3{\r\n    margin: 8px 5px 5px 5px;\r\n    border-radius: 35px;\r\n    border: 0px; \r\n     background-color: rgb(255, 255, 255); \r\n    position: relative;\r\n    z-index: 4;\n}\n.but4{\r\n    margin: 8px 5px 5px 5px;\r\n    border-radius: 35px;\r\n    border: 0px; \r\n    background-color: rgb(185, 11, 46);  \r\n    position: relative;\r\n    z-index: 4;\n}\r\n/*@media screen and(max-width: 1024px) {\r\n   .videos{\r\n    width: 100%;\r\n    height: 380px;\r\n   }\r\n   \r\n\r\n}*/\r\n/*@media screen and (max-width: 1024px){\r\n    .videos{\r\n    /*flex: 0 0 100%;\r\n    flex-grow: 0;\r\n    flex-shrink: 0;\r\n    flex-basis: 700px;\r\n    max-width: 100%;*/\r\n   /* width: 100%;\r\n    margin: 10px 10px 15px 10px;\r\n    }\r\n    \r\n    \r\n}*/\n@media (min-width: 1024px){\n.videos {\r\n    flex: 0 0 75%;\r\n    max-width: 100%;\n}\n}\r\n\r\n\r\n", ""]);
+exports.push([module.i, "\n.videos{\r\n  /*width: 700px;\r\n  height: 380px;*/\r\n \r\n /* width: 100%;\r\n  height: 380px;\r\n  margin-top: 20px;\r\n  border: 1px solid #9b9b93;\r\n  position: relative;\r\n  box-shadow: 1px 1px 11px #9e9e9e;*/\r\n  flex: 0 0 100%;\r\n    flex-grow: 0;\r\n    flex-shrink: 0;\r\n    flex-basis: 85%;\r\n    max-width: 100%;\r\n    height: 66%;\n}\n.vi1{\r\n   height: 400px;\n}\n.user-video{\r\n    width: 100%;\r\n    height: 380px;\r\n  z-index: 1;\r\n  position: relative;\r\n    background: radial-gradient(#bcbec5 0%, #bcbcbc 51%, #9b9b93 100%);\n}\r\n/*.user-video{\r\n    position: absolute;\r\n    left: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    top: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    z-index: 1;\r\n    background: radial-gradient(#bcbec5 0%, #bcbcbc 51%, #9b9b93 100%);\r\n}*/\n.textoP{\r\n    width: 100%;\r\n    margin: 35px 0px 25px 0px;\r\n    font-size: 18px;\r\n    font-family: 'Nunito' sans-serif;\r\n    background:radial-gradient(#e7e7e9 0%, #e8e8eb 51%, #e2e3e5 100%);\r\n    border-radius: 0.23em;\n}\n.textoEdit{\r\n    padding:12px 20px 12px 20px;\r\n    border: 1px solid transparent;\r\n    font-family: 'Nunito' sans-serif;\n}\n.textoT{\r\n   padding:12px 20px 12px 20px;\r\n    border: 1px solid transparent;\n}\r\n\r\n/*.tiempo{\r\n   margin: 20px 0px 25px 0px;\r\n   \r\n   font-size: 15px;\r\n   font-weight: 400;\r\n   background: radial-gradient(#dde5fc 0%, #cddefc 51%, #a8e3fa 100%);\r\n   padding-right: 15px;\r\n   padding-left: 15px;\r\n    width: 100%;\r\n    padding:12px 20px 12px 20px;\r\n    font-size: 18px;\r\n    font-family: 'Nunito' sans-serif;\r\n    background:radial-gradient(#fcfdfd 0%, #d5e9f5 51%, #e7f5fc 100%);\r\n    border-radius: 0.23em;\r\n\r\n}*/\n.tiempo1{\r\n    padding:0px 0px 0px 0px;\n}\n.reloj{\r\n    font-family: Arial, Helvetica, sans-serif;\r\n    width: 80%;\r\n    height: 1.5em;\r\n    font-size: 4em;\r\n    text-align: center;\r\n    background: rgba(0, 0, 0, .2);\n}\n.reloj p{\r\n    display: inline-block;\r\n    line-height: 1em;\r\n    font-size: 30px;\r\n    color: white;\r\n    margin: 0px 0px 0px 0px;\r\n    align-content: center;\n}\n.my-video{\r\n    /*165*/\r\n    \r\n    width: 165px;\r\n    position: absolute;\r\n    left: 75%;\r\n    bottom: 75%;\r\n    /*border: 2px solid #56ab2f;*/\r\n    border-radius: 4px;\r\n    z-index: 2;\r\n    background: rgb(44, 44, 44);\n}\n.vi{\r\n    width: 20px;\r\n    margin: 17px;\n}\n.videos .esta{\r\n    margin-top:35%;\r\n    margin-bottom: 0%;\r\n    \r\n    height: 22.5%;\r\n    z-index: 2;\r\n    position: relative;\r\n    overflow: hidden;\n}\n.flecha{\r\n    z-index: 4;\r\n    position: relative;\r\n    height: 25%;\n}\n.fle{\r\n    margin-left: 48%;\r\n    font-size: 1.5em;\r\n    color:white;\r\n    opacity: 0.1;\n}\n.caja1{\r\n    width: 100%;\r\n    height: 100%;\r\n    z-index: 3;\r\n    position: absolute;\r\n    transform:translate(0px,56px);\r\n    -ms-transform:translate(0%,56px); \r\n    -moz-transform:translate(0px,56px); \r\n    -webkit-transform:translate(0px,56px); \r\n    -o-transform:translate(0px,56px);\r\n    transition: all 500ms ease-in-out;\n}\n.caja1:hover{\r\n    transform:translate(0%,0%);\r\n   -ms-transform:translate(0%,0%); \r\n   -moz-transform:translate(0%,0%); \r\n   -webkit-transform:translate(0%,0%);\r\n   -o-transform:translate(0%,0%); \r\n   transition: all 500ms ease-in-out;\n}\n.mover{\r\n    margin-left: 35%;\n}\n.but1{\r\n    margin-left: 38%;\r\n    border-radius: 35px;\r\n    border: 0px;   \r\n    background-color: rgb(255, 255, 255); \r\n    position: relative;\r\n    z-index: 4;\n}\n.but2{\r\n    margin: 8px 5px 5px 5px;\r\n    border-radius: 35px;\r\n    border: 0px;  \r\n    background-color:rgb(255, 255, 255);     \r\n     position: relative;\r\n    z-index: 4;\n}\n.but3{\r\n    margin: 8px 5px 5px 5px;\r\n    border-radius: 35px;\r\n    border: 0px; \r\n     background-color: rgb(255, 255, 255); \r\n    position: relative;\r\n    z-index: 4;\n}\n.but4{\r\n    margin: 8px 5px 5px 5px;\r\n    border-radius: 35px;\r\n    border: 0px; \r\n    background-color: rgb(185, 11, 46);  \r\n    position: relative;\r\n    z-index: 4;\n}\n.deco{\r\n    font-size: 1.5em;\r\n\r\n    color: #88be2e;\n}\n.texto2{\r\n     text-align: center;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -88752,29 +88764,27 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "videos col-sm-9" }, [
-        _c("video", {
-          staticClass: "my-video",
-          attrs: { id: "localVideo", autoplay: "", muted: "", playsinline: "" },
-          domProps: { muted: true }
-        }),
-        _vm._v(" "),
-        _c("video", { staticClass: "user-video" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "esta" }, [
-          _c("div", { staticClass: "caja1" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("div", { staticClass: "mover" }, [
-              _vm._m(2),
+      _c("div", { staticClass: "vi1 col-sm-8" }, [
+        _c("div", { staticClass: "videos" }, [
+          _c("video", { staticClass: "user-video" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "esta" }, [
+            _c("div", { staticClass: "caja1" }, [
+              _vm._m(1),
               _vm._v(" "),
-              _vm._m(3),
-              _vm._v(" "),
-              _c("button", { staticClass: "but3", on: { click: _vm.probar } }, [
-                _c("span", { staticClass: "vi fas fa-video" })
-              ]),
-              _vm._v(" "),
-              _vm._m(4)
+              _c("div", { staticClass: "mover" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _vm._m(3),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  { staticClass: "but3", on: { click: _vm.probar } },
+                  [_c("span", { staticClass: "vi fas fa-video" })]
+                ),
+                _vm._v(" "),
+                _vm._m(4)
+              ])
             ])
           ])
         ])
@@ -88790,7 +88800,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "textoP col-sm-12" }, [
-      _c("p", [
+      _c("p", { staticClass: "textoEdit" }, [
         _vm._v(
           "\n                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore ipsam officia sunt consectetur nostrum reprehenderit deleniti perspiciatis maxime optio, asperiores\n                sapiente eius obcaecati veniam rem distinctio magni laborum, debitis reiciendis.\n            "
         )
@@ -88833,14 +88843,45 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "cajaT col-sm-3" }, [
-      _c("div", { staticClass: "tiempo" }, [
-        _c("p", [
-          _vm._v(
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius harum vitae nihil totam minus aliquam et nulla reiciendis a quisquam! Alias dolores facilis iure vero praesentium repellat ipsum beatae magni nulla dignissimos. Ex beatae iusto provident illum dicta quibusdam. Aperiam saepe cupiditate incidunt voluptatibus iure voluptate recusandae quibusdam adipisci in itaque rerum nostrum ea ab officiis ipsum dolore provident corrupti, voluptatum eligendi vel. Illo ab veniam quam fugiat doloribus eius in illum placeat? Officiis natus repudiandae non iste atque dignissimos eaque, praesentium quam voluptatibus inventore quasi alias ab voluptate hic nemo omnis ipsum fuga eligendi, excepturi ea a nisi at."
-          )
-        ])
-      ])
+    return _c("div", { staticClass: "tiempo1 col-sm-4" }, [
+      _c(
+        "div",
+        { staticClass: "card  tiempo", staticStyle: { "max-width": "100%" } },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "card-header",
+              staticStyle: {
+                "font-size": "22px",
+                "font-family": "'Nunito' sans-serif"
+              }
+            },
+            [
+              _c("span", { staticClass: "deco" }, [_vm._v("|")]),
+              _vm._v(" Tiempo total")
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "cuerpoCard card-body" }, [
+            _c("div", { staticClass: "texto2 card-text" }, [
+              _c("div", { staticClass: "reloj" }, [
+                _c("p", { staticClass: "minutos", attrs: { id: "minutos" } }, [
+                  _vm._v("20")
+                ]),
+                _vm._v(" "),
+                _c("p", [_vm._v(":")]),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  { staticClass: "segundos", attrs: { id: "segundos" } },
+                  [_vm._v("36")]
+                )
+              ])
+            ])
+          ])
+        ]
+      )
     ])
   }
 ]

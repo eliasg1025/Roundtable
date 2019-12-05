@@ -8,8 +8,8 @@ class Visita extends Model
 {
     protected $fillable=[
        'ip',
+       'port',
        'fecha',
-       'contador',
        'user_id', 
     ];
     public function user(){
