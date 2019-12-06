@@ -129,8 +129,16 @@ class BusinessController extends Controller
 									]);
 							}
 						}else{
-							
-							//si diferencia de hora es uno
+								$dMin=(60-$min_bd)+$minutos;
+								if($dMin>=30){
+									DB::table('visitas')->insert([
+										'ip'=>$ip,
+										'port'=>$port, 
+										'fecha'=>$fechaA." ".$time,
+										'id_visitante'=>$user_visitador->id,
+										'user_id'=>$visitado
+										]);
+								}						
 							
 						}                    
 					}
