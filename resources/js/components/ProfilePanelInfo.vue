@@ -58,7 +58,7 @@
 										ref="profileImage"
 										@change="handleUserImage(1)"
 									>
-									<label class="custom-file-label" for="editProfileImage"><i class="fas fa-camera"></i> Seleccione una imagen</label>
+									<label class="custom-file-label" for="editProfileImage"><i class="fas fa-camera"></i> {{ upload_profile_img_name }}</label>
 								</div>
 								<small class="text-muted">La imagen tiene que pesar menos de 2 MB</small>
 							</div>
@@ -90,7 +90,7 @@
 										ref="coverImage"
 										@change="handleUserImage(2)"
 									>
-									<label class="custom-file-label" for="editCoverImage"><i class="fas fa-camera"></i> Seleccione una imagen</label>
+									<label class="custom-file-label" for="editCoverImage"><i class="fas fa-camera"></i> {{ upload_cover_img_name }}</label>
 								</div>
 								<small class="text-muted">La imagen tiene que pesar menos de 2 MB</small>
 							</div>
@@ -197,6 +197,69 @@
 			</button>
 		</div>
 
+		<!-- Verificacion -->
+		<div class="text-center panel-info-subtitle">
+			<span class="text-uppercase h5">Validación</span>
+		</div>
+		<div class="panel-info-section">
+			<div v-if="verified !== 2" class="panel-alert alert alert-secondary mt-3" role="alert">
+				Si quieres obtener una cuenta verificada, sigue los siguientes pasos:
+				<br><br>
+				<ol style="margin-left: 15px;">
+					<li>Ingresa la ficha RUC(formato PDF) de tu empresa.</li>
+					<li>Espera a que te llegue un Código de Verificación a tu dirección fiscal.</li>
+					<li>Ingresa el código de Verificación.</li>
+					<li>¡Listo! ya tienes una cuenta verificada.</li>
+				</ol>
+			</div>
+			<div v-if="verified === 0">
+				<div class="container">
+					<p class="h5">¿Como obtener ficha RUC?</p>
+					<iframe width="727" height="409" src="https://www.youtube.com/embed/zH66mH2wIN8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				</div>
+				<br>
+				<div class="container">
+					<p class="h5">Ingresa ficha ruc:</p>
+					<div class="custom-file">
+						<input
+							type="file" class="custom-file-input"
+							id="rucFile" accept="application/pdf"
+							ref="rucFile"
+							@change="handleFile()"
+						>
+						<label class="custom-file-label" for="rucFile"><i class="fas fa-file-pdf"></i> {{ruc_file_name}}</label>
+						<small><span class="text-muted">Solamente se aceptará archivos de formato pdf</span></small>
+					</div>
+				</div>
+				<button @click="validatePlan()" class="btn btn-lg btn-block btn-save" style="margin-top: 25px;">
+					Enviar Ficha RUC
+				</button>
+			</div>
+			<div v-else-if="verified == 1">
+				<div class="container">
+					<p class="h5">Ingresa código de verificación:</p>
+					<div class="custom-file">
+						<input type="text" class="form-control" v-model="verificationCode" maxlength="30">
+					</div>
+				</div>
+				<button @click="validateAccount()" class="btn btn-lg btn-block btn-save" style="margin-top: 25px;">
+					Validar
+				</button>
+			</div>
+			<div v-else-if="verified == 2">
+				<div class="container my-2">
+					<div class="media">
+						<img class="align-self-center mr-3" src="\img\notification-icons\success.svg" style="width: 70px;">
+						<div class="media-body align-self-center">
+							<h3 class="mt-0">Verificado exitosamente</h3>
+						</div>
+					</div>			
+				</div>
+				
+			</div>
+		</div>
+		<!-- End -->
+
 		<!-- Imagenes -->
 		<div class="text-center panel-info-subtitle">
 			<label for="" class="text-uppercase h5">Imagenes</label>
@@ -286,11 +349,11 @@
 								<div class="custom-file">
 									<input
 										type="file" class="custom-file-input"
-										id="editOfferImage" lang="es" accept="image/*"
+										id="accountImage" lang="es" accept="image/*"
 										ref="accountImage"
 										@change="handleAccountImage()"
 									>
-									<label class="custom-file-label" for="editOfferImage"><i class="fas fa-camera"></i> Seleccione una imagen</label>
+									<label class="custom-file-label" for="accountImage"><i class="fas fa-camera"></i> {{ account_img_name }}</label>
 								</div>
 							</div>
 							<small class="text-muted">La imagen tiene que pesar menos de 2 MB</small>
@@ -400,7 +463,7 @@
 										ref="accountVideo"
 										@change="handleAccountVideo()"
 									>
-									<label class="custom-file-label" for="editOfferImage"><i class="fas fa-video"></i> Seleccione un video (.mp4)</label>
+									<label class="custom-file-label" for="editOfferImage"><i class="fas fa-video"></i> {{account_video_name}}</label>
 								</div>
 							</div>
 							<small class="text-muted">La video debe pesar menos de 30 MB</small>
@@ -435,6 +498,7 @@
 				description: '',
 				profile_img: '',
 				cover_img: '',
+				verified: '',
 				images: [],
 				videos: [],
 				plans: [],
@@ -445,6 +509,15 @@
 				upload_cover_img: [],
 				account_img: [],
 				account_video: [],
+				ruc_file: [],
+				//
+				upload_profile_img_name: '',
+				upload_cover_img_name: '',
+				account_img_name: '',
+				account_video_name: '',
+				ruc_file_name: '',
+				//
+				verificationCode: '',
 			}
 		},
 		created() {
@@ -460,6 +533,14 @@
 			this.images = this.media_data.images
 			this.videos = this.media_data.videos
 			this.user_categories = this.categories_data
+			this.verified = this.user.verified
+
+			//
+			this.upload_profile_img_name = 'Seleccione una imagen'
+			this.upload_cover_img_name = 'Seleccione una imagen'
+			this.account_img_name = 'Seleccione una imagen'
+			this.account_video_name = 'Seleccione un video(.mp4)'
+			this.ruc_file_name = 'Selecciona un archivo(.pdf)'
 
 			axios.get('/api/categories')
 					.then(res => {
@@ -519,8 +600,8 @@
 
 				return {
 					'number': number,
-					'can': number > 0 ? true : false,
-					'limit': this.current_plan.is_best ? true : false,
+					'can': number > 0,
+					'limit': !!this.current_plan.is_best,
 				}
 			},
 			might_add_videos() {
@@ -528,8 +609,8 @@
 
 				return  {
 					'number': number,
-					'can': number > 0 ? true : false,
-					'limit': this.current_plan.is_best ? true : false,
+					'can': number > 0,
+					'limit': !!this.current_plan.is_best,
 				}
 			}
 		},
@@ -601,7 +682,7 @@
 					showCancelButton: true,
 				})
 					.then(res => {
-						if (res.value == true) {
+						if (res.value === true) {
 							this.user_categories.forEach((element, index) => {
 								if (element.id === category_id) {
 									this.user_categories.splice(index, 1)
@@ -621,7 +702,7 @@
 					showCancelButton: true,
 				})
 					.then(res => {
-						if (res.value == true) {
+						if (res.value === true) {
 							axios.put(`/profile/user`, {
 								name: this.name,
 								commercial_name: this.commercial_name,
@@ -645,9 +726,11 @@
 				switch (type) {
 					case 1:
 						this.upload_profile_img = this.$refs.profileImage.files[0]
+						this.upload_profile_img_name = this.upload_profile_img.name
 						break;
 					case 2:
 						this.upload_cover_img = this.$refs.coverImage.files[0]
+						this.upload_cover_img_name = this.upload_cover_img.name
 						break;
 					default:
 						console.log('Error. No exists that type: ',type);
@@ -675,7 +758,7 @@
 							}
 
 							// Comprobar el contenido del formData
-							for (var key of formData.entries()) {
+							for (let key of formData.entries()) {
 								console.log(key[0] + ', ' + key[1]);
 							}
 
@@ -695,12 +778,13 @@
 					})
 			},
 			handleAccountImage() {
-				this.account_image = this.$refs.accountImage.files[0]
+				this.account_img = this.$refs.accountImage.files[0]
+				this.account_img_name = this.account_img.name
 			},
 			addImage() {
 				Swal.fire({
 					title: `¿Deseas agregar esta imagen?: `,
-					text: `${this.account_image.name}`,
+					text: `${this.account_img.name}`,
 					type: 'warning',
 					confirmButtonColor: '#3085d6',
 					cancelButtonColor: '#d33',
@@ -712,7 +796,7 @@
 						if (res.value == true) {
 
 							let formData = new FormData();
-							formData.append('image', this.account_image)
+							formData.append('image', this.account_img)
 
 							const config = {
 								headers: {'content-type': 'multipart/form-data'}
@@ -764,6 +848,7 @@
 			},
 			handleAccountVideo() {
 				this.account_video = this.$refs.accountVideo.files[0]
+				this.account_video_name = this.account_video.name
 			},
 			addVideo() {
 				Swal.fire({
@@ -780,11 +865,18 @@
 						if (res.value === true) {
 
 							let formData = new FormData();
-							formData.append('video', this.account_video)
+							formData.append('video', this.account_video);
 
 							const config = {
 								headers: {'content-type': 'multipart/form-data'}
 							}
+
+							Swal.fire({
+								title: 'Guardando',
+								onBeforeOpen: () => {
+									Swal.showLoading();
+								}
+							})
 
 							axios.post('/profile/add-account-video', formData, config)
 								.then(res => {
@@ -809,6 +901,14 @@
 				})
 					.then(res => {
 						if (res.value == true) {
+
+							Swal.fire({
+								title: 'Borrando',
+								onBeforeOpen: () => {
+									Swal.showLoading();
+								}
+							})
+
 							axios.delete(`/profile/delete-account-video/${video_id}`)
 								.then(res => {
 									Swal.fire({title: res.data.message, type: res.data.status, timer:1500, showConfirmButton: false})
@@ -829,310 +929,402 @@
 								})
 						}
 					})
+			},
+			handleFile() {
+				this.ruc_file = this.$refs.rucFile.files[0]
+				this.ruc_file_name = this.ruc_file.name
+			},
+			validatePlan() {
+				let operation = this.$parent.operations[4]; // Solicitat verificacion
+
+				switch (this.$parent.current_plan.slug) {
+					case 'premium':	
+						this.sendRucFile();
+						break;
+
+					case 'standard':
+						Swal.fire({
+							title: `Estas consumiendo ${operation.coins_cost} coins en esta operación`,
+							text: '¿Deseas continuar?',
+							type: 'info',
+							confirmButtonColor: '#3085d6',
+							cancelButtonColor: '#d33',
+							confirmButtonText: 'Si',
+							cancelButtonText: 'Cancelar',
+							showCancelButton: true,
+						})
+							.then(res => {
+								this.sendRucFile();
+							})
+
+						break;
+
+					case 'free':
+						Swal.fire({
+							title: 'No puede realizar esta operación',
+							text: 'Es necesario el Plan Standard o Premium para poder verificar tu cuenta',
+							type: 'error',
+							timer: 2000,
+						})
+						break;
+				}
+			},
+			sendRucFile() {
+				let formData = new FormData();
+				formData.append('file', this.ruc_file);
+
+				const config = {
+					headers: {'content-type': 'multipart/form-data'}
+				}
+
+				Swal.fire({
+						title: 'Enviando',
+						onBeforeOpen: () => {
+							Swal.showLoading();
+						}
+					})
+
+				axios.post('/validacion/process-ruc-file', formData, config)
+					.then(res => {
+						console.log(res.data);
+						this.resultAlert(res.data);
+					})
+					.catch(err => {
+						console.log(err.response.data);
+						this.resultAlert(err.response.data);
+					})
+			},
+            validateAccount() {
+			    Swal.fire({
+			    	title: 'Verificando código',
+			    	onBeforeOpen: () => {
+			    		Swal.showLoading();
+			    	}
+			    })
+
+			    axios.post('/validacion/validate-account', {
+			    	code: this.verificationCode
+			    })
+			    	.then(res => {
+			    		console.log(res.data);
+			    		this.resultAlert(res.data);
+			    	})
+			    	.catch(err => {
+			    		console.log(err.response.data);
+			    		this.resultAlert(err.response.data);
+			    	})
+			},
+			resultAlert(data){
+				Swal.fire({
+	    			title: data.message,
+	    			text: data.text,
+	    			type: data.status,
+	    		})
+	    			.then(res => {
+	    				if (data.status === 'success') {
+	    					location.reload();
+	    				} else {
+	    					console.log('ok');
+	    				}
+	    			})
 			}
 		}
 	}
 </script>
 
 <style>
-	.select-category {
-		width: 100%;
+.select-category {
+	width: 100%;
+}
+
+.select-category .btn {
+	background-color: #FFFFFF;
+	border: 1px solid #ced4da;
+	text-align: left;
+}
+
+.select-category .dropdown-menu {
+	width: 100%;
+}
+
+.selected-categories {
+	padding: 10px;
+	background-color: #E9ECEF;
+	border: 1px solid #E9ECEF;
+	border-radius: 6px;
+}
+
+.multi-preview-info {
+	font-family: 'Poppins', sans-serif;
+	font-size: 20px;
+}
+
+.no-image__container {
+	margin-top: 20px;
+	margin-bottom: 25px;
+}
+
+.no-image {
+	width: 200px;
+	height: 150px;
+}
+
+.preview-image {
+	width: 70%;
+	height: auto;
+	border-radius: 6px;
+}
+
+.preview-image__container {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.btn-delete-multi {
+	float: right;
+}
+
+.active-plan {
+	font-weight: bold;
+}
+
+.multi-carousel-item {
+	padding: 10px;
+}
+
+.upload-info-img {
+	position: relative;
+	overflow: hidden;
+	margin: 10px 0;
+	text-align: center;
+	border-radius: 8px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+
+.upload-info-img * {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all 0.6s ease;
+	transition: all 0.6s ease;
+}
+
+.upload-info-img img {
+	opacity: 1;
+	display: block;
+	height: 250px;
+	position: relative;
+}
+
+.upload-info-img figcaption {
+	top: 25%;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: 10px 12px 5px;
+	position: absolute;
+}
+
+.upload-info-img h4, .upload-info-img i {
+	color: rgba(0, 0, 0, 0.7);
+}
+
+.upload-info-img i {
+	font-size: 100px;
+}
+
+.upload-info-img a {
+	text-decoration: none;
+}
+
+.upload-info-img .bottom-middle, .upload-info-img .bottom-right {
+	bottom: 40%;
+	opacity: 0;
+}
+.upload-info-img .bottom-middle {
+	-webkit-transform: translate(0%, 50%);
+	transform: translate(0%, 50%);
+}
+
+.upload-info-img:hover img, .upload-info-img.hover img {
+	opacity: 0.6;
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
+}
+.upload-info-img:hover figcaption .bottom-middle, .upload-info-img.hover figcaption .bottom-middle,
+.upload-info-img:hover figcaption .bottom-right, .upload-info-img.hover figcaption .bottom-right {
+	-webkit-transform: translate(0, 0);
+	transform: translate(0, 0);
+	opacity: 1;
+}
+
+.upload-info-input > input {
+	display: none;
+}
+
+.upload-info-input > label {
+	cursor: pointer;
+}
+
+.container-profile-img img {
+	width: 85%;
+	margin: auto;
+}
+
+.container-cover-img img {
+	width: 100%;
+}
+
+/* Form styles */
+
+.btn-save {
+	background-image: linear-gradient(to right, #56ab2f 0%, #a8e063 51%, #56ab2f 100%);
+	transition: 0.5s;
+	background-size: 200% auto;
+	font-family: 'Roboto',sans-serif;
+	color:rgb(231, 255, 255);
+}
+
+.btn-save:hover {
+	background-position: right center;
+	color:rgb(231, 255, 255);
+}
+
+.info-icon {
+	color: rgb(93, 151, 240);
+	cursor: pointer;
+}
+
+.info-icon:hover {
+	color: rgb(81, 126, 194);
+	transition: all ease 500ms;
+}
+
+.panel-info-section {
+	border: solid 1px #e6e6e6;
+	border-radius: 15px;
+	padding: 25px;
+	margin-bottom: 35px;
+}
+
+.panel-info-subtitle {
+	margin-bottom: 15px;
+}
+
+.panel-info-subtitle label {
+	margin: 0;
+}
+
+.multi-image-container {
+	position: relative;
+	overflow: hidden;
+	margin: 10px 0;
+	text-align: center;
+	border-radius: 8px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+	background-color: #000;
+	cursor: pointer;
+	height: 150px;
+}
+
+.multi-add-container {
+	position: relative;
+	overflow: hidden;
+	margin: 10px 0;
+	text-align: center;
+	border-radius: 8px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+	height: 150px;
+}
+
+.multi-image {
+	opacity: 1;
+	display: block;
+	height: 100%;
+	position: relative;
+	width: 100%;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all 0.6s ease;
+	transition: all 0.6s ease;
+}
+
+.multi-add-text {
+	margin-top: 20%;
+	cursor: pointer;
+}
+
+.multi-add-text p {
+	margin-bottom: 0px;
+	font-size: 20px;
+	color: #D87B4B;
+}
+
+.multi-image:hover{
+	opacity: 0.6;
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
+}
+
+.multi-locked-upload {
+	height: 150px;
+	background-color: #E2E3E5;
+	border: 1px solid #d6d8db;
+	color: #383d41;
+	background-color: #e2e3e5;
+	border-radius: 0.25rem;
+	margin: 10px;
+	text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+	.container-profile-img img, .container-cover-img img  {
+		height: 170px;
 	}
 
-	.select-category .btn {
-		background-color: #FFFFFF;
-		border: 1px solid #ced4da;
-		text-align: left;
-	}
+	/*
+	.multi-image-container {
+		height: 100px;
+	}*/
+}
 
-	.select-category .dropdown-menu {
-		width: 100%;
+@media screen and (max-width: 600px) {
+	.container-profile-img {
+		width: 80%;
+		margin: auto;
 	}
-
-	.selected-categories {
-		padding: 10px;
-		background-color: #E9ECEF;
-		border: 1px solid #E9ECEF;
-		border-radius: 6px;
+	.container-profile-img img {
+		height: 150px;
 	}
-
-	.scrollable-menu {
-		height: auto;
-		max-height: 200px;
-		overflow-x: hidden;
+	.container-cover-img img {
+		height: 150px;
+	}
+	.title-image-cover {
+		margin-top: 25px;
+	}
+	.multi-image-container {
+		height: 150px;
 	}
 
 	.multi-preview-info {
-		font-family: 'Poppins', sans-serif;
-		font-size: 20px;
+		font-size: 13px;
 	}
+}
 
-	.no-image__container {
-		margin-top: 20px;
-		margin-bottom: 25px;
-	}
-
-	.no-image {
-		width: 200px;
-		height: 150px;
-	}
-
-	.preview-image {
-		width: 70%;
-		height: auto;
-		border-radius: 6px;
-	}
-
-	.preview-image__container {
-		margin-top: 15px;
-		margin-bottom: 15px;
-	}
-
-	.btn-delete-multi {
-		float: right;
-	}
-
-	.active-plan {
-		font-weight: bold;
-	}
-
-	.multi-carousel-item {
-		padding: 10px;
-	}
-
-	.upload-info-img {
-		position: relative;
-		overflow: hidden;
-		margin: 10px 0;
-		text-align: center;
-		border-radius: 8px;
-		box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-	}
-
-	.upload-info-img * {
-		-webkit-box-sizing: border-box;
-		box-sizing: border-box;
-		-webkit-transition: all 0.6s ease;
-		transition: all 0.6s ease;
-	}
-
-	.upload-info-img img {
-		opacity: 1;
-		display: block;
-		height: 250px;
-		position: relative;
-	}
-
-	.upload-info-img figcaption {
-		top: 25%;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		margin: 10px 12px 5px;
-		position: absolute;
-	}
-
-	.upload-info-img h4, .upload-info-img i {
-		color: rgba(0, 0, 0, 0.7);
-	}
-
-	.upload-info-img i {
-		font-size: 100px;
-	}
-
-	.upload-info-img a {
-		text-decoration: none;
-	}
-
-	.upload-info-img .bottom-middle, .upload-info-img .bottom-right {
-		bottom: 40%;
-		opacity: 0;
-	}
-	.upload-info-img .bottom-middle {
-		-webkit-transform: translate(0%, 50%);
-		transform: translate(0%, 50%);
-	}
-
-	.upload-info-img:hover img, .upload-info-img.hover img {
-		opacity: 0.6;
-		-webkit-transform: scale(1.1);
-		transform: scale(1.1);
-	}
-	.upload-info-img:hover figcaption .bottom-middle, .upload-info-img.hover figcaption .bottom-middle,
-	.upload-info-img:hover figcaption .bottom-right, .upload-info-img.hover figcaption .bottom-right {
-		-webkit-transform: translate(0, 0);
-		transform: translate(0, 0);
-		opacity: 1;
-	}
-
-	.upload-info-input > input {
-		display: none;
-	}
-
-	.upload-info-input > label {
-		cursor: pointer;
-	}
-
-	.container-profile-img img {
-		width: 85%;
+@media screen and (max-width: 600px) and (orientation: landscape) {
+	.container-profile-img {
+		width: 50%;
+		height: 170px;
 		margin: auto;
 	}
 
-	.container-cover-img img {
-		width: 100%;
+	.container-cover-img {
+		width: 70%;
+		margin: auto;
 	}
 
-	/* Form styles */
-
-	.btn-save {
-		background-image: linear-gradient(to right, #56ab2f 0%, #a8e063 51%, #56ab2f 100%);
-		transition: 0.5s;
-		background-size: 200% auto;
-		font-family: 'Roboto',sans-serif;
-		color:rgb(231, 255, 255);
+	.multi-image-container, .multi-add-container, .multi-locked-upload {
+		width: 50%;
+		margin: auto;
 	}
-
-	.btn-save:hover {
-		background-position: right center;
-		color:rgb(231, 255, 255);
-	}
-
-	.info-icon {
-		color: rgb(93, 151, 240);
-		cursor: pointer;
-	}
-
-	.info-icon:hover {
-		color: rgb(81, 126, 194);
-		transition: all ease 500ms;
-	}
-
-	.panel-info-section {
-		border: solid 1px #e6e6e6;
-		border-radius: 15px;
-		padding: 25px;
-		margin-bottom: 35px;
-	}
-
-	.panel-info-subtitle {
-		margin-bottom: 15px;
-	}
-
-	.panel-info-subtitle label {
-		margin: 0;
-	}
-
-	.multi-image-container {
-		position: relative;
-		overflow: hidden;
-		margin: 10px 0;
-		text-align: center;
-		border-radius: 8px;
-		box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-		background-color: #000;
-		cursor: pointer;
-		height: 150px;
-	}
-
-	.multi-add-container {
-		position: relative;
-		overflow: hidden;
-		margin: 10px 0;
-		text-align: center;
-		border-radius: 8px;
-		box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-		height: 150px;
-	}
-
-	.multi-image {
-		opacity: 1;
-		display: block;
-		height: 100%;
-		position: relative;
-		width: 100%;
-		-webkit-box-sizing: border-box;
-		box-sizing: border-box;
-		-webkit-transition: all 0.6s ease;
-		transition: all 0.6s ease;
-	}
-
-	.multi-add-text {
-		margin-top: 20%;
-		cursor: pointer;
-	}
-
-	.multi-add-text p {
-		margin-bottom: 0px;
-		font-size: 20px;
-		color: #D87B4B;
-	}
-
-	.multi-image:hover{
-		opacity: 0.6;
-		-webkit-transform: scale(1.1);
-		transform: scale(1.1);
-	}
-
-	.multi-locked-upload {
-		height: 150px;
-		background-color: #E2E3E5;
-		border: 1px solid #d6d8db;
-		color: #383d41;
-		background-color: #e2e3e5;
-		border-radius: 0.25rem;
-		margin: 10px;
-		text-align: center;
-	}
-
-	@media screen and (max-width: 768px) {
-		.container-profile-img img, .container-cover-img img  {
-			height: 170px;
-		}
-
-		/*
-		.multi-image-container {
-			height: 100px;
-		}*/
-	}
-
-	@media screen and (max-width: 600px) {
-		.container-profile-img {
-			width: 80%;
-			margin: auto;
-		}
-		.container-profile-img img {
-			height: 150px;
-		}
-		.container-cover-img img {
-			height: 150px;
-		}
-		.title-image-cover {
-			margin-top: 25px;
-		}
-		.multi-image-container {
-			height: 150px;
-		}
-
-		.multi-preview-info {
-			font-size: 13px;
-		}
-	}
-
-	@media screen and (max-width: 600px) and (orientation: landscape) {
-		.container-profile-img {
-			width: 50%;
-			height: 170px;
-			margin: auto;
-		}
-
-		.container-cover-img {
-			width: 70%;
-			margin: auto;
-		}
-
-		.multi-image-container, .multi-add-container, .multi-locked-upload {
-			width: 50%;
-			margin: auto;
-		}
-	}
+}
 </style>

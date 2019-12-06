@@ -28,6 +28,7 @@ Route::middleware('auth:api')->put('/products', 'Api\ProductsController@edit');
 // Get Data
 Route::get('/categories', 'Api\CategoriesController@index');
 Route::get('/plans', 'Api\PlansController@index');
+Route::get('/messages', 'Api\MessagesController@index');
 
 //Edit
 //Route::resource('/users', 'Api\UsersController');

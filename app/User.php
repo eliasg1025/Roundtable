@@ -84,6 +84,11 @@ class User extends Authenticatable implements MustVerifyEmail
 	{
 		return $this->hasMany(UserCertfication::class);
 	}
+	
+	public function meetings()
+	{
+		return $this->hasMany(Meeting::class);
+	}
 
     // Generar slug
 

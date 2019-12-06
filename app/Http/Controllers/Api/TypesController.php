@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -15,7 +16,15 @@ class TypesController extends Controller
      */
     public function index()
     {
-        //
+        $types = App\Type::all();
+        
+        $data = array(
+        	'code' => 200,
+			'status' => 'success',
+			'data' => $types,
+		);
+        
+        return response()->json($data, $data['code']);
     }
 
     /**

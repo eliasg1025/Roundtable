@@ -18,7 +18,9 @@ class DatabaseSeeder extends Seeder
         $this->call(CoinPacksTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(OperationsTableSeeder::class);
-        $this->call(StatesTableSeeder::class);
+		$this->call(StatesTableSeeder::class);
+		//$this->call(TypeMessagesSeeder::class);
+		$this->call(TypeMessagesTableSeeder::class);
 
         // Seeders para datos de prueba
         $this->call(UsersTableSeeder::class);
@@ -28,5 +30,7 @@ class DatabaseSeeder extends Seeder
 		//$this->call(OfferCertificationsTableSeeder::class);
 		//$this->call(UserCertificationsTableSeeder::class);
 		$this->call(RatingsTableSeeder::class);
+		//$this->call(CalendarEventsSeeder::class);
+		//$this->call(AvalibleTimesSeeder::class);
     }
 }

@@ -36,33 +36,33 @@
                                    <label for="" name="nombre">Nombres<span>*</span></label>
                                    <div class="caja">
                                        <span class=ee style="display:inline-block; padding-right:16px;">
-                                           <input class="ee12" type="text" placeholder=" Nombres" name="nombre">
+                                           <input class="ee12" type="text" placeholder=" Nombres" name="nombre" v-model="nombre">
                                        </span>
                                        <span class="ee" style="display:inline-block; ">
-                                           <input type="text" class="ee12" placeholder=" Apellidos">
+                                           <input type="text" class="ee12" placeholder=" Apellidos" v-model="apellidos">
                                        </span>
                                    </div>
                                </li>
                                <li class="lis">
                                    <label  for="" name="empresa">Empresa<span>*</span></label>
                                    <div class="caja" >
-                                       <input class="ee12" type="text" name="empresa" placeholder=" Razón social" style="width:100%;">
+                                       <input class="ee12" type="text" name="empresa" placeholder=" Razón social" style="width:100%;" v-model="razon_social">
                                    </div>
                                </li>
                                <li class="lis">
                                    <label  for="" name="correo">Correo electrónico<span>*</span></label>
                                    <div class="caja" >
-                                       <input type="text" class="ee12" name="correo" placeholder=" Correo" style="width:100%;">
+                                       <input type="text" class="ee12" name="correo" placeholder=" Correo" style="width:100%;" v-model="email">
                                    </div>
                                </li>
                                <li class="lis">
                                    <label for="" name="mensaje">Tu mensaje</label>
                                    <div class="caja">
-                                       <textarea style="resize:none; width:100%;" placeholder="Mensaje..." name="mensaje" rows="4"></textarea>
+                                       <textarea style="resize:none; width:100%;" placeholder="Mensaje..." name="mensaje" rows="4" v-model="mensaje"></textarea>
                                    </div>
                                </li>
                                <li class="lis">
-                                   <button>Enviar</button>
+                                   <button type="button" @click="sendEmail">Enviar</button>
                                </li>
                             </ul> 
                         </form>
@@ -73,10 +73,14 @@
 </template>
 <script>
     export default{
-		name:'contacto',
-		props: ['data'],
 		data() {
-			
+			return {
+				nombre: '',
+				apellidos: '',
+				email: '',
+				razon_social: '',
+				mensaje: '',
+			}
 		}
 	}
 </script>

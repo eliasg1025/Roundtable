@@ -15,14 +15,17 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title', 30);
+            $table->string('title');
 			$table->text('message');
+            $table->boolean('viewed')->default(false);
+            $table->string('customImage')->nullable();
 			$table->timestamp('date');
-			$table->string('type', 30);
             $table->timestamps();
             //
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->bigInteger('type_message_id')->unsigned();
+            $table->foreign('type_message_id')->references('id')->on('type_messages');
         });
     }
 
