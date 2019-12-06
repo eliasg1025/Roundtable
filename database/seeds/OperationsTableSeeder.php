@@ -14,22 +14,27 @@ class OperationsTableSeeder extends Seeder
     {
         $operation = new Operation();
         $operation->name = 'Publicar imagenes';
-        $operation->coins_cost = 10;
+        $operation->coins_cost = 1;
         $operation->save();
 
         $operation = new Operation();
         $operation->name = 'Publicar ofertas';
-        $operation->coins_cost = 20;
+        $operation->coins_cost = 5;
         $operation->save();
 
         $operation = new Operation();
         $operation->name = 'Publicar certificados de empresa';
-        $operation->coins_cost = 10;
+        $operation->coins_cost = 3;
         $operation->save();
 
         $operation = new Operation();
         $operation->name = 'Agendar reuniones';
-        $operation->coins_cost = 30;
+        $operation->coins_cost = 10;
+        $operation->save();
+
+        $operation = new Operation();
+        $operation->name = 'Solicitar verificación';
+        $operation->coins_cost = 10;
         $operation->save();
     }
 }

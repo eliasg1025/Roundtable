@@ -70,7 +70,7 @@ class PagosController extends Controller
 				$message->title = 'Transacción exitosa';
 				$message->message = '¡Ha adquirido el Plan ' . $product->name . '!';
 				$message->date = Carbon::now();
-				$message->type = 'transaction';
+				$message->type_message_id = 1;
 				$message->user_id = $user->id;
 				$message->save();
 				
@@ -90,7 +90,7 @@ class PagosController extends Controller
 				$message->title = 'Transacción exitosa';
 				$message->message = '¡Ha adquirido el Paquete ' . $product->amount_coins . ' coins!';
 				$message->date = Carbon::now();
-				$message->type = 'transaction';
+				$message->type_message_id = 1;
 				$message->user_id = $user->id;
 				$message->save();
 

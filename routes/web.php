@@ -19,8 +19,9 @@ Route::get('/planes','PlanesController@index')->name('planes');
 Route::get('/pagos/{product}/{slug}','PagosController@index')->name('pagos');
 Route::post('/pagos/process-payment', 'PagosController@processPayment');
 
-Route::get('/video', 'VideoController@video')->name('video');
+// Contacto
 Route::get('/contact','contactController@contacto')->name('contacto');
+Route::post('/contact', 'contactController@sendEmail');
 
 // Edit profile routes
 Route::get('/profile', 'ProfileController@index')->name('profile');
@@ -42,12 +43,42 @@ Route::post('/profile/add-cert', 'ProfileController@addCert');
 Route::post('/profile/edit-cert/{id}', 'ProfileController@editCert');
 Route::delete('/profile/delete-cert/{id}', 'ProfileController@deleteCert');
 
-Route::post('profile/update-contact-info', 'ProfileController@updateContactInfo');
+Route::post('/profile/update-contact-info', 'ProfileController@updateContactInfo');
+Route::post('/validacion/process-ruc-file', 'ValidacionController@processRucFile');
+Route::post('/validacion/validate-account', 'ValidacionController@validateAccount');
+Route::post('/meet/response-request-meet', 'MeetController@responseRequestMeet');
+Route::post('/meet/cancel-meet', 'MeetController@cancelMeet');
 
 Route::get('/business', 'BusinessController@index')->name('business');
 Route::post('/business/create-meet', 'MeetController@createMeet');
+Route::post('/business/check-meet', 'MeetController@checkMeet');
 
 Route::get('/business/category/{slug}', 'BusinessController@category')->name('business.category');
 
 Route::get('/business/profile/{slug}', 'BusinessController@show')->name('business.show');
 
+// Schedule
+Route::get('/schedule', 'ScheduleController@index')->name('schedule');
+Route::get('/get-schedule', 'ScheduleController@getSchedule');
+Route::get('/get-avalible-time', 'ScheduleController@getAvalibleTime');
+Route::post('/edit-avalible-time', 'ScheduleController@editAvalibleTime');
+Route::post('/delete-avalible-time', 'ScheduleController@deleteAvalibleTime');
+Route::post('/add-avalible-time', 'ScheduleController@addAvalibleTime');
+Route::get('/get-avalible-time/{uuid}', 'ScheduleController@getAvalibleTimeByUserId');
+
+Route::post('/calendar-event', 'ScheduleController@createCalendarEvent');
+Route::get('/calendar-event/{meet_id}', 'ScheduleController@checkSchedule');
+Route::post('/confirm-calendar-event', 'ScheduleController@confirmCalendarEvent');
+
+// Api
+Route::get('/profile/messages', 'Api\MessagesController@index');
+Route::get('/profile/operations', 'Api\OperationsController@index');
+Route::get('/profile/types', 'Api\TypesController@index');
+
+
+// Conference
+Route::get('/conference', 'ConferenceController@index');
+
+Route::get('/test', function () {
+	return view('conference');
+});

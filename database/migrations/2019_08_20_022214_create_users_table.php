@@ -34,7 +34,7 @@ class CreateUsersTable extends Migration
 			$table->text('description')->nullable();
             $table->integer('coins')->default(0); //
 			$table->integer('views')->default(0);
-			$table->boolean('verified')->default(false);
+			$table->tinyInteger('verified')->default(0);
             // Contact
             $table->string('hangouts_url')->nullable();
             $table->string('skype_url')->nullable();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -15,7 +16,15 @@ class OperationsController extends Controller
      */
     public function index()
     {
-        //
+        $operations = App\Operation::all();
+
+        $data = array(
+            'code' => 200,
+            'status' => 'success',
+            'data' => $operations,
+        );
+
+        return response()->json($data, $data['code']);
     }
 
     /**

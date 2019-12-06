@@ -23,7 +23,7 @@ class CoinPacksTableSeeder extends Seeder
         $coin_pack = new CoinPack();
 		$coin_pack->name = 'Pack de 25 coins';
 		$coin_pack->slug = Str::slug($coin_pack->name);
-        $coin_pack->cost = 20;
+        $coin_pack->cost = 19.9;
         $coin_pack->amount_coins = 25;
         $coin_pack->description = "Información sustancial pack de 19.9";
         $coin_pack->save();
