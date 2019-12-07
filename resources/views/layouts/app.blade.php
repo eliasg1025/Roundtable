@@ -8,7 +8,6 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
 	<title>{{ config('app.name', 'Roundtable') }}  | Conectamos compradores de todo el mundo con alimentos peruanos 100% orgánicos y ecológicos</title>
-
 	<!-- Pusher.js -->
 	<script src="https://js.pusher.com/5.0/pusher.min.js"></script>
 	<!-- Scripts -->
@@ -127,8 +126,6 @@
 		</nav>	
 		@yield('content')
 	</div>
-	<!-- Zepto.js -->
-	<script src="http://zeptojs.com/zepto.min.js"></script>
 	<!-- Culqi.js -->
 	<script src="https://checkout.culqi.com/v2"></script>
 </body>

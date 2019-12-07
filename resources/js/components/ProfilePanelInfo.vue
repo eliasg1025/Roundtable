@@ -1033,298 +1033,298 @@
 </script>
 
 <style>
-	.select-category {
-		width: 100%;
+.select-category {
+	width: 100%;
+}
+
+.select-category .btn {
+	background-color: #FFFFFF;
+	border: 1px solid #ced4da;
+	text-align: left;
+}
+
+.select-category .dropdown-menu {
+	width: 100%;
+}
+
+.selected-categories {
+	padding: 10px;
+	background-color: #E9ECEF;
+	border: 1px solid #E9ECEF;
+	border-radius: 6px;
+}
+
+.multi-preview-info {
+	font-family: 'Poppins', sans-serif;
+	font-size: 20px;
+}
+
+.no-image__container {
+	margin-top: 20px;
+	margin-bottom: 25px;
+}
+
+.no-image {
+	width: 200px;
+	height: 150px;
+}
+
+.preview-image {
+	width: 70%;
+	height: auto;
+	border-radius: 6px;
+}
+
+.preview-image__container {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.btn-delete-multi {
+	float: right;
+}
+
+.active-plan {
+	font-weight: bold;
+}
+
+.multi-carousel-item {
+	padding: 10px;
+}
+
+.upload-info-img {
+	position: relative;
+	overflow: hidden;
+	margin: 10px 0;
+	text-align: center;
+	border-radius: 8px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+
+.upload-info-img * {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all 0.6s ease;
+	transition: all 0.6s ease;
+}
+
+.upload-info-img img {
+	opacity: 1;
+	display: block;
+	height: 250px;
+	position: relative;
+}
+
+.upload-info-img figcaption {
+	top: 25%;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: 10px 12px 5px;
+	position: absolute;
+}
+
+.upload-info-img h4, .upload-info-img i {
+	color: rgba(0, 0, 0, 0.7);
+}
+
+.upload-info-img i {
+	font-size: 100px;
+}
+
+.upload-info-img a {
+	text-decoration: none;
+}
+
+.upload-info-img .bottom-middle, .upload-info-img .bottom-right {
+	bottom: 40%;
+	opacity: 0;
+}
+.upload-info-img .bottom-middle {
+	-webkit-transform: translate(0%, 50%);
+	transform: translate(0%, 50%);
+}
+
+.upload-info-img:hover img, .upload-info-img.hover img {
+	opacity: 0.6;
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
+}
+.upload-info-img:hover figcaption .bottom-middle, .upload-info-img.hover figcaption .bottom-middle,
+.upload-info-img:hover figcaption .bottom-right, .upload-info-img.hover figcaption .bottom-right {
+	-webkit-transform: translate(0, 0);
+	transform: translate(0, 0);
+	opacity: 1;
+}
+
+.upload-info-input > input {
+	display: none;
+}
+
+.upload-info-input > label {
+	cursor: pointer;
+}
+
+.container-profile-img img {
+	width: 85%;
+	margin: auto;
+}
+
+.container-cover-img img {
+	width: 100%;
+}
+
+/* Form styles */
+
+.btn-save {
+	background-image: linear-gradient(to right, #56ab2f 0%, #a8e063 51%, #56ab2f 100%);
+	transition: 0.5s;
+	background-size: 200% auto;
+	font-family: 'Roboto',sans-serif;
+	color:rgb(231, 255, 255);
+}
+
+.btn-save:hover {
+	background-position: right center;
+	color:rgb(231, 255, 255);
+}
+
+.info-icon {
+	color: rgb(93, 151, 240);
+	cursor: pointer;
+}
+
+.info-icon:hover {
+	color: rgb(81, 126, 194);
+	transition: all ease 500ms;
+}
+
+.panel-info-section {
+	border: solid 1px #e6e6e6;
+	border-radius: 15px;
+	padding: 25px;
+	margin-bottom: 35px;
+}
+
+.panel-info-subtitle {
+	margin-bottom: 15px;
+}
+
+.panel-info-subtitle label {
+	margin: 0;
+}
+
+.multi-image-container {
+	position: relative;
+	overflow: hidden;
+	margin: 10px 0;
+	text-align: center;
+	border-radius: 8px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+	background-color: #000;
+	cursor: pointer;
+	height: 150px;
+}
+
+.multi-add-container {
+	position: relative;
+	overflow: hidden;
+	margin: 10px 0;
+	text-align: center;
+	border-radius: 8px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+	height: 150px;
+}
+
+.multi-image {
+	opacity: 1;
+	display: block;
+	height: 100%;
+	position: relative;
+	width: 100%;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all 0.6s ease;
+	transition: all 0.6s ease;
+}
+
+.multi-add-text {
+	margin-top: 20%;
+	cursor: pointer;
+}
+
+.multi-add-text p {
+	margin-bottom: 0px;
+	font-size: 20px;
+	color: #D87B4B;
+}
+
+.multi-image:hover{
+	opacity: 0.6;
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
+}
+
+.multi-locked-upload {
+	height: 150px;
+	background-color: #E2E3E5;
+	border: 1px solid #d6d8db;
+	color: #383d41;
+	background-color: #e2e3e5;
+	border-radius: 0.25rem;
+	margin: 10px;
+	text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+	.container-profile-img img, .container-cover-img img  {
+		height: 170px;
 	}
 
-	.select-category .btn {
-		background-color: #FFFFFF;
-		border: 1px solid #ced4da;
-		text-align: left;
-	}
+	/*
+	.multi-image-container {
+		height: 100px;
+	}*/
+}
 
-	.select-category .dropdown-menu {
-		width: 100%;
+@media screen and (max-width: 600px) {
+	.container-profile-img {
+		width: 80%;
+		margin: auto;
 	}
-
-	.selected-categories {
-		padding: 10px;
-		background-color: #E9ECEF;
-		border: 1px solid #E9ECEF;
-		border-radius: 6px;
+	.container-profile-img img {
+		height: 150px;
+	}
+	.container-cover-img img {
+		height: 150px;
+	}
+	.title-image-cover {
+		margin-top: 25px;
+	}
+	.multi-image-container {
+		height: 150px;
 	}
 
 	.multi-preview-info {
-		font-family: 'Poppins', sans-serif;
-		font-size: 20px;
+		font-size: 13px;
 	}
+}
 
-	.no-image__container {
-		margin-top: 20px;
-		margin-bottom: 25px;
-	}
-
-	.no-image {
-		width: 200px;
-		height: 150px;
-	}
-
-	.preview-image {
-		width: 70%;
-		height: auto;
-		border-radius: 6px;
-	}
-
-	.preview-image__container {
-		margin-top: 15px;
-		margin-bottom: 15px;
-	}
-
-	.btn-delete-multi {
-		float: right;
-	}
-
-	.active-plan {
-		font-weight: bold;
-	}
-
-	.multi-carousel-item {
-		padding: 10px;
-	}
-
-	.upload-info-img {
-		position: relative;
-		overflow: hidden;
-		margin: 10px 0;
-		text-align: center;
-		border-radius: 8px;
-		box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-	}
-
-	.upload-info-img * {
-		-webkit-box-sizing: border-box;
-		box-sizing: border-box;
-		-webkit-transition: all 0.6s ease;
-		transition: all 0.6s ease;
-	}
-
-	.upload-info-img img {
-		opacity: 1;
-		display: block;
-		height: 250px;
-		position: relative;
-	}
-
-	.upload-info-img figcaption {
-		top: 25%;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		margin: 10px 12px 5px;
-		position: absolute;
-	}
-
-	.upload-info-img h4, .upload-info-img i {
-		color: rgba(0, 0, 0, 0.7);
-	}
-
-	.upload-info-img i {
-		font-size: 100px;
-	}
-
-	.upload-info-img a {
-		text-decoration: none;
-	}
-
-	.upload-info-img .bottom-middle, .upload-info-img .bottom-right {
-		bottom: 40%;
-		opacity: 0;
-	}
-	.upload-info-img .bottom-middle {
-		-webkit-transform: translate(0%, 50%);
-		transform: translate(0%, 50%);
-	}
-
-	.upload-info-img:hover img, .upload-info-img.hover img {
-		opacity: 0.6;
-		-webkit-transform: scale(1.1);
-		transform: scale(1.1);
-	}
-	.upload-info-img:hover figcaption .bottom-middle, .upload-info-img.hover figcaption .bottom-middle,
-	.upload-info-img:hover figcaption .bottom-right, .upload-info-img.hover figcaption .bottom-right {
-		-webkit-transform: translate(0, 0);
-		transform: translate(0, 0);
-		opacity: 1;
-	}
-
-	.upload-info-input > input {
-		display: none;
-	}
-
-	.upload-info-input > label {
-		cursor: pointer;
-	}
-
-	.container-profile-img img {
-		width: 85%;
+@media screen and (max-width: 600px) and (orientation: landscape) {
+	.container-profile-img {
+		width: 50%;
+		height: 170px;
 		margin: auto;
 	}
 
-	.container-cover-img img {
-		width: 100%;
+	.container-cover-img {
+		width: 70%;
+		margin: auto;
 	}
 
-	/* Form styles */
-
-	.btn-save {
-		background-image: linear-gradient(to right, #56ab2f 0%, #a8e063 51%, #56ab2f 100%);
-		transition: 0.5s;
-		background-size: 200% auto;
-		font-family: 'Roboto',sans-serif;
-		color:rgb(231, 255, 255);
+	.multi-image-container, .multi-add-container, .multi-locked-upload {
+		width: 50%;
+		margin: auto;
 	}
-
-	.btn-save:hover {
-		background-position: right center;
-		color:rgb(231, 255, 255);
-	}
-
-	.info-icon {
-		color: rgb(93, 151, 240);
-		cursor: pointer;
-	}
-
-	.info-icon:hover {
-		color: rgb(81, 126, 194);
-		transition: all ease 500ms;
-	}
-
-	.panel-info-section {
-		border: solid 1px #e6e6e6;
-		border-radius: 15px;
-		padding: 25px;
-		margin-bottom: 35px;
-	}
-
-	.panel-info-subtitle {
-		margin-bottom: 15px;
-	}
-
-	.panel-info-subtitle label {
-		margin: 0;
-	}
-
-	.multi-image-container {
-		position: relative;
-		overflow: hidden;
-		margin: 10px 0;
-		text-align: center;
-		border-radius: 8px;
-		box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-		background-color: #000;
-		cursor: pointer;
-		height: 150px;
-	}
-
-	.multi-add-container {
-		position: relative;
-		overflow: hidden;
-		margin: 10px 0;
-		text-align: center;
-		border-radius: 8px;
-		box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-		height: 150px;
-	}
-
-	.multi-image {
-		opacity: 1;
-		display: block;
-		height: 100%;
-		position: relative;
-		width: 100%;
-		-webkit-box-sizing: border-box;
-		box-sizing: border-box;
-		-webkit-transition: all 0.6s ease;
-		transition: all 0.6s ease;
-	}
-
-	.multi-add-text {
-		margin-top: 20%;
-		cursor: pointer;
-	}
-
-	.multi-add-text p {
-		margin-bottom: 0px;
-		font-size: 20px;
-		color: #D87B4B;
-	}
-
-	.multi-image:hover{
-		opacity: 0.6;
-		-webkit-transform: scale(1.1);
-		transform: scale(1.1);
-	}
-
-	.multi-locked-upload {
-		height: 150px;
-		background-color: #E2E3E5;
-		border: 1px solid #d6d8db;
-		color: #383d41;
-		background-color: #e2e3e5;
-		border-radius: 0.25rem;
-		margin: 10px;
-		text-align: center;
-	}
-
-	@media screen and (max-width: 768px) {
-		.container-profile-img img, .container-cover-img img  {
-			height: 170px;
-		}
-
-		/*
-		.multi-image-container {
-			height: 100px;
-		}*/
-	}
-
-	@media screen and (max-width: 600px) {
-		.container-profile-img {
-			width: 80%;
-			margin: auto;
-		}
-		.container-profile-img img {
-			height: 150px;
-		}
-		.container-cover-img img {
-			height: 150px;
-		}
-		.title-image-cover {
-			margin-top: 25px;
-		}
-		.multi-image-container {
-			height: 150px;
-		}
-
-		.multi-preview-info {
-			font-size: 13px;
-		}
-	}
-
-	@media screen and (max-width: 600px) and (orientation: landscape) {
-		.container-profile-img {
-			width: 50%;
-			height: 170px;
-			margin: auto;
-		}
-
-		.container-cover-img {
-			width: 70%;
-			margin: auto;
-		}
-
-		.multi-image-container, .multi-add-container, .multi-locked-upload {
-			width: 50%;
-			margin: auto;
-		}
-	}
+}
 </style>

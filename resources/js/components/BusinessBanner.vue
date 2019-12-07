@@ -5,21 +5,39 @@
 				<div class="row row_heigth">
 					<div class="col-md-12 text-center">
 						<div class="profile-img">
-							<img :src="this.data_user.profile_img" class="img-fluid">
+							<img
+								:src="this.data_user.profile_img"
+								class="img-fluid"
+							/>
 						</div>
 					</div>
 
 					<div class="col-md-12 business-text">
 						<div class="text-center">
 							<div class="business-name">
-								<h2>{{ this.data_user.commercial_name }}</h2>   
-								<span v-if="this.data_user.verified == 2" class="is-verified" style="font-size: 25px;"><i data-tippy-content="Empresa verificada" class="fas fa-check-circle"></i></span>
+								<h2>{{ this.data_user.commercial_name }}</h2>
+								<span
+									v-if="this.data_user.verified == 2"
+									class="is-verified"
+									style="font-size: 25px;"
+									><i
+										data-tippy-content="Empresa verificada"
+										class="fas fa-check-circle"
+									></i
+								></span>
 							</div>
 							<p class="business-address text-muted h4">
-								<span v-if="loading_type"><i class="fas fa-spinner fa-spin"></i></span>
-								<span v-else><i class="fas fa-tag"></i> {{ type_user }}</span>
+								<span v-if="loading_type"
+									><i class="fas fa-spinner fa-spin"></i
+								></span>
+								<span v-else
+									><i class="fas fa-tag"></i>
+									{{ type_user }}</span
+								>
 							</p>
-							<p class="business-description">{{ this.data_user.description }}</p>
+							<p class="business-description">
+								{{ this.data_user.description }}
+							</p>
 						</div>
 					</div>
 				</div>
@@ -46,64 +64,121 @@
 					<div class="col-md-8">
 						<ul class="nav justify-content-center">
 							<li class="nav-item">
-								<a href="" class="nav-link nav__business-stat" data-toggle="modal" data-target="#modalStats-rating">
-									<div class="stat-value"><i class="fa fa-star"></i> {{ value_rating }} </div>
+								<a
+									href=""
+									class="nav-link nav__business-stat"
+									data-toggle="modal"
+									data-target="#modalStats-rating"
+								>
+									<div class="stat-value">
+										<i class="fa fa-star"></i>
+										{{ value_rating }}
+									</div>
 									<div class="stat-name">Valoración</div>
 								</a>
 							</li>
 							<li class="nav-item">
-								<a href="" class="nav-link nav__business-stat" data-toggle="modal" data-target="#modalStats-certifications">
-									<div class="stat-value"><i class="fas fa-award"></i> {{ this.certifications.length }} </div>
+								<a
+									href=""
+									class="nav-link nav__business-stat"
+									data-toggle="modal"
+									data-target="#modalStats-certifications"
+								>
+									<div class="stat-value">
+										<i class="fas fa-award"></i>
+										{{ this.certifications.length }}
+									</div>
 									<div class="stat-name">Certificados</div>
 								</a>
 							</li>
 							<li class="nav-item">
-								<a href="#businessProductSection" class="nav-link nav__business-stat">
-									<div class="stat-value"><i class="fas fa-apple-alt"></i> {{ this.amount_offers }} </div>
+								<a
+									href="#businessProductSection"
+									class="nav-link nav__business-stat"
+								>
+									<div class="stat-value">
+										<i class="fas fa-apple-alt"></i>
+										{{ this.amount_offers }}
+									</div>
 									<div class="stat-name">Ofertas</div>
 								</a>
 							</li>
 							<li class="nav-item">
-								<a href="" class="nav-link nav__business-stat" data-toggle="modal" data-target="#modalStats-categories">
-									<div class="stat-value"><i class="fa fa-tags"></i> {{ this.categories.length }} </div>
+								<a
+									href=""
+									class="nav-link nav__business-stat"
+									data-toggle="modal"
+									data-target="#modalStats-categories"
+								>
+									<div class="stat-value">
+										<i class="fa fa-tags"></i>
+										{{ this.categories.length }}
+									</div>
 									<div class="stat-name">Categorías</div>
 								</a>
 							</li>
 						</ul>
 					</div>
 					<div class="col-md-4" style="margin: auto;">
-
 						<div v-if="data_visit_user.data === false">
 							<a
 								class="btn btn-block btn-agendar have-to-login"
-								data-toggle="modal" data-target="#login"
+								data-toggle="modal"
+								data-target="#login"
 							>
 								<span style="color: white;">Agendar</span>
 							</a>
 						</div>
 
 						<div v-else>
-							<div v-if="data_visit_user.data.id !== data_user.id" class="text-center">
+							<div
+								v-if="data_visit_user.data.id !== data_user.id"
+								class="text-center"
+							>
 								<div v-if="loading_btn">
-									<button type="button" class="btn btn-block btn-agendar-off disabled" disabled>
-										Espere <i class="fas fa-spinner fa-spin"></i>
+									<button
+										type="button"
+										class="btn btn-block btn-agendar-off disabled"
+										disabled
+									>
+										Espere
+										<i class="fas fa-spinner fa-spin"></i>
 									</button>
 								</div>
 								<div v-else>
 									<div v-if="can_send_meet === true">
-										<button type="button" class="btn btn-block btn-agendar" data-toggle="modal" data-target="#modalAgendar">
+										<button
+											type="button"
+											class="btn btn-block btn-agendar"
+											data-toggle="modal"
+											data-target="#modalAgendar"
+										>
 											Agendar
 										</button>
 										<small class="mt-1">
-											<span class="text-muted">Esta operación cuesta 30 coins. <a href="/planes" target="_blank">Conseguir coins.</a></span>
+											<span class="text-muted"
+												>Esta operación cuesta 30 coins.
+												<a
+													href="/planes"
+													target="_blank"
+													>Conseguir coins.</a
+												></span
+											>
 										</small>
 									</div>
 									<div v-else>
-										<button type="button" class="btn btn-block btn-agendar-off disabled" disabled>
+										<button
+											type="button"
+											class="btn btn-block btn-agendar-off disabled"
+											disabled
+										>
 											Agendado
 										</button>
 										<small class="mt-1">
-											<span class="text-muted">Debes esperar la confirmación de esta empresa.</span>
+											<span class="text-muted"
+												>Debes esperar la confirmación
+												de esta empresa.</span
+											>
 										</small>
 									</div>
 								</div>
@@ -117,7 +192,6 @@
 								Editar Perfil
 							</a>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -126,12 +200,24 @@
 		<!-- Modals -->
 		<div class="stats-modals">
 			<!-- Modal Rating -->
-			<div class="modal fade" id="modalStats-rating" tabindex="-1" role="dialog" aria-hidden="true">
+			<div
+				class="modal fade"
+				id="modalStats-rating"
+				tabindex="-1"
+				role="dialog"
+				aria-hidden="true"
+			>
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-body">
 							<div class="container d-flex">
-								<button type="button" data-dismiss="modal" class="close" aria-label="Close" style="padding: 1rem 1rem; margin: -1rem -1rem -1rem auto;">
+								<button
+									type="button"
+									data-dismiss="modal"
+									class="close"
+									aria-label="Close"
+									style="padding: 1rem 1rem; margin: -1rem -1rem -1rem auto;"
+								>
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
@@ -141,31 +227,62 @@
 								<p class="display-4">{{ value_rating }} / 5</p>
 							</div>
 
-							<div class="rating-stars-modal container text-center">
+							<div
+								class="rating-stars-modal container text-center"
+							>
 								<rating-stars
 									:amount_rating="rating.amount"
 									:avg_rating="rating.value"
 									:show_number="false"
 									@value_rating="value_rating = $event"
-									@show_rating="show_rating  = $event"
+									@show_rating="show_rating = $event"
 								>
 								</rating-stars>
 							</div>
 							<div class="text-center">
-								<p v-if="show_rating == true" class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Basados en la calificación de {{ data_account.rating_data.amount }} usuarios</p>
-								<p v-else class="text-muted h5" style="font-family: 'Nunito', sans-serif;">Se necesitan mínimo 3 votos para promediar una calificación</p>
+								<p
+									v-if="show_rating == true"
+									class="text-muted h5"
+									style="font-family: 'Nunito', sans-serif;"
+								>
+									Basados en la calificación de
+									{{
+										data_account.rating_data.amount
+									}}
+									usuarios
+								</p>
+								<p
+									v-else
+									class="text-muted h5"
+									style="font-family: 'Nunito', sans-serif;"
+								>
+									Se necesitan mínimo 3 votos para promediar
+									una calificación
+								</p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<!-- Modal Certifications -->
-			<div class="modal fade" id="modalStats-certifications" tabindex="-1" role="dialog" aria-hidden="true">
+			<div
+				class="modal fade"
+				id="modalStats-certifications"
+				tabindex="-1"
+				role="dialog"
+				aria-hidden="true"
+			>
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-body">
 							<div class="container d-flex">
-								<button type="button" data-dismiss="modal" class="close" aria-label="Close" style="padding: 1rem 1rem; margin: -1rem -1rem -1rem auto;">
+								<button
+									type="button"
+									data-dismiss="modal"
+									class="close"
+									aria-label="Close"
+									style="padding: 1rem 1rem; margin: -1rem -1rem -1rem auto;"
+								>
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
@@ -176,16 +293,34 @@
 								<div v-if="certifications.length > 0">
 									<ul class="nav justify-content-center">
 										<!-- For certification -->
-										<li v-for="(certification, index) in certifications" :key="index" class="nav-item">
-											<a :href="certification.url" target="_blank" class="business-stat-modal__item">
-												<i class="fas fa-file-pdf" aria-hidden="true" style="color: #D54841; font-size: 50px;"></i>
-												<p style="margin-top: 15px;">{{ certification.title }}</p>
+										<li
+											v-for="(certification,
+											index) in certifications"
+											:key="index"
+											class="nav-item"
+										>
+											<a
+												:href="certification.url"
+												target="_blank"
+												class="business-stat-modal__item"
+											>
+												<i
+													class="fas fa-file-pdf"
+													aria-hidden="true"
+													style="color: #D54841; font-size: 50px;"
+												></i>
+												<p style="margin-top: 15px;">
+													{{ certification.title }}
+												</p>
 											</a>
 										</li>
 									</ul>
 								</div>
 								<div v-else>
-									<div style="color: rgb(147, 147, 147); margin: 10px 0px 10px;" class="text-center">
+									<div
+										style="color: rgb(147, 147, 147); margin: 10px 0px 10px;"
+										class="text-center"
+									>
 										No hay certificaciones disponibles
 									</div>
 								</div>
@@ -195,12 +330,24 @@
 				</div>
 			</div>
 			<!-- Modal Categories -->
-			<div class="modal fade" id="modalStats-categories" tabindex="-1" role="dialog" aria-hidden="true">
+			<div
+				class="modal fade"
+				id="modalStats-categories"
+				tabindex="-1"
+				role="dialog"
+				aria-hidden="true"
+			>
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-body">
 							<div class="container d-flex">
-								<button type="button" data-dismiss="modal" class="close" aria-label="Close" style="padding: 1rem 1rem; margin: -1rem -1rem -1rem auto;">
+								<button
+									type="button"
+									data-dismiss="modal"
+									class="close"
+									aria-label="Close"
+									style="padding: 1rem 1rem; margin: -1rem -1rem -1rem auto;"
+								>
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
@@ -211,17 +358,36 @@
 								<div v-if="categories.length > 0">
 									<ul class="nav justify-content-center">
 										<!-- For category -->
-										<li v-for="(category, index) in categories" :key="index" class="nav-item">
-											<a href="" target="_blank" class="business-stat-modal__item">
-												<img :src="category.picture" class="img-fluid" style="height: 70px;">
-												<p style="margin-top: 10px;">{{ category.name }}</p>
+										<li
+											v-for="(category,
+											index) in categories"
+											:key="index"
+											class="nav-item"
+										>
+											<a
+												href=""
+												target="_blank"
+												class="business-stat-modal__item"
+											>
+												<img
+													:src="category.picture"
+													class="img-fluid"
+													style="height: 70px;"
+												/>
+												<p style="margin-top: 10px;">
+													{{ category.name }}
+												</p>
 											</a>
 										</li>
 									</ul>
 								</div>
 								<div v-else>
-									<div style="color: rgb(147, 147, 147); margin: 10px 0px 10px;" class="text-center">
-										Esta empresa aun no tiene categorías seleccionadas
+									<div
+										style="color: rgb(147, 147, 147); margin: 10px 0px 10px;"
+										class="text-center"
+									>
+										Esta empresa aun no tiene categorías
+										seleccionadas
 									</div>
 								</div>
 							</div>
@@ -231,12 +397,25 @@
 			</div>
 
 			<!-- Modal Agendar -->
-			<div class="modal fade" id="modalAgendar" tabindex="-1" role="dialog" aria-hidden="true">
+			<div
+				class="modal fade"
+				id="modalAgendar"
+				tabindex="-1"
+				role="dialog"
+				aria-hidden="true"
+			>
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Agendar Reunión</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<h5 class="modal-title" id="exampleModalLabel">
+								Agendar Reunión
+							</h5>
+							<button
+								type="button"
+								class="close"
+								data-dismiss="modal"
+								aria-label="Close"
+							>
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
@@ -245,22 +424,38 @@
 								<div class="col-md-6">
 									<p class="form-destinity">De:</p>
 									<div class="business-meet-name container">
-										<p class="my-2 h6 text-center">{{ data_visit_user.data.commercial_name }}</p>
+										<p class="my-2 h6 text-center">
+											{{
+												data_visit_user.data
+													.commercial_name
+											}}
+										</p>
 									</div>
 									<div class="business-meet-card text-center">
 										<div class="container py-3">
-											<img :src="data_visit_user.data.profile_img" width="100%">
+											<img
+												:src="
+													data_visit_user.data
+														.profile_img
+												"
+												width="100%"
+											/>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<p class="form-destinity second">Para:</p>
 									<div class="business-meet-name container">
-										<p class="my-2 h6 text-center">{{ data_user.commercial_name }}</p>
+										<p class="my-2 h6 text-center">
+											{{ data_user.commercial_name }}
+										</p>
 									</div>
 									<div class="business-meet-card text-center">
 										<div class="container py-3">
-											<img :src="data_user.profile_img" width="100%">
+											<img
+												:src="data_user.profile_img"
+												width="100%"
+											/>
 										</div>
 									</div>
 								</div>
@@ -270,21 +465,38 @@
 									<div class="form-group mt-3">
 										<label for="">Mensaje:</label>
 										<textarea
-											class="form-control" id="" rows="4"
+											class="form-control"
+											id=""
+											rows="4"
 											placeholder="Deja tu mensaje para esta empresa. (Opcional)"
 											v-model="message"
 											maxlength="255"
 										></textarea>
 										<small class="mt-1">
-											<span class="text-muted">Máximo 255 caracteres: {{ length_message }}/255</span>
+											<span class="text-muted"
+												>Máximo 255 caracteres:
+												{{ length_message }}/255</span
+											>
 										</small>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-add" @click="agendar()">Agendar</button>
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+							<button
+								type="button"
+								class="btn btn-add"
+								@click="agendar()"
+							>
+								Agendar
+							</button>
+							<button
+								type="button"
+								class="btn btn-secondary"
+								data-dismiss="modal"
+							>
+								Cerrar
+							</button>
 						</div>
 					</div>
 				</div>
@@ -294,353 +506,357 @@
 </template>
 
 <script>
-    import tippy from 'tippy.js';
-    import '../../../node_modules/tippy.js/index.css';
-    
-	export default {
-		props: [
-			'data_user',
-			'data_account',
-			'data_visit_user',
-		],
-		data() {
-			return {
-				id: this.data_user.name.replace(/ |:|,|'|.|°/gi, '-'),
-				amount_offers: this.data_account.offers_data.length,
-				categories: this.data_account.categories_data,
-				certifications: this.data_account.user_certifications,
-				rating: this.data_account.rating_data,
-				value_rating: 0,
-				show_rating: false,
-				message: '',
-				type_user: '',
-				can_send_meet: true,
-				loading_btn: true,
-				loading_type: true,
-			}
-		},
-		computed: {
-			length_message() {
-				return this.message.length
-			}
-		},
-		created() {
-		    axios.get('/profile/types')
-				.then(res => {
-				    res.data.data.forEach(element => {
-				        if (element.id === this.data_user.type_id) {
-				            this.loading_type = false;
-				            this.type_user = element.name;
-						}
-					})
-				})
+import tippy from "tippy.js";
+import "../../../node_modules/tippy.js/index.css";
 
-			axios.post('/business/check-meet/', {
-                receiver_id : this.data_user.id
+export default {
+	props: ["data_user", "data_account", "data_visit_user"],
+	data() {
+		return {
+			id: this.data_user.name.replace(/ |:|,|'|.|°/gi, "-"),
+			amount_offers: this.data_account.offers_data.length,
+			categories: this.data_account.categories_data,
+			certifications: this.data_account.user_certifications,
+			rating: this.data_account.rating_data,
+			value_rating: 0,
+			show_rating: false,
+			message: "",
+			type_user: "",
+			can_send_meet: true,
+			loading_btn: true,
+			loading_type: true
+		};
+	},
+	computed: {
+		length_message() {
+			return this.message.length;
+		}
+	},
+	created() {
+		axios.get("/profile/types").then(res => {
+			res.data.data.forEach(element => {
+				if (element.id === this.data_user.type_id) {
+					this.loading_type = false;
+					this.type_user = element.name;
+				}
+			});
+		});
+
+		axios
+			.post("/business/check-meet/", {
+				receiver_id: this.data_user.id
 			})
-				.then(res => {
-				    console.log(res.data.data);
-				    if (res.data.data.state_id === 2 || res.data.data.state_id === 5) {
-                        this.can_send_meet = true;
-					} else {
-				        this.can_send_meet = false;
-					}
-				    this.loading_btn = false
-				})
-				.catch(err => {
-				    console.log(err.response.data);
-				    this.loading_btn = false;
-				})
-		},
-		mounted() {
-            tippy('[data-tippy-content]');
-            // Give img to banner
-			let el = document.querySelector(`#${this.id}`);
-			el.style = `background-image: url('${this.data_user.cover_img}')`;
-		},
-		methods: {
-			agendar() {
-				Swal.fire({
-					title: 'Estas consumiendo 30 coins en esta operación',
-					text: '¿Deseas continuar?',
-					type: 'info',
-					confirmButtonColor: '#3085d6',
-					cancelButtonColor: '#d33',
-					confirmButtonText: 'Si',
-					cancelButtonText: 'Cancelar',
-					showCancelButton: true,
-				})
-					.then(res => {
-						if (res.value === true) {
-							Swal.fire({
-								title: 'Enviando',
-								onBeforeOpen: () => {
-									Swal.showLoading();
-								}
-							});
-
-							axios.post('/business/create-meet', {
-								receiver_id: this.data_user.id,
-								sender_id: this.data_visit_user.data.id,
-								message: this.message,
-							})
-								.then(res => {
-									console.log(res.data)
-									Swal.fire({title: res.data.message, type: 'success', timer: 1500})
-										.then(res => location.reload())
-								})
-								.catch(err => {
-									console.log(err.response.data)
-									Swal.fire({title: err.response.data.message, type: 'error', timer: 2000})
-								})
+			.then(res => {
+				console.log(res.data.data);
+				if (
+					res.data.data.state_id === 2 ||
+					res.data.data.state_id === 5
+				) {
+					this.can_send_meet = true;
+				} else {
+					this.can_send_meet = false;
+				}
+				this.loading_btn = false;
+			})
+			.catch(err => {
+				console.log(err.response.data);
+				this.loading_btn = false;
+			});
+	},
+	mounted() {
+		tippy("[data-tippy-content]");
+		// Give img to banner
+		let el = document.querySelector(`#${this.id}`);
+		el.style = `background-image: url('${this.data_user.cover_img}')`;
+	},
+	methods: {
+		agendar() {
+			Swal.fire({
+				title: "Estas consumiendo 30 coins en esta operación",
+				text: "¿Deseas continuar?",
+				type: "info",
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "Si",
+				cancelButtonText: "Cancelar",
+				showCancelButton: true
+			}).then(res => {
+				if (res.value === true) {
+					Swal.fire({
+						title: "Enviando",
+						onBeforeOpen: () => {
+							Swal.showLoading();
 						}
-					})
-			}
+					});
+
+					axios
+						.post("/business/create-meet", {
+							receiver_id: this.data_user.id,
+							sender_id: this.data_visit_user.data.id,
+							message: this.message
+						})
+						.then(res => {
+							console.log(res.data);
+							Swal.fire({
+								title: res.data.message,
+								type: "success",
+								timer: 1500
+							}).then(res => location.reload());
+						})
+						.catch(err => {
+							console.log(err.response.data);
+							Swal.fire({
+								title: err.response.data.message,
+								type: "error",
+								timer: 2000
+							});
+						});
+				}
+			});
 		}
 	}
+};
 </script>
 
 <style>
-	.businessBanner {
-		padding: 200px 0 100px 0;
-		background-size: cover;
-		background-position: center;
-		position: relative;
-		background-color: #FDFDFD;
-		box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);
-	}
-	.businessBanner:before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: #000;
-		opacity: .3;
-	}
-	.wave {
-		margin-top: -100px;
-		z-index: 100;
-		position: relative;
-	}
+.businessBanner {
+	padding: 200px 0 100px 0;
+	background-size: cover;
+	background-position: center;
+	position: relative;
+	background-color: #fdfdfd;
+	box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+}
+.businessBanner:before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: 0.3;
+}
+.wave {
+	margin-top: -100px;
+	z-index: 100;
+	position: relative;
+}
+.profile-img {
+	background-color: #fff;
+	display: inline-block;
+	max-width: 270px;
+	border-radius: 50%;
+	box-shadow: 0px 0px 1px 1px #b7b7b76b;
+	margin-top: 150px;
+	position: relative;
+	z-index: 1000;
+}
+.profile-img img {
+	max-width: 100%;
+}
+
+.business-text {
+	z-index: 1000;
+	margin-bottom: 100px;
+}
+
+.business-name {
+	margin-top: 20px;
+}
+
+.business-name h2 {
+	font-family: "Roboto", sans-serif;
+	text-transform: uppercase;
+	font-weight: 700;
+	display: inline-block;
+	position: relative;
+	margin-top: 10px;
+	border-left: 5px solid #88be2e;
+	border-right: 5px solid #88be2e;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+.business-name h2:before {
+	content: "";
+	height: 5px;
+	width: 40px;
+	background-color: #88be2e;
+	position: absolute;
+	left: 0;
+	top: 0;
+	margin-top: -5px;
+	margin-left: -5px;
+}
+
+.business-name h2:after {
+	content: "";
+	height: 5px;
+	width: 40px;
+	background-color: #88be2e;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	margin-bottom: -5px;
+	margin-right: -5px;
+}
+
+.business-address {
+	margin-top: 10px;
+	font-weight: 600;
+}
+
+.business-description {
+	margin-top: 15px;
+}
+
+/* Stat names */
+
+.business-stats {
+	padding-top: 350px;
+	padding-bottom: 20px;
+}
+
+.business-stats .btn-agendar,
+.business-stats .btn-agendar-off {
+	background-color: #88be2e;
+	color: #fff;
+	font-family: "Roboto", sans-serif;
+	text-transform: uppercase;
+	transition: ease 0.3s;
+	box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+	letter-spacing: 2px;
+	font-weight: 700;
+}
+
+.business-stats .btn-agendar:hover {
+	margin-top: -2px;
+	margin-left: -2px;
+	transition: ease 0.3s;
+	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.75);
+}
+
+.nav__business-stat {
+	color: #212529;
+	font-family: "Roboto", sans-serif;
+}
+
+.business-stats .nav-item {
+	width: 25%;
+	text-align: center;
+}
+
+.nav__business-stat:hover {
+	color: #88be2e;
+	margin-top: -1px;
+	margin-left: -1px;
+}
+
+.stat-value {
+	font-size: 30px;
+}
+
+.stat-name {
+	font-size: 20px;
+}
+
+/* Modals */
+
+.stats-modals {
+	font-family: "Roboto", sans-serif;
+}
+
+.rating-stars-modal {
+	font-size: 40px;
+}
+
+.rating-stars-modal li {
+	margin-right: 10px;
+}
+
+.business-stat-modal .nav {
+	margin-top: 25px;
+}
+
+.business-stat-modal .nav-item {
+	width: 33%;
+	text-align: center;
+	padding: 10px;
+}
+
+.business-stat-modal__item {
+	display: block;
+	padding: 5px;
+	background: #f1f1f1;
+	border-radius: 5px;
+	box-shadow: 0px 0px 1px 1px #cecece;
+	text-decoration: none;
+	color: #212529;
+}
+
+#modalAgendar {
+	font-family: "Nunito", sans-serif;
+}
+
+.business-meet-card {
+	color: #383d41;
+	background-color: #e2e3e5;
+	border: 2px solid #d6d8db;
+	border-radius: 6px;
+}
+
+.business-meet-name p {
+	text-transform: uppercase;
+	font-weight: 600;
+}
+
+.form-destinity {
+	margin-bottom: 5px;
+}
+
+@media (max-width: 600px) {
 	.profile-img {
-		background-color: #fff;
-		display: inline-block;
-		max-width: 270px;
-		border-radius: 50%;
-		box-shadow: 0px 0px 1px 1px #B7B7B76B;
-		margin-top: 150px;
-		position: relative;
-		z-index: 1000;
-	}
-	.profile-img img {
-		max-width: 100%;
-	}
-
-	.business-text {
-		z-index: 1000;
-		margin-bottom: 100px;
-	}
-
-	.business-name {
-		margin-top: 20px;
+		margin-top: 170px;
+		max-width: 200px;
 	}
 
 	.business-name h2 {
-		font-family: 'Roboto', sans-serif;
-		text-transform: uppercase;
-		font-weight: 700;
-		display: inline-block;
-		position: relative;
-		margin-top: 10px;
-		border-left: 5px solid #88be2e;
-		border-right: 5px solid #88be2e;
-		padding-left: 8px;
-		padding-right: 8px;
-	}
-
-	.business-name h2:before {
-		content: "";
-	    height: 5px;
-	    width: 40px;
-		background-color: #88be2e;
-		position: absolute;
-		left: 0;
-		top: 0;
-		margin-top: -5px;
-		margin-left: -5px;
-	}
-
-	.business-name h2:after {
-		content: "";
-	    height: 5px;
-	    width: 40px;
-		background-color: #88be2e;
-		position: absolute;
-		bottom: 0;
-		right: 0;
-		margin-bottom: -5px;
-		margin-right: -5px;
+		font-size: 25px;
 	}
 
 	.business-address {
-		margin-top: 10px;
-		font-weight: 600;
+		font-size: 14px;
 	}
 
 	.business-description {
-		margin-top: 15px;
-	}
-
-	/* Stat names */
-
-	.business-stats {
-		padding-top: 350px;
-		padding-bottom: 20px;
-	}
-
-	.business-stats .btn-agendar, .business-stats .btn-agendar-off {
-		background-color: #88be2e;
-		color: #fff;
-		font-family: 'Roboto', sans-serif;
-		text-transform: uppercase;
-		transition: ease 0.3s;
-		box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
-		letter-spacing: 2px;
-		font-weight: 700;
-	}
-
-	.business-stats .btn-agendar:hover {
-		margin-top: -2px;
-		margin-left: -2px;
-		transition: ease 0.3s;
-		box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);
-	}
-
-	.nav__business-stat {
-		color: #212529;
-		font-family: 'Roboto', sans-serif;
-	}
-
-	.business-stats .nav-item {
-		width: 25%;
-		text-align: center;
-
-	}
-
-	.nav__business-stat:hover {
-		color: #88be2e;
-		margin-top: -1px;
-		margin-left: -1px;
+		font-size: 15px;
 	}
 
 	.stat-value {
-		font-size: 30px;
-	}
-
-	.stat-name {
 		font-size: 20px;
 	}
 
-	/* Modals */
-
-	.stats-modals {
-		font-family: 'Roboto', sans-serif;
+	.stat-name {
+		font-size: 15px;
 	}
 
-	.rating-stars-modal {
-		font-size: 40px;
+	.form-destinity.second {
+		margin-top: 15px;
+	}
+}
+
+@media (max-width: 360px) {
+	.business-description {
+		font-size: 14px;
 	}
 
-	.rating-stars-modal li {
-		margin-right: 10px;
+	.stat-value {
+		font-size: 17px;
 	}
 
-	.business-stat-modal .nav {
-		margin-top: 25px;
+	.stat-name {
+		font-size: 12px;
 	}
-
-	.business-stat-modal .nav-item {
-		width: 33%;
-		text-align: center;
-		padding: 10px;
-	}
-
-	.business-stat-modal__item {
-		display: block;
-		padding: 5px;
-		background: #f1f1f1;
-		border-radius: 5px;
-		box-shadow: 0px 0px 1px 1px #cecece;
-		text-decoration: none;
-		color: #212529;
-	}
-
-	#modalAgendar {
-		font-family: 'Nunito', sans-serif;
-	}
-
-	.business-meet-card {
-		color: #383d41;
-		background-color: #e2e3e5;
-		border: 2px solid #d6d8db;
-		border-radius: 6px;
-	}
-	
-	.business-meet-name p{
-		text-transform: uppercase;
-		font-weight: 600;
-	}
-
-	.form-destinity {
-		margin-bottom: 5px;
-	}
-
-	@media (max-width: 600px) {
-
-		.profile-img {
-			margin-top: 170px;
-			max-width: 200px;
-		}
-
-		.business-name h2 {
-			font-size: 25px;
-		}
-
-		.business-address {
-			font-size: 14px;
-		}
-
-		.business-description {
-			font-size: 15px;
-		}
-
-		.stat-value {
-			font-size: 20px;
-		}
-
-		.stat-name {
-			font-size: 15px;
-		}
-
-		.form-destinity.second {
-			margin-top: 15px;
-		}
-	}
-
-	@media (max-width: 360px) {
-		.business-description {
-			font-size: 14px;
-		}
-
-		.stat-value {
-			font-size: 17px;
-		}
-
-		.stat-name {
-			font-size: 12px;
-		}
-	}
-
+}
 </style>

@@ -1,32 +1,44 @@
 <template>
-    <section class="banner" id="homeBanner" style="">
-        <div class="mask rgba-black-light align-item-center">
-            <div class="container">
-                <div class="row">
-                    <div class="contenido col-md-12 mb-4 white-text text-center">
-                        <h1 class="title h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5"><strong style="font-size: 2.5rem;">Roundtable Perú</strong></h1>
+	<section class="banner" id="homeBanner" style="">
+		<div class="mask rgba-black-light align-item-center">
+			<div class="container">
+				<div class="row">
+					<div
+						class="contenido col-md-12 mb-4 white-text text-center"
+					>
+						<h1
+							class="title h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5"
+						>
+							<strong style="font-size: 2.5rem;"
+								>Roundtable Perú</strong
+							>
+						</h1>
 
-                        <h5 class="subtitle text-uppercase mt-3 mb-4 white-text"><strong>La Rueda de Negocios Online de Productos Peruanos</strong></h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+						<h5
+							class="subtitle text-uppercase mt-3 mb-4 white-text"
+						>
+							<strong
+								>La Rueda de Negocios Online de Productos
+								Peruanos</strong
+							>
+						</h5>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 </template>
 
 <script>
-import {vegas} from 'vegas/dist/vegas'
+import { vegas } from "vegas/dist/vegas";
 
 export default {
-	created() {
-		
-	}
-}
-
+	created() {}
+};
 </script>
 
 <style>
-	/*
+/*
 	#homeBanner {
 		background-repeat: no-repeat;
 		background-size: cover;
@@ -34,34 +46,34 @@ export default {
 	}
 	*/
 
-    .banner {
-    	height: 100vh;
-        color: #f8fafc !important;
-		background-attachment: fixed;
-		position: relative;
+.banner {
+	height: 100vh;
+	color: #f8fafc !important;
+	background-attachment: fixed;
+	position: relative;
+}
+
+@media (max-width: 1100px) {
+	.banner {
+		background-attachment: inherit;
+	}
+}
+
+@media (max-width: 578px) {
+	.banner {
+		width: 100vmin;
 	}
 
-	@media (max-width: 1100px) {
-		.banner {
-			background-attachment: inherit;
-		}
+	.title {
+		font-size: 30px;
 	}
 
-	@media (max-width: 578px) {
-		.banner {
-			width: 100vmin;
-		}
-
-		.title {
-			font-size: 30px;
-		}
-
-		.subtitle {
-			font-size: 15px;
-		}
+	.subtitle {
+		font-size: 15px;
 	}
+}
 
-	/*
+/*
 	.banner:before {
 		content: "";
 		position: absolute;
@@ -73,41 +85,41 @@ export default {
 		opacity: .2;
 	}
 	*/
-    .top-nav-collapse {
-        background-color: #09122E !important;
-    }
+.top-nav-collapse {
+	background-color: #09122e !important;
+}
 
-    .navbar:not(.top-nav-collapse) {
-        background: transparent;
-    }
+.navbar:not(.top-nav-collapse) {
+	background: transparent;
+}
 
-    @media (max-width: 991px) {
-        .navbar:not(.top-nav-collapse) {
-            background: #09122E !important;
-        }
-    }
+@media (max-width: 991px) {
+	.navbar:not(.top-nav-collapse) {
+		background: #09122e !important;
+	}
+}
 
-    .title {
-		letter-spacing: 6px;
-		font-family: 'Roboto', sans-serif;
-		/* font-family: 'Amatic SC', cursive; */
-    }
+.title {
+	letter-spacing: 6px;
+	font-family: "Roboto", sans-serif;
+	/* font-family: 'Amatic SC', cursive; */
+}
 
-    .subtitle {
-		letter-spacing: 2px;
-		font-family: 'Nunito', sans-serif;
-    }
+.subtitle {
+	letter-spacing: 2px;
+	font-family: "Nunito", sans-serif;
+}
 
-    .hr-light {
-        border-top: 3px solid #fff;
-        width: 80px;
-    }
+.hr-light {
+	border-top: 3px solid #fff;
+	width: 80px;
+}
 
-    .contenido {
-        margin-top: 40vh;
-    }
+.contenido {
+	margin-top: 40vh;
+}
 
-    nav.scroll {
-        background-color: #09122E;
-    }
+nav.scroll {
+	background-color: #09122e;
+}
 </style>

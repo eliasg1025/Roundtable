@@ -3,7 +3,7 @@
 use App\AvalibleTime;
 use Illuminate\Database\Seeder;
 
-class AvalibleTimesSeeder extends Seeder
+class AvalibleTimesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

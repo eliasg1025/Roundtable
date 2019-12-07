@@ -19,6 +19,8 @@
                                   <div><span class="emo fas fa-envelope"></span> </div>
                                  <div class="parrafo"><p>informes@roundtableperu.com</p></div>
                              </div>
+                            
+
                         </div>
                     </div>
             </div>
@@ -28,39 +30,40 @@
                         <h4 class="cabeza">Formulario de contacto</h4>
                     </div>
                     <div class="cuerpo">
-                        <form action=" " method="POST">
+                        <form action="">
                            <ul class="lista">
                                <li class="lis">
-                                   <label for="nnomb" >Nombres<span>*</span></label>
+                                   <label for="" name="nombre">Nombres<span>*</span></label>
                                    <div class="caja">
                                        <span class=ee style="display:inline-block; padding-right:16px;">
-                                           <input class="ee12" type="text" placeholder=" Nombres" id="nnomb" >
+                                           <input class="ee12" type="text" placeholder=" Nombres" name="nombre" v-model="nombre">
                                        </span>
                                        <span class="ee" style="display:inline-block; ">
-                                           <input type="text" class="ee12" placeholder=" Apellidos" name="apellidos">
+                                           <input type="text" class="ee12" placeholder=" Apellidos" v-model="apellidos">
                                        </span>
                                    </div>
                                </li>
                                <li class="lis">
-                                   <label  for="social" >Empresa<span>*</span></label>
+                                   <label  for="" name="empresa">Empresa<span>*</span></label>
                                    <div class="caja" >
-                                       <input class="ee12" id="social" type="text" placeholder=" Razón social" style="width:100%;">
+                                       <input class="ee12" type="text" name="empresa" placeholder=" Razón social" style="width:100%;" v-model="razon_social">
                                    </div>
                                </li>
                                <li class="lis">
-                                   <label  for="correo" >Correo electrónico<span>*</span></label>
+                                   <label  for="" name="correo">Correo electrónico<span>*</span></label>
                                    <div class="caja" >
-                                       <input type="text" class="ee12" id="correo" placeholder=" Correo" style="width:100%;">
+                                       <input type="text" class="ee12" name="correo" placeholder=" Correo" style="width:100%;" v-model="email">
                                    </div>
                                </li>
                                <li class="lis">
-                                   <label for="mens">Tu mensaje</label>
+                                   <label for="" name="mensaje">Tu mensaje</label>
                                    <div class="caja">
-                                       <textarea style="resize:none; width:100%;" placeholder="Mensaje..." id="mens" rows="4"></textarea>
+                                       <textarea style="resize:none; width:100%;" placeholder="Mensaje..." name="mensaje" rows="4" maxlength="255" v-model="mensaje"></textarea>
                                    </div>
                                </li>
                                <li class="lis">
-                                   <button>Enviar</button>
+                                   	<button v-if="!sending" type="button" @click="sendEmail">Enviar</button>
+                               		<button v-else class="disabled" disabled><i class="fas fa-spinner fa-spin"></i> Enviando</button>
                                </li>
                             </ul> 
                         </form>
@@ -71,10 +74,61 @@
 </template>
 <script>
     export default{
-		name:'contacto',
-		props: ['data'],
 		data() {
-			
+			return {
+				nombre: '',
+				apellidos: '',
+				email: '',
+				razon_social: '',
+				mensaje: '',
+				sending: false,
+			}
+		},
+		methods: {
+			sendEmail: function() {
+				let { value, message } = this.verifyForm()
+				if (value) {
+					this.sending = true
+					axios.post('/contact', {
+						name: this.nombre,
+						last_name: this.apellidos,
+						email: this.email,
+						company_name: this.razon_social,
+						message: this.mensaje,
+					})
+						.then(res => {
+							console.log(res.data)
+							this.sending = false
+
+							Swal.fire({ title: 'Mensaje enviado con éxito', type: 'success' })
+						})
+						.catch(err => {
+							console.log(err.response.data)
+						})
+				} else {
+					Swal.fire({ title: message, type: 'warning' })
+				}
+			},
+			verifyForm() {
+				let value = true
+				let message = ''
+				if (this.nombre == '' || this.apellidos == '' || this.email == '' || this.razon_social == '' || this.mensaje == '') {
+					value = false
+					message = 'Debes completar todos los campos'
+				} else {
+					if (this.mensaje.length > 255) {
+						value = false
+						message = 'La longitud del mensaje es de maximo 255 caracteres'
+					} else {
+						if (this.nombre.length >= 100 || this.apellidos.length >= 100 || this.email.length >= 100 || this.razon_social >= 250) {
+							value = false
+							message = 'La longitud de los datos debe ser de máximo 100 caracteres'
+						}
+					}
+				}
+
+				return { value, message }
+			}
 		}
 	}
 </script>
