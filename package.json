@@ -20,8 +20,6 @@
         "bootstrap": "^4.1.0",
         "cross-env": "^5.2.1",
         "jquery": "^3.2",
-        "jquery-schedule": "^2.2.0",
-        "jquery-ui": "^1.12.1",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.5",
         "moment": "^2.24.0",
@@ -35,7 +33,13 @@
         "tippy.js": "^4.3.5",
         "vegas": "^2.4.4",
         "vue": "^2.5.17",
+        "vue-form-wizard": "^0.8.4",
         "vue-template-compiler": "^2.6.10",
         "vuex": "^3.1.1"
+    },
+    "dependencies": {
+        "pusher-js": "^4.2.2",
+        "simple-peer": "^9.0.0",
+        "zepto": "^1.2.0"
     }
 }

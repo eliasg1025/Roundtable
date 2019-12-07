@@ -18,10 +18,15 @@ class CreateCalendarEventsTable extends Migration
 			$table->string('title');
 			$table->dateTime('date');
 			$table->boolean('allDay')->default(false);
+			$table->boolean('queue')->default(true);
+			$table->string('timezone')->default('America/Lima');
 			$table->timestamps();
 			// Fks
 			$table->bigInteger('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');
+			// "other user" hace referencia al usuario que es citado y da su horario
+			$table->bigInteger('other_user_id')->unsigned();
+			$table->foreign('other_user_id')->references('id')->on('users');
         });
     }
 

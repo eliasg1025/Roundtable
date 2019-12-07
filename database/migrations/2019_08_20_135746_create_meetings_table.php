@@ -23,7 +23,10 @@ class CreateMeetingsTable extends Migration
 			$table->foreign('receiver_id')->references('id')->on('users');
 			$table->string('message')->nullable();
             $table->bigInteger('state_id')->unsigned();
-            $table->foreign('state_id')->references('id')->on('states');
+			$table->foreign('state_id')->references('id')->on('states');
+			// Calendar events
+			$table->bigInteger('calendar_event_id')->unsigned()->nullable();
+			$table->foreign('calendar_event_id')->references('id')->on('calendar_events');
         });
     }
 

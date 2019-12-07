@@ -14,8 +14,9 @@ class CalendarEventsSeeder extends Seeder
     public function run()
     {
 		$calendar_event = new CalendarEvent();
-		$calendar_event->title = 'Agendamiento con Surandina Peru';
+		$calendar_event->title = 'Reunión: Surandina Peru';
 		$calendar_event->date = Carbon::now();
+		$calendar_event->queue = false;
 		$calendar_event->user_id = 1;
 		$calendar_event->save();
     }

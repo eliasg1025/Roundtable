@@ -25,7 +25,11 @@ class StatesTableSeeder extends Seeder
 		$state->save();
 		
 		$state = new State();
-		$state->name = 'Esperando';
+		$state->name = 'Esperando confirmacion';
+		$state->save();
+
+		$state = new State();
+		$state->name = 'Agendado';
 		$state->save();
 
         $state = new State();
