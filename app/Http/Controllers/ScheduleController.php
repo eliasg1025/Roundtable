@@ -4,14 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App;
-use App\User;
-use App\AvalibleTime;
-use App\CalendarEvent;
-use App\Meeting;
-use Carbon\Carbon;
+use App\{User, AvalibleTime, CalendarEvent, Meeting};
 use FB;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 
 class ScheduleController extends Controller
 {
@@ -270,13 +268,16 @@ class ScheduleController extends Controller
 	public function confirmCalendarEvent(Request $request) {
 		$calendar_event = CalendarEvent::find($request->calendar_event_id);
 
-		if ($calendar_event) {
-			$calendar_event->queue = 0;
-			$calendar_event->save();
+		if ($calendar_event) {	
 			
 			$meeting = Meeting::where('calendar_event_id', $calendar_event->id)->first();
 			$meeting->state_id = 5;
 			$meeting->save();
+
+			// Crear link temporal para la reunion
+			$calendar_event->link = $this->getLinkConference($calendar_event);
+			$calendar_event->queue = 0;
+			$calendar_event->save();
 
 			$data = array(
 				'code' => 200,
@@ -292,4 +293,14 @@ class ScheduleController extends Controller
 		}
 		return response()->json($data);
 	}
+
+	public function getLinkConference(CalendarEvent $calendar_event)
+	{
+		$date = Carbon::createFromDate($calendar_event->date);
+		return URL::temporarySignedRoute(
+			'conference',
+			$date->addMinutes(25),
+			['calendar_event' => $calendar_event]
+		);
+	}	
 }

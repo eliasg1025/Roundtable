@@ -11,6 +11,8 @@
 |
 */
 
+use Carbon\Carbon;
+
 Auth::routes(['verify' => true]);
 
 Route::get('/', 'InicioController@index')->name('home');
@@ -77,8 +79,13 @@ Route::get('/profile/types', 'Api\TypesController@index');
 
 
 // Conference
-Route::get('/conference', 'ConferenceController@index');
+Route::get('/conference/{calendar_event}', 'ConferenceController@index')->name('conference');
 
 Route::get('/test', function () {
-	return view('conference');
+	$calendar_event = App\CalendarEvent::find(1);
+	$date = $calendar_event->date;
+	$new = Illuminate\Support\Carbon::createFromDate($date);
+	// var_dump($new);
+	var_dump($new->addMinutes(20));
+	var_dump(now());
 });
