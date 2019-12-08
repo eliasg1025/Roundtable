@@ -204,7 +204,7 @@
 									<!-- Countdown timer -->
 									<countdown-timer
 										:meeting="data_meeting.meeting"
-									/>
+									></countdown-timer>
 								</div>
 								<div
 									class="container-button"
@@ -366,7 +366,7 @@
 										<!-- Countdown timer -->
 										<countdown-timer
 											:meeting="data_meeting.meeting"
-										/>
+										></countdown-timer>
 									</div>
 								</div>
 								<div
@@ -404,6 +404,7 @@ import ProfileModalMeet from "./ProfileModalMeet.vue";
 import ProfileModalMeetSchedule from "./ProfileModalMeetSchedule.vue";
 import ProfileModalConfirmSchedule from "./ProfileModalConfirmSchedule";
 import CountdownTimer from "./CountdownTimer";
+import ConferenceLink from "./ConferenceLink";
 
 export default {
 	props: ["data", "user"],
@@ -411,7 +412,8 @@ export default {
 		ProfileModalMeet,
 		ProfileModalMeetSchedule,
 		ProfileModalConfirmSchedule,
-		CountdownTimer
+		CountdownTimer,
+		ConferenceLink
 	},
 	data() {
 		return {

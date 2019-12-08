@@ -9,10 +9,8 @@
 				></b
 			>
 		</div>
-		<div v-else>
-			<a href="" class="btn btn-roundtable">
-				Comenzar
-			</a>
+		<div>
+			<a :href="link" class="btn btn-roundtable">Ir Conferencia</a>
 		</div>
 	</div>
 </template>
@@ -27,12 +25,14 @@ export default {
 			hours: "",
 			minutes: "",
 			seconds: "",
-			showButton: false
+			showButton: false,
+			link: ""
 		};
 	},
 	mounted() {
 		axios.get(`/calendar-event/${this.meeting.id}`).then(res => {
-			let { date, timezone } = res.data;
+			let { date, timezone, link } = res.data;
+			this.link = link;
 			this.countdownDate = new Date(date).getTime();
 
 			let interval = setInterval(() => {

@@ -20,6 +20,7 @@ class CreateCalendarEventsTable extends Migration
 			$table->boolean('allDay')->default(false);
 			$table->boolean('queue')->default(true);
 			$table->string('timezone')->default('America/Lima');
+			$table->string('link')->nullable();
 			$table->timestamps();
 			// Fks
 			$table->bigInteger('user_id')->unsigned();

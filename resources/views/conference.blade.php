@@ -2,5 +2,6 @@
 
 @section('content')
 	<page-banner title="Video Conferencia" img="/img/fondo/fondo-pago.jpg"></page-banner>
-	<conference/>
+	<conference></conference>
+	<page-footer></page-footer>
 @endsection

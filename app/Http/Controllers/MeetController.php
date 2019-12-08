@@ -24,7 +24,7 @@ class MeetController extends Controller
 	
 	public function createMeet(Request $request)
 	{
-		$sender = Auth::user();
+		$sender = User::find(Auth::user()->id);
 		$operation = Operation::find(4);
 		
 		if ($sender->id == $request->sender_id) {
