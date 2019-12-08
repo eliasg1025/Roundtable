@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\User;
+use Carbon\Carbon;
 use App\Traits\UserData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -83,6 +84,7 @@ class BusinessController extends Controller
 
 
 	// View business Profile -> return view
+	//Mostrar la página de usuario tal
 	public function show($slug)
 	{
 		$uuid = substr($slug, -5);
@@ -94,7 +96,88 @@ class BusinessController extends Controller
 		}
 
 		$user->select('id', 'commercial_name', 'uuid', 'slug', 'verified', 'cover_img', 'profile_img', 'type_id', 'description');
-
+				
+		$ip="";
+		$fecha=carbon::now();//2019-02-02 03:03:03
+		$fechaA=$fecha->format('Y-m-d'); //20-02-2020
+		$time=$fecha->toTimeString(); //03:03:03
+		$user_visitador=Auth::user();
+		$visitado=$user->id;
+		$ip= $_SERVER['REMOTE_ADDR'];
+		$port=$_SERVER['REMOTE_PORT'];
+				 
+		if($uuid != $user_visitador->uuid){
+			
+			$visitas=DB::table('visitas')->select('ip','port','fecha')->
+			where([['ip',$ip],['id_visitante',$user_visitador->id],['user_id',$visitado]])->orderBy('id','desc')->limit(1)->get();
+			
+			if(count($visitas)>=1){
+			$fecha_bd=substr($visitas[0]->fecha,0,10);
+	
+				if($fechaA===$fecha_bd && $ip===$visitas[0]->ip){
+					$hora=substr($time,0,2);
+					$hora_bd=substr($visitas[0]->fecha,11,2);
+					
+					$dHora=(24-$hora_bd)-(24-$hora);
+					if($dHora>=2){
+						DB::table('visitas')->insert([
+							'ip'=>$ip,
+							'port'=>$port, 
+							'fecha'=>$fechaA." ".$time,
+							'id_visitante'=>$user_visitador->id,
+							'user_id'=>$visitado
+							]);
+					}else{
+						if($dHora==0){
+							$minutos=substr($time,3,2);
+							
+							$min_bd=substr($visitas[0]->fecha,14,2);
+							$dMin=(60-$min_bd)-(60-$minutos);
+							
+							if($dMin>=30){
+								DB::table('visitas')->insert([
+									'ip'=>$ip,
+									'port'=>$port, 
+									'fecha'=>$fechaA." ".$time,
+									'id_visitante'=>$user_visitador->id,
+									'user_id'=>$visitado
+									]);
+							}
+						}else{
+								$dMin=(60-$min_bd)+$minutos;
+								if($dMin>=30){
+									DB::table('visitas')->insert([
+										'ip'=>$ip,
+										'port'=>$port, 
+										'fecha'=>$fechaA." ".$time,
+										'id_visitante'=>$user_visitador->id,
+										'user_id'=>$visitado
+										]);
+								}						
+							
+						}                    
+					}
+				}else{
+					DB::table('visitas')->insert([
+						'ip'=>$ip,
+						'port'=>$port, 
+						'fecha'=>$fechaA." ".$time,
+						'id_visitante'=>$user_visitador->id,
+						'user_id'=>$visitado
+						]);
+				}
+		    }else{
+				DB::table('visitas')->insert([
+					'ip'=>$ip,
+					'port'=>$port, 
+					'fecha'=>$fechaA." ".$time,
+					'id_visitante'=>$user_visitador->id,
+					'user_id'=>$visitado
+					]);
+			}
+		}
+						
+		//DB::table('visitas')->insert(['ip'=>$ip, 'fecha'=>$fecha,'hora'=>$hora,]);
 		// Media data
 		$media_data = $this->getMediaData($user);
 		
