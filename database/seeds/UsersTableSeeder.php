@@ -22,7 +22,6 @@ class UsersTableSeeder extends Seeder
             'cover_img' => '/img/surandina_portada.jpg',
             'description' => 'Producimos, cosechamos y empacamos alimentos 100% orgánicos siguiendo estrictos estándares de calidad, inocuidad y seguridad, en armonía con el medio ambiente y convirtiendo pequeñas comunidades en polos de desarrollo. De la costa y sierra del norte del Perú para el mundo.',
             'coins' => 40,
-            'views' => 60,
             'type_id' => 1,
         ])->categories()->attach([1, 2, 3]);
 
@@ -37,7 +36,6 @@ class UsersTableSeeder extends Seeder
             'cover_img' => '/img/empresa/empresa1/productos/producto1.jpg',
             'description' => 'Producimos, cosechamos y empacamos alimentos 100% orgánicos siguiendo estrictos estándares de calidad, inocuidad y seguridad, en armonía con el medio ambiente y convirtiendo pequeñas comunidades en polos de desarrollo. De la costa y sierra del norte del Perú para el mundo.',
             'coins' => 50,
-            'views' => 50,
             'type_id' => 2,
         ])->categories()->attach([5, 6, 7]);
 
@@ -52,7 +50,6 @@ class UsersTableSeeder extends Seeder
             'cover_img' => '/img/empresa/empresa1/productos/producto1.jpg',
             'description' => 'Producimos, cosechamos y empacamos alimentos 100% orgánicos siguiendo estrictos estándares de calidad, inocuidad y seguridad, en armonía con el medio ambiente y convirtiendo pequeñas comunidades en polos de desarrollo. De la costa y sierra del norte del Perú para el mundo.',
             'coins' => 50,
-            'views' => 50,
             'type_id' => 2,
         ])->categories()->attach([1, 6, 10]);
 
@@ -67,7 +64,6 @@ class UsersTableSeeder extends Seeder
             'cover_img' => '/img/empresa/empresa1/productos/producto1.jpg',
             'description' => 'Producimos, cosechamos y empacamos alimentos 100% orgánicos siguiendo estrictos estándares de calidad, inocuidad y seguridad, en armonía con el medio ambiente y convirtiendo pequeñas comunidades en polos de desarrollo. De la costa y sierra del norte del Perú para el mundo.',
             'coins' => 50,
-            'views' => 50,
             'type_id' => 2,
         ])->categories()->attach([5, 1, 2]);
 
@@ -82,7 +78,6 @@ class UsersTableSeeder extends Seeder
             'cover_img' => '/img/empresa/empresa1/productos/producto1.jpg',
             'description' => 'Producimos, cosechamos y empacamos alimentos 100% orgánicos siguiendo estrictos estándares de calidad, inocuidad y seguridad, en armonía con el medio ambiente y convirtiendo pequeñas comunidades en polos de desarrollo. De la costa y sierra del norte del Perú para el mundo.',
             'coins' => 50,
-            'views' => 50,
             'type_id' => 3,
         ])->categories()->attach([8, 11, 7]);
     }
