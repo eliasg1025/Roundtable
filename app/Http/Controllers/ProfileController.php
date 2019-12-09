@@ -32,12 +32,17 @@ class ProfileController extends Controller
 
     public function index()
     {
-    	$user = Auth::user();
-    	$plans = DB::table('plan_user')
-						->join('plans', 'plan_user.plan_id', '=', 'plans.id')
+		$user = User::find(Auth::user()->id);
+
+		$visitas = DB::table('visitas')
 						->where('user_id', $user->id)
-						->orderBy('plan_id', 'DESC') ////////////////////////////
-						->get();
+						->count();	
+
+    	$plans = DB::table('plan_user')
+					->join('plans', 'plan_user.plan_id', '=', 'plans.id')
+					->where('user_id', $user->id)
+					->orderBy('plan_id', 'DESC') ////////////////////////////
+					->get();
 
 		$sended_meetings = DB::table('meetings')
 							->where('sender_id', $user->id)
@@ -63,6 +68,7 @@ class ProfileController extends Controller
 
 		$data = [
 			'user' => $user,
+			'views' => $visitas,
 			'user_plans' => $plans,
 			'meetings' => $meetings,
 			'account_data' => $account_data,
@@ -76,7 +82,7 @@ class ProfileController extends Controller
 
 	 public function update(Request $request)
     {
-		$updatedUser = Auth::user();
+		$updatedUser = User::find(Auth::user()->id);
 		$updatedUser->name = $request->name;
 		$updatedUser->commercial_name = $request->commercial_name;
 		$updatedUser->description = $request->description;
@@ -114,7 +120,7 @@ class ProfileController extends Controller
 
 	public function uploadUserImage(Request $request, $type)
 	{
-		$user = Auth::user();
+		$user = User::find(Auth::user()->id);
 		$image = $request->file('image');
 		\FB::log(filesize($image));
 
