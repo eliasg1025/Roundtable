@@ -4,6 +4,9 @@
 			<div class="container p-4"><spinner /></div>
 		</div>
 		<div v-else class="row mt-3">
+			<div col-md-6 class="hor1" v-if="avalible_times.length === 0">
+				<p class="text-center d-block mt-5 text-muted" style="font-size:25px; margin-bottom: 48px;">Sin horarios disponibles</p>
+			</div>
 			<div
 				v-for="(avalible_time, index) in avalible_times"
 				:key="avalible_time.id"
@@ -418,4 +421,11 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+@media (min-width: 768px) {
+	.hor1{
+		flex: 0 0 50%;
+		max-width: 50%;
+	}
+}
+</style>
