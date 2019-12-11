@@ -67,7 +67,8 @@
 			<br />
 			<br />
 			<hr />
-
+			
+			<!-- Received messages -->
 			<div class="text-center panel-info-subtitle mt-5">
 				<label class="text-uppercase h5">Recibidos</label>
 			</div>
@@ -76,7 +77,6 @@
 					<thead>
 						<tr class="text-center">
 							<th>Empresa</th>
-							<th>Mensaje</th>
 							<th>Estado</th>
 							<th>Acciones</th>
 						</tr>
@@ -94,14 +94,6 @@
 								/>
 							</td>
 							<td>
-								<textarea
-									rows="7"
-									class="form-control meet-message"
-									disabled
-									v-model="data_meeting.meeting.message"
-								></textarea>
-							</td>
-							<td>
 								<p class="text-muted">
 									Recibido
 									{{
@@ -117,7 +109,7 @@
 							<td>
 								<div
 									class="container-button"
-									v-if="data_meeting.state.id == 1"
+									v-if="data_meeting.state.id === 1"
 								>
 									<div class="container mb-1">
 										<button
@@ -148,7 +140,7 @@
 								</div>
 								<div
 									class="container-button"
-									v-else-if="data_meeting.state.id == 2"
+									v-else-if="data_meeting.state.id === 2"
 								>
 									<div class="container mb-1">
 										<button
@@ -159,47 +151,19 @@
 										</button>
 									</div>
 								</div>
+								<!--
 								<div
 									class="container-button"
-									v-else-if="data_meeting.state.id == 3"
+									v-else-if="data_meeting.state.id === 4"
 								>
-									<div class="container mb-1">
-										<button
-											class="btn btn-primary btn-block"
-											disabled
-										>
-											Esperando
-										</button>
-										<small class="text-muted"
-											>Esperando elección de fecha y
-											hora</small
-										>
-									</div>
-									<div class="container mb-1">
-										<button
-											class="btn btn-danger btn-block"
-											@click="
-												cancelMeet(
-													data_meeting.meeting.id
-												)
-											"
-										>
-											Cancelar
-										</button>
-									</div>
-								</div>
-								<div
-									class="container-button"
-									v-else-if="data_meeting.state.id == 4"
-								>
-									<!-- Button and modal -->
 									<profile-modal-confirm-schedule
 										:meeting="data_meeting.meeting"
 									/>
 								</div>
+								-->
 								<div
 									class="container-button"
-									v-else-if="data_meeting.state.id == 5"
+									v-else-if="data_meeting.state.id === 3"
 								>
 									<!-- Countdown timer -->
 									<countdown-timer
@@ -208,7 +172,7 @@
 								</div>
 								<div
 									class="container-button"
-									v-else-if="data_meeting.state.id == 6"
+									v-else-if="data_meeting.state.id == 4"
 								>
 									<button
 										class="btn btn-success disabled btn-block"
@@ -243,7 +207,6 @@
 					<thead>
 						<tr class="text-center">
 							<th>Empresa</th>
-							<th>Mensaje</th>
 							<th>Estado</th>
 							<th>Acciones</th>
 						</tr>
@@ -259,14 +222,6 @@
 									:data_meeting="data_meeting"
 									type="sended"
 								/>
-							</td>
-							<td>
-								<textarea
-									rows="7"
-									class="form-control meet-message"
-									disabled
-									v-model="data_meeting.meeting.message"
-								></textarea>
 							</td>
 							<td>
 								<p class="text-muted">
@@ -308,6 +263,7 @@
 										</button>
 									</div>
 								</div>
+								<!--
 								<div
 									class="container-button"
 									v-else-if="data_meeting.state.id == 3"
@@ -323,7 +279,7 @@
 										>
 											Agendar
 										</button>
-										<!-- Modal -->
+										
 										<profile-modal-meet-schedule
 											:data_meeting="data_meeting"
 										/>
@@ -341,6 +297,9 @@
 										</button>
 									</div>
 								</div>
+								-->
+								
+								<!--
 								<div
 									class="container-button"
 									v-else-if="data_meeting.state.id == 4"
@@ -358,9 +317,11 @@
 										>
 									</div>
 								</div>
+								-->
+								
 								<div
 									class="container-button"
-									v-else-if="data_meeting.state.id == 5"
+									v-else-if="data_meeting.state.id === 3"
 								>
 									<div class="container mb-1">
 										<!-- Countdown timer -->
@@ -371,7 +332,7 @@
 								</div>
 								<div
 									class="container-button"
-									v-else-if="data_meeting.state.id == 6"
+									v-else-if="data_meeting.state.id === 4"
 								>
 									<div class="container mb-1">
 										<button

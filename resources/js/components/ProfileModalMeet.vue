@@ -28,7 +28,21 @@
 				href="#"
 				class="my-2"
 				><i class="fas fa-address-book"></i> Ver Datos</a
-			>
+			><br />
+			<a
+				v-if="data_meeting.meeting.message"
+				role="button"
+				data-toggle="modal"
+				:data-target="
+					'#viewMeetingMessage-' + 
+					data_meeting.meeting.id + 
+					'-' +
+					type 
+				"
+				href="#"
+				class="my-2"
+				><i class="far fa-envelope"></i> Ver Mensaje
+			</a>
 		</div>
 		<div v-if="can_view_data(data_meeting.state.id)">
 			<!--Modal-->
@@ -357,6 +371,35 @@
 				</div>
 			</div>
 			<!--End Modal-->
+		</div>
+		<!-- Message Modal -->
+		<div 
+			:id="
+				'viewMeetingMessage-' +
+					data_meeting.meeting.id +
+					'-' +
+					type
+			"
+			tabindex="-1"
+			role="dialog"
+			aria-hidden="true"
+			class="modal fade">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Mensaje</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>{{ data_meeting.meeting.message }}</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>

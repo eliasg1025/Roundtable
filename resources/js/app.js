@@ -16,6 +16,8 @@ Vue.component(
 Vue.component("Spinner", require("./components/Spinner.vue").default);
 Vue.component("CardBusiness", require("./components/CardBusiness.vue").default);
 Vue.component("RatingStars", require("./components/RatingStars.vue").default);
+Vue.component("notification_bell", require("./components/NotificationBell").default);
+Vue.component("notification_dropdown", require("./components/NotificationDropdown").default);
 
 // Home page
 Vue.component("Home", require("./components/Home.vue").default);
