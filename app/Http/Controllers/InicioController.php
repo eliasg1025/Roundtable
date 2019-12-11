@@ -63,7 +63,7 @@ class InicioController extends Controller
 		$typeInfo = DB::table('types')
         				->select(DB::raw('id as xid'), 'name');
 		
-		$users = App\User::select('id', 'commercial_name', 'uuid', 'profile_img', 'cover_img', 'views', 'verified', 'type_id', 'amount_rating', 'total_rating', 'avg_rating', 'type_info.name')
+		$users = App\User::select('id', 'commercial_name', 'uuid', 'profile_img', 'cover_img', 'verified', 'type_id', 'amount_rating', 'total_rating', 'avg_rating', 'type_info.name')
 							->joinSub($ratingInfo, 'rating_info', function($join) {
 								$join->on('users.id', '=', 'rating_info.user_id');
 							})
