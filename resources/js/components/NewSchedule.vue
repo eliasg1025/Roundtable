@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div @click="toggleSchedule" class="container mt-2 p-3">
+		<!--<div @click="toggleSchedule" class="container mt-2 p-3">
 			<button type="button" class="btn btn-add">
 				<h4>Horarios disponibilidad</h4>
 			</button>
@@ -9,8 +9,8 @@
 			<admin-schedule id="admin-schedule" v-if="show_admin_schedule" />
 			<br />
 			<hr />
-		</div>
-		<div class="container p-3">
+		</div>-->
+		<!--<div class="container p-3">
 			<div class="calendar-top">
 				<button
 					type="button"
@@ -18,13 +18,13 @@
 					@click="toggleWeekends"
 				>
 					Mostrar fines de semana
-				</button>
-				<!--
+				</button>-->
+		<!--
 				<button @click="gotoPast">Click para regresar</button>
 				(Regresa al 2000-01-01)
 				<button @click="recuperarDatos">Recuperar datos</button>
 				-->
-			</div>
+		<!--</div>
 			<div v-if="loading_data" class="container p-5">
 				<spinner></spinner>
 			</div>
@@ -45,6 +45,56 @@
 				:slotEventOverlap="false"
 				:slotDuration="'00:15:00'"
 			/>
+		</div>-->
+		<div class="cont1 container">
+			<nav class="nav2 navbar">
+				<form class="form-inline">
+					<button
+						class="btn btn-outline-success"
+						type="button"
+						@click="toggleSchedule"
+					>
+						Horarios disponibles
+					</button>
+					<button
+						class="btn btn-outline-success"
+						type="button"
+						@click="calendario"
+					>
+						Calendario
+					</button>
+				</form>
+			</nav>
+			<div style="background-color:#fff;">
+				<admin-schedule
+					id="admin-schedule"
+					v-if="show_admin_schedule"
+					v-
+				/>
+				<div v-if="show_calendario">
+					<div v-if="loading_data" class="container p-5">
+						<spinner></spinner>
+					</div>
+					<FullCalendar
+						v-else
+						ref="fullCalendar"
+						defaultView="timeGridWeek"
+						:header="{
+							left: 'prev, next, today',
+							center: 'title',
+							right:
+								'dayGridMonth, timeGridWeek, timeGridDay, listWeek'
+						}"
+						:weekends="calendarWeekends"
+						:plugins="calendarPlugins"
+						:events="calendarEvents"
+						:selectable="true"
+						:locale="locale"
+						:slotEventOverlap="false"
+						:slotDuration="'00:15:00'"
+					/>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -75,7 +125,8 @@ export default {
 			locale: esLocale,
 			// Custom data
 			loading_data: true,
-			show_admin_schedule: false
+			show_admin_schedule: true,
+			show_calendario: false
 		};
 	},
 	mounted() {
@@ -116,6 +167,13 @@ export default {
 		toggleSchedule() {
 			if (!this.show_admin_schedule) {
 				this.show_admin_schedule = true;
+				this.show_calendario = false;
+			}
+		},
+		calendario() {
+			if (!this.show_calendario) {
+				this.show_calendario = true;
+				this.show_admin_schedule = false;
 			}
 		}
 	}
@@ -134,5 +192,22 @@ export default {
 .btn-toggle-schedule {
 	border: 1px solid #ecec;
 	background: #ececec;
+}
+.cont1 {
+	margin-top: 100px;
+	margin-bottom: 50px;
+}
+
+.btn-outline-success {
+	border-color: #ececec;
+	color: rgb(48, 49, 51);
+	font-family: "Nunito", sans-serif;
+}
+.btn-outline-success:hover {
+	background-color: #88be2e;
+}
+.nav2 {
+	background: burlywood;
+	background-color: burlywood;
 }
 </style>
