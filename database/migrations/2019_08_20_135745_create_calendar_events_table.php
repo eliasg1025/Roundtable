@@ -15,7 +15,7 @@ class CreateCalendarEventsTable extends Migration
     {
         Schema::create('calendar_events', function (Blueprint $table) {
 			$table->bigIncrements('id');
-			$table->string('title');
+			$table->string('title', 50);
 			$table->dateTime('date');
 			$table->boolean('allDay')->default(false);
 			$table->boolean('queue')->default(true);

@@ -246,9 +246,7 @@
 									style="font-family: 'Nunito', sans-serif;"
 								>
 									Basados en la calificación de
-									{{
-										data_account.rating_data.amount
-									}}
+									{{ data_account.rating_data.amount }}
 									usuarios
 								</p>
 								<p
@@ -420,67 +418,70 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<div class="row">
-								<div class="col-md-6">
-									<p class="form-destinity">De:</p>
-									<div class="business-meet-name container">
-										<p class="my-2 h6 text-center">
-											{{
+							<div class="modal-body__agendar">
+								<div class="row">
+									<div class="col-md-6">
+										<p class="form-destinity">De:</p>
+										<div class="business-meet-name container">
+											<p class="my-2 h6 text-center">
+												{{
 												data_visit_user.data
-													.commercial_name
-											}}
-										</p>
-									</div>
-									<div class="business-meet-card text-center">
-										<div class="container py-3">
-											<img
-												:src="
+												.commercial_name
+												}}
+											</p>
+										</div>
+										<div class="business-meet-card text-center">
+											<div class="container py-3">
+												<img
+													:src="
 													data_visit_user.data
 														.profile_img
 												"
-												width="100%"
-											/>
+													width="100%"
+												/>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<p class="form-destinity second">Para:</p>
+										<div class="business-meet-name container">
+											<p class="my-2 h6 text-center">
+												{{ data_user.commercial_name }}
+											</p>
+										</div>
+										<div class="business-meet-card text-center">
+											<div class="container py-3">
+												<img
+													:src="data_user.profile_img"
+													width="100%"
+												/>
+											</div>
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
-									<p class="form-destinity second">Para:</p>
-									<div class="business-meet-name container">
-										<p class="my-2 h6 text-center">
-											{{ data_user.commercial_name }}
-										</p>
-									</div>
-									<div class="business-meet-card text-center">
-										<div class="container py-3">
-											<img
-												:src="data_user.profile_img"
-												width="100%"
-											/>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col">
-									<div class="form-group mt-3">
-										<label for="">Mensaje:</label>
-										<textarea
-											class="form-control"
-											id=""
-											rows="4"
-											placeholder="Deja tu mensaje para esta empresa. (Opcional)"
-											v-model="message"
-											maxlength="255"
-										></textarea>
-										<small class="mt-1">
+								<div class="row">
+									<div class="col">
+										<div class="form-group mt-3">
+											<label for="">Mensaje:</label>
+											<textarea
+												class="form-control"
+												id=""
+												rows="4"
+												placeholder="Deja tu mensaje para esta empresa. (Opcional)"
+												v-model="message"
+												maxlength="255"
+											></textarea>
+											<small class="mt-1">
 											<span class="text-muted"
-												>Máximo 255 caracteres:
+											>Máximo 255 caracteres:
 												{{ length_message }}/255</span
 											>
-										</small>
+											</small>
+										</div>
 									</div>
 								</div>
 							</div>
+							
 						</div>
 						<div class="modal-footer">
 							<button
@@ -572,7 +573,7 @@ export default {
 	methods: {
 		agendar() {
 			Swal.fire({
-				title: "Estas consumiendo 30 coins en esta operación",
+				title: "Estas consumiendo 10 coins en esta operación",
 				text: "¿Deseas continuar?",
 				type: "info",
 				confirmButtonColor: "#3085d6",
@@ -618,7 +619,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .businessBanner {
 	padding: 200px 0 100px 0;
 	background-size: cover;
@@ -714,7 +715,7 @@ export default {
 /* Stat names */
 
 .business-stats {
-	padding-top: 350px;
+	padding-top: 400px;
 	padding-bottom: 20px;
 }
 
@@ -804,6 +805,8 @@ export default {
 	background-color: #e2e3e5;
 	border: 2px solid #d6d8db;
 	border-radius: 6px;
+	max-width: 309px;
+	margin: auto;
 }
 
 .business-meet-name p {
@@ -813,6 +816,12 @@ export default {
 
 .form-destinity {
 	margin-bottom: 5px;
+}
+
+@media (max-width: 700px) {
+	.modal-body__agendar {
+		padding: 0 1.5rem;
+	}
 }
 
 @media (max-width: 600px) {
