@@ -59,7 +59,7 @@
 					<button
 						class="btn btn-outline-success"
 						type="button"
-						@click="calendario"
+						@click="toggleCalendar"
 					>
 						Calendario
 					</button>
@@ -67,9 +67,8 @@
 			</nav>
 			<div style="background-color:#fff;">
 				<admin-schedule
-					id="admin-schedule"
 					v-if="show_admin_schedule"
-					v-
+					id="admin-schedule"
 				/>
 				<div v-if="show_calendario">
 					<div v-if="loading_data" class="container p-5">
@@ -111,6 +110,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
 export default {
+	name: "new-schedule",
 	components: {
 		AdminSchedule,
 		FullCalendar,
@@ -133,7 +133,7 @@ export default {
 		axios
 			.get("/get-schedule")
 			.then(res => {
-				// console.log(res.data);
+				console.log(res.data);
 				this.calendarEvents = [...res.data];
 				this.loading_data = false;
 			})
@@ -170,7 +170,7 @@ export default {
 				this.show_calendario = false;
 			}
 		},
-		calendario() {
+		toggleCalendar() {
 			if (!this.show_calendario) {
 				this.show_calendario = true;
 				this.show_admin_schedule = false;

@@ -81,13 +81,13 @@ class ScheduleController extends Controller
 	public function getCalendarEventsData()
 	{
 		$user = Auth::user();
-		$data_calendar_events = CalendarEvent::where('user_id', $user->id)
-											->orWhere('other_user_id', $user->id)
-											->get();
+		$data_calendar_events = Meeting::where('sender_id', $user->id)
+										->orWhere('receiver_id', $user->id)
+										->get();
 		$calendar_events = array();
 
 		foreach ($data_calendar_events as $data_calendar_event) {
-			if ($data_calendar_event['queue'] == 0) {
+			if ($data_calendar_event['state_id'] === 1) {
 				array_push($calendar_events, array(
 					'title' => $data_calendar_event['title'],
 					'date' => $data_calendar_event['date'],
