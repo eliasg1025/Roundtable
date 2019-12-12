@@ -395,113 +395,10 @@
 			</div>
 
 			<!-- Modal Agendar -->
-			<div
-				class="modal fade"
-				id="modalAgendar"
-				tabindex="-1"
-				role="dialog"
-				aria-hidden="true"
-			>
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">
-								Agendar Reunión
-							</h5>
-							<button
-								type="button"
-								class="close"
-								data-dismiss="modal"
-								aria-label="Close"
-							>
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<div class="modal-body__agendar">
-								<div class="row">
-									<div class="col-md-6">
-										<p class="form-destinity">De:</p>
-										<div class="business-meet-name container">
-											<p class="my-2 h6 text-center">
-												{{
-												data_visit_user.data
-												.commercial_name
-												}}
-											</p>
-										</div>
-										<div class="business-meet-card text-center">
-											<div class="container py-3">
-												<img
-													:src="
-													data_visit_user.data
-														.profile_img
-												"
-													width="100%"
-												/>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<p class="form-destinity second">Para:</p>
-										<div class="business-meet-name container">
-											<p class="my-2 h6 text-center">
-												{{ data_user.commercial_name }}
-											</p>
-										</div>
-										<div class="business-meet-card text-center">
-											<div class="container py-3">
-												<img
-													:src="data_user.profile_img"
-													width="100%"
-												/>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col">
-										<div class="form-group mt-3">
-											<label for="">Mensaje:</label>
-											<textarea
-												class="form-control"
-												id=""
-												rows="4"
-												placeholder="Deja tu mensaje para esta empresa. (Opcional)"
-												v-model="message"
-												maxlength="255"
-											></textarea>
-											<small class="mt-1">
-											<span class="text-muted"
-											>Máximo 255 caracteres:
-												{{ length_message }}/255</span
-											>
-											</small>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-						</div>
-						<div class="modal-footer">
-							<button
-								type="button"
-								class="btn btn-add"
-								@click="agendar()"
-							>
-								Agendar
-							</button>
-							<button
-								type="button"
-								class="btn btn-secondary"
-								data-dismiss="modal"
-							>
-								Cerrar
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
+			<modal-agendar
+				:data_user="data_user"
+				:data_visit_user="data_visit_user"
+			></modal-agendar>
 		</div>
 	</section>
 </template>
@@ -509,8 +406,12 @@
 <script>
 import tippy from "tippy.js";
 import "../../../node_modules/tippy.js/index.css";
+import ModalAgendar from './ModalAgendar.vue';
 
 export default {
+	components: {
+		ModalAgendar,
+	},
 	props: ["data_user", "data_account", "data_visit_user"],
 	data() {
 		return {
@@ -521,17 +422,11 @@ export default {
 			rating: this.data_account.rating_data,
 			value_rating: 0,
 			show_rating: false,
-			message: "",
 			type_user: "",
 			can_send_meet: true,
 			loading_btn: true,
 			loading_type: true
 		};
-	},
-	computed: {
-		length_message() {
-			return this.message.length;
-		}
 	},
 	created() {
 		axios.get("/profile/types").then(res => {
@@ -549,14 +444,8 @@ export default {
 			})
 			.then(res => {
 				console.log(res.data.data);
-				if (
-					res.data.data.state_id === 2 ||
-					res.data.data.state_id === 5
-				) {
-					this.can_send_meet = true;
-				} else {
-					this.can_send_meet = false;
-				}
+				this.can_send_meet = res.data.data.state_id === 2 ||
+					res.data.data.state_id === 4;
 				this.loading_btn = false;
 			})
 			.catch(err => {
@@ -569,52 +458,6 @@ export default {
 		// Give img to banner
 		let el = document.querySelector(`#${this.id}`);
 		el.style = `background-image: url('${this.data_user.cover_img}')`;
-	},
-	methods: {
-		agendar() {
-			Swal.fire({
-				title: "Estas consumiendo 10 coins en esta operación",
-				text: "¿Deseas continuar?",
-				type: "info",
-				confirmButtonColor: "#3085d6",
-				cancelButtonColor: "#d33",
-				confirmButtonText: "Si",
-				cancelButtonText: "Cancelar",
-				showCancelButton: true
-			}).then(res => {
-				if (res.value === true) {
-					Swal.fire({
-						title: "Enviando",
-						onBeforeOpen: () => {
-							Swal.showLoading();
-						}
-					});
-
-					axios
-						.post("/business/create-meet", {
-							receiver_id: this.data_user.id,
-							sender_id: this.data_visit_user.data.id,
-							message: this.message
-						})
-						.then(res => {
-							console.log(res.data);
-							Swal.fire({
-								title: res.data.message,
-								type: "success",
-								timer: 1500
-							}).then(res => location.reload());
-						})
-						.catch(err => {
-							console.log(err.response.data);
-							Swal.fire({
-								title: err.response.data.message,
-								type: "error",
-								timer: 2000
-							});
-						});
-				}
-			});
-		}
 	}
 };
 </script>
