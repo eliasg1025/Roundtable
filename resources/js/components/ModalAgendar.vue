@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="modal fade"
-		:id="'modalMeetingSchedule-' + data_meeting.meeting.id"
+		id="modalAgendar"
 		tabindex="-1"
 		role="dialog"
 		aria-hidden="true"
@@ -9,7 +9,9 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel"></h5>
+					<h5 class="modal-title">
+						Agendar Reunión
+					</h5>
 					<button
 						type="button"
 						class="close"
@@ -26,12 +28,79 @@
 						@on-validate="handleValidation"
 						@on-error="handleErrorMessage"
 						title="Agendar fecha y hora"
-						:subtitle="data_meeting.other_user.commercial_name"
+						:subtitle="data_user.commercial_name"
 						color="#88BE2E"
 						nextButtonText="Siguiente"
 						backButtonText="Atras"
 						finishButtonText="Finalizar"
 					>
+						<tab-content
+							title="Mensaje (opcional)"
+							:before-change="validateZeroStep"
+						>
+							<div class="row">
+								<div class="col-md-6">
+									<p class="form-destinity">De:</p>
+									<div class="business-meet-name container">
+										<p class="my-2 text-center">
+											{{
+												data_visit_user.data
+													.commercial_name
+											}}
+										</p>
+									</div>
+									<div class="business-meet-card text-center">
+										<div class="container py-3">
+											<img
+												:src="
+													data_visit_user.data
+														.profile_img
+												"
+												width="100%"
+											/>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<p class="form-destinity second">Para:</p>
+									<div class="business-meet-name container">
+										<p class="my-2 text-center">
+											{{ data_user.commercial_name }}
+										</p>
+									</div>
+									<div class="business-meet-card text-center">
+										<div class="container py-3">
+											<img
+												:src="data_user.profile_img"
+												width="100%"
+											/>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<div class="form-group mt-3">
+										<label for="">Mensaje:</label>
+										<textarea
+											class="form-control"
+											id=""
+											rows="4"
+											placeholder="Deja tu mensaje para esta empresa. (Opcional)"
+											v-model="message"
+											maxlength="255"
+										></textarea>
+										<small class="mt-1">
+											<span class="text-muted"
+												>Máximo 255 caracteres:
+												{{ length_message }}/255</span
+											>
+										</small>
+									</div>
+								</div>
+							</div>
+						</tab-content>
+
 						<tab-content
 							title="Horario"
 							:before-change="validateFirstStep"
@@ -151,9 +220,7 @@
 												</li>
 												<li class="list-group-item">
 													<b
-														>{{
-															possibleDay.date
-														}}
+														>{{ possibleDay.date }}
 														/
 														{{
 															possibleDay.month
@@ -212,6 +279,89 @@
 							<span class="error">{{ errorMsg }}</span>
 						</div>
 					</form-wizard>
+
+					<!-- Prueba -->
+					<!--
+					<div class="modal-body__agendar">
+						<div class="row">
+							<div class="col-md-6">
+								<p class="form-destinity">De:</p>
+								<div class="business-meet-name container">
+									<p class="my-2 h6 text-center">
+										{{
+											data_visit_user.data.commercial_name
+										}}
+									</p>
+								</div>
+								<div class="business-meet-card text-center">
+									<div class="container py-3">
+										<img
+											:src="
+												data_visit_user.data.profile_img
+											"
+											width="100%"
+										/>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<p class="form-destinity second">Para:</p>
+								<div class="business-meet-name container">
+									<p class="my-2 h6 text-center">
+										{{ data_user.commercial_name }}
+									</p>
+								</div>
+								<div class="business-meet-card text-center">
+									<div class="container py-3">
+										<img
+											:src="data_user.profile_img"
+											width="100%"
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="form-group mt-3">
+									<label for="">Mensaje:</label>
+									<textarea
+										class="form-control"
+										id=""
+										rows="4"
+										placeholder="Deja tu mensaje para esta empresa. (Opcional)"
+										v-model="message"
+										maxlength="255"
+									></textarea>
+									<small class="mt-1">
+										<span class="text-muted"
+											>Máximo 255 caracteres:
+											{{ length_message }}/255</span
+										>
+									</small>
+								</div>
+							</div>
+						</div>
+					</div>
+					-->
+				</div>
+				<div class="modal-footer">
+					<!--
+					<button
+						type="button"
+						class="btn btn-add"
+						@click="agendar()"
+					>
+						Agendar
+					</button>
+					-->
+					<button
+						type="button"
+						class="btn btn-secondary"
+						data-dismiss="modal"
+					>
+						Cerrar
+					</button>
 				</div>
 			</div>
 		</div>
@@ -227,10 +377,12 @@ export default {
 		FormWizard,
 		TabContent
 	},
-	props: ["data_meeting"],
+	name: "modal-agendar",
+	props: ["data_user", "data_visit_user"],
 	data() {
 		return {
 			avalible_times: [],
+			sender_has_available_time: false,
 			amount_next_days: 5,
 			loading: true,
 			days: [
@@ -251,38 +403,17 @@ export default {
 			possibleHours: [],
 			selected_avalible_time: "",
 			selected_day: "",
-			selected_hour: ""
+			selected_hour: "",
+			message: ""
 		};
 	},
+	computed: {
+		length_message() {
+			return this.message.length;
+		}
+	},
 	mounted() {
-		axios
-			.get(`/get-avalible-time/${this.data_meeting.other_user.uuid}`)
-			.then(res => {
-				this.avalible_times = [...res.data];
-				this.avalible_times.forEach(avalible_time => {
-					let daysOfWeek = avalible_time.daysOfWeek
-						.split("")
-						.map(item => parseInt(item));
-					let newDays = [];
-
-					this.days.forEach(day => {
-						let newDay = {
-							id: day.id,
-							name: day.name,
-							shortName: day.shortName,
-							value: false
-						};
-						if (daysOfWeek.indexOf(day.id) > -1) {
-							newDay.value = true;
-						}
-						newDays.push(newDay);
-					});
-					avalible_time.daysOfWeek = newDays;
-				});
-				this.loading = false;
-				// console.log(this.avalible_times);
-			})
-			.catch(err => console.log(err.response));
+		
 	},
 	methods: {
 		format_hour(date) {
@@ -325,6 +456,54 @@ export default {
 			this.errorMsg = errorMsg;
 		},
 		// Actions to validate data
+		validateZeroStep() {
+			axios
+				.post(`/check-available-time/`, {
+					sender_uuid: this.data_user.uuid,
+					receiver_uuid: this.data_visit_user.data.uuid,
+				})
+				.then(res => {
+					let { count_sender_available_time, receiver_available_time } = res.data;
+					this.sender_has_available_time = count_sender_available_time > 0;
+					
+					this.avalible_times = [...receiver_available_time];
+					this.avalible_times.forEach(avalible_time => {
+						let daysOfWeek = avalible_time.daysOfWeek
+							.split("")
+							.map(item => parseInt(item));
+						let newDays = [];
+
+						this.days.forEach(day => {
+							let newDay = {
+								id: day.id,
+								name: day.name,
+								shortName: day.shortName,
+								value: false
+							};
+							if (daysOfWeek.indexOf(day.id) > -1) {
+								newDay.value = true;
+							}
+							newDays.push(newDay);
+						});
+						avalible_time.daysOfWeek = newDays;
+					});
+					this.loading = false;
+					// console.log(this.avalible_times);
+				})
+				.catch(err => console.log(err.response));
+			
+			return new Promise((resolve, reject) => {
+				if (this.avalible_times.length === 0) {
+					reject("El usuario no tiene horarios disponibles asignados")
+				} else {
+					if (!this.sender_has_available_time) {
+						reject("Para futuros agendamientos debe tener horarios disponibles asignado");
+					} else {
+						resolve(true);	
+					}
+				}
+			});
+		},
 		validateFirstStep() {
 			// El elemento seleccionado del checkbox es guardado en la vaiable "selected_avalible_time"
 			let data = document.getElementsByName("checkbox-schedule");
@@ -507,11 +686,78 @@ export default {
 					}
 				})
 				.catch(err => console.log(err.response));
+		},
+		agendar() {
+			Swal.fire({
+				title: "Estas consumiendo 10 coins en esta operación",
+				text: "¿Deseas continuar?",
+				type: "info",
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "Si",
+				cancelButtonText: "Cancelar",
+				showCancelButton: true
+			}).then(res => {
+				if (res.value === true) {
+					Swal.fire({
+						title: "Enviando",
+						onBeforeOpen: () => {
+							Swal.showLoading();
+						}
+					});
+
+					axios
+						.post("/business/create-meet", {
+							receiver_id: this.data_user.id,
+							sender_id: this.data_visit_user.data.id,
+							message: this.message
+						})
+						.then(res => {
+							console.log(res.data);
+							Swal.fire({
+								title: res.data.message,
+								type: "success",
+								timer: 1500
+							}).then(res => location.reload());
+						})
+						.catch(err => {
+							console.log(err.response.data);
+							Swal.fire({
+								title: err.response.data.message,
+								type: "error",
+								timer: 2000
+							});
+						});
+				}
+			});
 		}
 	}
 };
 </script>
 
 <style lang="scss">
+@import "~vue-form-wizard/dist/vue-form-wizard.min.css";
 
+.checkbox-schedule:checked + .checkbox-schedule__button {
+	background-color: #e2e6ea;
+	border-color: #dae0e5;
+	transform: scale(1.1);
+}
+
+.radio-button-day:checked + .radio-button-day__button {
+	transform: scale(1.1);
+	box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
+}
+
+.radio-button-hour:checked + .radio-button-hour__button {
+	transform: scale(1.1);
+	box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
+}
+
+span.error {
+	color: #e74c3c;
+	font-size: 20px;
+	display: flex;
+	justify-content: center;
+}
 </style>
