@@ -66,7 +66,7 @@ Route::get('/get-avalible-time', 'ScheduleController@getAvalibleTime');
 Route::post('/edit-avalible-time', 'ScheduleController@editAvalibleTime');
 Route::post('/delete-avalible-time', 'ScheduleController@deleteAvalibleTime');
 Route::post('/add-avalible-time', 'ScheduleController@addAvalibleTime');
-Route::get('/check-available-time/', 'ScheduleController@checkAvailableTime');
+Route::post('/check-available-time/', 'ScheduleController@checkAvailableTime');
 
 Route::post('/calendar-event', 'ScheduleController@createCalendarEvent');
 Route::get('/calendar-event/{meet_id}', 'ScheduleController@checkSchedule');

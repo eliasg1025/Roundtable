@@ -23,7 +23,7 @@
 				</div>
 				<div class="modal-body">
 					<form-wizard
-						@on-complete="sendMeetingToQueue"
+						@on-complete="sendMeeting"
 						@on-loading="setLoading"
 						@on-validate="handleValidation"
 						@on-error="handleErrorMessage"
@@ -41,14 +41,6 @@
 							<div class="row">
 								<div class="col-md-6">
 									<p class="form-destinity">De:</p>
-									<div class="business-meet-name container">
-										<p class="my-2 text-center">
-											{{
-												data_visit_user.data
-													.commercial_name
-											}}
-										</p>
-									</div>
 									<div class="business-meet-card text-center">
 										<div class="container py-3">
 											<img
@@ -60,14 +52,17 @@
 											/>
 										</div>
 									</div>
+									<div class="business-meet-name container">
+										<p class="my-2 text-center">
+											{{
+											data_visit_user.data
+											.commercial_name
+											}}
+										</p>
+									</div>
 								</div>
 								<div class="col-md-6">
 									<p class="form-destinity second">Para:</p>
-									<div class="business-meet-name container">
-										<p class="my-2 text-center">
-											{{ data_user.commercial_name }}
-										</p>
-									</div>
 									<div class="business-meet-card text-center">
 										<div class="container py-3">
 											<img
@@ -75,6 +70,11 @@
 												width="100%"
 											/>
 										</div>
+									</div>
+									<div class="business-meet-name container">
+										<p class="my-2 text-center">
+											{{ data_user.commercial_name }}
+										</p>
 									</div>
 								</div>
 							</div>
@@ -124,9 +124,7 @@
 											name="checkbox-schedule"
 											:id="
 												'checkboxSchedule-' +
-													avalible_time.id +
-													'-meeting-' +
-													data_meeting.meeting.id
+													avalible_time.id
 											"
 											:value="avalible_time.id"
 											v-model="selected_avalible_time"
@@ -134,8 +132,7 @@
 										<button
 											@click="
 												checkRadioSchedule(
-													avalible_time.id,
-													data_meeting.meeting.id
+													avalible_time.id
 												)
 											"
 											type="button"
@@ -279,89 +276,6 @@
 							<span class="error">{{ errorMsg }}</span>
 						</div>
 					</form-wizard>
-
-					<!-- Prueba -->
-					<!--
-					<div class="modal-body__agendar">
-						<div class="row">
-							<div class="col-md-6">
-								<p class="form-destinity">De:</p>
-								<div class="business-meet-name container">
-									<p class="my-2 h6 text-center">
-										{{
-											data_visit_user.data.commercial_name
-										}}
-									</p>
-								</div>
-								<div class="business-meet-card text-center">
-									<div class="container py-3">
-										<img
-											:src="
-												data_visit_user.data.profile_img
-											"
-											width="100%"
-										/>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<p class="form-destinity second">Para:</p>
-								<div class="business-meet-name container">
-									<p class="my-2 h6 text-center">
-										{{ data_user.commercial_name }}
-									</p>
-								</div>
-								<div class="business-meet-card text-center">
-									<div class="container py-3">
-										<img
-											:src="data_user.profile_img"
-											width="100%"
-										/>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col">
-								<div class="form-group mt-3">
-									<label for="">Mensaje:</label>
-									<textarea
-										class="form-control"
-										id=""
-										rows="4"
-										placeholder="Deja tu mensaje para esta empresa. (Opcional)"
-										v-model="message"
-										maxlength="255"
-									></textarea>
-									<small class="mt-1">
-										<span class="text-muted"
-											>Máximo 255 caracteres:
-											{{ length_message }}/255</span
-										>
-									</small>
-								</div>
-							</div>
-						</div>
-					</div>
-					-->
-				</div>
-				<div class="modal-footer">
-					<!--
-					<button
-						type="button"
-						class="btn btn-add"
-						@click="agendar()"
-					>
-						Agendar
-					</button>
-					-->
-					<button
-						type="button"
-						class="btn btn-secondary"
-						data-dismiss="modal"
-					>
-						Cerrar
-					</button>
 				</div>
 			</div>
 		</div>
@@ -433,9 +347,9 @@ export default {
 			}
 			this.possibleHours = [];
 		},
-		checkRadioSchedule(avalible_time_id, meeting_id) {
+		checkRadioSchedule(avalible_time_id) {
 			document.getElementById(
-				`checkboxSchedule-${avalible_time_id}-meeting-${meeting_id}`
+				`checkboxSchedule-${avalible_time_id}`
 			).checked = true;
 		},
 		checkRadioDay: function(date_id) {
@@ -493,14 +407,14 @@ export default {
 				.catch(err => console.log(err.response));
 			
 			return new Promise((resolve, reject) => {
-				if (this.avalible_times.length === 0) {
-					reject("El usuario no tiene horarios disponibles asignados")
-				} else {
-					if (!this.sender_has_available_time) {
-						reject("Para futuros agendamientos debe tener horarios disponibles asignado");
+				if (this.avalible_times.length >= 0) {
+					if (this.sender_has_available_time >= 0) {
+						resolve(true);
 					} else {
-						resolve(true);	
+						reject("Para futuros agendamientos debe tener horarios disponibles asignado");
 					}
+				} else {
+					reject("El usuario no tiene horarios disponibles asignados")
 				}
 			});
 		},
@@ -655,39 +569,7 @@ export default {
 				}
 			});
 		},
-		sendMeetingToQueue() {
-			Swal.fire({
-				title: "Enviando",
-				onBeforeOpen: () => Swal.showLoading()
-			});
-
-			axios
-				.post("/calendar-event", {
-					user_uuid: this.$parent.user.uuid,
-					avalible_time_id: this.selected_avalible_time,
-					meeting_id: this.data_meeting.meeting.id,
-					day: this.selected_day,
-					hour: this.selected_hour
-				})
-				.then(res => {
-					console.log(res.data);
-					if (res.data.status === "success") {
-						Swal.fire({
-							title: "Agendamiento creado exitosamente",
-							type: "success",
-							html:
-								"Se ha enviado un correo de confirmación a la otra empresa, una vez <b>confirme la hora y fecha</b> se podrá realizar la reunión virtual",
-							confirmButtonColor: "#88be2e"
-						}).then(res => {
-							location.reload();
-						});
-					} else {
-						Swal.fire({ title: res.data.message, type: "error" });
-					}
-				})
-				.catch(err => console.log(err.response));
-		},
-		agendar() {
+		sendMeeting() {
 			Swal.fire({
 				title: "Estas consumiendo 10 coins en esta operación",
 				text: "¿Deseas continuar?",
@@ -701,35 +583,32 @@ export default {
 				if (res.value === true) {
 					Swal.fire({
 						title: "Enviando",
-						onBeforeOpen: () => {
-							Swal.showLoading();
-						}
+						onBeforeOpen: () => Swal.showLoading()
 					});
-
+					
 					axios
 						.post("/business/create-meet", {
 							receiver_id: this.data_user.id,
 							sender_id: this.data_visit_user.data.id,
-							message: this.message
+							message: this.message,
+							day: this.selected_day,
+							hour: this.selected_hour
 						})
 						.then(res => {
 							console.log(res.data);
 							Swal.fire({
-								title: res.data.message,
+								title: "Agendamiento creado exitosamente",
 								type: "success",
-								timer: 1500
-							}).then(res => location.reload());
-						})
-						.catch(err => {
-							console.log(err.response.data);
-							Swal.fire({
-								title: err.response.data.message,
-								type: "error",
-								timer: 2000
+								html:
+									"Se ha enviado un correo de confirmación a la otra empresa, una vez <b>confirme la hora y fecha</b> se podrá realizar la reunión virtual",
+								confirmButtonColor: "#88be2e"
+							}).then(res => {
+								location.reload();
 							});
-						});
+						})
+						.catch(err => Swal.fire({ title: err.response.data.message, type: "error" }));
 				}
-			});
+			}).catch(err => console.log(err.response));
 		}
 	}
 };

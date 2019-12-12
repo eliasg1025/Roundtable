@@ -22,6 +22,16 @@ class MeetController extends Controller
         $this->middleware(['auth','verified']);
 	}
 	
+	/*
+	 * @return json
+	 * 
+	 * $request = [
+	 * 		sender_id,
+	 * 		receiver_id,
+ * 			day,
+	 * 		hour,
+	 * ]
+	 */
 	public function createMeet(Request $request)
 	{
 		$sender = User::find(Auth::user()->id);
@@ -36,26 +46,46 @@ class MeetController extends Controller
 				$receiver_avalible_time = AvalibleTime::where('user_id', $receiver->id)->get();
 
 				if (count($sender_avalible_time) > 0 && count($receiver_avalible_time) > 0) {
-					$meet = new Meeting();
-					$meet->sender_id = $request->sender_id;
-					$meet->receiver_id = $request->receiver_id;
-					$meet->message = $request->message;
-					$meet->state_id = 1;
-					$meet->save();
-	
-					$sender->coins = $sender->coins - $operation->coins_cost;
-					$sender->save();
+
+					$date = $request->day['year'] . "-" . ($request->day['month'] + 1) . "-" . $request->day['date'];
+					$time = $request->hour['hour'];
+
+					$datetime = $date . " " . $time;
 					
-					// To user
-					$this->createMessage('reunion', $operation->coins_cost, 3, $sender->id, $receiver->commercial_name);
-					// To reciever
-					$this->requestMeet($sender, $receiver->id);
-		
-					$data = [
-						'code' => 200,
-						'status' => 'success',
-						'message' => 'Reunión agendada con éxito',
-					];
+					// Verificar si hay algun cruce de horarios de estos usuarios con la reunion
+					$overbooking = $this->meetingOverbooking($sender->id, $datetime) || $this->meetingOverbooking($receiver->id, $datetime);
+					
+					if (!$overbooking) {
+						$meet = new Meeting();
+						$meet->title = "Reunion: " . $sender->commercial_name . " - " . $receiver->commercial_name;
+						$meet->date = $datetime;
+						$meet->sender_id = $request->sender_id;
+						$meet->receiver_id = $request->receiver_id;
+						$meet->message = $request->message;
+						$meet->state_id = 1;
+						$meet->save();
+						
+						// Consumir coins del usuario que envia
+						$sender->coins = $sender->coins - $operation->coins_cost;
+						$sender->save();
+
+						// To user
+						$this->createMessage('reunion', $operation->coins_cost, 3, $sender->id, $receiver->commercial_name);
+						// To reciever
+						$this->requestMeet($sender, $receiver->id);
+
+						$data = [
+							'code' => 200,
+							'status' => 'success',
+							'message' => 'Reunión agendada con éxito',
+						];
+					} else {
+						$data = [
+							'code' => 403,
+							'status' => 'error',
+							'message' => 'Ya hay un evento programado a esta hora. Selecciona otra fecha u hora'
+						];	
+					}
 				} else {
 					$data = array(
 						'code' => 403,
@@ -81,6 +111,17 @@ class MeetController extends Controller
 		}
 
 		return response()->json($data, $data['code']);
+	}
+
+	private function meetingOverbooking($user_id, $datetime) {
+		$meetings = Meeting::where('sender_id', $user_id)->orWhere('receiver_id', $user_id)->get();
+
+		foreach ($meetings as $meeting) {
+			if ($meeting->date === $datetime) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public function checkMeet(Request $request)
