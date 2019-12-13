@@ -45,10 +45,12 @@ class ScheduleController extends Controller
 		$sender = User::where('uuid', $request->sender_uuid)->first();
 		
 		$count_sender_available_time = AvalibleTime::where('user_id', $sender->id)->count();
+		$count_receiver_available_time = AvalibleTime::where('user_id', $receiver->id)->count();
 		$receiver_available_time = AvalibleTime::where('user_id', $receiver->id)->get();
 		
 		return array(
 			'receiver_available_time' => $receiver_available_time,
+			'count_receiver_available_time' => $count_receiver_available_time,
 			'count_sender_available_time' => $count_sender_available_time,
 		);
 	}
@@ -87,7 +89,7 @@ class ScheduleController extends Controller
 		$calendar_events = array();
 
 		foreach ($data_calendar_events as $data_calendar_event) {
-			if ($data_calendar_event['state_id'] === 1) {
+			if ($data_calendar_event['state_id'] === 3) {
 				array_push($calendar_events, array(
 					'title' => $data_calendar_event['title'],
 					'date' => $data_calendar_event['date'],

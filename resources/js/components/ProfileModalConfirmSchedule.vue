@@ -69,7 +69,7 @@
 						<button
 							type="button"
 							class="btn btn-roundtable"
-							@click="confirmCalendarEvent"
+							@click="confirm"
 						>
 							Confirmar
 						</button>
@@ -96,33 +96,30 @@ export default {
 		};
 	},
 	mounted() {
-		axios
-			.get(`/calendar-event/${this.meeting.id}`)
-			.then(res => {
-				let { id, title, date, timezone } = res.data;
-				date = date.split(" ");
-				this.calendar_event = {
-					id,
-					title,
-					timezone,
-					date: date[0],
-					hour: date[1]
-				};
-			})
-			.catch(err => console.log(err.response));
+		let { id, title, date, timezone } = this.meeting;
+		date = date.split(" ");
+		this.calendar_event = {
+			title,
+			timezone,
+			date: date[0],
+			hour: date[1]
+		};
+		console.log(this.calendar_event);
 	},
 	methods: {
-		confirmCalendarEvent: function() {
+		confirm: function() {
 			Swal.fire({
 				title: "Enviando",
 				onBeforeOpen: () => Swal.showLoading()
 			});
 
 			axios
-				.post("/confirm-calendar-event", {
-					calendar_event_id: this.calendar_event.id
+				.post("/meet/response-request-meet", {
+					meeting_id: this.meeting.id,
+					operation: 1
 				})
 				.then(res => {
+					console.log(res.data);
 					Swal.fire({
 						title: res.data.message,
 						type: "success"

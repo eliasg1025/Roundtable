@@ -55,8 +55,8 @@
 									<div class="business-meet-name container">
 										<p class="my-2 text-center">
 											{{
-											data_visit_user.data
-											.commercial_name
+												data_visit_user.data
+													.commercial_name
 											}}
 										</p>
 									</div>
@@ -297,6 +297,7 @@ export default {
 		return {
 			avalible_times: [],
 			sender_has_available_time: false,
+			receiver_has_available_time: false,
 			amount_next_days: 5,
 			loading: true,
 			days: [
@@ -327,7 +328,49 @@ export default {
 		}
 	},
 	mounted() {
-		
+		axios
+			.post(`/check-available-time/`, {
+				sender_uuid: this.data_visit_user.data.uuid,
+				receiver_uuid: this.data_user.uuid
+			})
+			.then(res => {
+				console.log(res.data);
+				let {
+					count_sender_available_time,
+					count_receiver_available_time,
+					receiver_available_time
+				} = res.data;
+
+				this.sender_has_available_time =
+					count_sender_available_time > 0;
+
+				this.receiver_has_available_time =
+					count_receiver_available_time > 0;
+
+				this.avalible_times = [...receiver_available_time];
+				this.avalible_times.forEach(avalible_time => {
+					let daysOfWeek = avalible_time.daysOfWeek
+						.split("")
+						.map(item => parseInt(item));
+					let newDays = [];
+
+					this.days.forEach(day => {
+						let newDay = {
+							id: day.id,
+							name: day.name,
+							shortName: day.shortName,
+							value: false
+						};
+						if (daysOfWeek.indexOf(day.id) > -1) {
+							newDay.value = true;
+						}
+						newDays.push(newDay);
+					});
+					avalible_time.daysOfWeek = newDays;
+				});
+				this.loading = false;
+			})
+			.catch(err => console.log(err));
 	},
 	methods: {
 		format_hour(date) {
@@ -371,50 +414,19 @@ export default {
 		},
 		// Actions to validate data
 		validateZeroStep() {
-			axios
-				.post(`/check-available-time/`, {
-					sender_uuid: this.data_user.uuid,
-					receiver_uuid: this.data_visit_user.data.uuid,
-				})
-				.then(res => {
-					let { count_sender_available_time, receiver_available_time } = res.data;
-					this.sender_has_available_time = count_sender_available_time > 0;
-					
-					this.avalible_times = [...receiver_available_time];
-					this.avalible_times.forEach(avalible_time => {
-						let daysOfWeek = avalible_time.daysOfWeek
-							.split("")
-							.map(item => parseInt(item));
-						let newDays = [];
-
-						this.days.forEach(day => {
-							let newDay = {
-								id: day.id,
-								name: day.name,
-								shortName: day.shortName,
-								value: false
-							};
-							if (daysOfWeek.indexOf(day.id) > -1) {
-								newDay.value = true;
-							}
-							newDays.push(newDay);
-						});
-						avalible_time.daysOfWeek = newDays;
-					});
-					this.loading = false;
-					// console.log(this.avalible_times);
-				})
-				.catch(err => console.log(err.response));
-			
 			return new Promise((resolve, reject) => {
-				if (this.avalible_times.length >= 0) {
-					if (this.sender_has_available_time >= 0) {
+				if (this.receiver_has_available_time) {
+					if (this.sender_has_available_time) {
 						resolve(true);
 					} else {
-						reject("Para futuros agendamientos debe tener horarios disponibles asignado");
+						reject(
+							"Para futuros agendamiento necesita desginar horarios disponibles"
+						);
 					}
 				} else {
-					reject("El usuario no tiene horarios disponibles asignados")
+					reject(
+						"El usuario no tiene horarios disponibles asignados"
+					);
 				}
 			});
 		},
@@ -579,36 +591,43 @@ export default {
 				confirmButtonText: "Si",
 				cancelButtonText: "Cancelar",
 				showCancelButton: true
-			}).then(res => {
-				if (res.value === true) {
-					Swal.fire({
-						title: "Enviando",
-						onBeforeOpen: () => Swal.showLoading()
-					});
-					
-					axios
-						.post("/business/create-meet", {
-							receiver_id: this.data_user.id,
-							sender_id: this.data_visit_user.data.id,
-							message: this.message,
-							day: this.selected_day,
-							hour: this.selected_hour
-						})
-						.then(res => {
-							console.log(res.data);
-							Swal.fire({
-								title: "Agendamiento creado exitosamente",
-								type: "success",
-								html:
-									"Se ha enviado un correo de confirmación a la otra empresa, una vez <b>confirme la hora y fecha</b> se podrá realizar la reunión virtual",
-								confirmButtonColor: "#88be2e"
-							}).then(res => {
-								location.reload();
-							});
-						})
-						.catch(err => Swal.fire({ title: err.response.data.message, type: "error" }));
-				}
-			}).catch(err => console.log(err.response));
+			})
+				.then(res => {
+					if (res.value === true) {
+						Swal.fire({
+							title: "Enviando",
+							onBeforeOpen: () => Swal.showLoading()
+						});
+
+						axios
+							.post("/business/create-meet", {
+								receiver_id: this.data_user.id,
+								sender_id: this.data_visit_user.data.id,
+								message: this.message,
+								day: this.selected_day,
+								hour: this.selected_hour
+							})
+							.then(res => {
+								console.log(res.data);
+								Swal.fire({
+									title: "Agendamiento creado exitosamente",
+									type: "success",
+									html:
+										"Se ha enviado un correo de confirmación a la otra empresa, una vez <b>confirme la hora y fecha</b> se podrá realizar la reunión virtual",
+									confirmButtonColor: "#88be2e"
+								}).then(res => {
+									location.reload();
+								});
+							})
+							.catch(err =>
+								Swal.fire({
+									title: err.response.data.message,
+									type: "error"
+								})
+							);
+					}
+				})
+				.catch(err => console.log(err.response));
 		}
 	}
 };

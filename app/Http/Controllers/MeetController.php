@@ -2,15 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\AvalibleTime;
-use App\Meeting;
-use App\Message;
-use App\Operation;
-use App\User;
+use App\{AvalibleTime, Meeting, Message, Operation, User};
 use App\Traits\NotificationMessage;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\{Auth, DB, URL};
 use Illuminate\Http\Request;
 
 class MeetController extends Controller
@@ -155,15 +150,16 @@ class MeetController extends Controller
 	public function responseRequestMeet(Request $request)
 	{
 		$user = Auth::user();
-		$meet = Meeting::find($request->meet_id);
+		$meet = Meeting::find($request->meeting_id);
 
-		if ($user->id == $meet->receiver_id) {
+		if ($user->id === $meet->receiver_id) {
 			if ($request->operation) {
 				$meet->state_id = 3;
+				$meet->link = $this->getLinkConference($meet);
 				$respuesta = 'aceptada';
 			} else {
 				$meet->state_id = 2;
-				$respuesta = 'rechaza';
+				$respuesta = 'rechazada';
 			}
 			
 			$meet->save();
@@ -171,7 +167,7 @@ class MeetController extends Controller
 			$data = array(
 				'code' => 200,
 				'status' => 'success',
-				'message' => 'La solicitud fue '.$respuesta,
+				'message' => 'La solicitud fue '.$respuesta.' exitosamente',
 			);
 		} else {
 			$data = array(
@@ -208,4 +204,14 @@ class MeetController extends Controller
 
 		return response()->json($data, $data['code']);
 	}
+
+	public function getLinkConference(Meeting $meeting)
+	{
+		$date = Carbon::createFromDate($meeting->date);
+		return URL::temporarySignedRoute(
+			'conference',
+			$date->addMinutes(25),
+			['meeting' => $meeting]
+		);
+	}	
 }
