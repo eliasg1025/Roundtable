@@ -10,8 +10,8 @@
 					reiciendis.
 				</p>
 			</div>
-			<div class="vi1 col-sm-8">
-				<iframe
+			<div class="vi1 col-sm-8" v-if="can_watch">
+				<iframe,
 					:src="
 						`https://tokbox.com/embed/embed/ot-embed.js?embedId=503267cf-be36-4978-a8a2-bf187dd1d2b3&room=dsadasdasd&iframe=true`
 					"
@@ -19,6 +19,10 @@
 					allow="microphone; camera"
 					class="video_conference"
 				></iframe>
+			</div>
+			<div class="vi1 col-sm-8" v-else>
+				Disponible en {{ countdown_days }} dias {{ countdown_hours }} horas {{ countdown_minutes }} minutos y
+					{{ countdown_seconds }} segundos
 			</div>
 			<div class="tiempo1 col-sm-4">
 				<div class="card  tiempo" style="max-width: 100%">
@@ -44,7 +48,60 @@
 </template>
 
 <script>
-export default {};
+export default {
+	props: ["meeting"],
+	data() {
+		return {
+			can_watch: false,
+			countdown_date: "",
+			countdown_days: "",
+			countdown_hours: "",
+			countdown_minutes: "",
+			countdown_seconds: "",
+			showCountdown: true,
+		};
+	},
+	computed: {
+		expiration_date() {
+			return new Date(
+				new Date(this.meeting.date).getTime() +
+					this.meeting.max_duration * 60 * 1000
+			);
+		},
+		expired() {
+			return new Date().getTime() > this.expiration_date;
+		}
+	},
+	mounted() {
+		let { date, timezone } = this.meeting;
+		this.countdown_date = new Date(date).getTime();
+
+		let interval = setInterval(() => {
+			let distance = this.countdown_date - new Date().getTime();
+
+			this.countdown_days = Math.floor(distance / (1000 * 60 * 60 * 24));
+			this.countdown_hours = Math.floor(
+				(distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+			);
+			this.countdown_minutes = Math.floor(
+				(distance % (1000 * 60 * 60)) / (1000 * 60)
+			);
+			this.countdown_seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+			if (distance < 0) {
+				clearInterval(interval);
+				this.can_watch = true;
+				this.countDuration();
+
+			}
+		}, 1000);
+	},
+	methods: {
+		countDuration: () => {
+			console.log(expiration_date);
+		}
+	}
+};
 </script>
 
 <style lang="scss">

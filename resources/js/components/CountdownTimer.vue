@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div v-if="!showButton">
+		<div v-if="showCountdown">
 			<b
 				>Videoconferencia en :
 				<span
@@ -9,10 +9,16 @@
 				></b
 			>
 		</div>
-		<div>
+		<div v-if="!showCountdown && !expired">
+			<h4>En proceso</h4>
+		</div>
+		<div v-if="!expired">
 			<a :href="link" class="btn btn-roundtable">
 				Ir Conferencia
 			</a>
+		</div>
+		<div v-if="expired">
+			<h4 class="text-muted">Concluido</h4>
 		</div>
 	</div>
 </template>
@@ -27,9 +33,20 @@ export default {
 			hours: "",
 			minutes: "",
 			seconds: "",
-			showButton: false,
+			showCountdown: true,
 			link: ""
 		};
+	},
+	computed: {
+		expiration_date() {
+			return new Date(
+				new Date(this.meeting.date).getTime() +
+					this.meeting.max_duration * 60 * 1000
+			);
+		},
+		expired() {
+			return new Date().getTime() > this.expiration_date;
+		}
 	},
 	mounted() {
 		let { date, timezone, link } = this.meeting;
@@ -50,11 +67,10 @@ export default {
 
 			if (distance < 0) {
 				clearInterval(interval);
-				this.showButton = true;
+				this.showCountdown = false;
 			}
 		}, 1000);
-	},
-	methods: {}
+	}
 };
 </script>
 

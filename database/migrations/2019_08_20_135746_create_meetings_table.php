@@ -18,6 +18,8 @@ class CreateMeetingsTable extends Migration
 			$table->string('title', 150);
 			$table->string('message')->nullable();
 			$table->datetime('date');
+			$table->integer('duration')->nullable();
+			$table->integer('max_duration')->default(30);
 			$table->boolean('allDay')->default(false);
 			$table->string('timezone', 30)->default('America/Lima');
 			$table->string('link')->nullable();

@@ -210,7 +210,7 @@ class MeetController extends Controller
 		$date = Carbon::createFromDate($meeting->date);
 		return URL::temporarySignedRoute(
 			'conference',
-			$date->addMinutes(25),
+			$date->addMinutes($meeting->max_duration),
 			['meeting' => $meeting]
 		);
 	}	
