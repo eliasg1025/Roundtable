@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="modal fade"
-		:id="'modalMeetingSchedule-' + data_meeting.meeting.id"
+		id="modalAgendar"
 		tabindex="-1"
 		role="dialog"
 		aria-hidden="true"
@@ -9,7 +9,9 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel"></h5>
+					<h5 class="modal-title">
+						Agendar Reunión
+					</h5>
 					<button
 						type="button"
 						class="close"
@@ -21,17 +23,84 @@
 				</div>
 				<div class="modal-body">
 					<form-wizard
-						@on-complete="sendMeetingToQueue"
+						@on-complete="sendMeeting"
 						@on-loading="setLoading"
 						@on-validate="handleValidation"
 						@on-error="handleErrorMessage"
 						title="Agendar fecha y hora"
-						:subtitle="data_meeting.other_user.commercial_name"
+						:subtitle="data_user.commercial_name"
 						color="#88BE2E"
 						nextButtonText="Siguiente"
 						backButtonText="Atras"
 						finishButtonText="Finalizar"
 					>
+						<tab-content
+							title="Mensaje (opcional)"
+							:before-change="validateZeroStep"
+						>
+							<div class="row">
+								<div class="col-md-6">
+									<p class="form-destinity">De:</p>
+									<div class="business-meet-card text-center">
+										<div class="container py-3">
+											<img
+												:src="
+													data_visit_user.data
+														.profile_img
+												"
+												width="100%"
+											/>
+										</div>
+									</div>
+									<div class="business-meet-name container">
+										<p class="my-2 text-center">
+											{{
+												data_visit_user.data
+													.commercial_name
+											}}
+										</p>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<p class="form-destinity second">Para:</p>
+									<div class="business-meet-card text-center">
+										<div class="container py-3">
+											<img
+												:src="data_user.profile_img"
+												width="100%"
+											/>
+										</div>
+									</div>
+									<div class="business-meet-name container">
+										<p class="my-2 text-center">
+											{{ data_user.commercial_name }}
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<div class="form-group mt-3">
+										<label for="">Mensaje:</label>
+										<textarea
+											class="form-control"
+											id=""
+											rows="4"
+											placeholder="Deja tu mensaje para esta empresa. (Opcional)"
+											v-model="message"
+											maxlength="255"
+										></textarea>
+										<small class="mt-1">
+											<span class="text-muted"
+												>Máximo 255 caracteres:
+												{{ length_message }}/255</span
+											>
+										</small>
+									</div>
+								</div>
+							</div>
+						</tab-content>
+
 						<tab-content
 							title="Horario"
 							:before-change="validateFirstStep"
@@ -55,9 +124,7 @@
 											name="checkbox-schedule"
 											:id="
 												'checkboxSchedule-' +
-													avalible_time.id +
-													'-meeting-' +
-													data_meeting.meeting.id
+													avalible_time.id
 											"
 											:value="avalible_time.id"
 											v-model="selected_avalible_time"
@@ -65,8 +132,7 @@
 										<button
 											@click="
 												checkRadioSchedule(
-													avalible_time.id,
-													data_meeting.meeting.id
+													avalible_time.id
 												)
 											"
 											type="button"
@@ -151,9 +217,7 @@
 												</li>
 												<li class="list-group-item">
 													<b
-														>{{
-															possibleDay.date
-														}}
+														>{{ possibleDay.date }}
 														/
 														{{
 															possibleDay.month
@@ -227,10 +291,13 @@ export default {
 		FormWizard,
 		TabContent
 	},
-	props: ["data_meeting"],
+	name: "modal-agendar",
+	props: ["data_user", "data_visit_user"],
 	data() {
 		return {
 			avalible_times: [],
+			sender_has_available_time: false,
+			receiver_has_available_time: false,
 			amount_next_days: 5,
 			loading: true,
 			days: [
@@ -251,14 +318,36 @@ export default {
 			possibleHours: [],
 			selected_avalible_time: "",
 			selected_day: "",
-			selected_hour: ""
+			selected_hour: "",
+			message: ""
 		};
+	},
+	computed: {
+		length_message() {
+			return this.message.length;
+		}
 	},
 	mounted() {
 		axios
-			.get(`/get-avalible-time/${this.data_meeting.other_user.uuid}`)
+			.post(`/check-available-time/`, {
+				sender_uuid: this.data_visit_user.data.uuid,
+				receiver_uuid: this.data_user.uuid
+			})
 			.then(res => {
-				this.avalible_times = [...res.data];
+				console.log(res.data);
+				let {
+					count_sender_available_time,
+					count_receiver_available_time,
+					receiver_available_time
+				} = res.data;
+
+				this.sender_has_available_time =
+					count_sender_available_time > 0;
+
+				this.receiver_has_available_time =
+					count_receiver_available_time > 0;
+
+				this.avalible_times = [...receiver_available_time];
 				this.avalible_times.forEach(avalible_time => {
 					let daysOfWeek = avalible_time.daysOfWeek
 						.split("")
@@ -280,9 +369,8 @@ export default {
 					avalible_time.daysOfWeek = newDays;
 				});
 				this.loading = false;
-				// console.log(this.avalible_times);
 			})
-			.catch(err => console.log(err.response));
+			.catch(err => console.log(err));
 	},
 	methods: {
 		format_hour(date) {
@@ -302,9 +390,9 @@ export default {
 			}
 			this.possibleHours = [];
 		},
-		checkRadioSchedule(avalible_time_id, meeting_id) {
+		checkRadioSchedule(avalible_time_id) {
 			document.getElementById(
-				`checkboxSchedule-${avalible_time_id}-meeting-${meeting_id}`
+				`checkboxSchedule-${avalible_time_id}`
 			).checked = true;
 		},
 		checkRadioDay: function(date_id) {
@@ -325,6 +413,23 @@ export default {
 			this.errorMsg = errorMsg;
 		},
 		// Actions to validate data
+		validateZeroStep() {
+			return new Promise((resolve, reject) => {
+				if (this.receiver_has_available_time) {
+					if (this.sender_has_available_time) {
+						resolve(true);
+					} else {
+						reject(
+							"Para futuros agendamiento necesita desginar horarios disponibles"
+						);
+					}
+				} else {
+					reject(
+						"El usuario no tiene horarios disponibles asignados"
+					);
+				}
+			});
+		},
 		validateFirstStep() {
 			// El elemento seleccionado del checkbox es guardado en la vaiable "selected_avalible_time"
 			let data = document.getElementsByName("checkbox-schedule");
@@ -476,34 +581,50 @@ export default {
 				}
 			});
 		},
-		sendMeetingToQueue() {
+		sendMeeting() {
 			Swal.fire({
-				title: "Enviando",
-				onBeforeOpen: () => Swal.showLoading()
-			});
-
-			axios
-				.post("/calendar-event", {
-					user_uuid: this.$parent.user.uuid,
-					avalible_time_id: this.selected_avalible_time,
-					meeting_id: this.data_meeting.meeting.id,
-					day: this.selected_day,
-					hour: this.selected_hour
-				})
+				title: "Estas consumiendo 10 coins en esta operación",
+				text: "¿Deseas continuar?",
+				type: "info",
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "Si",
+				cancelButtonText: "Cancelar",
+				showCancelButton: true
+			})
 				.then(res => {
-					console.log(res.data);
-					if (res.data.status === "success") {
+					if (res.value === true) {
 						Swal.fire({
-							title: "Agendamiento creado exitosamente",
-							type: "success",
-							html:
-								"Se ha enviado un correo de confirmación a la otra empresa, una vez <b>confirme la hora y fecha</b> se podrá realizar la reunión virtual",
-							confirmButtonColor: "#88be2e"
-						}).then(res => {
-							location.reload();
+							title: "Enviando",
+							onBeforeOpen: () => Swal.showLoading()
 						});
-					} else {
-						Swal.fire({ title: res.data.message, type: "error" });
+
+						axios
+							.post("/business/create-meet", {
+								receiver_id: this.data_user.id,
+								sender_id: this.data_visit_user.data.id,
+								message: this.message,
+								day: this.selected_day,
+								hour: this.selected_hour
+							})
+							.then(res => {
+								console.log(res.data);
+								Swal.fire({
+									title: "Agendamiento creado exitosamente",
+									type: "success",
+									html:
+										"Se ha enviado un correo de confirmación a la otra empresa, una vez <b>confirme la hora y fecha</b> se podrá realizar la reunión virtual",
+									confirmButtonColor: "#88be2e"
+								}).then(res => {
+									location.reload();
+								});
+							})
+							.catch(err =>
+								Swal.fire({
+									title: err.response.data.message,
+									type: "error"
+								})
+							);
 					}
 				})
 				.catch(err => console.log(err.response));
@@ -513,5 +634,28 @@ export default {
 </script>
 
 <style lang="scss">
+@import "~vue-form-wizard/dist/vue-form-wizard.min.css";
 
+.checkbox-schedule:checked + .checkbox-schedule__button {
+	background-color: #e2e6ea;
+	border-color: #dae0e5;
+	transform: scale(1.1);
+}
+
+.radio-button-day:checked + .radio-button-day__button {
+	transform: scale(1.1);
+	box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
+}
+
+.radio-button-hour:checked + .radio-button-hour__button {
+	transform: scale(1.1);
+	box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
+}
+
+span.error {
+	color: #e74c3c;
+	font-size: 20px;
+	display: flex;
+	justify-content: center;
+}
 </style>

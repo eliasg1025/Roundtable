@@ -2,15 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\AvalibleTime;
-use App\Meeting;
-use App\Message;
-use App\Operation;
-use App\User;
+use App\{AvalibleTime, Meeting, Message, Operation, User};
 use App\Traits\NotificationMessage;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\{Auth, DB, URL};
 use Illuminate\Http\Request;
 
 class MeetController extends Controller
@@ -22,6 +17,16 @@ class MeetController extends Controller
         $this->middleware(['auth','verified']);
 	}
 	
+	/*
+	 * @return json
+	 * 
+	 * $request = [
+	 * 		sender_id,
+	 * 		receiver_id,
+ * 			day,
+	 * 		hour,
+	 * ]
+	 */
 	public function createMeet(Request $request)
 	{
 		$sender = User::find(Auth::user()->id);
@@ -36,26 +41,46 @@ class MeetController extends Controller
 				$receiver_avalible_time = AvalibleTime::where('user_id', $receiver->id)->get();
 
 				if (count($sender_avalible_time) > 0 && count($receiver_avalible_time) > 0) {
-					$meet = new Meeting();
-					$meet->sender_id = $request->sender_id;
-					$meet->receiver_id = $request->receiver_id;
-					$meet->message = $request->message;
-					$meet->state_id = 1;
-					$meet->save();
-	
-					$sender->coins = $sender->coins - $operation->coins_cost;
-					$sender->save();
+
+					$date = $request->day['year'] . "-" . ($request->day['month'] + 1) . "-" . $request->day['date'];
+					$time = $request->hour['hour'];
+
+					$datetime = $date . " " . $time;
 					
-					// To user
-					$this->createMessage('reunion', $operation->coins_cost, 3, $sender->id, $receiver->commercial_name);
-					// To reciever
-					$this->requestMeet($sender, $receiver->id);
-		
-					$data = [
-						'code' => 200,
-						'status' => 'success',
-						'message' => 'Reunión agendada con éxito',
-					];
+					// Verificar si hay algun cruce de horarios de estos usuarios con la reunion
+					$overbooking = $this->meetingOverbooking($sender->id, $datetime) || $this->meetingOverbooking($receiver->id, $datetime);
+					
+					if (!$overbooking) {
+						$meet = new Meeting();
+						$meet->title = "Reunion: " . $sender->commercial_name . " - " . $receiver->commercial_name;
+						$meet->date = $datetime;
+						$meet->sender_id = $request->sender_id;
+						$meet->receiver_id = $request->receiver_id;
+						$meet->message = $request->message;
+						$meet->state_id = 1;
+						$meet->save();
+						
+						// Consumir coins del usuario que envia
+						$sender->coins = $sender->coins - $operation->coins_cost;
+						$sender->save();
+
+						// To user
+						$this->createMessage('reunion', $operation->coins_cost, 3, $sender->id, $receiver->commercial_name);
+						// To reciever
+						$this->requestMeet($sender, $receiver->id);
+
+						$data = [
+							'code' => 200,
+							'status' => 'success',
+							'message' => 'Reunión agendada con éxito',
+						];
+					} else {
+						$data = [
+							'code' => 403,
+							'status' => 'error',
+							'message' => 'Ya hay un evento programado a esta hora. Selecciona otra fecha u hora'
+						];	
+					}
 				} else {
 					$data = array(
 						'code' => 403,
@@ -81,6 +106,17 @@ class MeetController extends Controller
 		}
 
 		return response()->json($data, $data['code']);
+	}
+
+	private function meetingOverbooking($user_id, $datetime) {
+		$meetings = Meeting::where('sender_id', $user_id)->orWhere('receiver_id', $user_id)->get();
+
+		foreach ($meetings as $meeting) {
+			if ($meeting->date === $datetime) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public function checkMeet(Request $request)
@@ -114,15 +150,16 @@ class MeetController extends Controller
 	public function responseRequestMeet(Request $request)
 	{
 		$user = Auth::user();
-		$meet = Meeting::find($request->meet_id);
+		$meet = Meeting::find($request->meeting_id);
 
-		if ($user->id == $meet->receiver_id) {
+		if ($user->id === $meet->receiver_id) {
 			if ($request->operation) {
 				$meet->state_id = 3;
+				$meet->link = $this->getLinkConference($meet);
 				$respuesta = 'aceptada';
 			} else {
 				$meet->state_id = 2;
-				$respuesta = 'rechaza';
+				$respuesta = 'rechazada';
 			}
 			
 			$meet->save();
@@ -130,7 +167,7 @@ class MeetController extends Controller
 			$data = array(
 				'code' => 200,
 				'status' => 'success',
-				'message' => 'La solicitud fue '.$respuesta,
+				'message' => 'La solicitud fue '.$respuesta.' exitosamente',
 			);
 		} else {
 			$data = array(
@@ -167,4 +204,14 @@ class MeetController extends Controller
 
 		return response()->json($data, $data['code']);
 	}
+
+	public function getLinkConference(Meeting $meeting)
+	{
+		$date = Carbon::createFromDate($meeting->date);
+		return URL::temporarySignedRoute(
+			'conference',
+			$date->addMinutes(25),
+			['meeting' => $meeting]
+		);
+	}	
 }

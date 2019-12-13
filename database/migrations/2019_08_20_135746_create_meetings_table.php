@@ -15,18 +15,20 @@ class CreateMeetingsTable extends Migration
     {
         Schema::create('meetings', function (Blueprint $table) {
             $table->bigIncrements('id');
+			$table->string('title', 150);
+			$table->string('message')->nullable();
+			$table->datetime('date');
+			$table->boolean('allDay')->default(false);
+			$table->string('timezone', 30)->default('America/Lima');
+			$table->string('link')->nullable();
             $table->timestamps();
             // Fks
             $table->bigInteger('sender_id')->unsigned();
             $table->foreign('sender_id')->references('id')->on('users');
             $table->bigInteger('receiver_id')->unsigned();
 			$table->foreign('receiver_id')->references('id')->on('users');
-			$table->string('message')->nullable();
             $table->bigInteger('state_id')->unsigned();
 			$table->foreign('state_id')->references('id')->on('states');
-			// Calendar events
-			$table->bigInteger('calendar_event_id')->unsigned()->nullable();
-			$table->foreign('calendar_event_id')->references('id')->on('calendar_events');
         });
     }
 

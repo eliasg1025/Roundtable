@@ -34,10 +34,10 @@
 				role="button"
 				data-toggle="modal"
 				:data-target="
-					'#viewMeetingMessage-' + 
-					data_meeting.meeting.id + 
-					'-' +
-					type 
+					'#viewMeetingMessage-' +
+						data_meeting.meeting.id +
+						'-' +
+						type
 				"
 				href="#"
 				class="my-2"
@@ -373,30 +373,37 @@
 			<!--End Modal-->
 		</div>
 		<!-- Message Modal -->
-		<div 
-			:id="
-				'viewMeetingMessage-' +
-					data_meeting.meeting.id +
-					'-' +
-					type
-			"
+		<div
+			:id="'viewMeetingMessage-' + data_meeting.meeting.id + '-' + type"
 			tabindex="-1"
 			role="dialog"
 			aria-hidden="true"
-			class="modal fade">
+			class="modal fade"
+		>
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title">Mensaje</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
+						<button
+							type="button"
+							class="close"
+							data-dismiss="modal"
+							aria-label="Close"
+						>
+							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
 						<p>{{ data_meeting.meeting.message }}</p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						<button
+							type="button"
+							class="btn btn-secondary"
+							data-dismiss="modal"
+						>
+							Cerrar
+						</button>
 					</div>
 				</div>
 			</div>
@@ -432,7 +439,7 @@ export default {
 		},
 		activeModal(user_uuid) {
 			axios
-				.get(`/get-avalible-time/${user_uuid}`, {
+				.get(`/get-avalible-time`, {
 					user_uuid: user_uuid
 				})
 				.then(res => {
