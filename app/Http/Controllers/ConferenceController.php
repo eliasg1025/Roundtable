@@ -29,7 +29,7 @@ class ConferenceController extends Controller
 		$user_id = Auth::user()->id;
 
 		if ($user_id == $meeting->sender_id || $user_id == $meeting->receiver_id) {
-			return view('conference');
+			return view('conference', ['meeting' => $meeting]);
 		} else {
 			return view('ups', ['message' => 'No tienes acceso a esta página']);
 		}
