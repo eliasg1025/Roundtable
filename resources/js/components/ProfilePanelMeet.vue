@@ -67,7 +67,7 @@
 			<br />
 			<br />
 			<hr />
-			
+
 			<!-- Received messages -->
 			<div class="text-center panel-info-subtitle mt-5">
 				<label class="text-uppercase h5">Recibidos</label>
@@ -112,17 +112,9 @@
 									v-if="data_meeting.state.id === 1"
 								>
 									<div class="container mb-1">
-										<button
-											class="btn btn-success btn-block"
-											@click="
-												responseRequestMeet(
-													data_meeting.meeting.id,
-													1
-												)
-											"
-										>
-											Aceptar
-										</button>
+										<profile-modal-confirm-schedule
+											:meeting="data_meeting.meeting"
+										/>
 									</div>
 									<div class="container mb-1">
 										<button
@@ -298,7 +290,7 @@
 									</div>
 								</div>
 								-->
-								
+
 								<!--
 								<div
 									class="container-button"
@@ -318,7 +310,7 @@
 									</div>
 								</div>
 								-->
-								
+
 								<div
 									class="container-button"
 									v-else-if="data_meeting.state.id === 3"
@@ -363,9 +355,9 @@
 <script>
 import ProfileModalMeet from "./ProfileModalMeet.vue";
 import ProfileModalMeetSchedule from "./ProfileModalMeetSchedule.vue";
-import ProfileModalConfirmSchedule from "./ProfileModalConfirmSchedule";
-import CountdownTimer from "./CountdownTimer";
-import ConferenceLink from "./ConferenceLink";
+import ProfileModalConfirmSchedule from "./ProfileModalConfirmSchedule.vue";
+import CountdownTimer from "./CountdownTimer.vue";
+import ConferenceLink from "./ConferenceLink.vue";
 
 export default {
 	props: ["data", "user"],
