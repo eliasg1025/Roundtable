@@ -15,8 +15,8 @@ class CreateTypeMessagesTable extends Migration
     {
         Schema::create('type_messages', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('picture');
+            $table->char('name', 12);
+            $table->char('picture', 50);
             $table->timestamps();
         });
     }

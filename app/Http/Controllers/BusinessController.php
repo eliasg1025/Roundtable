@@ -128,10 +128,10 @@ class BusinessController extends Controller
 							'user_id'=>$visitado
 							]);
 					}else{
+						$minutos=substr($time,3,2);
+						$min_bd=substr($visitas[0]->fecha,14,2);
+
 						if($dHora==0){
-							$minutos=substr($time,3,2);
-							
-							$min_bd=substr($visitas[0]->fecha,14,2);
 							$dMin=(60-$min_bd)-(60-$minutos);
 							
 							if($dMin>=30){
@@ -145,6 +145,7 @@ class BusinessController extends Controller
 							}
 						}else{
 								$dMin=(60-$min_bd)+$minutos;
+
 								if($dMin>=30){
 									DB::table('visitas')->insert([
 										'ip'=>$ip,
@@ -164,7 +165,7 @@ class BusinessController extends Controller
 						'fecha'=>$fechaA." ".$time,
 						'id_visitante'=>$user_visitador->id,
 						'user_id'=>$visitado
-						]);
+					]);
 				}
 		    }else{
 				DB::table('visitas')->insert([

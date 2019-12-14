@@ -34,6 +34,7 @@ class CreateUsersTable extends Migration
 			$table->text('description')->nullable();
             $table->integer('coins')->default(0); //
 			$table->tinyInteger('verified')->default(0);
+			$table->string('timezone', 30)->default('America/Lima');
             // Contact
             $table->string('hangouts_url')->nullable();
             $table->string('skype_url')->nullable();

@@ -513,28 +513,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~vue-form-wizard/dist/vue-form-wizard.min.css";
 
-.checkbox-schedule:checked + .checkbox-schedule__button {
-	background-color: #e2e6ea;
-	border-color: #dae0e5;
-	transform: scale(1.1);
-}
-
-.radio-button-day:checked + .radio-button-day__button {
-	transform: scale(1.1);
-	box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
-}
-
-.radio-button-hour:checked + .radio-button-hour__button {
-	transform: scale(1.1);
-	box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
-}
-
-span.error {
-	color: #e74c3c;
-	font-size: 20px;
-	display: flex;
-	justify-content: center;
-}
 </style>

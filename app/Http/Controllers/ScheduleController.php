@@ -40,12 +40,20 @@ class ScheduleController extends Controller
 		return $data;
 	}
 
-	public function getAvalibleTimeByUserId($uuid)
+	public function checkAvailableTime(Request $request)
 	{
-		$user = User::where('uuid', $uuid)->first();
-		$data = AvalibleTime::where('user_id', $user->id)->get();
-
-		return $data;
+		$receiver = User::where('uuid', $request->receiver_uuid)->first();
+		$sender = User::where('uuid', $request->sender_uuid)->first();
+		
+		$count_sender_available_time = AvalibleTime::where('user_id', $sender->id)->count();
+		$count_receiver_available_time = AvalibleTime::where('user_id', $receiver->id)->count();
+		$receiver_available_time = AvalibleTime::where('user_id', $receiver->id)->get();
+		
+		return array(
+			'receiver_available_time' => $receiver_available_time,
+			'count_receiver_available_time' => $count_receiver_available_time,
+			'count_sender_available_time' => $count_sender_available_time,
+		);
 	}
 
 	public function getAvalibleTimeData()
@@ -76,13 +84,13 @@ class ScheduleController extends Controller
 	public function getCalendarEventsData()
 	{
 		$user = Auth::user();
-		$data_calendar_events = CalendarEvent::where('user_id', $user->id)
-											->orWhere('other_user_id', $user->id)
-											->get();
+		$data_calendar_events = Meeting::where('sender_id', $user->id)
+										->orWhere('receiver_id', $user->id)
+										->get();
 		$calendar_events = array();
 
 		foreach ($data_calendar_events as $data_calendar_event) {
-			if ($data_calendar_event['queue'] == 0) {
+			if ($data_calendar_event['state_id'] === 3) {
 				array_push($calendar_events, array(
 					'title' => $data_calendar_event['title'],
 					'date' => $data_calendar_event['date'],
