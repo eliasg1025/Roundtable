@@ -19,12 +19,12 @@
 				>
 					Mostrar fines de semana
 				</button>-->
-				<!--
+		<!--
 				<button @click="gotoPast">Click para regresar</button>
 				(Regresa al 2000-01-01)
 				<button @click="recuperarDatos">Recuperar datos</button>
 				-->
-			<!--</div>
+		<!--</div>
 			<div v-if="loading_data" class="container p-5">
 				<spinner></spinner>
 			</div>
@@ -80,15 +80,16 @@
 
 						<div v-if="loading_data" class="container p-5">
 						<spinner></spinner>
-						</div>
-						<FullCalendar
+					</div>
+					<FullCalendar
 						v-else
 						ref="fullCalendar"
 						defaultView="timeGridWeek"
 						:header="{
 							left: 'prev, next, today',
 							center: 'title',
-							right: 'dayGridMonth, timeGridWeek, timeGridDay, listWeek'
+							right:
+								'dayGridMonth, timeGridWeek, timeGridDay, listWeek'
 						}"
 						:weekends="calendarWeekends"
 						:plugins="calendarPlugins"
@@ -97,8 +98,8 @@
 						:locale="locale"
 						:slotEventOverlap="false"
 						:slotDuration="'00:15:00'"
-						/>
-					</div>
+					/>
+				</div>
 			</div>
 		</div>
 		<Ratings></Ratings>
@@ -118,6 +119,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
 export default {
+	name: "new-schedule",
 	components: {
 		AdminSchedule,
 		FullCalendar,
@@ -145,7 +147,7 @@ export default {
 		axios
 			.get("/get-schedule")
 			.then(res => {
-				// console.log(res.data);
+				console.log(res.data);
 				this.calendarEvents = [...res.data];
 				this.loading_data = false;
 			})
@@ -211,18 +213,17 @@ export default {
 	border: 1px solid #ecec;
 	background: #ececec;
 }
-.cont1{
+.cont1 {
 	margin-top: 100px;
 	margin-bottom: 50px;
-
 }
 
-.btn-outline-success{
-	border-color:#ececec;
+.btn-outline-success {
+	border-color: #ececec;
 	color: rgb(48, 49, 51);
-	font-family: 'Nunito', sans-serif;
+	font-family: "Nunito", sans-serif;
 }
-.btn-outline-success:hover{
+.btn-outline-success:hover {
 	background-color: #88be2e;
 }
 .nav2{

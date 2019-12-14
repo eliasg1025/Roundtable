@@ -3,22 +3,38 @@
 		<div class="row">
 			<div class="textoP col-sm-12">
 				<p class="textoEdit">
-					Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-					Labore ipsam officia sunt consectetur nostrum reprehenderit
-					deleniti perspiciatis maxime optio, asperiores sapiente eius
-					obcaecati veniam rem distinctio magni laborum, debitis
-					reiciendis.
+					La videollamanda tendra una duración maxima de 20 minutos.
+					No se olvide de calificar a la otra empresa al finalizar la
+					llamanda (opcional)
 				</p>
 			</div>
 			<div class="vi1 col-sm-8">
-				<iframe
-					:src="
-						`https://tokbox.com/embed/embed/ot-embed.js?embedId=503267cf-be36-4978-a8a2-bf187dd1d2b3&room=dsadasdasd&iframe=true`
-					"
-					scrolling="no"
-					allow="microphone; camera"
-					class="video_conference"
-				></iframe>
+				<div v-if="can_start">
+					<iframe
+						v-if="!expired"
+						:src="
+							`https://tokbox.com/embed/embed/ot-embed.js?embedId=503267cf-be36-4978-a8a2-bf187dd1d2b3&room=dsadasdasd&iframe=true`
+						"
+						scrolling="no"
+						allow="microphone; camera"
+						class="video_conference"
+					></iframe>
+					<div class="video_conference container text-center">
+						<h2>La videollamada ha expirado</h2>
+					</div>
+				</div>
+				<div v-else>
+					<div class="text-center jumbotron video_conference">
+						<p class="h4">Disponible en:</p>
+						<br />
+						<p class="h3">
+							{{ countdown_days }} dias
+							{{ countdown_hours }} horas
+							{{ countdown_minutes }} minutos y
+							{{ countdown_seconds }} segundos
+						</p>
+					</div>
+				</div>
 			</div>
 			<div class="tiempo1 col-sm-4">
 				<div class="card  tiempo" style="max-width: 100%">
@@ -29,12 +45,21 @@
 						<span class="deco">|</span> Tiempo total
 					</div>
 					<div class="cuerpoCard card-body">
-						<div class="texto2 card-text">
+						<div class="texto2 card-text" v-if="!can_start">
 							<div class="reloj">
 								<p id="minutos" class="minutos">20</p>
 								<p>:</p>
 								<p id="segundos" class="segundos">36</p>
 							</div>
+						</div>
+						<div class="texto2 card-text" v-else>
+							<countup-timer
+								v-if="can_start"
+								:expiration_date="expiration_date"
+								:meeting_date="meeting.date"
+								@expired="expired = $event"
+							>
+							</countup-timer>
 						</div>
 					</div>
 				</div>
@@ -44,7 +69,57 @@
 </template>
 
 <script>
-export default {};
+import CountupTimer from "./CountupTimer.vue";
+export default {
+	components: {
+		CountupTimer
+	},
+	props: ["meeting"],
+	data() {
+		return {
+			can_start: false,
+			countdown_date: "",
+			countdown_days: "",
+			countdown_hours: "",
+			countdown_minutes: "",
+			countdown_seconds: "",
+			showCountdown: true,
+			expired: false
+		};
+	},
+	computed: {
+		expiration_date() {
+			return new Date(
+				new Date(this.meeting.date).getTime() +
+					this.meeting.max_duration * 60 * 1000
+			);
+		}
+	},
+	mounted() {
+		let { date, timezone } = this.meeting;
+		this.countdown_date = new Date(date).getTime();
+
+		let interval = setInterval(() => {
+			let distance = this.countdown_date - new Date().getTime();
+
+			this.countdown_days = Math.floor(distance / (1000 * 60 * 60 * 24));
+			this.countdown_hours = Math.floor(
+				(distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+			);
+			this.countdown_minutes = Math.floor(
+				(distance % (1000 * 60 * 60)) / (1000 * 60)
+			);
+			this.countdown_seconds = Math.floor(
+				(distance % (1000 * 60)) / 1000
+			);
+
+			if (distance < 0) {
+				clearInterval(interval);
+				this.can_start = true;
+			}
+		}, 1000);
+	}
+};
 </script>
 
 <style lang="scss">
