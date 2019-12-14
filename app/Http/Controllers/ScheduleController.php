@@ -10,6 +10,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
+use App\Rating;
 
 class ScheduleController extends Controller
 {
@@ -302,5 +303,6 @@ class ScheduleController extends Controller
 			$date->addMinutes(25),
 			['calendar_event' => $calendar_event]
 		);
-	}	
+	}
+		
 }

@@ -47,15 +47,34 @@
 			/>
 		</div>-->
 		<div class="cont1 container">
-			<nav class="nav2 navbar">
-				<form class="form-inline">
-				<button class="btn btn-outline-success" type="button" @click="toggleSchedule">
+			<!--<nav class="nav2 navbar">
+				<div class="form-inline">
+				<button  class="imp2 nuxt-link-exact-active btn btn-outline-success" type="button" @click="toggleSchedule" >
 					Horarios disponibles</button>
-				<button class="btn btn-outline-success" type="button" @click="calendario">Calendario</button>
-				</form>
-			</nav>
-			<div style="background-color:#fff;">
-			
+				<button class="imp2 nuxt-link-exact-active btn btn-outline-success" type="button" @click="calendario">Calendario</button>
+				</div>
+			</nav>-->
+			<div class="top-user-options my-3" >
+						<div
+							class="list-group list-group-horizontal row"
+							
+						>
+							<a
+								href="#"
+								v-on:click.stop.prevent="toggleSchedule" id="tabs1"
+								class="list-group-item item-topbar col-md-6"
+								><div>Horarios disponibles</div></a
+							>
+							<a
+								href="#"
+								v-on:click.stop.prevent="calendario" id="tabs2"
+								class="list-group-item item-topbar col-md-6"
+								><div>Calendario</div></a
+							>
+			</div>
+		</div>		
+			<div class="cuer2" >
+			<!-- Para agregar horarios-->
 				<admin-schedule id="admin-schedule" v-if="show_admin_schedule" v- />
 					<div v-if="show_calendario">
 
@@ -82,6 +101,7 @@
 					</div>
 			</div>
 		</div>
+		<Ratings></Ratings>
 	</div>
 </template>
 
@@ -89,6 +109,7 @@
 // Components
 import Spinner from "./Spinner";
 import AdminSchedule from "./AdminSchedule.vue";
+import Ratings from "./Ratings.vue";
 // Calendar
 import FullCalendar from "@fullcalendar/vue";
 import esLocale from "@fullcalendar/core/locales/es";
@@ -111,11 +132,16 @@ export default {
 			locale: esLocale,
 			// Custom data
 			loading_data: true,
-			show_admin_schedule: false,
-			show_calendario:false
+			show_admin_schedule: true,
+			show_calendario:false,
+			tabs1:"",
+			tabs2:""						
 		};
 	},
 	mounted() {
+		this.tabs1=$("#tabs1");
+		this.tabs2=$("#tabs2");
+		this.tabs1.addClass("activo");
 		axios
 			.get("/get-schedule")
 			.then(res => {
@@ -150,23 +176,29 @@ export default {
 		recuperarDatos() {
 			console.log(this.calendarApi.getEvents());
 		},
+		
 		toggleSchedule() {
 			if (!this.show_admin_schedule) {
 				this.show_admin_schedule = true;
 				this.show_calendario=false;
+				this.tabs1.addClass("activo");
+				this.tabs2.removeClass("activo");
+								
 			}
 		},
 		calendario(){
 			if(!this.show_calendario){
 				this.show_calendario=true;
 				this.show_admin_schedule=false;
+				this.tabs2.addClass("activo");
+				this.tabs1.removeClass("activo");
 			}
 		}
 	}
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "~@fullcalendar/core/main.css";
 @import "~@fullcalendar/daygrid/main.css";
 @import "~@fullcalendar/timegrid/main.css";
@@ -194,7 +226,21 @@ export default {
 	background-color: #88be2e;
 }
 .nav2{
-	background: burlywood;
-	background-color:burlywood;
+	background: rgb(253, 252, 250);
+	background-color:rgb(253, 252, 250);
+	
 }
+.cuer2{
+	background-color:#fff;
+	padding-left: 2%;
+	padding-top: 10px;
+	padding-right: 2%;
+	padding-bottom: 10px;
+}
+.activo{
+	background-color: #e9ecef;
+    color: #88be2e;
+    
+}
+
 </style>
