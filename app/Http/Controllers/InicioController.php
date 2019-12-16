@@ -63,7 +63,7 @@ class InicioController extends Controller
 		$typeInfo = DB::table('types')
         				->select(DB::raw('id as xid'), 'name');
 		
-		$users = App\User::select('id', 'commercial_name', 'uuid', 'profile_img', 'cover_img', 'views', 'verified', 'type_id', 'amount_rating', 'total_rating', 'avg_rating', 'type_info.name')
+		$users = App\User::select('id', 'commercial_name', 'uuid', 'profile_img', 'cover_img', 'verified', 'type_id', 'amount_rating', 'total_rating', 'avg_rating', 'type_info.name')
 							->joinSub($ratingInfo, 'rating_info', function($join) {
 								$join->on('users.id', '=', 'rating_info.user_id');
 							})
@@ -88,16 +88,23 @@ class InicioController extends Controller
 							->groupBy('user_id');
 
 		$typeInfo = DB::table('types')
-        				->select(DB::raw('id as xid'), 'name');
+						->select(DB::raw('id as xid'), 'name');
+						
+		$viewsInfo = DB::table('visitas')
+							->select(DB::raw('COUNT(*) as total_views'), 'user_id')
+							->groupBy('user_id');
 		
-		$users = App\User::select('id', 'commercial_name', 'uuid', 'profile_img', 'cover_img', 'views', 'verified', 'type_id', 'amount_rating', 'total_rating', 'avg_rating', 'type_info.name')
+		$users = App\User::select('id', 'commercial_name', 'uuid', 'profile_img', 'cover_img', 'verified', 'type_id', 'amount_rating', 'total_rating', 'avg_rating', 'type_info.name')
 							->joinSub($ratingInfo, 'rating_info', function($join) {
 								$join->on('users.id', '=', 'rating_info.user_id');
 							})
 							->joinSub($typeInfo, 'type_info', function($join) {
 								$join->on('users.type_id', '=', 'type_info.xid');
 							})
-							->orderBy('views', 'DESC')
+							->joinSub($viewsInfo, 'views_info', function($join) {
+								$join->on('users.id', '=', 'views_info.user_id');
+							})
+							->orderBy('total_views', 'DESC')
 							->limit(10)
 							->get();
 

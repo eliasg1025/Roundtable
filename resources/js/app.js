@@ -5,6 +5,7 @@ window.Vue = require("vue");
 // Suport Vuex
 
 import store from "./store/index";
+import StarRating from 'vue-star-rating'
 
 // UI Components
 Vue.component("PageBanner", require("./components/PageBanner.vue").default);
@@ -16,6 +17,16 @@ Vue.component(
 Vue.component("Spinner", require("./components/Spinner.vue").default);
 Vue.component("CardBusiness", require("./components/CardBusiness.vue").default);
 Vue.component("RatingStars", require("./components/RatingStars.vue").default);
+Vue.component("Ratings",require("./components/Ratings").default);
+Vue.component("star-rating", StarRating);
+Vue.component(
+	"notification_bell",
+	require("./components/NotificationBell").default
+);
+Vue.component(
+	"notification_dropdown",
+	require("./components/NotificationDropdown").default
+);
 
 // Home page
 Vue.component("Home", require("./components/Home.vue").default);

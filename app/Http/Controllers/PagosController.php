@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Culqi\Culqi;
-use Culqi\CulqiException;
 
 class PagosController extends Controller
 {
