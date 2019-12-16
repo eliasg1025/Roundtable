@@ -19,7 +19,10 @@
 						allow="microphone; camera"
 						class="video_conference"
 					></iframe>
-					<div class="video_conference container text-center">
+					<div
+						class="video_conference container text-center"
+						v-if="expired"
+					>
 						<h2>La videollamada ha expirado</h2>
 					</div>
 				</div>
@@ -49,7 +52,7 @@
 							<div class="reloj">
 								<p id="minutos" class="minutos">20</p>
 								<p>:</p>
-								<p id="segundos" class="segundos">36</p>
+								<p id="segundos" class="segundos">00</p>
 							</div>
 						</div>
 						<div class="texto2 card-text" v-else>
@@ -65,11 +68,13 @@
 				</div>
 			</div>
 		</div>
+		<Ratings :meeting="meeting"></Ratings>
 	</section>
 </template>
 
 <script>
 import CountupTimer from "./CountupTimer.vue";
+import Ratings from "./Ratings.vue";
 export default {
 	components: {
 		CountupTimer
