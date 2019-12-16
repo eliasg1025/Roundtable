@@ -1,6 +1,9 @@
 <template>
 	<div>
 		<div @click="toggleSchedule" class="container mt-2 p-3">
+			<div class="alert alert-secondary" role="alert">
+				A simple secondary alert—check it out!
+			</div>
 			<button type="button" class="btn btn-add">
 				<h4>Horarios disponibilidad</h4>
 			</button>
