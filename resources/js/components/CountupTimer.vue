@@ -59,7 +59,7 @@ export default {
 				clearInterval(interval);
 				this.expired = true;
 				this.$emit("expired", this.expired);
-				alert("Califica a la otra empresa");
+				$("#addRatingModal").modal("toggle");
 			}
 		}, 1000);
 	}

@@ -72,6 +72,8 @@ Route::post('/calendar-event', 'ScheduleController@createCalendarEvent');
 //Route::get('/calendar-event/{meet_id}', 'ScheduleController@checkSchedule');
 Route::post('/confirm-calendar-event', 'ScheduleController@confirmCalendarEvent');
 
+Route::post('/add-rating', 'ScheduleController@addRating');
+
 // Api
 Route::get('/profile/messages', 'Api\MessagesController@index');
 Route::get('/profile/operations', 'Api\OperationsController@index');

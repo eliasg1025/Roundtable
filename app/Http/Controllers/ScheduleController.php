@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App;
-use App\{User, AvalibleTime, CalendarEvent, Meeting};
+use App\{User, AvalibleTime, CalendarEvent, Meeting, Rating};
 use FB;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
-use App\Rating;
 
 class ScheduleController extends Controller
 {
@@ -312,5 +311,25 @@ class ScheduleController extends Controller
 			['calendar_event' => $calendar_event]
 		);
 	}
-		
+	
+	public function addRating(Request $request)
+	{
+		$this_user_id = Auth::user()->id;
+		$meeting = Meeting::find($request->meeting_id);
+
+		$user_id = $this_user_id === $meeting->sender_id ? $meeting->receiver_id : $meeting->sender_id;
+
+		$rating = new Rating();
+		$rating->value = $request->value;
+		$rating->user_id = $user_id;
+		$rating->save();
+
+		$data = array(
+			'code' => 200,
+			'status' => 'success',
+			'message' => 'Calificacion enviada con éxito',
+		);
+
+		return response()->json($data);
+	}
 }
