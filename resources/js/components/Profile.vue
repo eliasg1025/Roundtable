@@ -129,7 +129,7 @@
 								>
 									Visitas
 									<span class="badge badge-roundtable">{{
-										user.views
+										views
 									}}</span>
 								</a>
 							</div>
@@ -544,7 +544,7 @@
 
 						<div class="text-center">
 							<h5 class="modal-title h3">Vistas</h5>
-							<p class="display-4">{{ user.views }}</p>
+							<p class="display-4">{{ views }}</p>
 						</div>
 
 						<div class="rating-stars-modal container text-center">
@@ -671,6 +671,7 @@ export default {
 	data() {
 		return {
 			user: this.data.user,
+			views: this.data.views,
 			user_plans: this.data.user_plans,
 			messages_data: [],
 			operations: [],

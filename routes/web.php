@@ -66,11 +66,13 @@ Route::get('/get-avalible-time', 'ScheduleController@getAvalibleTime');
 Route::post('/edit-avalible-time', 'ScheduleController@editAvalibleTime');
 Route::post('/delete-avalible-time', 'ScheduleController@deleteAvalibleTime');
 Route::post('/add-avalible-time', 'ScheduleController@addAvalibleTime');
-Route::get('/get-avalible-time/{uuid}', 'ScheduleController@getAvalibleTimeByUserId');
+Route::post('/check-available-time/', 'ScheduleController@checkAvailableTime');
 
 Route::post('/calendar-event', 'ScheduleController@createCalendarEvent');
-Route::get('/calendar-event/{meet_id}', 'ScheduleController@checkSchedule');
+//Route::get('/calendar-event/{meet_id}', 'ScheduleController@checkSchedule');
 Route::post('/confirm-calendar-event', 'ScheduleController@confirmCalendarEvent');
+
+Route::post('/add-rating', 'ScheduleController@addRating');
 
 // Api
 Route::get('/profile/messages', 'Api\MessagesController@index');
@@ -79,7 +81,7 @@ Route::get('/profile/types', 'Api\TypesController@index');
 
 
 // Conference
-Route::get('/conference/{calendar_event}', 'ConferenceController@index')->name('conference');
+Route::get('/conference/{meeting}', 'ConferenceController@index')->name('conference');
 
 Route::get('/test', function () {
 	$calendar_event = App\CalendarEvent::find(1);
@@ -88,4 +90,8 @@ Route::get('/test', function () {
 	// var_dump($new);
 	var_dump($new->addMinutes(20));
 	var_dump(now());
+});
+
+Route::get('/link', function () {
+	Artisan::call('storage:link');
 });

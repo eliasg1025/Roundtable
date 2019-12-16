@@ -15,7 +15,7 @@ class CreateOperationsTable extends Migration
     {
         Schema::create('operations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('name', 32);
             $table->integer('coins_cost');
             $table->timestamps();
         });
