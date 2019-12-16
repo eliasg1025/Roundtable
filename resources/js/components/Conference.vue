@@ -13,7 +13,7 @@
 					<iframe
 						v-if="!expired"
 						:src="
-							`https://tokbox.com/embed/embed/ot-embed.js?embedId=503267cf-be36-4978-a8a2-bf187dd1d2b3&room=dsadasdasd&iframe=true`
+							`https://tokbox.com/embed/embed/ot-embed.js?embedId=503267cf-be36-4978-a8a2-bf187dd1d2b3&room=${room_code}&iframe=true`
 						"
 						scrolling="no"
 						allow="microphone; camera"
@@ -89,7 +89,8 @@ export default {
 			countdown_minutes: "",
 			countdown_seconds: "",
 			showCountdown: true,
-			expired: false
+			expired: false,
+			room_code: ""
 		};
 	},
 	computed: {
@@ -101,6 +102,8 @@ export default {
 		}
 	},
 	mounted() {
+		this.room_code = `${this.meeting.id}${this.meeting.sender_id}${this.meeting.receiver_id}`;
+
 		let { date, timezone } = this.meeting;
 		this.countdown_date = new Date(date).getTime();
 
