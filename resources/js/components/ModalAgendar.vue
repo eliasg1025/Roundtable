@@ -329,7 +329,7 @@ export default {
 	},
 	mounted() {
 		axios
-			.post(`/check-available-time/`, {
+			.post("/check-available-time", {
 				sender_uuid: this.data_visit_user.data.uuid,
 				receiver_uuid: this.data_user.uuid
 			})

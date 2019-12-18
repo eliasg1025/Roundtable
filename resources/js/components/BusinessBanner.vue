@@ -406,11 +406,11 @@
 <script>
 import tippy from "tippy.js";
 import "../../../node_modules/tippy.js/index.css";
-import ModalAgendar from './ModalAgendar.vue';
+import ModalAgendar from "./ModalAgendar.vue";
 
 export default {
 	components: {
-		ModalAgendar,
+		ModalAgendar
 	},
 	props: ["data_user", "data_account", "data_visit_user"],
 	data() {
@@ -439,12 +439,13 @@ export default {
 		});
 
 		axios
-			.post("/business/check-meet/", {
+			.post("/business/check-meet", {
 				receiver_id: this.data_user.id
 			})
 			.then(res => {
 				console.log(res.data.data);
-				this.can_send_meet = res.data.data.state_id === 2 ||
+				this.can_send_meet =
+					res.data.data.state_id === 2 ||
 					res.data.data.state_id === 4;
 				this.loading_btn = false;
 			})
