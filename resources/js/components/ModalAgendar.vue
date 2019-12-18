@@ -329,10 +329,9 @@ export default {
 	},
 	mounted() {
 		axios
-			.post(`/check-available-time/`, {
-				sender_uuid: this.data_visit_user.data.uuid,
-				receiver_uuid: this.data_user.uuid
-			})
+			.get(
+				`/check-available-time/${this.data_visit_user.data.uuid}/${this.data_user.uuid}`
+			)
 			.then(res => {
 				console.log(res.data);
 				let {

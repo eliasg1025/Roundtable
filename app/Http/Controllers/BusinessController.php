@@ -192,7 +192,8 @@ class BusinessController extends Controller
 			'rating_data' => $this->getRating($user),
 			'categories_data' => $this->getCategories($user),
 			'user_certifications' => $this->getCertifications($user),
-			'offers_data' => $this->getOffers($user)
+			'offers_data' => $this->getOffers($user),
+			'type_user' => $this->getTypeUser($user),
 		];
 	
 		return view('business', compact('visit_user', 'user', 'media_data', 'account_data'));

@@ -39,10 +39,10 @@ class ScheduleController extends Controller
 		return $data;
 	}
 
-	public function checkAvailableTime(Request $request)
+	public function checkAvailableTime($sender_uuid, $receiver_uuid)
 	{
-		$receiver = User::where('uuid', $request->receiver_uuid)->first();
-		$sender = User::where('uuid', $request->sender_uuid)->first();
+		$receiver = User::where('uuid', $receiver_uuid)->first();
+		$sender = User::where('uuid', $sender_uuid)->first();
 		
 		$count_sender_available_time = AvalibleTime::where('user_id', $sender->id)->count();
 		$count_receiver_available_time = AvalibleTime::where('user_id', $receiver->id)->count();

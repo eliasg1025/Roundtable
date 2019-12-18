@@ -50,10 +50,11 @@ Route::post('/validacion/process-ruc-file', 'ValidacionController@processRucFile
 Route::post('/validacion/validate-account', 'ValidacionController@validateAccount');
 Route::post('/meet/response-request-meet', 'MeetController@responseRequestMeet');
 Route::post('/meet/cancel-meet', 'MeetController@cancelMeet');
+Route::post('/meet/end-meet', 'MeetController@endMeet');
 
 Route::get('/business', 'BusinessController@index')->name('business');
 Route::post('/business/create-meet', 'MeetController@createMeet');
-Route::post('/business/check-meet', 'MeetController@checkMeet');
+Route::get('/business/check-meet/{receiver_id}', 'MeetController@checkMeet');
 
 Route::get('/business/category/{slug}', 'BusinessController@category')->name('business.category');
 
@@ -66,7 +67,7 @@ Route::get('/get-avalible-time', 'ScheduleController@getAvalibleTime');
 Route::post('/edit-avalible-time', 'ScheduleController@editAvalibleTime');
 Route::post('/delete-avalible-time', 'ScheduleController@deleteAvalibleTime');
 Route::post('/add-avalible-time', 'ScheduleController@addAvalibleTime');
-Route::post('/check-available-time/', 'ScheduleController@checkAvailableTime');
+Route::get('/check-available-time/{sender_uuid}/{receiver_uuid}', 'ScheduleController@checkAvailableTime');
 
 Route::post('/calendar-event', 'ScheduleController@createCalendarEvent');
 //Route::get('/calendar-event/{meet_id}', 'ScheduleController@checkSchedule');
@@ -92,6 +93,13 @@ Route::get('/test', function () {
 	var_dump(now());
 });
 
+/*
+ * Exclusivo para shared hosting
+ */
 Route::get('/link', function () {
-	Artisan::call('storage:link');
+	if (symlink('/home2/jul31rod/laravel/storage/app/public', '/home2/jul31rod/public_html/storage')) {
+	    return 'ok';
+	} else {
+	    return 'error';   
+	}
 });

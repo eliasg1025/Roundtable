@@ -27,12 +27,9 @@
 								></span>
 							</div>
 							<p class="business-address text-muted h4">
-								<span v-if="loading_type"
-									><i class="fas fa-spinner fa-spin"></i
-								></span>
-								<span v-else
+								<span
 									><i class="fas fa-tag"></i>
-									{{ type_user }}</span
+									{{ data_account.type_user.name }}</span
 								>
 							</p>
 							<p class="business-description">
@@ -406,11 +403,11 @@
 <script>
 import tippy from "tippy.js";
 import "../../../node_modules/tippy.js/index.css";
-import ModalAgendar from './ModalAgendar.vue';
+import ModalAgendar from "./ModalAgendar.vue";
 
 export default {
 	components: {
-		ModalAgendar,
+		ModalAgendar
 	},
 	props: ["data_user", "data_account", "data_visit_user"],
 	data() {
@@ -422,29 +419,17 @@ export default {
 			rating: this.data_account.rating_data,
 			value_rating: 0,
 			show_rating: false,
-			type_user: "",
 			can_send_meet: true,
-			loading_btn: true,
-			loading_type: true
+			loading_btn: true
 		};
 	},
 	created() {
-		axios.get("/profile/types").then(res => {
-			res.data.data.forEach(element => {
-				if (element.id === this.data_user.type_id) {
-					this.loading_type = false;
-					this.type_user = element.name;
-				}
-			});
-		});
-
 		axios
-			.post("/business/check-meet/", {
-				receiver_id: this.data_user.id
-			})
+			.get(`/business/check-meet/${this.data_user.id}`)
 			.then(res => {
 				console.log(res.data.data);
-				this.can_send_meet = res.data.data.state_id === 2 ||
+				this.can_send_meet =
+					res.data.data.state_id === 2 ||
 					res.data.data.state_id === 4;
 				this.loading_btn = false;
 			})
