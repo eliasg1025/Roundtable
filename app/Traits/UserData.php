@@ -89,4 +89,10 @@ trait UserData
 			'videos' => $videos
 		];
 	}
+
+	public function getTypeUser(User $user)
+	{
+		$type_user = DB::table('types')->where('id', $user->type_id)->first();
+		return $type_user;
+	}
 }
