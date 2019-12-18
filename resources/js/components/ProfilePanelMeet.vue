@@ -7,7 +7,7 @@
 			<br />
 			<i
 				><b>Solicitar un agendamiento</b> te cuesta
-				<a href="/planes" target="_blank"><b>30 coins</b></a
+				<a href="/planes" target="_blank"><b>10 coins</b></a
 				>.</i
 			>
 		</div>
@@ -109,12 +109,12 @@
 							<td>
 								<div
 									class="container-button"
-									v-if="data_meeting.state.id === 1"
+									v-if="data_meeting.state.id == 1"
 								>
 									<div class="container mb-1">
 										<profile-modal-confirm-schedule
 											:meeting="data_meeting.meeting"
-										/>
+										></profile-modal-confirm-schedule>
 									</div>
 									<div class="container mb-1">
 										<button
@@ -132,7 +132,7 @@
 								</div>
 								<div
 									class="container-button"
-									v-else-if="data_meeting.state.id === 2"
+									v-else-if="data_meeting.state.id == 2"
 								>
 									<div class="container mb-1">
 										<button
@@ -155,7 +155,7 @@
 								-->
 								<div
 									class="container-button"
-									v-else-if="data_meeting.state.id === 3"
+									v-else-if="data_meeting.state.id == 3"
 								>
 									<!-- Countdown timer -->
 									<countdown-timer
@@ -313,7 +313,7 @@
 
 								<div
 									class="container-button"
-									v-else-if="data_meeting.state.id === 3"
+									v-else-if="data_meeting.state.id == 3"
 								>
 									<div class="container mb-1">
 										<!-- Countdown timer -->
@@ -324,7 +324,7 @@
 								</div>
 								<div
 									class="container-button"
-									v-else-if="data_meeting.state.id === 4"
+									v-else-if="data_meeting.state.id == 4"
 								>
 									<div class="container mb-1">
 										<button

@@ -112,17 +112,17 @@ class MeetController extends Controller
 		$meetings = Meeting::where('sender_id', $user_id)->orWhere('receiver_id', $user_id)->get();
 
 		foreach ($meetings as $meeting) {
-			if ($meeting->date === $datetime) {
+			if ($meeting->date === $datetime && $meeting->state_id === 1) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public function checkMeet(Request $request)
+	public function checkMeet($receiver_id)
 	{
 		$sender = Auth::user();
-		$receiver = User::find($request->receiver_id);
+		$receiver = User::find($receiver_id);
 		
 		$last_meet = DB::table('meetings')
 						->where('sender_id', $sender->id)
@@ -152,7 +152,7 @@ class MeetController extends Controller
 		$user = Auth::user();
 		$meet = Meeting::find($request->meeting_id);
 
-		if ($user->id === $meet->receiver_id) {
+		if ($user->id == $meet->receiver_id) {
 			if ($request->operation) {
 				$meet->state_id = 3;
 				$meet->link = $this->getLinkConference($meet);
@@ -203,6 +203,28 @@ class MeetController extends Controller
 		}
 
 		return response()->json($data, $data['code']);
+	}
+	
+	public function endMeet(Request $request)
+	{
+		$meeting = Meeting::find($request->meeting_id);
+		$meeting->state_id = 4;
+		
+		if ($meeting->save()) {
+			$data = array(
+				'code' => 200,
+				'status' => 'success',
+				'message' => 'Reunión concluida',
+			);
+		} else {
+			$data = array(
+				'code' => 400,
+				'status' => 'error',
+				'message' => 'Ha ocurrido un error',
+			);
+		}
+
+		return response()->json($data);
 	}
 
 	public function getLinkConference(Meeting $meeting)

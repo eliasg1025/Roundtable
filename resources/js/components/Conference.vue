@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="textoP col-sm-12">
 				<p class="textoEdit">
-					La videollamanda tendra una duración maxima de 20 minutos.
+					La videollamanda tendra una duración maxima de 30 minutos.
 					No se olvide de calificar a la otra empresa al finalizar la
 					llamanda (opcional)
 				</p>
@@ -60,6 +60,7 @@
 								v-if="can_start"
 								:expiration_date="expiration_date"
 								:meeting_date="meeting.date"
+								:meeting_id="meeting.id"
 								@expired="expired = $event"
 							>
 							</countup-timer>

@@ -24,7 +24,7 @@
 <script>
 export default {
 	name: "countup-timer",
-	props: ["expiration_date", "meeting_date"],
+	props: ["expiration_date", "meeting_date", "meeting_id"],
 	data() {
 		return {
 			countduration_minutes: "",
@@ -60,6 +60,17 @@ export default {
 				this.expired = true;
 				this.$emit("expired", this.expired);
 				$("#addRatingModal").modal("toggle");
+
+				axios
+					.post("/meet/end-meet", {
+						meeting_id: this.meeting_id
+					})
+					.then(res => {
+						console.log(res.data);
+					})
+					.catch(err => {
+						console.log(err);
+					});
 			}
 		}, 1000);
 	}

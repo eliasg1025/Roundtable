@@ -7,7 +7,7 @@
 			<br />
 			<i
 				>Subir <b>una oferta</b> te cuesta
-				<a href="/planes" target="_blank"><b>20 coins</b></a></i
+				<a href="/planes" target="_blank"><b>5 coins</b></a></i
 			>.
 		</div>
 		<!-- Btn para agregar productos -->
@@ -22,7 +22,7 @@
 			<br />
 			<small class="mt-1">
 				<span class="text-muted"
-					>Esta operación cuesta 20 coins.
+					>Esta operación cuesta 5 coins.
 					<a href="/planes" target="_blank">Conseguir coins.</a></span
 				>
 			</small>
@@ -307,7 +307,7 @@ export default {
 		},
 		addProduct() {
 			Swal.fire({
-				title: "Estas consumiendo 20 coins en esta operación",
+				title: "Estas consumiendo 5 coins en esta operación",
 				text: "¿Deseas continuar?",
 				type: "info",
 				confirmButtonColor: "#3085d6",

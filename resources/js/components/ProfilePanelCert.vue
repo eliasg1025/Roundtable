@@ -8,7 +8,7 @@
 			<br />
 			<i
 				>Subir <b>una certificación</b> te cuesta
-				<a href="/planes" target="_blank"><b>10 coins</b></a></i
+				<a href="/planes" target="_blank"><b>3 coins</b></a></i
 			>.
 		</div>
 		<!-- Btn para agregar productos -->
@@ -23,7 +23,7 @@
 			<br />
 			<small class="mt-1">
 				<span class="text-muted"
-					>Esta operación cuesta 10 coins.
+					>Esta operación cuesta 3 coins.
 					<a href="/planes" target="_blank">Conseguir coins.</a></span
 				>
 			</small>
@@ -203,7 +203,7 @@ export default {
 		},
 		addCert() {
 			Swal.fire({
-				title: "Estas consumiendo 10 coins en esta operación",
+				title: "Estas consumiendo 3 coins en esta operación",
 				text: "¿Deseas continuar?",
 				type: "info",
 				confirmButtonColor: "#3085d6",
