@@ -1,6 +1,6 @@
 <template>
-	<div class="reloj">
-		<div :class="{ almost_over: almost_over }" v-if="!expired">
+	<div class="reloj" :class="{ almost_over: almost_over }">
+		<div v-if="!expired">
 			<p id="minutos">
 				{{ countduration_minutes }}
 			</p>
@@ -78,7 +78,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.almost_over {
+	background-color: #f8d7da;
+	border-color: #f5c6cb;
+}
+
 .almost_over p {
-	color: rgb(247, 77, 55);
+	color: #721c24;
 }
 </style>

@@ -22,26 +22,40 @@
 		>
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="addAvalibleModalLabel">
-							Califica al usuario
-						</h5>
-					</div>
-					<div class="modal-body p-4">
+					<div class="modal-body p-4 text-center">
+						<div class="container d-flex">
+							<button
+								type="button"
+								data-dismiss="modal"
+								class="close"
+								aria-label="Close"
+								style="padding: 1rem 1rem; margin: -1rem -1rem -1rem auto;"
+							>
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="text-center">
+							<h5 class="modal-title h3">
+								Califica a la empresa
+							</h5>
+							<!--<p class="display-4">{{ views }}</p>-->
+						</div>
+						<br />
 						<div class="row">
 							<star-rating
 								:increment="0.5"
 								text-class="custom-text"
-								v-model="rating"
+								class="mx-auto"
 							></star-rating>
 						</div>
+						<br />
 						<div>
 							<button
 								@click="enviaCalif"
-								class="btn btn-add"
+								class="btn btn-add btn-sm"
 								style="width: 50%;"
 							>
-								Enviar calificación
+								Enviar
 							</button>
 						</div>
 					</div>

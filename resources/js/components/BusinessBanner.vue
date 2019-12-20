@@ -32,8 +32,15 @@
 									{{ data_account.type_user.name }}</span
 								>
 							</p>
-							<p class="business-description">
+							<p
+								v-if="this.data_user.description"
+								class="business-description"
+							>
 								{{ this.data_user.description }}
+							</p>
+							<p v-else class="business-description text-muted">
+								<br />
+								<i>Sin descripción disponible</i>
 							</p>
 						</div>
 					</div>
