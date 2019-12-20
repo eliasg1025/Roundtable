@@ -21,14 +21,17 @@
 					</li>
 
 					<li>
-						<span class="izq fa fa-check"></span>Perfil Empresarial
+						<span class="izq fa fa-check"></span> Perfil Empresarial
 					</li>
 					<li>
-						<span class="izq fa fa-check"></span>3 imagenes y 1
-						video
+						<span class="izq fa fa-check"></span> No hay validación
+						de empresa
 					</li>
-					<li><span class="izq fa fa-check"></span>10 Domains</li>
-					<li><span class="izq fa fa-check"></span>1GB Bandwidth</li>
+					<li>
+						<span class="izq fa fa-check"></span> 3 Imagenes y 0
+						Videos
+					</li>
+					<li><span class="izq fa fa-check"></span> 5 coins</li>
 					<li class="grey">
 						<a
 							href="#"
@@ -57,10 +60,18 @@
 							>una vez</span
 						>
 					</li>
-					<li><span class="izq fa fa-check"></span>10GB Storage</li>
-					<li><span class="izq fa fa-check"></span>10 Emails</li>
-					<li><span class="izq fa fa-check"></span>10 Domains</li>
-					<li><span class="izq fa fa-check"></span>1GB Bandwidth</li>
+					<li>
+						<span class="izq fa fa-check"></span> Perfil empresarial
+					</li>
+					<li>
+						<span class="izq fa fa-check"></span> Validación de
+						empresa
+					</li>
+					<li>
+						<span class="izq fa fa-check"></span> 20 Imagenes y 3
+						Videos
+					</li>
+					<li><span class="izq fa fa-check"></span> 100 coins</li>
 					<li class="grey">
 						<a
 							href="#"
@@ -95,10 +106,18 @@
 							>una vez</span
 						>
 					</li>
-					<li><span class="izq fa fa-check"></span>10GB Storage</li>
-					<li><span class="izq fa fa-check"></span>10 Emails</li>
-					<li><span class="izq fa fa-check"></span>10 Domains</li>
-					<li><span class="izq fa fa-check"></span>1GB Bandwidth</li>
+					<li>
+						<span class="izq fa fa-check"></span> Perfil Empresarial
+					</li>
+					<li>
+						<span class="izq fa fa-check"></span> Validación de
+						empresa (Costo)
+					</li>
+					<li>
+						<span class="izq fa fa-check"></span> 8 Imagenes y 1
+						Video
+					</li>
+					<li><span class="izq fa fa-check"></span> 40 coins</li>
 					<li class="grey">
 						<a
 							href="#"

@@ -2,7 +2,7 @@
 	<section class="container e14">
 		<div class="col-lg-12">
 			<div class="titulo_seccion">
-				<h3 class="text-uppercase">paquetes de puntos</h3>
+				<h3 class="text-uppercase">Paquetes de coins</h3>
 				<h5>Elige el paquete que mas te convenga</h5>
 			</div>
 		</div>
@@ -33,10 +33,8 @@
 									<div>
 										<h4 class="e16 card-title">
 											Paquete de
-											{{
-												pack_data[0].amount_coins
-											}}
-											puntos
+											{{ pack_data[0].amount_coins }}
+											coins
 										</h4>
 									</div>
 									<div>
@@ -85,10 +83,8 @@
 									<div>
 										<h4 class="e16 card-title">
 											Paquete de
-											{{
-												pack_data[1].amount_coins
-											}}
-											puntos
+											{{ pack_data[1].amount_coins }}
+											coins
 										</h4>
 									</div>
 									<div>
@@ -136,10 +132,8 @@
 									<div>
 										<h4 class="e16 card-title">
 											Paquete de
-											{{
-												pack_data[2].amount_coins
-											}}
-											puntos
+											{{ pack_data[2].amount_coins }}
+											coins
 										</h4>
 									</div>
 									<div>
@@ -187,10 +181,8 @@
 									<div>
 										<h4 class="e16 card-title">
 											Paquete de
-											{{
-												pack_data[3].amount_coins
-											}}
-											puntos
+											{{ pack_data[3].amount_coins }}
+											coins
 										</h4>
 									</div>
 									<div>

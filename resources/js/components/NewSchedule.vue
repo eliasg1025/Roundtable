@@ -54,7 +54,7 @@
 				<button class="imp2 nuxt-link-exact-active btn btn-outline-success" type="button" @click="calendario">Calendario</button>
 				</div>
 			</nav>-->
-			<div class="top-user-options my-3">
+			<div class="my-3">
 				<div class="list-group list-group-horizontal row">
 					<a
 						href="#"

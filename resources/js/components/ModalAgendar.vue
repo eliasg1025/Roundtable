@@ -108,7 +108,7 @@
 							<div class="container" v-if="loading">
 								<spinner />
 							</div>
-							<div v-else>
+							<div v-else class="text-center">
 								<hr />
 								<p class="h6"><b>Selecciona un horario: </b></p>
 								<div
@@ -176,6 +176,7 @@
 						<tab-content
 							title="Fecha"
 							:before-change="validateSecondStep"
+							class="text-center"
 						>
 							<hr />
 							<p class="h6 "><b>Fechas próximas: </b></p>
@@ -234,6 +235,7 @@
 						<tab-content
 							title="Hora"
 							:before-change="validateThirdStep"
+							class="text-center"
 						>
 							<hr />
 							<p class="h6 "><b>Horas disponibles: </b></p>

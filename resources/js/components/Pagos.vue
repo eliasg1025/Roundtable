@@ -555,7 +555,7 @@ span.precio {
 /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
 @media (max-width: 800px) {
 	.r16 {
-		flex-direction: column-reverse;
+		flex-direction: column;
 	}
 	.col-25,
 	.col-30 {

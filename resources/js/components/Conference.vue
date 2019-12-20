@@ -8,7 +8,7 @@
 					llamanda (opcional)
 				</p>
 			</div>
-			<div class="vi1 col-sm-8">
+			<div class="vi1 col-md-8">
 				<div v-if="can_start">
 					<iframe
 						v-if="!expired"
@@ -20,26 +20,36 @@
 						class="video_conference"
 					></iframe>
 					<div
-						class="video_conference container text-center"
+						class="video_conference container text-center video-conference-placeholder"
 						v-if="expired"
 					>
 						<h2>La videollamada ha expirado</h2>
 					</div>
 				</div>
 				<div v-else>
-					<div class="text-center jumbotron video_conference">
-						<p class="h4">Disponible en:</p>
-						<br />
-						<p class="h3">
-							{{ countdown_days }} dias
-							{{ countdown_hours }} horas
-							{{ countdown_minutes }} minutos y
-							{{ countdown_seconds }} segundos
-						</p>
+					<div
+						class="text-center jumbotron video_conference video-conference-placeholder"
+					>
+						<div class="video-conference-placeholder__item">
+							<p class="h4">Disponible en:</p>
+						</div>
+						<div class="video-conference-placeholder__item">
+							<span style="color: #88be2e; font-size: 60px;"
+								><i class="fas fa-clock"></i
+							></span>
+						</div>
+						<div class="video-conference-placeholder__item">
+							<p class="h3">
+								{{ countdown_days }} dias
+								{{ countdown_hours }} horas
+								{{ countdown_minutes }} minutos y
+								{{ countdown_seconds }} segundos
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="tiempo1 col-sm-4">
+			<div class="tiempo1 col-md-4">
 				<div class="card  tiempo" style="max-width: 100%">
 					<div
 						class="card-header"
@@ -143,6 +153,17 @@ export default {
 	border-radius: 5px;
 }
 
+.video-conference-placeholder {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.video-conference-placeholder__item {
+	max-width: 100%;
+}
+
 .videos {
 	/*width: 700px;
 	height: 380px;*/
@@ -221,19 +242,16 @@ export default {
 }
 
 .reloj {
-	font-family: Arial, Helvetica, sans-serif;
-	width: 80%;
 	height: 1.5em;
 	font-size: 4em;
 	text-align: center;
-	background: rgba(0, 0, 0, 0.2);
+	background-color: #e9ecef;
+	border: 1px solid #ccc;
 }
 .reloj p {
 	display: inline-block;
 	line-height: 1em;
 	font-size: 30px;
-	color: white;
-	margin: 0px 0px 0px 0px;
 	align-content: center;
 }
 .my-video {

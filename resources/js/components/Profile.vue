@@ -651,7 +651,7 @@
 </template>
 
 <script>
-import PanelInfo from "./ProfilePanelInfo";
+import PanelInfo from "./ProfilePanelInfo.vue";
 import PanelOffer from "./ProfilePanelOffer";
 import PanelCert from "./ProfilePanelCert";
 import PanelMeet from "./ProfilePanelMeet";

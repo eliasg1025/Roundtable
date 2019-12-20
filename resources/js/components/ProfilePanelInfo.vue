@@ -215,7 +215,7 @@
 			<div v-if="verified === 0">
 				<div class="container">
 					<p class="h5">¿Como obtener ficha RUC?</p>
-					<iframe width="727" height="409" src="https://www.youtube.com/embed/zH66mH2wIN8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					<iframe class="ruc-video" src="https://www.youtube.com/embed/zH66mH2wIN8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 				</div>
 				<br>
 				<div class="container">
@@ -1274,6 +1274,11 @@
 	border-radius: 0.25rem;
 	margin: 10px;
 	text-align: center;
+}
+
+.ruc-video {
+	width: 100%;
+	height: auto;
 }
 
 @media screen and (max-width: 768px) {
