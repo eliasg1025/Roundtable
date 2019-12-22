@@ -6,6 +6,7 @@ use App\User;
 use App\Observers\UserObserver;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
-        User::Observe(UserObserver::class);
+		User::Observe(UserObserver::class);
+		// URL::forceSchema('https'); // Se activa en produccion
     }
 }

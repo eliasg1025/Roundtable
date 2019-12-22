@@ -1,72 +1,44 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+<p align="center"><a href="https://roundtableperu.com"><img src="resources/img/logo/logo.png" width="200"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## Sobre el proyecto
 
-## About Laravel
+El proyecto esta construido utilizando como base el framework de php [Laravel](https://laravel.com/docs/5.8) en su versión 5.8, como se puede observar en el registro de paquetes `composer.json` . Para la capa de frontend se utliza principalmente [Vue.js](https://vuejs.org/) en su versión 2.6 como framework de javascript además de otras librearías incluidas en el `package.json`. En la capa de persistencia se ha utilizado MySQL en la versión 5.7.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Además se utlizan los siguientes servicios para complementar la funcionalidades requeridas.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   [Culqi](https://www.culqi.com/), como capa de gestión de transacciones en línea.
+-   [Pusher](https://pusher.com/), para los mensaje asíncronos en tiempo real.
+-   [TokBox](https://tokbox.com/), que provee canales de telecomunicación en tiempo real.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Antes de correr el proyecto en un entorno de desarrollo o producción es necesario que se cumplan los [requirimientos](https://laravel.com/docs/5.8/installation#server-requirements) que exige Laravel 5.8 para su funcionamiento
 
-## Learning Laravel
+## Correr el proyecto
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Primero necesario clonar el proyecto desde github<br><br>
+`git clone https://github.com/eliasg1025/Roundtable.git`<br><br>
+Paso seguido se debe configurar un base de datos en el archivo `.env`, si la base de datos se llama por ejemplo <i>roundtable</i> el archivo de configuracion deberia ir de la siguiente forma:<br><br>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1400 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+`DB_CONNECTION=mysql`<br>
+`DB_HOST=127.0.0.1`<br>
+`DB_PORT=3306`<br>
+`DB_DATABASE=roundtable`<br>
+`DB_USERNAME=NOMBRE_USUARIO`<br>
+`DB_PASSWORD=CONTRASEÑA`<br><br>
 
-## Laravel Sponsors
+Paralelamente, se deben ejecutar los comandos `composer install` y `npm install` para traer todos paquetes necesarios para php y js.
+Una vez finalizado la instalación de los paquetes se deben correr los comandos de `php artisan generate:key && php artisan migrate --seed` para generar las tablas en la base de datos.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Si se quiere correr en proyecto en un entorno de pruebas se puede correr `php artisan serve` el cual utliza el cliente de php para crear un servidor en el puerto 8000.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
+Finalmente si se quieren realizar cambios en los archivos del frontend se debe correr `npm run watch` o `npm run dev`. Para subir el proyecto a producción es necesario correr `npm run prod` para minificar los archivos.
 
-## Contributing
+## Cambios en producción
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+En este caso se esta usando temporalmente un hosting compartido, por lo que se tiene que tener en cuenta la distribución de carpetas, en este caso se almacenaron todos los archivos y carpetas del framework (excepto la carpeta `/public`) en la carpeta `/laravel` y el <b>contenido</b> de la carpeta `/public` se almaceno en la carpeta `public_html` del shared hosting.
 
-## Security Vulnerabilities
+Se cambio en el archivo `/public/index.php`, las siguientes lineas:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+-   `require __DIR__.'/../vendor/autoload.php';` ---> `require __DIR__.'/../laravel/vendor/autoload.php';`
+-   `$app = require_once __DIR__.'/../bootstrap/app.php';` ---> `$app = require_once __DIR__.'/../laravel/bootstrap/app.php';`
 
-## License
-
-The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+En el navegador se debe correr la ruta `/link` para habilitar las imagenes que se suben al servidor
