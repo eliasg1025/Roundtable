@@ -344,7 +344,8 @@ export default {
 									timer: 2500,
 									showConfirmButton: false
 								}).then(res => {
-									location.href = "/profile";
+									console.log(res);
+									//location.href = "/profile";
 								});
 							})
 							.catch(err => {
