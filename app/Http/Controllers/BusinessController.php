@@ -100,7 +100,12 @@ class BusinessController extends Controller
         $fecha = carbon::now();//2019-02-02 03:03:03
         $fechaA = $fecha->format('Y-m-d'); //20-02-2020
         $time = $fecha->toTimeString(); //03:03:03
-        $user_visitador = Auth::user();
+		$user_visitador = Auth::user();
+		
+		if (!$user_visitador) {
+			return redirect('/business');
+		}
+
         $visitado = $user->id;
         $ip = $_SERVER['REMOTE_ADDR'];
         $port = $_SERVER['REMOTE_PORT'];

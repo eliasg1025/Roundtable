@@ -7,6 +7,7 @@ use App\Message;
 use App\TypeMessage;
 use App\Events\NotificationEvent;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Crear notificacion en la DB y el activar evento de notificacion
@@ -22,6 +23,7 @@ trait NotificationMessage
 			'message' => $message,
 			'date' => $date,
 			'picture' => $picture,
+			'user_id' => Auth::user()->id,
 		);
 		event(new NotificationEvent($data_notification));
 	}
