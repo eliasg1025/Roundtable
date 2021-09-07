@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Rating;
 use App\User;
+use Illuminate\Support\Str;
 
 class UserObserver
 {
@@ -11,14 +12,14 @@ class UserObserver
     {
         $user->uuid = $this->generateStringUnique();
 		$user->commercial_name = $user->name;
-		$user->slug = str_slug($user->commercial_name);
+		$user->slug = Str::slug($user->commercial_name);
 		$user->coins = 5; ///////////// Cambiar
     }
 
     private function generateStringUnique(): string
     {
         $isUnique = false;
-        $uuid = str_random(5);
+        $uuid = Str::random(5);
         $allUuid = $this->getAllUuid();
 
         if ($this->isUnique($allUuid, $uuid)) {
@@ -26,7 +27,7 @@ class UserObserver
         }
 
         while (!$isUnique) {
-            $uuid = str_random(5);
+            $uuid = Str::random(5);
             $isUnique = $this->isUnique($allUuid, $uuid);
         }
 

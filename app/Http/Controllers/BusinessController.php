@@ -87,8 +87,7 @@ class BusinessController extends Controller
     public function show($slug)
     {
         $uuid = substr($slug, -5);
-        $user = User::whereUuid($uuid)
-                    ->firstOrFail();
+        $user = User::whereUuid($uuid)->firstOrFail();
 
         if ($slug !== $user->slug) {
             return redirect()->to($user->url);
@@ -110,27 +109,28 @@ class BusinessController extends Controller
         $ip = $_SERVER['REMOTE_ADDR'];
         $port = $_SERVER['REMOTE_PORT'];
 
-        if($uuid != $user_visitador->uuid){
+        if ($uuid != $user_visitador->uuid) {
             
             $visitas = DB::table('visitas')
-                        ->select('ip','port','fecha')
-                        ->where([
-                            ['ip',$ip],
-                            ['id_visitante',$user_visitador->id],
-                            ['user_id',$visitado]
-                        ])->orderBy('id','desc')
-                        ->limit(1)
-                        ->get();
+                ->select('ip', 'port', 'fecha')
+                ->where([
+                    ['ip',$ip],
+                    ['id_visitante',$user_visitador->id],
+                    ['user_id',$visitado]
+                ])->orderBy('id','desc')
+                ->limit(1)
+                ->get();
             
-            if(count($visitas) >= 1){
-            $fecha_bd = substr($visitas[0]->fecha,0,10);
-    
-                if($fechaA === $fecha_bd && $ip === $visitas[0]->ip){
+            if (count($visitas) >= 1) {
+                $fecha_bd = substr($visitas[0]->fecha,0,10);
+
+                if ($fechaA === $fecha_bd && $ip === $visitas[0]->ip) {
+
                     $hora = substr($time,0,2);
                     $hora_bd = substr($visitas[0]->fecha,11,2);
-                    
                     $dHora = (24 - $hora_bd) - (24 - $hora);
-                    if($dHora >= 2){
+
+                    if ($dHora >= 2) {
                         DB::table('visitas')->insert([
                             'ip'           => $ip,
                             'port'         => $port, 
@@ -138,14 +138,14 @@ class BusinessController extends Controller
                             'id_visitante' => $user_visitador->id,
                             'user_id'      => $visitado
                         ]);
-                    }else{
+                    } else {
                         $minutos = substr($time, 3, 2);
                         $min_bd = substr($visitas[0]->fecha,14,2);
 
-                        if($dHora == 0){
+                        if ($dHora == 0) {
                             $dMin = (60 - $min_bd) - (60 - $minutos);
                             
-                            if($dMin >= 30){
+                            if ($dMin >= 30) {
                                 DB::table('visitas')->insert([
                                     'ip'           => $ip,
                                     'port'         => $port, 
@@ -154,34 +154,34 @@ class BusinessController extends Controller
                                     'user_id'      => $visitado
                                 ]);
                             }
-                        }else{
+                        } else {
                             $dMin = (60 - $min_bd) + $minutos;
 
-                            if($dMin >= 30){
+                            if ($dMin >= 30) {
                                 DB::table('visitas')->insert([
                                     'ip'           => $ip,
                                     'port'         => $port, 
-                                    'fecha'        => $fechaA." ".$time,
+                                    'fecha'        => $fechaA . " " . $time,
                                     'id_visitante' => $user_visitador->id,
                                     'user_id'      => $visitado
                                 ]);
                             }
                         }                    
                     }
-                }else{
+                } else {
                     DB::table('visitas')->insert([
                         'ip'           => $ip,
                         'port'         => $port, 
-                        'fecha'        => $fechaA." ".$time,
+                        'fecha'        => $fechaA . " " . $time,
                         'id_visitante' => $user_visitador->id,
                         'user_id'      => $visitado
                     ]);
                 }
-            }else{
+            } else {
                 DB::table('visitas')->insert([
                     'ip'           => $ip,
                     'port'         => $port, 
-                    'fecha'        => $fechaA." ".$time,
+                    'fecha'        => $fechaA . " " . $time,
                     'id_visitante' => $user_visitador->id,
                     'user_id'      => $visitado
                 ]);

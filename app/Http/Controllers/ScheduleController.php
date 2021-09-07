@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App;
 use App\{User, AvalibleTime, CalendarEvent, Meeting, Rating};
-use FB;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 
 class ScheduleController extends Controller

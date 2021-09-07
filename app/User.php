@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -99,6 +100,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getSlugAttribute(): string
     {
-        return str_slug($this->commercial_name) . '-' . $this->uuid;
+        return Str::slug($this->commercial_name) . '-' . $this->uuid;
     }
 }
