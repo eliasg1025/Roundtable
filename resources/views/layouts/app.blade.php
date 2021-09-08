@@ -90,12 +90,14 @@
 										<span class="badge badge-roundtable">{{ Auth::user()->coins }}</span>
 									</a>
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('logout') }}"
-									onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+									<a
+										class="dropdown-item d-flex justify-content-between align-items-center"
+										href="{{ route('logout') }}"
+										onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
 									>
 										{{ __('Cerrar Sesión') }}
 									</a>
-
+									
 									<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 										@csrf
 									</form>

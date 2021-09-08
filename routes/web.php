@@ -1,17 +1,7 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
 
@@ -91,15 +81,4 @@ Route::get('/test', function () {
 	// var_dump($new);
 	var_dump($new->addMinutes(20));
 	var_dump(now());
-});
-
-/*
- * Exclusivo para shared hosting
- */
-Route::get('/link', function () {
-	if (symlink('/home2/jul31rod/laravel/storage/app/public', '/home2/jul31rod/public_html/storage')) {
-	    return 'ok';
-	} else {
-	    return 'error';   
-	}
 });
