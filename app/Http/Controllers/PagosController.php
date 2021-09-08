@@ -34,8 +34,7 @@ class PagosController extends Controller
 
 		if ($user->id == $given_user->id) {
 
-			$SECRET_API_KEY = 'sk_live_gxPs4bCKMkh7OHQj';
-			//$SECRET_API_KEY = 'sk_test_TmUKwOHr7nj9gLv1';
+			$SECRET_API_KEY = env('CULQI_API_KEY');
 			$culqi = new Culqi(array('api_key' => $SECRET_API_KEY));
 			
 			$product = DB::table($request->type)->where('slug', $request->product)->first();
