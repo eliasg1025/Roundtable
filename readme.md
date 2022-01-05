@@ -31,14 +31,3 @@ Una vez finalizado la instalación de los paquetes se deben correr los comandos 
 Si se quiere correr en proyecto en un entorno de pruebas se puede correr `php artisan serve` el cual utliza el cliente de php para crear un servidor en el puerto 8000.
 
 Finalmente si se quieren realizar cambios en los archivos del frontend se debe correr `npm run watch` o `npm run dev`. Para subir el proyecto a producción es necesario correr `npm run prod` para minificar los archivos.
-
-## Cambios en producción
-
-En este caso se esta usando temporalmente un hosting compartido, por lo que se tiene que tener en cuenta la distribución de carpetas, en este caso se almacenaron todos los archivos y carpetas del framework (excepto la carpeta `/public`) en la carpeta `/laravel` y el <b>contenido</b> de la carpeta `/public` se almaceno en la carpeta `public_html` del shared hosting.
-
-Se cambio en el archivo `/public/index.php`, las siguientes lineas:
-
--   `require __DIR__.'/../vendor/autoload.php';` ---> `require __DIR__.'/../laravel/vendor/autoload.php';`
--   `$app = require_once __DIR__.'/../bootstrap/app.php';` ---> `$app = require_once __DIR__.'/../laravel/bootstrap/app.php';`
-
-En el navegador se debe correr la ruta `/link` para habilitar las imagenes que se suben al servidor
