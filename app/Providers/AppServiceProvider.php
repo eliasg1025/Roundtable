@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\User;
 use App\Observers\UserObserver;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
@@ -17,7 +18,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if (env('REDIRECT_HTTPS')) {
+			$this->app['request']->server->set('HTTPS', true);
+		}
     }
 
     /**
@@ -25,10 +28,13 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(UrlGenerator $url)
     {
         Schema::defaultStringLength(191);
 		User::Observe(UserObserver::class);
-		// URL::forceSchema('https'); // Se activa en produccion
+
+		if (env('REDIRECT_HTTPS')) {
+			$url->formatScheme('https://');
+		}
     }
 }
